@@ -2,9 +2,26 @@
 A classic take on Dream's manhunt game.
 No original source code has been used.
 
-This is in development, but when it's done here's how it'll work:
+## Notice
+___This plugin is still in development. The manhunt is currently not playable___
+
+## Basic setup
 * Add the runners by typing command: `/manhunt runner <player>`
 * Add the hunters by typing command: `/manhunt hunter <player>`
 * Start the game by typing command: `/manhunt start`
 
-When the game is started, all other players will be put into spectator and the hunters will be given a compass that they can use to track the nearest runner. When all runners are dead the hunters win but if one of the runners kills the ender dragon the runners win. The runners cannot respawn but the hunters can.
+## Info
+When the game is started, all other players will be put into spectator and the hunters will be given a compass that they can use to track the nearest runner. 
+When all runners are dead the hunters win but if one of the runners kills the ender dragon the runners win. 
+The runners cannot respawn but the hunters can.
+
+## All commands
+
+| Command                    | Description                                                                                                              |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| `/manhunt start`           | Starts the manhunt                                                                                                       |
+| `/manhunt stop`            | Ends the manhunt prematurely                                                                                             |
+| `/manhunt list`            | Lists the players who are runners and hunters                                                                            |
+| `/manhunt reset`           | Removes all players from hunter and runner and clears all inventories.                                                   |
+| `/manhunt hunter <player>` | Sets a player as hunter (and remove them from runner) if they are not already, and removes them from hunter if they are. |
+| `/manhunt runner <player>` | Sets a player as runner (and remove them from hunter) if they are not already, and removes them from runner if they are. |
