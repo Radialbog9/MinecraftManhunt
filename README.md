@@ -5,6 +5,16 @@ No original source code has been used.
 ## Notice
 ___This plugin is still in development. The manhunt is currently not playable___
 
+Progress so far:
+* Added main game variables
+* Added runners death event
+
+To do:
+* Add commands
+* Add join event for when game is ongoing
+* Add compass tracking for the hunters
+* Add hunter death event
+
 ## Basic setup
 * Add the runners by typing command: `/manhunt runner <player>`
 * Add the hunters by typing command: `/manhunt hunter <player>`

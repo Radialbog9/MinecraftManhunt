@@ -2,3 +2,12 @@ name: Manhunt
 author: Radialbog9
 main: uk.radialbog9.spigot.manhunt.Manhunt
 version: 1.0-SNAPSHOT
+commands:
+  manhunt:
+    usage: /manhunt <args>
+    permission: manhunt.cmd
+    description: Main manhunt command
+  spectate:
+    usage: /spectate <player>
+    permission: manhunt.spectate
+    description: Spectate runners

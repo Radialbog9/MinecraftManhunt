@@ -1,5 +1,6 @@
 package uk.radialbog9.spigot.manhunt;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -63,6 +64,17 @@ public class ManhuntVars {
     }
 
     /**
+     * Removes all hunters.
+     */
+    public static void removeAllHunters() {
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if(ManhuntVars.hunters.contains(p)) {
+                ManhuntVars.hunters.remove(p);
+            }
+        }
+    }
+
+    /**
      * Current list of runners
      * @return List&lt;Player&gt; Runners
      */
@@ -96,6 +108,17 @@ public class ManhuntVars {
     public static void removeRunner(Player p) {
         if(ManhuntVars.runners.contains(p)) {
             ManhuntVars.runners.remove(p);
+        }
+    }
+
+    /**
+     * Removes all runners.
+     */
+    public static void removeAllRunners() {
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if(ManhuntVars.runners.contains(p)) {
+                ManhuntVars.runners.remove(p);
+            }
         }
     }
 }

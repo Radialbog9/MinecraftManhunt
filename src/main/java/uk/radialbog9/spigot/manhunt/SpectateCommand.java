@@ -4,10 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class ManhuntCommand implements CommandExecutor {
+public class SpectateCommand implements CommandExecutor {
 
     /**
-     * Main Manhunt command
+     * Spectate command
      * @param sender CommandSender command sender
      * @param cmd Command command
      * @param label String label

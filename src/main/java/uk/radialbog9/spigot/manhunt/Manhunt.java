@@ -9,6 +9,11 @@ public class Manhunt extends JavaPlugin {
      */
     @Override
     public void onEnable() {
+        //Register events
+        getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
+        //Register commands
+        this.getCommand("manhunt").setExecutor(new ManhuntCommand());
+        this.getCommand("spectate").setExecutor(new SpectateCommand());
         //Log message to console
         getLogger().log(Level.INFO, ChatColors.getMsgColor("&aManhunt has been enabled!"));
     }
