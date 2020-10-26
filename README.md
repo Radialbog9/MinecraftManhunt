@@ -27,11 +27,13 @@ The runners cannot respawn but the hunters can.
 
 ## All commands
 
-| Command                    | Description                                                                                                              |
-|----------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| `/manhunt start`           | Starts the manhunt                                                                                                       |
-| `/manhunt stop`            | Ends the manhunt prematurely                                                                                             |
-| `/manhunt list`            | Lists the players who are runners and hunters                                                                            |
-| `/manhunt reset`           | Removes all players from hunter and runner and clears all inventories.                                                   |
-| `/manhunt hunter <player>` | Sets a player as hunter (and remove them from runner) if they are not already, and removes them from hunter if they are. |
-| `/manhunt runner <player>` | Sets a player as runner (and remove them from hunter) if they are not already, and removes them from runner if they are. |
+| Command                    | Description                                                    |
+|----------------------------|----------------------------------------------------------------|
+| `/manhunt start`           | Starts the manhunt.                                            |
+| `/manhunt stop`            | Ends the manhunt prematurely.                                  |
+| `/manhunt list`            | Lists the players who are runners and hunters.                 |
+| `/manhunt reset`           | Removes all players from hunter and runner.                    |
+| `/manhunt hunter <player>` | Sets a player as hunter and remove them from runner.           |
+| `/manhunt runner <player>` | Sets a player as runner and remove them from hunter.           |
+| `/manhunt remove <player>` | Removes a specific player from the manhunt.                    |
+| `/spectate <player>`       | Teleports to a runner/hunter (only works if you're spectating) |
