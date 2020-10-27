@@ -1,6 +1,9 @@
 # Minecraft Manhunt
-A classic take on Dream's manhunt game.
-No original source code has been used.
+
+![Jenkins build status](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon)
+
+A classic take on Dream's manhunt game. 
+None of his original source code has been used. 
 
 ## Notice
 ___This plugin is still in development. The manhunt is currently not playable___
@@ -8,11 +11,11 @@ ___This plugin is still in development. The manhunt is currently not playable___
 Progress so far:
 * Added main game variables
 * Added runners death event
+* Added compass tracking for hunters
 
 To do:
 * Add commands
 * Add join event for when game is ongoing
-* Add compass tracking for the hunters
 * Add hunter death event
 
 ## Basic setup
@@ -27,13 +30,26 @@ The runners cannot respawn but the hunters can.
 
 ## All commands
 
-| Command                    | Description                                                    |
-|----------------------------|----------------------------------------------------------------|
-| `/manhunt start`           | Starts the manhunt.                                            |
-| `/manhunt stop`            | Ends the manhunt prematurely.                                  |
-| `/manhunt list`            | Lists the players who are runners and hunters.                 |
-| `/manhunt reset`           | Removes all players from hunter and runner.                    |
-| `/manhunt hunter <player>` | Sets a player as hunter and remove them from runner.           |
-| `/manhunt runner <player>` | Sets a player as runner and remove them from hunter.           |
-| `/manhunt remove <player>` | Removes a specific player from the manhunt.                    |
-| `/spectate <player>`       | Teleports to a runner/hunter (only works if you're spectating) |
+| Command                                    | Description                                                     |
+|--------------------------------------------|-----------------------------------------------------------------|
+| `/manhunt help`                            | Shows other manhunt commands.                                   |
+| `/manhunt start`                           | Starts the manhunt.                                             |
+| `/manhunt stop`                            | Ends the manhunt prematurely.                                   |
+| `/manhunt list`                            | Lists the players who are runners and hunters.                  |
+| `/manhunt reset`                           | Removes all players from hunter and runner.                     |
+| `/manhunt hunter <player>`                 | Sets a player as hunter and remove them from runner.            |
+| `/manhunt runner <player>`                 | Sets a player as runner and remove them from hunter.            |
+| `/manhunt remove <player> <hunter/runner>` | Removes a specific player from the manhunt.                     |
+| `/spectate <player>`                       | Teleports to a runner/hunter (only works if you're a spectator) |
+
+## Permissions
+| Permission       | Description                                |
+|------------------|--------------------------------------------|
+| manhunt.help     | Allows player to run `/manhunt help`       |
+| manhunt.add      | Allows player to add hunters/runners       |
+| manhunt.remove   | Allows player to remove a player           |
+| manhunt.start    | Allows player to start the game            |
+| manhunt.stop     | Allows player to end the game forcibly     |
+| manhunt.list     | Allows player to list hunters/runners      |
+| manhunt.reset    | Allows player to reset the game            |
+| _no permission_  | Allows players to use `/spectate <player>` |

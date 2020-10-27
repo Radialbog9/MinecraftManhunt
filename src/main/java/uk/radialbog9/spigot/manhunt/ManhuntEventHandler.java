@@ -1,9 +1,13 @@
 package uk.radialbog9.spigot.manhunt;
 
 import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ManhuntEventHandler implements Listener {
     /**
@@ -30,6 +34,35 @@ public class ManhuntEventHandler implements Listener {
                     //Else say they died and how many runners remain.
                     ServerMessages.broadcastServerMessage("&6[Manhunt]&r&a &c" + e.getEntity().getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining.");
                 }
+            }
+        }
+    }
+
+    /**
+     * Called when someone right clicks; detects compass right click for hunters.
+     * @param e PlayerInteractEvent the event
+     */
+    @EventHandler
+    public void compassRightClickEvent(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        if(p.getInventory().getItemInMainHand().getType() == Material.COMPASS && ManhuntVars.isGameStarted() && ManhuntVars.isHunter(p)) {
+            double closest = Double.MAX_VALUE;
+            Player closestp = null;
+            for(Player i : ManhuntVars.getRunners()){
+                double dist = i.getLocation().distance(p.getLocation());
+                if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName() == p.getWorld().getName() && (closest == Double.MAX_VALUE || dist < closest)){
+                    closestp = i;
+                    closest = dist;
+                }
+            }
+            if (closestp == null){
+                //No runners nearby in the same world
+                p.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a &cNo players found to track."));
+            }
+            else{
+                //the closest runner has been found
+                p.setCompassTarget(p.getLocation());
+                p.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestp.getDisplayName() + "&r&a."));
             }
         }
     }

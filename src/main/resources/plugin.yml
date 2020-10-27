@@ -5,7 +5,6 @@ version: 1.0-SNAPSHOT
 commands:
   manhunt:
     usage: /manhunt <args>
-    permission: manhunt.cmd
     description: Main manhunt command
   spectate:
     usage: /spectate <player>

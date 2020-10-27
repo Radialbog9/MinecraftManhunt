@@ -15,7 +15,9 @@ public class ManhuntCommand implements CommandExecutor {
      * @return boolean always true
      */
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
+        if(args.length == 0) {
+            sender.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a No command specified. Type /manhunt help for command help."));
+        }
         return true;
     }
 }
