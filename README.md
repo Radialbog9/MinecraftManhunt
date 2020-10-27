@@ -1,6 +1,6 @@
 # Minecraft Manhunt
 
-![Jenkins build status](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon)
+[![Jenkins build status](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon)](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
 
 A classic take on Dream's manhunt game. 
 None of his original source code has been used. 
@@ -52,4 +52,4 @@ The runners cannot respawn but the hunters can.
 | manhunt.stop     | Allows player to end the game forcibly     |
 | manhunt.list     | Allows player to list hunters/runners      |
 | manhunt.reset    | Allows player to reset the game            |
-| _no permission_  | Allows players to use `/spectate <player>` |
+| manhunt.spectate | Allows players to use `/spectate <player>` |
