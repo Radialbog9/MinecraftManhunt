@@ -19,7 +19,10 @@ public class ManhuntTabCompleter implements TabCompleter {
      * @return List&lt;String&gt;
      */
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-        if(cmd.getName().equalsIgnoreCase("spectate") && args.length == 0) {
+        /**
+         * <code>/spectate &lt;player&gt;</code> command
+         */
+        if(cmd.getName().equalsIgnoreCase("spectate") && args.length == 0 && sender.hasPermission("manhunt.spectate")) {
             List<String> players = new ArrayList<String>();
             Player pl = null;
             if(sender instanceof Player) {
@@ -27,24 +30,35 @@ public class ManhuntTabCompleter implements TabCompleter {
             }
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(!(pl.getUniqueId() == p.getUniqueId())) {
+                boolean isPlayerSender = false;
+                if(pl != null && pl.getUniqueId() == p.getUniqueId()) isPlayerSender = true;
+                if(!isPlayerSender && (ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p))) {
                     players.add(name);
                 }
             }
             return players;
         }
+        /**
+         * <code>/manhunt &lt;command&gt;</code> command
+         */
         if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 0) {
             List<String> arguments = new ArrayList<String>();
-            arguments.add("start");
-            arguments.add("stop");
-            arguments.add("list");
-            arguments.add("reset");
-            arguments.add("hunter");
-            arguments.add("runner");
-            arguments.add("remove");
+            if(sender.hasPermission("manhunt.help")) arguments.add("help");
+            if(sender.hasPermission("manhunt.start")) arguments.add("start");
+            if(sender.hasPermission("manhunt.stop")) arguments.add("stop");
+            if(sender.hasPermission("manhunt.list")) arguments.add("list");
+            if(sender.hasPermission("manhunt.reset")) arguments.add("reset");
+            if(sender.hasPermission("manhunt.remove")) arguments.add("remove");
+            if(sender.hasPermission("manhunt.add")) {
+                arguments.add("hunter");
+                arguments.add("runner");
+            }
             return arguments;
         }
-        if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0] == "hunter") {
+        /**
+         * <code>/manhunt hunter &lt;player&gt;</code> command
+         */
+        if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0].equalsIgnoreCase("hunter") && sender.hasPermission("manhunt.add")) {
             List<String> players = new ArrayList<String>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
@@ -54,7 +68,10 @@ public class ManhuntTabCompleter implements TabCompleter {
             }
             return players;
         }
-        if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0] == "runner") {
+        /**
+         * <code>/manhunt runner &lt;player&gt;</code> command
+         */
+        if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0] == "runner" && sender.hasPermission("manhunt.add")) {
             List<String> players = new ArrayList<String>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
@@ -64,7 +81,10 @@ public class ManhuntTabCompleter implements TabCompleter {
             }
             return players;
         }
-        if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0] == "remove") {
+        /**
+         * <code>/manhunt remove &lt;player&gt;</code> command
+         */
+        if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0] == "remove" && sender.hasPermission("manhunt.remove")) {
             List<String> players = new ArrayList<String>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();

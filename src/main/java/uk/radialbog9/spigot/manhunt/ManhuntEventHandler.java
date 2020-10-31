@@ -8,10 +8,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class ManhuntEventHandler implements Listener {
     /**
-     * Called when anyone dies, the code then checks if it's a runner.
+     * Detects death for runners
      * @param e PlayerDeathEvent the event
      */
     @EventHandler
@@ -39,7 +40,7 @@ public class ManhuntEventHandler implements Listener {
     }
 
     /**
-     * Called when someone right clicks; detects compass right click for hunters.
+     * Detects compass right click for hunters.
      * @param e PlayerInteractEvent the event
      */
     @EventHandler
@@ -50,7 +51,7 @@ public class ManhuntEventHandler implements Listener {
             Player closestp = null;
             for(Player i : ManhuntVars.getRunners()){
                 double dist = i.getLocation().distance(p.getLocation());
-                if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName() == p.getWorld().getName() && (closest == Double.MAX_VALUE || dist < closest)){
+                if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName().equals(p.getWorld().getName()) && (closest == Double.MAX_VALUE || dist < closest)){
                     closestp = i;
                     closest = dist;
                 }
@@ -64,6 +65,17 @@ public class ManhuntEventHandler implements Listener {
                 p.setCompassTarget(p.getLocation());
                 p.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestp.getDisplayName() + "&r&a."));
             }
+        }
+    }
+
+    /**
+     * Detects when player joins server while the server is running a manhunt game.
+     * @param e PlayerJoinEvent the event
+     */
+    @EventHandler
+    public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
+        if(ManhuntVars.isGameStarted()) {
+            e.getPlayer().setGameMode(GameMode.SPECTATOR);
         }
     }
 }
