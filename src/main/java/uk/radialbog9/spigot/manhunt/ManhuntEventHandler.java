@@ -1,7 +1,6 @@
 package uk.radialbog9.spigot.manhunt;
 
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +32,7 @@ public class ManhuntEventHandler implements Listener {
                     ManhuntVars.setGameStarted(false);
                 } else {
                     //Else say they died and how many runners remain.
-                    ServerMessages.broadcastServerMessage("&6[Manhunt]&r&a &c" + e.getEntity().getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining.");
+                    Utils.broadcastServerMessage("&6[Manhunt]&r&a &c" + e.getEntity().getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining.");
                 }
             }
         }
@@ -58,12 +57,12 @@ public class ManhuntEventHandler implements Listener {
             }
             if (closestp == null){
                 //No runners nearby in the same world
-                p.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a &cNo players found to track."));
+                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a &cNo players found to track."));
             }
             else{
                 //the closest runner has been found
                 p.setCompassTarget(p.getLocation());
-                p.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestp.getDisplayName() + "&r&a."));
+                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestp.getDisplayName() + "&r&a."));
             }
         }
     }
@@ -76,6 +75,7 @@ public class ManhuntEventHandler implements Listener {
     public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
         if(ManhuntVars.isGameStarted()) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
+            e.getPlayer().sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a A game is in progress so you have been put into spectator!"));
         }
     }
 }

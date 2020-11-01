@@ -16,13 +16,27 @@ public class ManhuntCommand implements CommandExecutor {
      */
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(args.length == 0) {
-            sender.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a No command specified. Type /manhunt help for command help."));
-        } else if (args[0] == "help") {
-            sender.sendMessage(ChatColors.getMsgColor("&6[Manhunt]&r&a Command Help:"));
-            sender.sendMessage(ChatColors.getMsgColor("&c/manhunt help &r&a- &r&eShows help"));
-            sender.sendMessage(ChatColors.getMsgColor("&c/manhunt start &r&a- &r&eStarts the manhunt"));
-            sender.sendMessage(ChatColors.getMsgColor("&c/manhunt stop &r&a- &r&eStops the game"));
-            sender.sendMessage(ChatColors.getMsgColor("&c/manhunt list &r&a- &r&eList all runners and hunters"));
+            sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a No command specified. Type /manhunt help for command help."));
+        } else if (args[0].equalsIgnoreCase("help")) {
+            sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Command Help:"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt help &r&a- &r&eShows help"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt hunter <player> &r&a- &r&eSets a player to hunter"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt runner <player> &r&a- &r&eSets a player to runner"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt remove <player> &r&a- &r&eSets a player to runner"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt start &r&a- &r&eStarts the manhunt"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt stop &r&a- &r&eStops the game"));
+            sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt list &r&a- &r&eList all runners and hunters"));
+        } else if (args[0].equalsIgnoreCase("hunter")) {
+            if(sender.hasPermission("manhunt.add")) {
+                if(args.length == 1) {
+                    //no player specified
+                } else {
+                    //player specified
+                }
+            } else {
+                //no perm
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
+            }
         }
         return true;
     }

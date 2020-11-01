@@ -15,7 +15,7 @@ public class Manhunt extends JavaPlugin {
         this.getCommand("manhunt").setExecutor(new ManhuntCommand());
         this.getCommand("spectate").setExecutor(new SpectateCommand());
         //Log message to console
-        getLogger().log(Level.INFO, ChatColors.getMsgColor("&aManhunt has been enabled!"));
+        getLogger().log(Level.INFO, Utils.getMsgColor("&aManhunt has been enabled!"));
     }
 
     /**
@@ -24,6 +24,6 @@ public class Manhunt extends JavaPlugin {
     @Override
     public void onDisable() {
         //Log message to console
-        getLogger().log(Level.INFO, ChatColors.getMsgColor("&aManhunt has been disabled!"));
+        getLogger().log(Level.INFO, Utils.getMsgColor("&aManhunt has been disabled!"));
     }
 }
