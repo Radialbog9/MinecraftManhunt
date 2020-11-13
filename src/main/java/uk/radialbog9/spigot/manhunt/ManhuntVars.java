@@ -102,7 +102,7 @@ public class ManhuntVars {
     }
 
     /**
-     * Removes player from hunters
+     * Removes player from runners
      * @param p Player
      */
     public static void removeRunner(Player p) {

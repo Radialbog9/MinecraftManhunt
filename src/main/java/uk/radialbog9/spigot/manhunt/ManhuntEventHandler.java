@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class ManhuntEventHandler implements Listener {
     /**
@@ -17,13 +19,14 @@ public class ManhuntEventHandler implements Listener {
     @EventHandler
     public void runnerDeathEvent(PlayerDeathEvent e) {
         if(ManhuntVars.isGameStarted()) {
+            Player p = e.getEntity();
             //Is runner?
-            if(ManhuntVars.isRunner(e.getEntity())) {
+            if(ManhuntVars.isRunner(p)) {
                 //The death was a runner
                 //Set gamemode to spectator
-                e.getEntity().setGameMode(GameMode.SPECTATOR);
+                p.setGameMode(GameMode.SPECTATOR);
                 //Remove from runners
-                ManhuntVars.removeRunner(e.getEntity());
+                ManhuntVars.removeRunner(p);
                 //Check if that was the last runner alive
                 if(ManhuntVars.getRunners().isEmpty()) {
                     //If so say hunters win
@@ -32,8 +35,22 @@ public class ManhuntEventHandler implements Listener {
                     ManhuntVars.setGameStarted(false);
                 } else {
                     //Else say they died and how many runners remain.
-                    Utils.broadcastServerMessage("&6[Manhunt]&r&a &c" + e.getEntity().getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining.");
+                    Utils.broadcastServerMessage("&6[Manhunt]&r&a &c" + p.getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining.");
                 }
+            }
+        }
+    }
+
+    /**
+     * Detects when hunters respawn and gives them a compass
+     * @param e PlayerDeathEvent the event
+     */
+    @EventHandler
+    public void hunterRespawnEvent(PlayerRespawnEvent e) {
+        if(ManhuntVars.isGameStarted()) {
+            Player p = e.getPlayer();
+            if(ManhuntVars.isHunter(p)) {
+                p.getInventory().addItem(new ItemStack(Material.COMPASS));
             }
         }
     }

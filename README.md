@@ -14,10 +14,11 @@ Progress so far:
 * Added runners death event
 * Added compass tracking for hunters
 * Add join event for when game is ongoing
+* Add hunter death event
 
 To do:
 * Add commands
-* Add hunter death event
+* Add win event
 
 ## Basic setup
 * Add the runners by typing command: `/manhunt runner <player>`
