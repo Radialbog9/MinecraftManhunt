@@ -1,5 +1,6 @@
 package uk.radialbog9.spigot.manhunt;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,6 +32,10 @@ public class ManhuntEventHandler implements Listener {
                 if(ManhuntVars.getRunners().isEmpty()) {
                     //If so say hunters win
                     ServerMessages.broadcastServerMessage("&6[Manhunt]&r&a Hunters Win!");
+                    //set all player gamemode to spectator
+                    for(Player pl : Bukkit.getOnlinePlayers()) {
+                        pl.setGameMode(GameMode.SPECTATOR);
+                    }
                     //End the game
                     ManhuntVars.setGameStarted(false);
                 } else {
@@ -93,6 +98,13 @@ public class ManhuntEventHandler implements Listener {
         if(ManhuntVars.isGameStarted()) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
             e.getPlayer().sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a A game is in progress so you have been put into spectator!"));
+        }
+    }
+
+    @EventHandler
+    public void playerJoinEvent(PlayerJoinEvent e) {
+        if(ManhuntVars.isGameStarted() && !ManhuntVars.isHunter(e.getPlayer()) && !ManhuntVars.isRunner(e.getPlayer())) {
+            e.getPlayer().setGameMode(GameMode.SPECTATOR);
         }
     }
 }

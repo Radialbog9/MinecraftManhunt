@@ -1,6 +1,7 @@
 package uk.radialbog9.spigot.manhunt;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -151,6 +152,35 @@ public class ManhuntCommand implements CommandExecutor {
                     } else {
                         sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You can not change runners while the game is ongoing."));
                     }
+                }
+            } else {
+                //no perm
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
+            }
+        } else if (args[0].equalsIgnoreCase("start")) {
+            if(sender.hasPermission("manhunt.start")) {
+                //can start game but game might be running
+                //check if game is running
+                if(!ManhuntVars.isGameStarted()) {
+                    //game is not started, start it if there is enough players
+                    if (ManhuntVars.getHunters().size() >= 1 && ManhuntVars.getRunners().size() >= 1) {
+                        //enough players
+                        for(Player p : Bukkit.getOnlinePlayers()) {
+                            //set gamemode of hunter/runner to survival or if spectator set to spectator
+                            if(ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p)) p.setGameMode(GameMode.SURVIVAL);
+                            else p.setGameMode(GameMode.SPECTATOR);
+                            //clear inventory of hunters and runners
+                            if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.getInventory().clear();
+                        }
+                        //set game as started
+                        ManhuntVars.setGameStarted(true);
+                        sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Game has started!"));
+                    } else {
+                        sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The game must have at least 1 hunter and 1 runner!"));
+                    }
+                } else {
+                    //game is started, throw error!
+                    sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a A game is already in progress!"));
                 }
             } else {
                 //no perm
