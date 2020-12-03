@@ -1,7 +1,7 @@
 # Minecraft Manhunt
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DFKLGMU7QAMU&source=url)
-[![Jenkins build status](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon)](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
+[![Jenkins build status](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon)](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
 
 A classic take on Dream's manhunt game. 
 None of his original source code has been used. 
@@ -15,10 +15,11 @@ Progress so far:
 * Added compass tracking for hunters
 * Add join event for when game is ongoing
 * Add hunter death event
+* Add commands
 
 To do:
-* Add commands
 * Add win event
+* Possibly add SuperVanish/PremiumVanish integration for player list
 
 ## Basic setup
 * Add the runners by typing command: `/manhunt runner <player>`

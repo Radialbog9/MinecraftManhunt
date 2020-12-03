@@ -186,6 +186,52 @@ public class ManhuntCommand implements CommandExecutor {
                 //no perm
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
             }
+        } else if (args[0].equalsIgnoreCase("stop")) {
+            if(sender.hasPermission("manhunt.stop")) {
+                for(Player p : Bukkit.getOnlinePlayers()) {
+                    if (ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.setGameMode(GameMode.SPECTATOR);
+                }
+                ManhuntVars.setGameStarted(false);
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You have stopped the game."));
+                Utils.broadcastServerMessage(Utils.getMsgColor("&6[Manhunt]&r&a The game has been ended prematurely!"));
+            } else {
+                //no perm
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
+            }
+        } else if (args[0].equalsIgnoreCase("list")) {
+            if(sender.hasPermission("manhunt.list")) {
+                //init vars
+                String hunters = "";
+                String runners = "";
+                String spectators = "";
+                int hunterCount = 0;
+                int runnerCount = 0;
+                int spectatorCount = 0;
+                //hunter and runner count
+                hunterCount = ManhuntVars.getHunters().size();
+                runnerCount = ManhuntVars.getRunners().size();
+                //loop all players for list and spectator count
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (ManhuntVars.isHunter(p)) {
+                        if (hunters.equals("")) hunters = "&r&c" + p.getDisplayName() + "&r&a";
+                        else hunters += ", &r&c" + p.getDisplayName() + "&r&a";
+                    } else if (ManhuntVars.isRunner(p)) {
+                        if (runners.equals("")) runners = "&r&c" + p.getDisplayName() + "&r&a";
+                        else runners += ", &r&c" + p.getDisplayName() + "&r&a";
+                    } else {
+                        if (spectators.equals("")) spectators = "&r&c" + p.getDisplayName() + "&r&a";
+                        else spectators += ", &r&c" + p.getDisplayName() + "&r&a";
+                        spectatorCount ++;
+                    }
+                }
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There are &r&c" + hunterCount + "&r&a hunters, &r&c" + runnerCount + "&r&a runners, and &r&c" + spectatorCount + "&r&a spectators."));
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Hunters: " + hunters));
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Runners: " + runners));
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Spectators: " + spectators));
+            } else {
+                //no perm
+                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
+            }
         }
         return true;
     }
