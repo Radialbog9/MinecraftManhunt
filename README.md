@@ -16,9 +16,9 @@ Progress so far:
 * Add join event for when game is ongoing
 * Add hunter death event
 * Add commands
+* Add hunter win event
 
 To do:
-* Add win event
 * Possibly add SuperVanish/PremiumVanish integration for player list
 
 ## Basic setup
@@ -30,6 +30,10 @@ To do:
 When the game is started, all other players will be put into spectator and the hunters will be given a compass that they can use to track the nearest runner. 
 When all runners are dead the hunters win but if one of the runners kills the ender dragon the runners win. 
 The runners cannot respawn but the hunters can.
+
+## Contributing
+Please report any bugs you find or improve our code and make a pull request! 
+We're always open for suggestions!
 
 ## All commands
 

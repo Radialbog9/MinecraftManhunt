@@ -201,26 +201,23 @@ public class ManhuntCommand implements CommandExecutor {
         } else if (args[0].equalsIgnoreCase("list")) {
             if(sender.hasPermission("manhunt.list")) {
                 //init vars
-                String hunters = "";
-                String runners = "";
-                String spectators = "";
-                int hunterCount = 0;
-                int runnerCount = 0;
+                StringBuilder hunters = new StringBuilder();
+                StringBuilder runners = new StringBuilder();
+                StringBuilder spectators = new StringBuilder();
+                int hunterCount = ManhuntVars.getHunters().size();
+                int runnerCount = ManhuntVars.getRunners().size();
                 int spectatorCount = 0;
-                //hunter and runner count
-                hunterCount = ManhuntVars.getHunters().size();
-                runnerCount = ManhuntVars.getRunners().size();
                 //loop all players for list and spectator count
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (ManhuntVars.isHunter(p)) {
-                        if (hunters.equals("")) hunters = "&r&c" + p.getDisplayName() + "&r&a";
-                        else hunters += ", &r&c" + p.getDisplayName() + "&r&a";
+                        if (hunters.toString().equals("")) hunters = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                        else hunters.append(", &r&c").append(p.getDisplayName()).append("&r&a");
                     } else if (ManhuntVars.isRunner(p)) {
-                        if (runners.equals("")) runners = "&r&c" + p.getDisplayName() + "&r&a";
-                        else runners += ", &r&c" + p.getDisplayName() + "&r&a";
+                        if (runners.toString().equals("")) runners = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                        else runners.append(", &r&c").append(p.getDisplayName()).append("&r&a");
                     } else {
-                        if (spectators.equals("")) spectators = "&r&c" + p.getDisplayName() + "&r&a";
-                        else spectators += ", &r&c" + p.getDisplayName() + "&r&a";
+                        if (spectators.toString().equals("")) spectators = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                        else spectators.append(", &r&c").append(p.getDisplayName()).append("&r&a");
                         spectatorCount ++;
                     }
                 }
