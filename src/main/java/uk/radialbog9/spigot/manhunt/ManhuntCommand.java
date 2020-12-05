@@ -1,11 +1,14 @@
 package uk.radialbog9.spigot.manhunt;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class ManhuntCommand implements CommandExecutor {
 
@@ -166,11 +169,26 @@ public class ManhuntCommand implements CommandExecutor {
                     if (ManhuntVars.getHunters().size() >= 1 && ManhuntVars.getRunners().size() >= 1) {
                         //enough players
                         for(Player p : Bukkit.getOnlinePlayers()) {
-                            //set gamemode of hunter/runner to survival or if spectator set to spectator
-                            if(ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p)) p.setGameMode(GameMode.SURVIVAL);
-                            else p.setGameMode(GameMode.SPECTATOR);
-                            //clear inventory of hunters and runners
-                            if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.getInventory().clear();
+                            if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) {
+                                //HUNTERS AND RUNNERS
+                                //set gamemode to survival
+                                p.setGameMode(GameMode.SURVIVAL);
+                                //clear inventory
+                                p.getInventory().clear();
+                                //TP to spawn
+                                p.teleport(p.getWorld().getSpawnLocation());
+                                if(ManhuntVars.isHunter(p)) {
+                                    //give blindness and weakness for 5 seconds
+                                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.WEAKNESS, 5, 255, true, false);
+                                    PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.BLINDNESS, 5, 255, true, false);
+                                    p.addPotionEffect(potionEffect);
+                                    p.addPotionEffect(potionEffect2);
+                                }
+                            } else {
+                                //SPECTATORS
+                                //Set spectator gamemode
+                                p.setGameMode(GameMode.SPECTATOR);
+                            }
                         }
                         //set game as started
                         ManhuntVars.setGameStarted(true);
@@ -229,6 +247,9 @@ public class ManhuntCommand implements CommandExecutor {
                 //no perm
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
             }
+        } else {
+            //unknown subcommand
+            sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Unknown subcommand!"));
         }
         return true;
     }

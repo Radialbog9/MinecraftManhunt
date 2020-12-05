@@ -2,6 +2,7 @@ package uk.radialbog9.spigot.manhunt;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -12,19 +13,14 @@ import java.util.List;
  */
 public class Utils {
 
-    private static List<String> manhuntPermissions;
-
-    /**
-     * Initiates all permissions and other things in this class
-     */
-    public static void onPlEnable() {
-        manhuntPermissions.add("manhunt.add");
-        manhuntPermissions.add("manhunt.remove");
-        manhuntPermissions.add("manhunt.start");
-        manhuntPermissions.add("manhunt.stop");
-        manhuntPermissions.add("manhunt.list");
-        manhuntPermissions.add("manhunt.spectate");
-    }
+    private static String[] manhuntPermissions = {
+            "manhunt.add",
+            "manhunt.remove",
+            "manhunt.start",
+            "manhunt.stop",
+            "manhunt.list",
+            "manhunt.spectate"
+    };
 
     /**
      * Shorter way to get chat message colors
@@ -70,5 +66,17 @@ public class Utils {
             if(p.hasPermission(perm)) hasNoMHP = false;
         }
         return hasNoMHP;
+    }
+
+    /**
+     * Resets the game
+     */
+    public static void resetGame() {
+        //set all players to spectator
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if (ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.setGameMode(GameMode.SPECTATOR);
+        }
+        //fully end game
+        ManhuntVars.setGameStarted(false);
     }
 }

@@ -17,8 +17,6 @@ public class Manhunt extends JavaPlugin {
         //Register tab completer
         this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
         this.getCommand("spectate").setTabCompleter(new ManhuntTabCompleter());
-        //Enable Utils
-        Utils.onPlEnable();
         //Log message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("&aManhunt has been enabled!"));
     }

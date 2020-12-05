@@ -3,12 +3,12 @@ package uk.radialbog9.spigot.manhunt;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ManhuntVars {
     private static boolean gameStarted;
-    private static List<Player> hunters;
-    private static List<Player> runners;
+    private static ArrayList<Player> hunters = new ArrayList<>();
+    private static ArrayList<Player> runners = new ArrayList<>();
 
     /**
      * Checks if game is started
@@ -28,9 +28,9 @@ public class ManhuntVars {
 
     /**
      * Current list of hunters
-     * @return List&lt;Player&gt; Hunters
+     * @return ArrayList&lt;Player&gt; Hunters
      */
-    public static List<Player> getHunters() {
+    public static ArrayList<Player> getHunters() {
         return ManhuntVars.hunters;
     }
 
@@ -58,9 +58,7 @@ public class ManhuntVars {
      * @param p Player
      */
     public static void removeHunter(Player p) {
-        if(ManhuntVars.hunters.contains(p)) {
-            ManhuntVars.hunters.remove(p);
-        }
+        ManhuntVars.hunters.remove(p);
     }
 
     /**
@@ -68,17 +66,15 @@ public class ManhuntVars {
      */
     public static void removeAllHunters() {
         for(Player p : Bukkit.getOnlinePlayers()) {
-            if(ManhuntVars.hunters.contains(p)) {
-                ManhuntVars.hunters.remove(p);
-            }
+            ManhuntVars.hunters.remove(p);
         }
     }
 
     /**
      * Current list of runners
-     * @return List&lt;Player&gt; Runners
+     * @return ArrayList&lt;Player&gt; Runners
      */
-    public static List<Player> getRunners() {
+    public static ArrayList<Player> getRunners() {
         return ManhuntVars.runners;
     }
 
