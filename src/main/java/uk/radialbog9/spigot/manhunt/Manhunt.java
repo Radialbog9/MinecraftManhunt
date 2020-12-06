@@ -1,6 +1,5 @@
 package uk.radialbog9.spigot.manhunt;
 
-import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 
@@ -19,10 +18,10 @@ public class Manhunt extends JavaPlugin {
         this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
         this.getCommand("spectate").setTabCompleter(new ManhuntTabCompleter());
         //register bstats
-        int bstatsId = 9573;
-        Metrics metrics = new Metrics(this, bstatsId);
+        int bStatsId = 9573;
+        Metrics metrics = new Metrics(this, bStatsId);
         //Log message to console
-        getLogger().log(Level.INFO, Utils.getMsgColor("&aManhunt has been enabled!"));
+        getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
     }
 
     /**
@@ -31,6 +30,6 @@ public class Manhunt extends JavaPlugin {
     @Override
     public void onDisable() {
         //Log message to console
-        getLogger().log(Level.INFO, Utils.getMsgColor("&aManhunt has been disabled!"));
+        getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been disabled!"));
     }
 }
