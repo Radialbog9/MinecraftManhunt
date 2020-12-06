@@ -1,13 +1,24 @@
 # Minecraft Manhunt
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DFKLGMU7QAMU&source=url)
-[![Jenkins build status](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon)](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
+[![Jenkins build status](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon?style=flat-square)](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
+![bStats Players](https://img.shields.io/bstats/players/9573?style=for-the-badge&color=yellow)
+![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
+[![Donate](https://img.shields.io/badge/donate-PayPal-orange?style=for-the-badge&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DFKLGMU7QAMU&source=url)
+[![GitHub issues](https://img.shields.io/github/issues/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/network)
+![GitHub all releases](https://img.shields.io/github/downloads/Radialbog9/MinecraftManhunt/total?style=for-the-badge&color=blue&logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
 
 A classic take on Dream's manhunt game. 
-None of his original source code has been used. 
+None of his original source code has been used.
+
+All credit for the idea goes to Dream. 
+His videos are awesome, and you should check him out. 
+
+![bStats](https://bstats.org/signatures/bukkit/MinecraftManhunt.svg)
 
 ## Notice
-___This plugin is still in development. The manhunt is currently not playable___
+___This plugin is still in development. You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/).___
 
 Progress so far:
 * Added main game variables
@@ -60,3 +71,7 @@ We're always open for suggestions!
 | manhunt.list     | Allows player to list hunters/runners      |
 | manhunt.reset    | Allows player to reset the game            |
 | manhunt.spectate | Allows players to use `/spectate <player>` |
+
+## bStats
+We use bStats to track how people use our plugin.
+To opt out, you can edit the config file in the `bStats` plugin folder.

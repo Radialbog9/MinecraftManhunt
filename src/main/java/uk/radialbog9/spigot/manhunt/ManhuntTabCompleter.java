@@ -18,11 +18,11 @@ public class ManhuntTabCompleter implements TabCompleter {
      * @param args String[] arguments
      * @return List&lt;String&gt;
      */
+    @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-
-         // /spectate <player> command
+        // /spectate <player> command
         if(cmd.getName().equalsIgnoreCase("spectate") && args.length == 0 && sender.hasPermission("manhunt.spectate")) {
-            List<String> players = new ArrayList<String>();
+            List<String> players = new ArrayList<>();
             Player pl = null;
             if (sender instanceof Player) {
                 pl = (Player) sender;
@@ -38,9 +38,9 @@ public class ManhuntTabCompleter implements TabCompleter {
             return players;
         }
 
-         // /manhunt <command> command
+        // /manhunt <command> command
         if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 0) {
-            List<String> arguments = new ArrayList<String>();
+            List<String> arguments = new ArrayList<>();
             if(sender.hasPermission("manhunt.help")) arguments.add("help");
             if(sender.hasPermission("manhunt.start")) arguments.add("start");
             if(sender.hasPermission("manhunt.stop")) arguments.add("stop");
@@ -54,9 +54,9 @@ public class ManhuntTabCompleter implements TabCompleter {
             return arguments;
         }
 
-         // /manhunt hunter <player> command
+        // /manhunt hunter <player> command
         if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0].equalsIgnoreCase("hunter") && sender.hasPermission("manhunt.add")) {
-            List<String> players = new ArrayList<String>();
+            List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(!ManhuntVars.isHunter(p)) {
@@ -68,7 +68,7 @@ public class ManhuntTabCompleter implements TabCompleter {
 
         // /manhunt runner <player> command
         if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0].equalsIgnoreCase("runner") && sender.hasPermission("manhunt.add")) {
-            List<String> players = new ArrayList<String>();
+            List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(!ManhuntVars.isHunter(p)) {
@@ -80,7 +80,7 @@ public class ManhuntTabCompleter implements TabCompleter {
 
         // /manhunt remove <player> command
         if(cmd.getName().equalsIgnoreCase("manhunt") && args.length == 1 && args[0].equalsIgnoreCase("remove") && sender.hasPermission("manhunt.remove")) {
-            List<String> players = new ArrayList<String>();
+            List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p)) {

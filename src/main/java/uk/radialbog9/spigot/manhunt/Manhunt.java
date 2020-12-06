@@ -1,5 +1,6 @@
 package uk.radialbog9.spigot.manhunt;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 
@@ -17,6 +18,9 @@ public class Manhunt extends JavaPlugin {
         //Register tab completer
         this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
         this.getCommand("spectate").setTabCompleter(new ManhuntTabCompleter());
+        //register bstats
+        int bstatsId = 9573;
+        Metrics metrics = new Metrics(this, bstatsId);
         //Log message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("&aManhunt has been enabled!"));
     }
