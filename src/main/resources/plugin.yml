@@ -2,6 +2,7 @@ name: Manhunt
 author: Radialbog9
 main: uk.radialbog9.spigot.manhunt.Manhunt
 version: 1.0-SNAPSHOT
+api-version: 1.16
 commands:
   manhunt:
     usage: /manhunt <args>

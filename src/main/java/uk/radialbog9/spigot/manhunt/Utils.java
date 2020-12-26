@@ -55,18 +55,6 @@ public class Utils {
         }
         return hasNoMHP;
     }
-    /**
-     * Checks for all manhunt permissions
-     * @param p Player
-     * @return boolean if player has no manhunt permissions
-     */
-    public static boolean hasNoManhuntPermissions(Player p) {
-        boolean hasNoMHP = true;
-        for(String perm : manhuntPermissions) {
-            if(p.hasPermission(perm)) hasNoMHP = false;
-        }
-        return hasNoMHP;
-    }
 
     /**
      * Resets the game
@@ -76,6 +64,9 @@ public class Utils {
         for(Player p : Bukkit.getOnlinePlayers()) {
             if (ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.setGameMode(GameMode.SPECTATOR);
         }
+        //reset runners and hunters
+        ManhuntVars.removeAllHunters();
+        ManhuntVars.removeAllRunners();
         //fully end game
         ManhuntVars.setGameStarted(false);
     }

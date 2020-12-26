@@ -4,10 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -72,22 +74,24 @@ public class ManhuntEventHandler implements Listener {
         Player p = e.getPlayer();
         if (p.getInventory().getItemInMainHand().getType() == Material.COMPASS && ManhuntVars.isGameStarted() && ManhuntVars.isHunter(p)) {
             double closest = Double.MAX_VALUE;
-            Player closestp = null;
+            Player closestPlayer = null;
             for (Player i : ManhuntVars.getRunners()){
-                double dist = i.getLocation().distance(p.getLocation());
-                if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName().equals(p.getWorld().getName()) && (closest == Double.MAX_VALUE || dist < closest)){
-                    closestp = i;
-                    closest = dist;
+                if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName().equals(p.getWorld().getName())) {
+                    double dist = i.getLocation().distance(p.getLocation());
+                    if ((closest == Double.MAX_VALUE || dist < closest)){
+                        closestPlayer = i;
+                        closest = dist;
+                    }
                 }
             }
-            if (closestp == null) {
+            if (closestPlayer == null) {
                 //No runners nearby in the same world
                 p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a &cNo players found to track."));
             }
             else {
                 //the closest runner has been found
                 p.setCompassTarget(p.getLocation());
-                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestp.getDisplayName() + "&r&a."));
+                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestPlayer.getDisplayName() + "&r&a."));
             }
         }
     }
@@ -117,12 +121,8 @@ public class ManhuntEventHandler implements Listener {
                 if (ManhuntVars.getRunners().isEmpty()) {
                     //If so say hunters win
                     Utils.broadcastServerMessage("&6[Manhunt]&r&a There are no runners left. Hunters Win!");
-                    //set all player gamemode to spectator
-                    for (Player pl : Bukkit.getOnlinePlayers()) {
-                        pl.setGameMode(GameMode.SPECTATOR);
-                    }
-                    //End the game
-                    ManhuntVars.setGameStarted(false);
+                    //end game
+                    Utils.resetGame();
                 }
             }
             if (ManhuntVars.isHunter(e.getPlayer())) {
@@ -131,12 +131,8 @@ public class ManhuntEventHandler implements Listener {
                 if(ManhuntVars.getRunners().isEmpty()) {
                     //If so say runners win
                     Utils.broadcastServerMessage("&6[Manhunt]&r&a There are no more hunters left. Runners Win!");
-                    //set all player gamemode to spectator
-                    for(Player pl : Bukkit.getOnlinePlayers()) {
-                        pl.setGameMode(GameMode.SPECTATOR);
-                    }
-                    //End the game
-                    ManhuntVars.setGameStarted(false);
+                    //end game
+                    Utils.resetGame();
                 }
             }
         }
@@ -147,18 +143,14 @@ public class ManhuntEventHandler implements Listener {
      * @param e EntityDeathEvent the event
      */
     @EventHandler
-    public void enderDragonDeathEvent(EntityDamageByEntityEvent e) {
+    public void enderDragonDeathEvent(EntityDeathEvent e) {
         if (ManhuntVars.isGameStarted()) {
             //game is running, check for ender dragon death
-            if (e.getEntityType() == EntityType.ENDER_DRAGON) {
+            if(e.getEntityType() == EntityType.ENDER_DRAGON) {
                 //runners win
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a The runners have defeated the Ender Dragon! Runners win!");
-                //set all player gamemode to spectator
-                for(Player pl : Bukkit.getOnlinePlayers()) {
-                    pl.setGameMode(GameMode.SPECTATOR);
-                }
-                //End the game
-                ManhuntVars.setGameStarted(false);
+                Utils.broadcastServerMessage("&6[Manhunt]&r&a The Ender Dragon has been defeated! Runners win!");
+                //end game
+                Utils.resetGame();
             }
         }
     }
