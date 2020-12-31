@@ -21,7 +21,7 @@ His videos are awesome, and you should [check him out](https://www.youtube.com/D
 ![bStats](https://bstats.org/signatures/bukkit/MinecraftManhunt.svg)
 
 ## Notice
-___This plugin is still in development. You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/).___
+___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/).___
 
 Progress so far:
 * Added main game variables
