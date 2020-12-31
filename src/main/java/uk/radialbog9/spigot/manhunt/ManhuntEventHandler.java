@@ -149,7 +149,7 @@ public class ManhuntEventHandler implements Listener {
             if(e.getEntityType() == EntityType.ENDER_DRAGON) {
                 //runners win
                 Utils.broadcastServerMessage("&6[Manhunt]&r&a The Ender Dragon has been defeated! Runners win!");
-                //end game
+                //end game.
                 Utils.resetGame();
             }
         }
