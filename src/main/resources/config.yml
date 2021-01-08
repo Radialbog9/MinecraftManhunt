@@ -1,0 +1,41 @@
+######################################################################################################
+#   ▄▄       ▄▄   ▄▄▄▄▄▄▄▄▄▄▄   ▄▄        ▄   ▄         ▄   ▄         ▄   ▄▄        ▄   ▄▄▄▄▄▄▄▄▄▄▄  #
+#  ▐░░▌     ▐░░▌ ▐░░░░░░░░░░░▌ ▐░░▌      ▐░▌ ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░░▌      ▐░▌ ▐░░░░░░░░░░░▌ #
+#  ▐░▌░▌   ▐░▐░▌ ▐░█▀▀▀▀▀▀▀█░▌ ▐░▌░▌     ▐░▌ ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░▌░▌     ▐░▌  ▀▀▀▀█░█▀▀▀▀  #
+#  ▐░▌▐░▌ ▐░▌▐░▌ ▐░▌       ▐░▌ ▐░▌▐░▌    ▐░▌ ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░▌▐░▌    ▐░▌      ▐░▌      #
+#  ▐░▌ ▐░▐░▌ ▐░▌ ▐░█▄▄▄▄▄▄▄█░▌ ▐░▌ ▐░▌   ▐░▌ ▐░█▄▄▄▄▄▄▄█░▌ ▐░▌       ▐░▌ ▐░▌ ▐░▌   ▐░▌      ▐░▌      #
+#  ▐░▌  ▐░▌  ▐░▌ ▐░░░░░░░░░░░▌ ▐░▌  ▐░▌  ▐░▌ ▐░░░░░░░░░░░▌ ▐░▌       ▐░▌ ▐░▌  ▐░▌  ▐░▌      ▐░▌      #
+#  ▐░▌   ▀   ▐░▌ ▐░█▀▀▀▀▀▀▀█░▌ ▐░▌   ▐░▌ ▐░▌ ▐░█▀▀▀▀▀▀▀█░▌ ▐░▌       ▐░▌ ▐░▌   ▐░▌ ▐░▌      ▐░▌      #
+#  ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░▌    ▐░▌▐░▌ ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░▌    ▐░▌▐░▌      ▐░▌      #
+#  ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░▌     ▐░▐░▌ ▐░▌       ▐░▌ ▐░█▄▄▄▄▄▄▄█░▌ ▐░▌     ▐░▐░▌      ▐░▌      #
+#  ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░▌      ▐░░▌ ▐░▌       ▐░▌ ▐░░░░░░░░░░░▌ ▐░▌      ▐░░▌      ▐░▌      #
+#   ▀         ▀   ▀         ▀   ▀        ▀▀   ▀         ▀   ▀▀▀▀▀▀▀▀▀▀▀   ▀        ▀▀        ▀       #
+######################################################################################################
+#                               Minecraft Manhunt by Radialbog9                                      #
+######################################################################################################
+
+# Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
+# Set to false for a more authentic manhunt.
+head-start:
+  # Head start enabled?
+  enabled: true
+  # Length of the head start (in seconds)
+  length: 30
+
+# Language
+# Some entries have required arguments (such as player names) which are indicated by '%s'
+language:
+  no-command-specified: '&6[Manhunt]&r&a No command specified. Type /manhunt help for command help.'
+  no-permission: '&6[Manhunt]&r&a You do not have permission to do this!'
+  player-not-online: '&6[Manhunt]&r&a The player&r&c %s &r&ais not online!'
+  unknown-subcommand: '&6[Manhunt]&r&a Unknown subcommand!'
+  console-cannot-spectate: '&6[Manhunt]&r&a Console cannot spectate players!'
+  not-spectator: '&6[Manhunt]&r&a You are not a spectator!'
+  no-subcommand-perm: '&a- You do not have permission for any sub-commands.'
+  usage: '&6[Manhunt]&r&a Usage:&c %s'
+  not-enough-args: '&6[Manhunt]&r&a Not enough arguments!'
+  too-many-args: '&6[Manhunt]&r&a Too many arguments!'
+  no-change-hunter-in-game: '&6[Manhunt]&r&a You can not change hunters while the game is ongoing.'
+  no-change-runner-in-game: '&6[Manhunt]&r&a You can not change runners while the game is ongoing.'
+  now-hunter: ''
+  now-runner: ''

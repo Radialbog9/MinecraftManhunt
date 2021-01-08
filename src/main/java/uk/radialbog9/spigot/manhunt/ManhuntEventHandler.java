@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class ManhuntEventHandler implements Listener {
     /**
@@ -87,11 +88,18 @@ public class ManhuntEventHandler implements Listener {
             if (closestPlayer == null) {
                 //No runners nearby in the same world
                 p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a &cNo players found to track."));
-            }
-            else {
+            } else {
                 //the closest runner has been found
-                p.setCompassTarget(p.getLocation());
-                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Tracking player &c" + closestPlayer.getDisplayName() + "&r&a."));
+                p.setCompassTarget(closestPlayer.getLocation());
+                p.sendMessage(Utils.getMsgColor(
+                        "&6[Manhunt]&r&a Tracking player &c" +
+                                closestPlayer.getDisplayName() +
+                        "&r&a (Chunk X: &r&c" +
+                                closestPlayer.getLocation().getChunk().getX() +
+                        "&r&a, Chunk Z: &r&c" +
+                                closestPlayer.getLocation().getChunk().getZ() +
+                        "&r&a)"
+                ));
             }
         }
     }
@@ -126,9 +134,9 @@ public class ManhuntEventHandler implements Listener {
                 }
             }
             if (ManhuntVars.isHunter(e.getPlayer())) {
-                ManhuntVars.removeRunner(e.getPlayer());
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a runner.");
-                if(ManhuntVars.getRunners().isEmpty()) {
+                ManhuntVars.removeHunter(e.getPlayer());
+                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a hunter.");
+                if(ManhuntVars.getHunters().isEmpty()) {
                     //If so say runners win
                     Utils.broadcastServerMessage("&6[Manhunt]&r&a There are no more hunters left. Runners Win!");
                     //end game

@@ -1,4 +1,5 @@
-# Minecraft Manhunt
+# MINECRAFT MANHUNT
+
 
 [![Jenkins build status](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon?style=flat-square)](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
 [![Donate](https://img.shields.io/badge/donate-PayPal-orange?style=flat-square&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DFKLGMU7QAMU&source=url)
@@ -12,20 +13,26 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/Radialbog9/MinecraftManhunt/total?style=for-the-badge&color=blue&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
 
+---
+
 A classic take on Dream's manhunt game. 
 None of his original source code has been used.
 
 All credit for the idea goes to Dream. 
 His videos are awesome, and you should [check him out](https://www.youtube.com/Dream). 
 
+---
+
 ![bStats](https://bstats.org/signatures/bukkit/MinecraftManhunt.svg)
+
+---
 
 ## Notice
 ___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/).___
 
 Progress so far:
 * Added main game variables
-* Added runners death event
+* Added runner death event
 * Added compass tracking for hunters
 * Add join event for when game is ongoing
 * Add hunter death event
@@ -34,6 +41,10 @@ Progress so far:
 
 To do:
 * Possibly add SuperVanish/PremiumVanish integration for player list
+* Finish moving language to config file
+* Finish player data local storage
+
+---
 
 ## Basic setup
 * Add the runners by typing command: `/manhunt runner <player>`
@@ -41,13 +52,19 @@ To do:
 * Start the game by typing command: `/manhunt start`
 
 ## Info
-When the game is started, all other players will be put into spectator and the hunters will be given a compass that they can use to track the nearest runner. 
-When all runners are dead the hunters win but if one of the runners kills the ender dragon the runners win. 
-The runners cannot respawn but the hunters can.
+When the game is started, all other players will be put into spectator, and the hunters will be given a compass that they can use to track the nearest runner. 
+When all runners are dead the hunters win but if one of the runners kills the Ender Dragon the runners win. 
+The runners cannot respawn, but the hunters can.
 
 ## Contributing
 Please report any bugs you find or improve our code and make a pull request! 
 We're always open for suggestions!
+
+## bStats
+We use bStats to track how people use our plugin.
+> If you don't want bStats to collect data from your server, you can disable it in the bStats config file. This file can be found in the `/plugins/bStats/` folder.
+
+---
 
 ## All commands
 
@@ -60,21 +77,49 @@ We're always open for suggestions!
 | `/manhunt start`                           | Starts the manhunt.                                             |
 | `/manhunt stop`                            | Ends the manhunt prematurely.                                   |
 | `/manhunt list`                            | Lists the players who are runners and hunters.                  |
-| `/manhunt reset`                           | Removes all players from hunter and runner.                     |
 | `/spectate <player>`                       | Teleports to a runner/hunter (only works if you're a spectator) |
 
 ## Permissions
-| Permission       | Description                                |
-|------------------|--------------------------------------------|
-|                  | Allows player to run `/manhunt help`       |
-| manhunt.add      | Allows player to add hunters/runners       |
-| manhunt.remove   | Allows player to remove a player           |
-| manhunt.start    | Allows player to start the game            |
-| manhunt.stop     | Allows player to end the game forcibly     |
-| manhunt.list     | Allows player to list hunters/runners      |
-| manhunt.reset    | Allows player to reset the game            |
-| manhunt.spectate | Allows players to use `/spectate <player>` |
+| Permission       | Description                                | Default     |
+|------------------|--------------------------------------------|-------------|
+|                  | Allows player to run `/manhunt help`       | All Players |
+| manhunt.add      | Allows player to add hunters/runners       | OP Players  |
+| manhunt.remove   | Allows player to remove a player           | OP Players  |
+| manhunt.start    | Allows player to start the game            | OP Players  |
+| manhunt.stop     | Allows player to end the game forcibly     | OP Players  |
+| manhunt.list     | Allows player to list hunters/runners      | All Players |
+| manhunt.reset    | Allows player to reset the game            | OP Players  |
+| manhunt.spectate | Allows players to use `/spectate <player>` | All Players |
 
-## bStats
-We use bStats to track how people use our plugin.
-> If you don't want bStats to collect data from your server, you can disable it in the bStats config file. This file can be found in the `/plugins/bStats/` folder.
+---
+
+## Config
+Here is the default config (some language bits left out):
+```yaml
+# Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
+# Set to false for a more authentic manhunt.
+head-start:
+  # Head start enabled?
+  enabled: true
+  # Length of the head start (in seconds)
+  length: 30
+
+# Language
+# Some entries have required arguments (such as player names) which are indicated by '%s'
+language:
+  no-command-specified: '&6[Manhunt]&r&a No command specified. Type /manhunt help for command help.'
+  # ...
+  player-not-online: '&6[Manhunt]&r&a The player&r&c %s &r&ais not online!' # '%s' is replaced with the player name #
+  # ...
+```
+
+---
+
+## API
+This plugin has a (sort of) really messy API.
+
+You can access the Manhunt Variables through the `uk.radialbog9.spigot.manhunt.ManhuntVars` class.
+
+You can reset the game through the `uk.radialbog9.spigot.manhunt.Utils.resetGame()` method.
+
+For more info look at the [JavaDoc][http://ci.radialbog9.uk/job/Minecraft%20Manhunt/uk.radialbog9.spigot$MinecraftManhunt/javadoc/].

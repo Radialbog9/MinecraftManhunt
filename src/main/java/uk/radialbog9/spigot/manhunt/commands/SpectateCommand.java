@@ -1,4 +1,4 @@
-package uk.radialbog9.spigot.manhunt;
+package uk.radialbog9.spigot.manhunt.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -6,6 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.Utils;
 
 public class SpectateCommand implements CommandExecutor {
 
@@ -36,29 +39,35 @@ public class SpectateCommand implements CommandExecutor {
                     //player given
                     //check if in game
                     if(ManhuntVars.isGameStarted()) {
-                        //check the player
-                        Player existingPlayer = Bukkit.getPlayer(args[0]);
-                        if(existingPlayer != null) {
-                            //player exists
-                            if(ManhuntVars.isRunner(existingPlayer) || ManhuntVars.isHunter(existingPlayer)) {
-                                p.setGameMode(GameMode.SPECTATOR);
-                                p.teleport(existingPlayer);
-                                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You are now spectating &c" + existingPlayer.getDisplayName() + "&r&a."));
+                        if(!(ManhuntVars.isRunner(p) | ManhuntVars.isHunter(p))) {
+                            //they are spectator
+                            //check the player
+                            Player existingPlayer = Bukkit.getPlayer(args[0]);
+                            if(existingPlayer != null) {
+                                //player exists
+                                if(ManhuntVars.isRunner(existingPlayer) || ManhuntVars.isHunter(existingPlayer)) {
+                                    p.setGameMode(GameMode.SPECTATOR);
+                                    p.teleport(existingPlayer);
+                                    p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You are now spectating &c" + existingPlayer.getDisplayName() + "&r&a."));
+                                }
+                            } else {
+                                String a = Manhunt.getInstance().getConfig().getString("language.player-not-online");
+                                if(a != null) sender.sendMessage(Utils.getMsgColor(String.format(a, args[0])));
                             }
                         } else {
-                            p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a That player is not online!"));
+                            //not spectator
                         }
                     } else {
                         p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There is no game in progress."));
                     }
                 }
             } else {
-                //no permission
-                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You do not have permission to do this!"));
+                //no perm
+                sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
             }
         } else {
-            //console is player
-            sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Console cannot spectate players!"));
+            //console is executing command, deny it
+            sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.console-cannot-spectate")));
         }
         return true;
     }

@@ -9,6 +9,7 @@ public class ManhuntVars {
     private static boolean gameStarted;
     private static ArrayList<Player> hunters = new ArrayList<>();
     private static ArrayList<Player> runners = new ArrayList<>();
+    private static int gamesStarted;
 
     /**
      * Checks if game is started
@@ -116,5 +117,29 @@ public class ManhuntVars {
                 ManhuntVars.runners.remove(p);
             }
         }
+    }
+
+    /**
+     * Gets the number of games started (resets when game is stopped)
+     * @return int Number of games started
+     */
+    public static int getGamesStarted() {
+        return ManhuntVars.gamesStarted;
+    }
+
+    /**
+     * Sets the amount of games started to specified parameter (resets when game is stopped)
+     * @param gamesStarted Amount of games started
+     */
+    public static void setGamesStarted(int gamesStarted) {
+        ManhuntVars.gamesStarted = gamesStarted;
+    }
+
+    /**
+     * Adds the specified parameter to the amount of games started (resets when game is stopped)
+     * @param gamesStarted Amount of games started
+     */
+    public static void addGamesStarted(int gamesStarted) {
+        ManhuntVars.gamesStarted += gamesStarted;
     }
 }
