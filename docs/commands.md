@@ -17,7 +17,7 @@ All commands are listed below.
 ## Permissions
 | Permission       | Description                                | Default     |
 |------------------|--------------------------------------------|-------------|
-|                  | Allows player to run `/manhunt help`       | All Players |
+| &lt;none&gt;     | Allows player to run `/manhunt help`       | All Players |
 | manhunt.add      | Allows player to add hunters/runners       | OP Players  |
 | manhunt.remove   | Allows player to remove a player           | OP Players  |
 | manhunt.start    | Allows player to start the game            | OP Players  |
