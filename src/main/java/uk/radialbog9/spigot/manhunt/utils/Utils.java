@@ -1,12 +1,10 @@
-package uk.radialbog9.spigot.manhunt;
+package uk.radialbog9.spigot.manhunt.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.List;
 
 /**
  * Utilities to use
@@ -58,7 +56,9 @@ public class Utils {
 
     /**
      * Resets the game
+     * @deprecated New event method
      */
+    @Deprecated
     public static void resetGame() {
         //set all players to spectator
         for(Player p : Bukkit.getOnlinePlayers()) {
@@ -69,5 +69,20 @@ public class Utils {
         ManhuntVars.removeAllRunners();
         //fully end game
         ManhuntVars.setGameStarted(false);
+    }
+
+    /**
+     * Round to nearest ten
+     * @param n int Number
+     * @return int Number rounded to nearest ten
+     */
+    public static int roundToNearestTen(int n)
+    {
+        // Smaller multiple
+        int a = (n / 10) * 10;
+        // Larger multiple
+        int b = a + 10;
+        // Return of closest of two
+        return (n - a > b - n)? b : a;
     }
 }

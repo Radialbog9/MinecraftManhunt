@@ -10,6 +10,7 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/network)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)
 ![GitHub all releases](https://img.shields.io/github/downloads/Radialbog9/MinecraftManhunt/total?style=for-the-badge&color=blue&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
 
@@ -38,11 +39,11 @@ Progress so far:
 * Add hunter death event
 * Add commands
 * Add hunter win event
+* Finish player data local storage
 
 To do:
 * Possibly add SuperVanish/PremiumVanish integration for player list
 * Finish moving language to config file
-* Finish player data local storage
 
 ---
 
@@ -66,35 +67,10 @@ We use bStats to track how people use our plugin.
 
 ---
 
-## All commands
-
-| Command                                    | Description                                                     |
-|--------------------------------------------|-----------------------------------------------------------------|
-| `/manhunt help`                            | Shows other manhunt commands.                                   |
-| `/manhunt hunter <player>`                 | Sets a player as hunter and remove them from runner.            |
-| `/manhunt runner <player>`                 | Sets a player as runner and remove them from hunter.            |
-| `/manhunt remove <player>`                 | Removes a specific player from the manhunt.                     |
-| `/manhunt start`                           | Starts the manhunt.                                             |
-| `/manhunt stop`                            | Ends the manhunt prematurely.                                   |
-| `/manhunt list`                            | Lists the players who are runners and hunters.                  |
-| `/spectate <player>`                       | Teleports to a runner/hunter (only works if you're a spectator) |
-
-## Permissions
-| Permission       | Description                                | Default     |
-|------------------|--------------------------------------------|-------------|
-|                  | Allows player to run `/manhunt help`       | All Players |
-| manhunt.add      | Allows player to add hunters/runners       | OP Players  |
-| manhunt.remove   | Allows player to remove a player           | OP Players  |
-| manhunt.start    | Allows player to start the game            | OP Players  |
-| manhunt.stop     | Allows player to end the game forcibly     | OP Players  |
-| manhunt.list     | Allows player to list hunters/runners      | All Players |
-| manhunt.reset    | Allows player to reset the game            | OP Players  |
-| manhunt.spectate | Allows players to use `/spectate <player>` | All Players |
-
----
-
 ## Config
-Here is the default config (some language bits left out):
+The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
+
+Below is the default config. More documentation about the config can be found in the `docs` folder.
 ```yaml
 # Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
 # Set to false for a more authentic manhunt.
@@ -112,14 +88,3 @@ language:
   player-not-online: '&6[Manhunt]&r&a The player&r&c %s &r&ais not online!' # '%s' is replaced with the player name #
   # ...
 ```
-
----
-
-## API
-This plugin has a (sort of) really messy API.
-
-You can access the Manhunt Variables through the `uk.radialbog9.spigot.manhunt.ManhuntVars` class.
-
-You can reset the game through the `uk.radialbog9.spigot.manhunt.Utils.resetGame()` method.
-
-For more info look at the [JavaDoc][http://ci.radialbog9.uk/job/Minecraft%20Manhunt/uk.radialbog9.spigot$MinecraftManhunt/javadoc/].

@@ -1,14 +1,12 @@
-package uk.radialbog9.spigot.manhunt;
+package uk.radialbog9.spigot.manhunt.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,7 +14,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
+import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
+import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 public class ManhuntEventHandler implements Listener {
     /**
@@ -36,17 +38,11 @@ public class ManhuntEventHandler implements Listener {
                 ManhuntVars.removeRunner(p);
                 //Check if that was the last runner alive
                 if (ManhuntVars.getRunners().isEmpty()) {
-                    //If so say hunters win
-                    Utils.broadcastServerMessage("&6[Manhunt]&r&a Hunters Win!");
-                    //set all player gamemode to spectator
-                    for (Player pl : Bukkit.getOnlinePlayers()) {
-                        pl.setGameMode(GameMode.SPECTATOR);
-                    }
-                    //End the game
-                    ManhuntVars.setGameStarted(false);
+                    ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.RUNNERS_ALL_DIE);
+                    Bukkit.getServer().getPluginManager().callEvent(event);
                 } else {
                     //Else say they died and how many runners remain.
-                    Utils.broadcastServerMessage("&6[Manhunt]&r&a &c" + p.getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining.");
+                    Utils.broadcastServerMessage("&6[Manhunt]&r&a &c" + p.getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining."); //TODO
                 }
             }
         }
@@ -87,19 +83,19 @@ public class ManhuntEventHandler implements Listener {
             }
             if (closestPlayer == null) {
                 //No runners nearby in the same world
-                p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a &cNo players found to track."));
+                p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-players-to-track")));
             } else {
                 //the closest runner has been found
                 p.setCompassTarget(closestPlayer.getLocation());
                 p.sendMessage(Utils.getMsgColor(
                         "&6[Manhunt]&r&a Tracking player &c" +
                                 closestPlayer.getDisplayName() +
-                        "&r&a (Chunk X: &r&c" +
-                                closestPlayer.getLocation().getChunk().getX() +
-                        "&r&a, Chunk Z: &r&c" +
-                                closestPlayer.getLocation().getChunk().getZ() +
+                        "&r&a (&r&c" +
+                                Utils.roundToNearestTen(Integer.parseInt(String.valueOf(closestPlayer.getLocation().getX()))) +
+                        "&r&a, &r&c" +
+                                Utils.roundToNearestTen(Integer.parseInt(String.valueOf(closestPlayer.getLocation().getZ()))) +
                         "&r&a)"
-                ));
+                )); //TODO
             }
         }
     }
@@ -112,7 +108,7 @@ public class ManhuntEventHandler implements Listener {
     public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
         if (ManhuntVars.isGameStarted()) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            e.getPlayer().sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a A game is in progress so you have been put into spectator!"));
+            e.getPlayer().sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a A game is in progress so you have been put into spectator!")); //TODO
         }
     }
 
@@ -125,22 +121,20 @@ public class ManhuntEventHandler implements Listener {
         if (ManhuntVars.isGameStarted()) {
             if (ManhuntVars.isRunner(e.getPlayer())) {
                 ManhuntVars.removeRunner(e.getPlayer());
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a runner.");
+                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a runner."); //TODO
                 if (ManhuntVars.getRunners().isEmpty()) {
-                    //If so say hunters win
-                    Utils.broadcastServerMessage("&6[Manhunt]&r&a There are no runners left. Hunters Win!");
-                    //end game
-                    Utils.resetGame();
+                    //If so broadcast event
+                    ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ALL_RUNNERS_LEAVE);
+                    Bukkit.getServer().getPluginManager().callEvent(event);
                 }
             }
             if (ManhuntVars.isHunter(e.getPlayer())) {
                 ManhuntVars.removeHunter(e.getPlayer());
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a hunter.");
+                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a hunter."); //TODO
                 if(ManhuntVars.getHunters().isEmpty()) {
-                    //If so say runners win
-                    Utils.broadcastServerMessage("&6[Manhunt]&r&a There are no more hunters left. Runners Win!");
-                    //end game
-                    Utils.resetGame();
+                    //If so broadcast event
+                    ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ALL_HUNTERS_LEAVE);
+                    Bukkit.getServer().getPluginManager().callEvent(event);
                 }
             }
         }
@@ -155,10 +149,9 @@ public class ManhuntEventHandler implements Listener {
         if (ManhuntVars.isGameStarted()) {
             //game is running, check for ender dragon death
             if(e.getEntityType() == EntityType.ENDER_DRAGON) {
-                //runners win
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a The Ender Dragon has been defeated! Runners win!");
-                //end game.
-                Utils.resetGame();
+                //If so broadcast event
+                ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.RUNNERS_KILL_DRAGON);
+                Bukkit.getServer().getPluginManager().callEvent(event);
             }
         }
     }

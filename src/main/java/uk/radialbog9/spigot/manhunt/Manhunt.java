@@ -1,5 +1,7 @@
 package uk.radialbog9.spigot.manhunt;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.annotation.command.Command;
@@ -9,8 +11,12 @@ import org.bukkit.plugin.java.annotation.plugin.Plugin;
 import org.bukkit.plugin.java.annotation.plugin.author.Author;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
+import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
+import uk.radialbog9.spigot.manhunt.listeners.ManhuntEndEventListener;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
+import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.logging.Level;
 
@@ -49,6 +55,7 @@ public class Manhunt extends JavaPlugin {
         reloadConfig();
         //Register events
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
+        getServer().getPluginManager().registerEvents(new ManhuntEndEventListener(), this);
         //Register commands
         this.getCommand("manhunt").setExecutor(new ManhuntCommand());
         this.getCommand("spectate").setExecutor(new SpectateCommand());
@@ -69,6 +76,10 @@ public class Manhunt extends JavaPlugin {
     public void onDisable() {
         //save config
         saveConfig();
+        // Save player data
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            ManhuntVars.getPlayerConfig(p).save();
+        }
         //Log message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been disabled!"));
     }

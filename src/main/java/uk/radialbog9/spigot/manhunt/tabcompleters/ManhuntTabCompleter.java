@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import uk.radialbog9.spigot.manhunt.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,20 @@
-package uk.radialbog9.spigot.manhunt;
+package uk.radialbog9.spigot.manhunt.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import uk.radialbog9.spigot.manhunt.playerconfig.PlayerConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ManhuntVars {
     private static boolean gameStarted;
+
     private static ArrayList<Player> hunters = new ArrayList<>();
     private static ArrayList<Player> runners = new ArrayList<>();
-    private static int gamesStarted;
+
+    private static HashMap<Player, PlayerConfig> playerConfigMap = new HashMap<>();
+
 
     /**
      * Checks if game is started
@@ -49,9 +54,7 @@ public class ManhuntVars {
      * @param p Player
      */
     public static void addHunter(Player p) {
-        if(!ManhuntVars.hunters.contains(p)) {
-            ManhuntVars.hunters.add(p);
-        }
+        if(!ManhuntVars.hunters.contains(p)) ManhuntVars.hunters.add(p);
     }
 
     /**
@@ -66,9 +69,7 @@ public class ManhuntVars {
      * Removes all hunters.
      */
     public static void removeAllHunters() {
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            ManhuntVars.hunters.remove(p);
-        }
+        for(Player p : Bukkit.getOnlinePlayers()) if(ManhuntVars.isHunter(p)) ManhuntVars.hunters.remove(p);
     }
 
     /**
@@ -93,9 +94,7 @@ public class ManhuntVars {
      * @param p Player
      */
     public static void addRunner(Player p) {
-        if(!ManhuntVars.runners.contains(p)) {
-            ManhuntVars.runners.add(p);
-        }
+        if(!ManhuntVars.runners.contains(p)) ManhuntVars.runners.add(p);
     }
 
     /**
@@ -103,43 +102,23 @@ public class ManhuntVars {
      * @param p Player
      */
     public static void removeRunner(Player p) {
-        if(ManhuntVars.runners.contains(p)) {
-            ManhuntVars.runners.remove(p);
-        }
+        ManhuntVars.runners.remove(p);
     }
 
     /**
      * Removes all runners.
      */
     public static void removeAllRunners() {
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(ManhuntVars.runners.contains(p)) {
-                ManhuntVars.runners.remove(p);
-            }
-        }
+        for(Player p : Bukkit.getOnlinePlayers()) ManhuntVars.runners.remove(p);
     }
 
     /**
-     * Gets the number of games started (resets when game is stopped)
-     * @return int Number of games started
+     * Gets a player's data object
+     * @param p Player
+     * @return The player's config
      */
-    public static int getGamesStarted() {
-        return ManhuntVars.gamesStarted;
-    }
-
-    /**
-     * Sets the amount of games started to specified parameter (resets when game is stopped)
-     * @param gamesStarted Amount of games started
-     */
-    public static void setGamesStarted(int gamesStarted) {
-        ManhuntVars.gamesStarted = gamesStarted;
-    }
-
-    /**
-     * Adds the specified parameter to the amount of games started (resets when game is stopped)
-     * @param gamesStarted Amount of games started
-     */
-    public static void addGamesStarted(int gamesStarted) {
-        ManhuntVars.gamesStarted += gamesStarted;
+    public static PlayerConfig getPlayerConfig(Player p) {
+        if(!playerConfigMap.containsKey(p)) playerConfigMap.put(p, new PlayerConfig(p));
+        return playerConfigMap.get(p);
     }
 }

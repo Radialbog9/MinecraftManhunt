@@ -7,8 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.ManhuntVars;
-import uk.radialbog9.spigot.manhunt.Utils;
+import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 public class SpectateCommand implements CommandExecutor {
 
@@ -29,12 +29,14 @@ public class SpectateCommand implements CommandExecutor {
                 //permission
                 if(args.length == 0) {
                     //no player specified
-                    p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Not enough agruments!"));
-                    p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Usage: &c/spectate <player>"));
+                    p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.not-enough-args")));
+                    String a = Manhunt.getInstance().getConfig().getString("language.usage");
+                    if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, "/spectate <player>")));
                 } else if (args.length > 1) {
                     //too many arguments
-                    p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Too many arguments!"));
-                    p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Usage: &c/spectate <player>"));
+                    p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-many-args")));
+                    String a = Manhunt.getInstance().getConfig().getString("language.usage");
+                    if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, "/spectate <player>")));
                 } else {
                     //player given
                     //check if in game
@@ -48,22 +50,25 @@ public class SpectateCommand implements CommandExecutor {
                                 if(ManhuntVars.isRunner(existingPlayer) || ManhuntVars.isHunter(existingPlayer)) {
                                     p.setGameMode(GameMode.SPECTATOR);
                                     p.teleport(existingPlayer);
-                                    p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You are now spectating &c" + existingPlayer.getDisplayName() + "&r&a."));
+                                    String a = Manhunt.getInstance().getConfig().getString("language.now-spectating-player");
+                                    if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, existingPlayer.getDisplayName())));
                                 }
                             } else {
                                 String a = Manhunt.getInstance().getConfig().getString("language.player-not-online");
-                                if(a != null) sender.sendMessage(Utils.getMsgColor(String.format(a, args[0])));
+                                if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, args[0])));
                             }
                         } else {
                             //not spectator
+                            p.sendMessage(Utils.getMsgColor( Manhunt.getInstance().getConfig().getString("language.not-spectator")));
                         }
                     } else {
-                        p.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There is no game in progress."));
+                        //no game in progress
+                        p.sendMessage(Utils.getMsgColor( Manhunt.getInstance().getConfig().getString("language.no-game-in-progress")));
                     }
                 }
             } else {
                 //no perm
-                sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
+                p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
             }
         } else {
             //console is executing command, deny it
