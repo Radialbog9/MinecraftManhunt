@@ -1,5 +1,5 @@
 # API
-This plugin has a (sort of) really messy API.
+This plugin has a (sort of) messy API.
 
 You can access the Manhunt Variables through the `uk.radialbog9.spigot.manhunt.utils.ManhuntVars` class.
 

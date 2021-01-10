@@ -1,4 +1,6 @@
 # Commands
+All commands are listed below.
+
 ## All commands
 
 | Command                                    | Description                                                     |
