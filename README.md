@@ -49,9 +49,10 @@ To do:
 ---
 
 ## Basic setup
-* Add the runners by typing command: `/manhunt runner <player>`
-* Add the hunters by typing command: `/manhunt hunter <player>`
-* Start the game by typing command: `/manhunt start`
+* Add the runners by typing command: `/manhunt runner <player>`.
+* Add the hunters by typing command: `/manhunt hunter <player>`.
+* Start the game by typing command: `/manhunt start`.
+* If you want to stop the game manually run `/manhunt stop`.
 
 ## Info
 When the game is started, all other players will be put into spectator, and the hunters will be given a compass that they can use to track the nearest runner. 
