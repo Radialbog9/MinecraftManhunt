@@ -4,6 +4,7 @@
 [![Jenkins build status](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/badge/icon?style=flat-square)](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/)
 [![Donate](https://img.shields.io/badge/donate-PayPal-orange?style=flat-square&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DFKLGMU7QAMU&source=url)
 [![Subscribe](https://img.shields.io/badge/subscribe-YouTube-orange?style=flat-square&logo=youtube)](https://bit.ly/Sub2Radialbog9)
+![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)
 
 ![bStats Players](https://img.shields.io/bstats/players/9573?style=for-the-badge&color=yellow)
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
