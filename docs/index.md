@@ -6,11 +6,11 @@
 * [Configuration](https://radialbog9.github.io/MinecraftManhunt/config)
 * [Rule Book](https://radialbog9.github.io/MinecraftManhunt/rulebook)
 
-##Introduction
+## Introduction
 Minecraft Manhunt is a plugin heavily inspired by [Dream](https://www.youtube.com/c/dream)'s Manhunt series.
 This plugin emulates the game in that series.
 
-##The Game
+## The Game
 These are the only things set in stone. The rest of the rules are up to you.
 * The players are split into 2 groups - hunters and runners.
 * The hunters have to try and kill all of the runners before the runners defeat the Ender Dragon.
