@@ -1,8 +1,7 @@
 # API
-This plugin has a (sort of) messy API.
+This plugin has a (sort of) messy API, which doesn't really do anything at all at the moment.
 
-You can access the Manhunt Variables through the `uk.radialbog9.spigot.manhunt.utils.ManhuntVars` class.
+* You can access the Manhunt Variables through the `uk.radialbog9.spigot.manhunt.utils.ManhuntVars` class.
+* You can reset the game by calling the `uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent` event.
 
-You can reset the game by calling the `uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent` event.
-
-For more info look at the [JavaDoc](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/uk.radialbog9.spigot$MinecraftManhunt/javadoc/).
+For more info, look at the [JavaDoc](http://ci.radialbog9.uk/job/Minecraft%20Manhunt/uk.radialbog9.spigot$MinecraftManhunt/javadoc/).
