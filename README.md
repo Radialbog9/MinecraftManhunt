@@ -32,6 +32,7 @@ His videos are awesome, and you should [check him out](https://www.youtube.com/D
 ## Notice
 ___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/).___
 
+---
 Progress so far:
 * Added main game variables
 * Added runner death event
@@ -58,6 +59,7 @@ To do:
 When the game is started, all other players will be put into spectator, and the hunters will be given a compass that they can use to track the nearest runner. 
 When all runners are dead the hunters win but if one of the runners kills the Ender Dragon the runners win. 
 The runners cannot respawn, but the hunters can.
+For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhunt/rulebook) (obviously you can make up your own rules if these don't fit your taste).
 
 ## Contributing
 Please report any bugs you find or improve our code and make a pull request! 
@@ -72,7 +74,7 @@ We use bStats to track how people use our plugin.
 ## Config
 The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
 
-Below is the default config. More documentation about the config can be found in the `docs` folder.
+Below is the default config. More documentation about the config can be found [here](https://radialbog9.github.io/MinecraftManhunt/config).
 ```yaml
 # Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
 # Set to false for a more authentic manhunt.
