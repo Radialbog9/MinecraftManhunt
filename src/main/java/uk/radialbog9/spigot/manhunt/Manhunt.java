@@ -26,7 +26,7 @@ import java.util.logging.Level;
 
 @SuppressWarnings("ConstantConditions")
 
-@Plugin(name = "Manhunt", version = "1.0.1")
+@Plugin(name = "Manhunt", version = "2.0.1")
 @Author("Radialbog9")
 @Description("Play Dream's iconic Manhunt game!")
 

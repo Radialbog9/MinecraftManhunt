@@ -89,12 +89,12 @@ public class ManhuntEventHandler implements Listener {
                 p.setCompassTarget(closestPlayer.getLocation());
                 p.sendMessage(Utils.getMsgColor(
                         "&6[Manhunt]&r&a Tracking player &c" +
-                                closestPlayer.getDisplayName() +
+                                closestPlayer.getDisplayName() /* +
                         "&r&a (&r&c" +
                                 Utils.roundToNearestTen(Integer.parseInt(String.valueOf(closestPlayer.getLocation().getX()))) +
                         "&r&a, &r&c" +
                                 Utils.roundToNearestTen(Integer.parseInt(String.valueOf(closestPlayer.getLocation().getZ()))) +
-                        "&r&a)"
+                        "&r&a)" */
                 )); //TODO
             }
         }
