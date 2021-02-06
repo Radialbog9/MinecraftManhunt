@@ -263,8 +263,8 @@ public class ManhuntCommand implements CommandExecutor {
                         spectatorCount ++;
                     }
                 }
-                if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The game is &r&cstarted&r&a.")); //TODO
-                else sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The game is &r&cstopped&r&a.")); //TODO
+                if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-started")));
+                else sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-stopped")));
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There are &r&c" + hunterCount + "&r&a hunters, &r&c" + runnerCount + "&r&a runners, and &r&c" + spectatorCount + "&r&a spectators.")); //TODO
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Hunters: " + hunters)); //TODO
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Runners: " + runners)); //TODO

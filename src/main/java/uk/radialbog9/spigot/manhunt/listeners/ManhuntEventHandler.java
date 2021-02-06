@@ -1,6 +1,7 @@
 package uk.radialbog9.spigot.manhunt.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -20,6 +21,7 @@ import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+@SuppressWarnings("ConstantConditions")
 public class ManhuntEventHandler implements Listener {
     /**
      * Detects death for runners
@@ -42,7 +44,7 @@ public class ManhuntEventHandler implements Listener {
                     Bukkit.getServer().getPluginManager().callEvent(event);
                 } else {
                     //Else say they died and how many runners remain.
-                    Utils.broadcastServerMessage("&6[Manhunt]&r&a &c" + p.getDisplayName() + "&r&a died. There are now &r&c" + ManhuntVars.getRunners().size() + "&r&a remaining."); //TODO
+                    Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), p.getDisplayName(), ManhuntVars.getRunners().size()));
                 }
             }
         }
@@ -88,14 +90,8 @@ public class ManhuntEventHandler implements Listener {
                 //the closest runner has been found
                 p.setCompassTarget(closestPlayer.getLocation());
                 p.sendMessage(Utils.getMsgColor(
-                        "&6[Manhunt]&r&a Tracking player &c" +
-                                closestPlayer.getDisplayName() /* +
-                        "&r&a (&r&c" +
-                                Utils.roundToNearestTen(Integer.parseInt(String.valueOf(closestPlayer.getLocation().getX()))) +
-                        "&r&a, &r&c" +
-                                Utils.roundToNearestTen(Integer.parseInt(String.valueOf(closestPlayer.getLocation().getZ()))) +
-                        "&r&a)" */
-                )); //TODO
+                        String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), closestPlayer.getDisplayName())
+                ));
             }
         }
     }
@@ -108,7 +104,7 @@ public class ManhuntEventHandler implements Listener {
     public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
         if (ManhuntVars.isGameStarted()) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            e.getPlayer().sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a A game is in progress so you have been put into spectator!")); //TODO
+            e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.join-in-progress")));
         }
     }
 
@@ -121,7 +117,7 @@ public class ManhuntEventHandler implements Listener {
         if (ManhuntVars.isGameStarted()) {
             if (ManhuntVars.isRunner(e.getPlayer())) {
                 ManhuntVars.removeRunner(e.getPlayer());
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a runner."); //TODO
+                Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-disconnected"), e.getPlayer().getDisplayName()));
                 if (ManhuntVars.getRunners().isEmpty()) {
                     //If so broadcast event
                     ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ALL_RUNNERS_LEAVE);
@@ -130,7 +126,7 @@ public class ManhuntEventHandler implements Listener {
             }
             if (ManhuntVars.isHunter(e.getPlayer())) {
                 ManhuntVars.removeHunter(e.getPlayer());
-                Utils.broadcastServerMessage("&6[Manhunt]&r&a &r&c" + e.getPlayer().getDisplayName() + "&r&a has disconnected. They are no longer a hunter."); //TODO
+                Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.hunter-disconnected"), e.getPlayer().getDisplayName()));
                 if(ManhuntVars.getHunters().isEmpty()) {
                     //If so broadcast event
                     ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ALL_HUNTERS_LEAVE);

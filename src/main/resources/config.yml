@@ -14,7 +14,7 @@
 #                               Minecraft Manhunt by Radialbog9                                      #
 ######################################################################################################
 
-# Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
+# Gives runner(s) a head start by giving hunter(s) blindness, slowness, and weakness
 # Set to false for a more authentic manhunt.
 head-start:
   # Head start enabled?
@@ -54,4 +54,11 @@ language:
   game-already-in-progress: '&6[Manhunt]&r&a A game is already in progress!'
   now-spectating-player: '&6[Manhunt]&r&a You are now spectating&c %s&r&a.'
   too-few-players: '&6[Manhunt]&r&a The game must have at least 1 hunter and 1 runner!'
+  tracking-player: '&6[Manhunt]&r&a Tracking player&r&c %s&r&a.'
+  join-in-progress: '&6[Manhunt]&r&a A game is in progress so you have been put into spectator!'
+  runner-died: '&6[Manhunt]&r&c %s &r&adied. There are now&r&c %s &r&aremaining.'
+  runner-disconnected: '&6[Manhunt]&r&c %s &r&ahas disconnected. They are no longer a runner.'
+  hunter-disconnected: '&6[Manhunt]&r&c %s &r&ahas disconnected. They are no longer a hunter.'
+  game-is-started: '&6[Manhunt]&r&a The game is &r&cstarted&r&a.'
+  game-is-stopped: '&6[Manhunt]&r&a The game is &r&cstopped&r&a.'
   

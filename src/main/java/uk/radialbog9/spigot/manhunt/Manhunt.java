@@ -6,6 +6,7 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.annotation.command.Command;
 import org.bukkit.plugin.java.annotation.permission.Permission;
+import org.bukkit.plugin.java.annotation.plugin.ApiVersion;
 import org.bukkit.plugin.java.annotation.plugin.Description;
 import org.bukkit.plugin.java.annotation.plugin.Plugin;
 import org.bukkit.plugin.java.annotation.plugin.author.Author;
@@ -27,6 +28,7 @@ import java.util.logging.Level;
 @SuppressWarnings("ConstantConditions")
 
 @Plugin(name = "Manhunt", version = "2.0.1")
+@ApiVersion(ApiVersion.Target.DEFAULT)
 @Author("Radialbog9")
 @Description("Play Dream's iconic Manhunt game!")
 

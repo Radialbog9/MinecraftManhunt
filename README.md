@@ -30,7 +30,7 @@ His videos are awesome, and you should [check him out](https://www.youtube.com/D
 ---
 
 ## Notice
-___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/).___
+___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
 
 ---
 Progress so far:
@@ -89,6 +89,6 @@ head-start:
 language:
   no-command-specified: '&6[Manhunt]&r&a No command specified. Type /manhunt help for command help.'
   # ...
-  player-not-online: '&6[Manhunt]&r&a The player&r&c %s &r&ais not online!' # '%s' is replaced with the player name #
+  player-not-online: '&6[Manhunt]&r&a The player&r&c %s &r&ais not online!' # '%s' is replaced with the player name
   # ...
 ```
