@@ -1,5 +1,6 @@
 package uk.radialbog9.spigot.manhunt.commands;
 
+import de.myzelyam.api.vanish.VanishAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+@SuppressWarnings("ConstantConditions")
 public class ManhuntCommand implements CommandExecutor {
 
     /**
@@ -169,12 +171,11 @@ public class ManhuntCommand implements CommandExecutor {
                             }
                         } else {
                             //player does not exist/is not online
-                            String a = Manhunt.getInstance().getConfig().getString("language.player-not-online");
-                            if(a != null) sender.sendMessage(Utils.getMsgColor(String.format(a, args[0])));
+                            sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.player-not-online"), args[0])));
                         }
                     } else {
                         //cannot remove players in a game
-                        sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a You can not remove players while the game is ongoing.")); //TODO
+                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-remove-in-game")));
                     }
                 }
             } else {
@@ -249,24 +250,46 @@ public class ManhuntCommand implements CommandExecutor {
                 int hunterCount = ManhuntVars.getHunters().size();
                 int runnerCount = ManhuntVars.getRunners().size();
                 int spectatorCount = 0;
-                //loop all players for list and spectator count
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    if (ManhuntVars.isHunter(p)) {
-                        if (hunters.toString().equals("")) hunters = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                        else hunters.append(", &r&c").append(p.getDisplayName()).append("&r&a");
-                    } else if (ManhuntVars.isRunner(p)) {
-                        if (runners.toString().equals("")) runners = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                        else runners.append(", &r&c").append(p.getDisplayName()).append("&r&a");
-                    } else {
-                        if (spectators.toString().equals("")) spectators = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                        else spectators.append(", &r&c").append(p.getDisplayName()).append("&r&a");
-                        spectatorCount ++;
+
+                if(sender instanceof Player && ManhuntVars.getVanishEnabled()) {
+                    //Vanish support detected and sender is player
+                    Player pl = (Player) sender;
+                    //Generate player list
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        if (ManhuntVars.isHunter(p)) {
+                            if (hunters.toString().equals("")) hunters = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                            else hunters.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                        } else if (ManhuntVars.isRunner(p)) {
+                            if (runners.toString().equals("")) runners = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                            else runners.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                        } else {
+                            if(!VanishAPI.canSee(pl, p)) continue;
+                            if (spectators.toString().equals("")) spectators = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                            else spectators.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                            spectatorCount ++;
+                        }
+                    }
+                } else {
+                    //Vanish support not detected or sender isn't player
+                    //Generate player list
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        if (ManhuntVars.isHunter(p)) {
+                            if (hunters.toString().equals("")) hunters = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                            else hunters.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                        } else if (ManhuntVars.isRunner(p)) {
+                            if (runners.toString().equals("")) runners = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                            else runners.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                        } else {
+                            if (spectators.toString().equals("")) spectators = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
+                            else spectators.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                            spectatorCount ++;
+                        }
                     }
                 }
                 if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-started")));
                 else sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-stopped")));
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There are &r&c" + hunterCount + "&r&a hunters, &r&c" + runnerCount + "&r&a runners, and &r&c" + spectatorCount + "&r&a spectators.")); //TODO
-                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Hunters: " + hunters)); //TODO
+                sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.hunter-list")), hunters)));
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Runners: " + runners)); //TODO
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Spectators: " + spectators)); //TODO
             } else {

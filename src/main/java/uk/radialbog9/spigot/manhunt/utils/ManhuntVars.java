@@ -15,6 +15,8 @@ public class ManhuntVars {
 
     private static HashMap<Player, PlayerConfig> playerConfigMap = new HashMap<>();
 
+    private static boolean vanishEnabled;
+
 
     /**
      * Checks if game is started
@@ -120,5 +122,13 @@ public class ManhuntVars {
     public static PlayerConfig getPlayerConfig(Player p) {
         if(!playerConfigMap.containsKey(p)) playerConfigMap.put(p, new PlayerConfig(p));
         return playerConfigMap.get(p);
+    }
+
+    public static boolean getVanishEnabled() {
+        return ManhuntVars.vanishEnabled;
+    }
+
+    public static void setVanishEnabled(boolean vanishEnabled) {
+        ManhuntVars.vanishEnabled = vanishEnabled;
     }
 }

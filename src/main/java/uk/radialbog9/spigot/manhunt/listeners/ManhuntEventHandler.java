@@ -1,7 +1,6 @@
 package uk.radialbog9.spigot.manhunt.listeners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -90,7 +89,7 @@ public class ManhuntEventHandler implements Listener {
                 //the closest runner has been found
                 p.setCompassTarget(closestPlayer.getLocation());
                 p.sendMessage(Utils.getMsgColor(
-                        String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), closestPlayer.getDisplayName())
+                        String.format(Manhunt.getInstance().getConfig().getString("language.tracking-player"), closestPlayer.getDisplayName())
                 ));
             }
         }

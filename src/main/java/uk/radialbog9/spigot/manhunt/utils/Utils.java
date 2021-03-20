@@ -1,10 +1,15 @@
 package uk.radialbog9.spigot.manhunt.utils;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Utilities to use
@@ -72,17 +77,48 @@ public class Utils {
     }
 
     /**
-     * Round to nearest ten
-     * @param n int Number
-     * @return int Number rounded to nearest ten
+     * Generate a text component with hover and run command click event
+     * @param text String contents of message
+     * @param command String command to run
+     * @param hover String hover
+     * @return TextComponent the generated text component
      */
-    public static int roundToNearestTen(int n)
-    {
-        // Smaller multiple
-        int a = (n / 10) * 10;
-        // Larger multiple
-        int b = a + 10;
-        // Return of closest of two
-        return (n - a > b - n)? b : a;
+    public static TextComponent genTextComponentRunCommand(@NotNull String text, @NotNull String command, String hover) {
+        TextComponent tc = new TextComponent(getMsgColor(text));
+        if(hover != null) tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
+        tc.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+        return tc;
+    }
+    /**
+     * Generate a text component and run command click event
+     * @param text String contents of message
+     * @param command String command to run
+     * @return TextComponent the generated text component
+     */
+    public static TextComponent genTextComponentRunCommand(@NotNull String text, @NotNull String command) {
+        return genTextComponentRunCommand(text, command, null);
+    }
+
+    /**
+     * Generate a text component with hover and run suggest command click event
+     * @param text String contents of message
+     * @param command String command to run
+     * @param hover String hover
+     * @return TextComponent the generated text component
+     */
+    public static TextComponent genTextComponentSuggestCommand(@NotNull String text, @NotNull String command, String hover) {
+        TextComponent tc = new TextComponent(getMsgColor(text));
+        if(hover != null) tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
+        tc.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
+        return tc;
+    }
+    /**
+     * Generate a text component and run suggest command click event
+     * @param text String contents of message
+     * @param command String command to run
+     * @return TextComponent the generated text component
+     */
+    public static TextComponent genTextComponentSuggestCommand(@NotNull String text, @NotNull String command) {
+        return genTextComponentSuggestCommand(text, command, null);
     }
 }

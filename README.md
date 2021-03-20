@@ -44,7 +44,6 @@ Progress so far:
 * Finish player data local storage
 
 To do:
-* Possibly add SuperVanish/PremiumVanish integration for player list
 * Finish moving language to config file
 
 ---
@@ -60,6 +59,9 @@ When the game is started, all other players will be put into spectator, and the 
 When all runners are dead the hunters win but if one of the runners kills the Ender Dragon the runners win. 
 The runners cannot respawn, but the hunters can.
 For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhunt/rulebook) (obviously you can make up your own rules if these don't fit your taste).
+
+##Dependencies
+This plugin does not have any dependencies, but it will work with SuperVanish or PremiumVanish to hide any spectators who are in vanish.
 
 ## Contributing
 Please report any bugs you find or improve our code and make a pull request! 
