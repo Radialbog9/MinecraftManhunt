@@ -15,7 +15,7 @@
 ######################################################################################################
 
 ### Settings ###
-# These are the default settings, most of which can be changed in the new settings menu
+# These are the default settings, most of which can be changed in the upcoming settings menu
 
 # Gives runner(s) a head start by giving hunter(s) blindness, slowness, and weakness
 # Set to false for a more authentic manhunt.
@@ -92,6 +92,7 @@ language:
   runner-list: '&6[Manhunt]&r&a Runners: %s'
   spectator-list: '&6[Manhunt]&r&a Spectators: %s'
   # - The two variables below at default values would give something like "&r&cNotch&r&a, &r&cjeb_&r&a" in the manhunt player list
+  # - If you change display names with Essentials they will show up here instead of the player names
   list-name-prefix: '&r&c'
   list-name-suffix: '&r&a'
   # Spectate command
