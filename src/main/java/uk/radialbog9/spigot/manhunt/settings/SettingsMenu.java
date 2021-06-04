@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Radialbog9 and contributors.
+ * You are allowed to use this code under the GPLv3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
+ */
+
 package uk.radialbog9.spigot.manhunt.settings;
 
 import org.bukkit.entity.Player;
@@ -9,18 +14,18 @@ public class SettingsMenu {
         p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.title")));
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start")),
-                "/manhunt settings headstart",
+                "/manhunt settings headstart toggle",
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-toggle"))
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start-timer")),
-                "/manhunt settings headstarttimer ",
+                "/manhunt settings headstarttimer " + ManhuntSettings.getHeadStartTime(),
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
         ));
 
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.start-game")),
-                "/manhunt settings headstarttimer ",
+                "/manhunt start",
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-start"))
         ));
     }

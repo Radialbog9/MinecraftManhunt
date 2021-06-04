@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Radialbog9 and contributors.
+ * You are allowed to use this code under the GPLv3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
+ */
 package uk.radialbog9.spigot.manhunt.commands;
 
 import de.myzelyam.api.vanish.VanishAPI;
@@ -11,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
@@ -28,7 +33,7 @@ public class ManhuntCommand implements CommandExecutor {
      * @param args String[] arguments
      * @return boolean always true (argument and permission messages handled in command)
      */
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if(args.length == 0) {
             sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a No command specified. Type /manhunt help for command help."));
         } else if (args[0].equalsIgnoreCase("help")) {
@@ -288,7 +293,8 @@ public class ManhuntCommand implements CommandExecutor {
                 }
                 if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-started")));
                 else sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-stopped")));
-                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There are &r&c" + hunterCount + "&r&a hunters, &r&c" + runnerCount + "&r&a runners, and &r&c" + spectatorCount + "&r&a spectators.")); //TODO
+                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.list-count"), hunterCount, runnerCount, spectatorCount)));
+                //sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There are &r&c" + hunterCount + "&r&a hunters, &r&c" + runnerCount + "&r&a runners, and &r&c" + spectatorCount + "&r&a spectators."));
                 sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.hunter-list")), hunters)));
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Runners: " + runners)); //TODO
                 sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Spectators: " + spectators)); //TODO
