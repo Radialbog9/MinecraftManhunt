@@ -12,12 +12,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
+import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
+import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -35,7 +38,7 @@ public class ManhuntCommand implements CommandExecutor {
      */
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if(args.length == 0) {
-            sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a No command specified. Type /manhunt help for command help."));
+            sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a No command specified. Type /manhunt help for command help.")); //TODO
         } else if (args[0].equalsIgnoreCase("help")) {
             sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Command Help:"));
             sender.sendMessage(Utils.getMsgColor("&a- &c/manhunt help &r&a- &r&eShows help"));
@@ -66,18 +69,22 @@ public class ManhuntCommand implements CommandExecutor {
                         //game is not started, we can change hunters and runners
                         //check if player exists
                         Player pl = Bukkit.getPlayer(args[1]);
-                        if(pl != null) {
+                        boolean playerExists = pl != null;
+                        boolean canSee = true;
+                        if(playerExists && ManhuntVars.getVanishEnabled() && sender instanceof Player)
+                            canSee = VanishAPI.canSee((Player) sender, pl);
+                        if(playerExists && canSee) {
                             //player exists
                             //check if already hunter
                             if(!ManhuntVars.isHunter(pl)) {
                                 //player isn't hunter already - add them
                                 if(ManhuntVars.isRunner(pl)) ManhuntVars.removeRunner(pl);
                                 ManhuntVars.addHunter(pl);
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is now a hunter!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-now-hunter"), pl.getDisplayName())));
                                 pl.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.now-hunter")));
                             } else {
                                 //already a hunter
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is already a hunter!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-already-hunter"), pl.getDisplayName())));
                             }
                         } else {
                             //player does not exist/is not online
@@ -112,18 +119,22 @@ public class ManhuntCommand implements CommandExecutor {
                         //game is not started, we can change hunters and runners
                         //check if player exists
                         Player pl = Bukkit.getPlayer(args[1]);
-                        if(pl != null) {
+                        boolean playerExists = pl != null;
+                        boolean canSee = true;
+                        if(playerExists && ManhuntVars.getVanishEnabled() && sender instanceof Player)
+                            canSee = VanishAPI.canSee((Player) sender, pl);
+                        if(playerExists && canSee) {
                             //player exists
                             //check if already runner
                             if(!ManhuntVars.isRunner(pl)) {
                                 //player isn't runner already - add them
                                 if(ManhuntVars.isHunter(pl)) ManhuntVars.removeHunter(pl);
                                 ManhuntVars.addRunner(pl);
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is now a runner!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-now-runner"), pl.getDisplayName())));
                                 pl.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.now-runner")));
                             } else {
                                 //already a hunter
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is already a runner!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-already-hunter"), pl.getDisplayName())));
                             }
                         } else {
                             //player does not exist/is not online
@@ -158,21 +169,27 @@ public class ManhuntCommand implements CommandExecutor {
                         //game is not started, we can
                         //check if player exists
                         Player pl = Bukkit.getPlayer(args[1]);
-                        if(pl != null) {
+
+                        boolean playerExists = pl != null;
+                        boolean canSee = true;
+                        if(playerExists && ManhuntVars.getVanishEnabled() && sender instanceof Player)
+                            canSee = VanishAPI.canSee((Player) sender, pl);
+
+                        if(playerExists && canSee) {
                             //player exists
                             //check if runner or hunter
                             if(ManhuntVars.isHunter(pl)) {
                                 //set as spectator
                                 ManhuntVars.removeHunter(pl);
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is now a spectator!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-now-spectator"), pl.getDisplayName())));
                                 pl.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.now-spectator")));
                             } else if(ManhuntVars.isRunner(pl)) {
                                 ManhuntVars.removeRunner(pl);
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is now a spectator!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-now-spectator"), pl.getDisplayName())));
                                 pl.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.now-spectator")));
                             } else {
                                 //player is already spectator
-                                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a The player &r&c" + pl.getDisplayName() + "&r&a is already a spectator!")); //TODO
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-already-spectator"), pl.getDisplayName())));
                             }
                         } else {
                             //player does not exist/is not online
@@ -194,39 +211,8 @@ public class ManhuntCommand implements CommandExecutor {
                 if(!ManhuntVars.isGameStarted()) {
                     //game is not started, start it if there is enough players
                     if (ManhuntVars.getHunters().size() >= 1 && ManhuntVars.getRunners().size() >= 1) {
-                        //enough players
-                        for(Player p : Bukkit.getOnlinePlayers()) {
-                            if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) {
-                                //HUNTERS AND RUNNERS
-                                //set gamemode to survival
-                                p.setGameMode(GameMode.SURVIVAL);
-                                //clear inventory
-                                p.getInventory().clear();
-                                //set health, hunger and XP
-                                p.setHealth(20);
-                                p.setLevel(0);
-                                p.setExp(0);
-                                p.setFoodLevel(20);
-                                //TP to spawn
-                                p.teleport(p.getWorld().getSpawnLocation());
-                                if(ManhuntVars.isHunter(p)) {
-                                    //give blindness and weakness for 5 seconds
-                                    if(Manhunt.getInstance().getConfig().getBoolean("head-start.enabled")) {
-                                        new PotionEffect(PotionEffectType.WEAKNESS, Manhunt.getInstance().getConfig().getInt("head-start.length") * 20, 10, false, false).apply(p);
-                                        new PotionEffect(PotionEffectType.BLINDNESS, Manhunt.getInstance().getConfig().getInt("head-start.length") * 20, 10, false, false).apply(p);
-                                    }
-                                    //give player compass
-                                    p.getInventory().addItem(new ItemStack(Material.COMPASS));
-                                }
-                            } else {
-                                //SPECTATORS
-                                //Set spectator gamemode
-                                p.setGameMode(GameMode.SPECTATOR);
-                            }
-                        }
-                        //set game as started
-                        ManhuntVars.setGameStarted(true);
-                        Utils.broadcastServerMessage(Manhunt.getInstance().getConfig().getString("language.game-started"));
+                        Event event = new ManhuntGameStartEvent();
+                        Bukkit.getServer().getPluginManager().callEvent(event);
                     } else {
                         sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-few-players")));
                     }
@@ -294,14 +280,15 @@ public class ManhuntCommand implements CommandExecutor {
                 if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-started")));
                 else sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-stopped")));
                 sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.list-count"), hunterCount, runnerCount, spectatorCount)));
-                //sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a There are &r&c" + hunterCount + "&r&a hunters, &r&c" + runnerCount + "&r&a runners, and &r&c" + spectatorCount + "&r&a spectators."));
                 sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.hunter-list")), hunters)));
-                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Runners: " + runners)); //TODO
-                sender.sendMessage(Utils.getMsgColor("&6[Manhunt]&r&a Spectators: " + spectators)); //TODO
+                sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.runner-list")), runners)));
+                sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.spectator-list")), spectators)));
             } else {
                 //no perm
                 sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
             }
+        } else if (args[0].equalsIgnoreCase("settings")) {
+            if(sender instanceof Player) SettingsMenu.displayMenu((Player) sender);
         } else {
             //unknown subcommand
             sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.unknown-subcommand")));

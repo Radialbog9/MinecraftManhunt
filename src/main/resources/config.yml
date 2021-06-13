@@ -15,7 +15,7 @@
 ######################################################################################################
 
 ### Settings ###
-# These are the default settings, most of which can be changed in the upcoming settings menu
+# These are the default settings, most of which will be changable in the upcoming settings menu
 
 # Gives runner(s) a head start by giving hunter(s) blindness, slowness, and weakness
 # Set to false for a more authentic manhunt.
@@ -25,20 +25,21 @@ head-start:
   # Length of the head start (in seconds)
   length: 30
 
-# Sends a welcome message to those who have manhunt permissions on join
-# Currently doesn't do anything
-join-message: true
-join-message-noperm: '&aWelcome to this Manhunt server!'
-join-message-perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!'
-
-# Kits feature
-# Currently doesn't do anything
+# Kits (incomplete feature; doesn't work yet)
 kits:
   runners:
     default:
+      - POISONOUS_POTATO
   hunters:
     default:
       - COMPASS
+
+
+### Join Message ###
+join-message:
+  enabled: true
+  noperm: '&aWelcome to this Manhunt server! The game will start shortly.'
+  perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!'
 
 ### Language ###
 # Some entries have required arguments (such as player names) which are indicated by '%s'.
@@ -58,6 +59,8 @@ language:
   no-subcommand-perm: '&a- You do not have permission for any sub-commands.'
   usage: '&6[Manhunt]&r&a Usage:&c %s'
   # Hunters
+  p-now-hunter: '&6[Manhunt]&r&c %s &r&ais now a hunter!'
+  p-already-hunter: '&6[Manhunt]&r&c %s &r&ais already a hunter!'
   now-hunter: '&6[Manhunt]&r&a You are now a hunter!'
   no-change-hunter-in-game: '&6[Manhunt]&r&a You can not change hunters while the game is ongoing.'
   hunter-disconnected: '&6[Manhunt]&r&c %s &r&ahas disconnected. They are no longer a hunter.'
@@ -65,11 +68,15 @@ language:
   tracking-player: '&6[Manhunt]&r&a Tracking player&r&c %s&r&a.'
   no-players-to-track: '&6[Manhunt]&r&a &cNo players found to track.'
   # Runners
+  p-now-runner: '&6[Manhunt]&r&c %s &r&ais now a runner!'
+  p-already-runner: '&6[Manhunt]&r&c %s &r&ais already a runner!'
   now-runner: '&6[Manhunt]&r&a You are now a runner!'
   no-change-runner-in-game: '&6[Manhunt]&r&a You can not change runners while the game is ongoing.'
-  runner-died: '&6[Manhunt]&r&c %s &r&adied. There are now&r&c %s &r&aremaining.'
+  runner-died: '&6[Manhunt]&r&c %s &r&adied. There are now&r&c %s &r&arunners remaining.'
   runner-disconnected: '&6[Manhunt]&r&c %s &r&ahas disconnected. They are no longer a runner.'
-  # Remove players
+  # Remove players/add spectator
+  p-now-spectator: '&6[Manhunt]&r&c %s &r&ais now a spectator!'
+  p-already-spectator: '&6[Manhunt]&r&c %s &r&ais already a spectator!'
   no-remove-in-game: '&6[Manhunt]&r&a You can not remove players while the game is ongoing.'
   now-spectator: '&6[Manhunt]&r&a You are now a spectator!'
   # Start and stop game
@@ -92,7 +99,7 @@ language:
   runner-list: '&6[Manhunt]&r&a Runners: %s'
   spectator-list: '&6[Manhunt]&r&a Spectators: %s'
   # - The two variables below at default values would give something like "&r&cNotch&r&a, &r&cjeb_&r&a" in the manhunt player list
-  # - If you change display names with Essentials they will show up here instead of the player names
+  # - If you change display names with Essentials or another plugin they will show up here instead of the player names
   list-name-prefix: '&r&c'
   list-name-suffix: '&r&a'
   # Spectate command

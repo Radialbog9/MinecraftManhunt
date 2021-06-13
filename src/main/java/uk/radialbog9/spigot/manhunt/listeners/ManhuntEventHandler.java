@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
+import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -156,5 +157,14 @@ public class ManhuntEventHandler implements Listener {
         }
     }
 
-
+    /**
+     * Detects player joining when game is not started
+     * @param e PlayerJoinEvent the event
+     */
+    @EventHandler
+    public void noGamePLayerJoinEvent(PlayerJoinEvent e) {
+        if(!ManhuntVars.isGameStarted() && Manhunt.getInstance().getConfig().getBoolean("")) {
+            if(e.getPlayer().hasPermission("")) return;
+        }
+    }
 }

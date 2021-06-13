@@ -24,6 +24,7 @@ import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEndEventListener;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
+import uk.radialbog9.spigot.manhunt.listeners.ManhuntStartEventListener;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -35,7 +36,7 @@ import java.util.logging.Level;
  * Main Manhunt plugin class
  */
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "unused"})
 
 @Plugin(name = "Manhunt", version = "2.0.1")
 @ApiVersion(ApiVersion.Target.DEFAULT)
@@ -81,8 +82,9 @@ public class Manhunt extends JavaPlugin {
         saveDefaultConfig();
         saveConfig();
         reloadConfig();
-        // Register events
+        // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
+        getServer().getPluginManager().registerEvents(new ManhuntStartEventListener(), this);
         getServer().getPluginManager().registerEvents(new ManhuntEndEventListener(), this);
         // Register commands
         this.getCommand("manhunt").setExecutor(new ManhuntCommand());

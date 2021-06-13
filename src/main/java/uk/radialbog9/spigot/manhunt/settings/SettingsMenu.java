@@ -9,17 +9,21 @@ import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+@SuppressWarnings("ConstantConditions")
 public class SettingsMenu {
-    public void displayMenu(Player p) {
+    public static void displayMenu(Player p) {
         p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.title")));
+        String headStartTickCross = ManhuntSettings.getHeadStartEnabled() ?
+                Manhunt.getInstance().getConfig().getString("language.settingsmenu.enabled") :
+                Manhunt.getInstance().getConfig().getString("language.settingsmenu.disabled");
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start")),
-                "/manhunt settings headstart toggle",
+                Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start"), headStartTickCross)),
+                "/manhunt settings headstarttoggle",
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-toggle"))
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start-timer")),
-                "/manhunt settings headstarttimer " + ManhuntSettings.getHeadStartTime(),
+                Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start-timer"), ManhuntSettings.getHeadStartTime())),
+                "/manhunt settings headstarttime " + ManhuntSettings.getHeadStartTime(),
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
         ));
 
