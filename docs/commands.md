@@ -15,13 +15,14 @@ All commands are listed below.
 | `/spectate <player>`                       | Teleports to a runner/hunter (only works if you're a spectator) |
 
 ## Permissions
-| Permission       | Description                                | Default     |
-|------------------|--------------------------------------------|-------------|
-| &lt;none&gt;     | Allows player to run `/manhunt help`       | All Players |
-| manhunt.add      | Allows player to add hunters/runners       | OP Players  |
-| manhunt.remove   | Allows player to remove a player           | OP Players  |
-| manhunt.start    | Allows player to start the game            | OP Players  |
-| manhunt.stop     | Allows player to end the game forcibly     | OP Players  |
-| manhunt.list     | Allows player to list hunters/runners      | All Players |
-| manhunt.reset    | Allows player to reset the game            | OP Players  |
-| manhunt.spectate | Allows players to use `/spectate <player>` | All Players |
+| Permission       | Description                                        | Default     |
+|------------------|----------------------------------------------------|-------------|
+| &lt;none&gt;     | Allows player to run `/manhunt help`               | All Players |
+| manhunt.add      | Allows player to add hunters/runners               | OP Players  |
+| manhunt.remove   | Allows player to remove a player                   | OP Players  |
+| manhunt.start    | Allows player to start the game                    | OP Players  |
+| manhunt.stop     | Allows player to end the game forcibly             | OP Players  |
+| manhunt.list     | Allows player to list hunters/runners              | All Players |
+| manhunt.reset    | Allows player to reset the game                    | OP Players  |
+| manhunt.spectate | Allows players to use `/spectate <player>`         | All Players |
+| manhunt.admin    | Lets players recieve admin join message if enabled | OP Players |

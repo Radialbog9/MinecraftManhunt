@@ -39,7 +39,7 @@ kits:
 join-message:
   enabled: true
   noperm: '&aWelcome to this Manhunt server! The game will start shortly.'
-  perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!'
+  perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings (beta) to change settings and start the game!'
 
 ### Language ###
 # Some entries have required arguments (such as player names) which are indicated by '%s'.
@@ -106,7 +106,7 @@ language:
   console-cannot-spectate: '&6[Manhunt]&r&a Console cannot spectate players!'
   not-spectator: '&6[Manhunt]&r&a You are not a spectator!'
   now-spectating-player: '&6[Manhunt]&r&a You are now spectating&c %s&r&a.'
-  # Settings menu (doesn't do anything yet)
+  # Settings menu (beta feature)
   settingsmenu:
     title: '&7---- &6Manhunt Settings Menu &7----'
     enabled: '&a✓'

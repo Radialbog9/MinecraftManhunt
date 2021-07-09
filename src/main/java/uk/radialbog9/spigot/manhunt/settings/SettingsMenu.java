@@ -11,6 +11,10 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @SuppressWarnings("ConstantConditions")
 public class SettingsMenu {
+    /**
+     * Displays settings menu to player
+     * @param p Player the player
+     */
     public static void displayMenu(Player p) {
         p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.title")));
         String headStartTickCross = ManhuntSettings.getHeadStartEnabled() ?
