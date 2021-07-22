@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2021 Radialbog9 and contributors.
- * You are allowed to use this code under the GPLv3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
+ * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 package uk.radialbog9.spigot.manhunt.commands;
 
@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
+import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -280,15 +281,50 @@ public class ManhuntCommand implements CommandExecutor {
                 if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-started")));
                 else sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-stopped")));
                 sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.list-count"), hunterCount, runnerCount, spectatorCount)));
-                sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.hunter-list")), hunters)));
-                sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.runner-list")), runners)));
-                sender.sendMessage(Utils.getMsgColor(String.format(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.spectator-list")), spectators)));
+                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.hunter-list"), hunters)));
+                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.runner-list"), runners)));
+                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.spectator-list"), spectators)));
             } else {
                 //no perm
                 sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
             }
         } else if (args[0].equalsIgnoreCase("settings")) {
-            if(sender instanceof Player) SettingsMenu.displayMenu((Player) sender);
+            if(sender.hasPermission("manhunt.settings")) {
+                if (args.length == 0) {
+                    if(sender instanceof Player) {
+                        SettingsMenu.displayMenu((Player) sender);
+                    } else {
+                        sender.sendMessage(Utils.getMsgColor("&cYou can't use the settings menu as console!"));
+                    }
+                } else if (args[1].equalsIgnoreCase("headstarttoggle")) {
+                    if(ManhuntSettings.getHeadStartEnabled()) {
+                        //head start enabled so disable it
+                        ManhuntSettings.setHeadStartEnabled(false);
+                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.head-start-disabled")));
+                    } else {
+                        //head start disabled so enable it
+                        ManhuntSettings.setHeadStartEnabled(true);
+                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.head-start-enabled")));
+                    }
+                } else if (args[1].equalsIgnoreCase("headstarttime")) {
+                    if(args.length == 2) {
+                        //no time has been specified
+                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.not-enough-args")));
+                    } else if (args.length > 3) {
+                        //too many args
+                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-many-args")));
+                    } else {
+                        //check if integer
+                        try {
+                            int time = Integer.parseInt(args[2]);
+                            ManhuntSettings.setHeadStartTime(time);
+                            sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.head-start-timer-set"), time)));
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.invalid-integer")));
+                        }
+                    }
+                }
+            }
         } else {
             //unknown subcommand
             sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.unknown-subcommand")));

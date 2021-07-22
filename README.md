@@ -17,7 +17,7 @@
 
 ---
 
-A unique take on Dream's manhunt game. 
+A unique take on Dream's manhunt game with many features. 
 None of his original source code has been used.
 
 All credit for the idea goes to Dream. 
@@ -64,15 +64,19 @@ For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhun
 This plugin does not have any dependencies, but it works with SuperVanish or PremiumVanish to hide any spectators who are in vanish from the Manhunt player list.
 
 ## Contributing
-Please report any bugs you find or improve our code and make a pull request! 
+Please report any bugs you find in a GitHub Issue or improve our code and make a pull request! 
 We're always open for suggestions!
+
+## API
+This plugin has a (somewhat simple) API for developers to use. 
+You can start and stop the game and access the list of runners and hunters.
+See [this page](https://radialbog9.github.io/api.md) for more info.
 
 ## bStats
 We use bStats to track how people use our plugin.
 > If you don't want bStats to collect data from your server, you can disable it in the bStats config file. This file can be found in the `/plugins/bStats/` folder.
 
 ---
-
 ## Config
 The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
 

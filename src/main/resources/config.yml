@@ -27,12 +27,21 @@ head-start:
 
 # Kits (incomplete feature; doesn't work yet)
 kits:
+  defaultkits:
+    runner: default
+    hunter: default
   runners:
     default:
-      - POISONOUS_POTATO
+      items:
+        '1':
+          material: "POISONOUS_POTATO"
+          quantity: 1
   hunters:
     default:
-      - COMPASS
+      items:
+        '1':
+          material: "COMPASS"
+          quantity: 1
 
 
 ### Join Message ###
@@ -51,6 +60,7 @@ language:
   unknown-subcommand: '&6[Manhunt]&r&a Unknown subcommand!'
   not-enough-args: '&6[Manhunt]&r&a Not enough arguments!'
   too-many-args: '&6[Manhunt]&r&a Too many arguments!'
+  invalid-integer: '&6[Manhunt]&r&a You have typed an invalid integer!'
   no-game-in-progress: '&6[Manhunt]&r&a There is no game in progress.'
   join-in-progress: '&6[Manhunt]&r&a A game is in progress so you have been put into spectator!'
   # Main command
@@ -106,6 +116,10 @@ language:
   console-cannot-spectate: '&6[Manhunt]&r&a Console cannot spectate players!'
   not-spectator: '&6[Manhunt]&r&a You are not a spectator!'
   now-spectating-player: '&6[Manhunt]&r&a You are now spectating&c %s&r&a.'
+  # Settings
+  head-start-enabled: '&6[Manhunt]&r&a Head Start is now enabled!'
+  head-start-disabled: '&6[Manhunt]&r&a Head Start is now disabled!'
+  head-start-timer-set: '&6[Manhunt]&r&a Head Start Timer has been set to&c %s &r&aseconds.'
   # Settings menu (beta feature)
   settingsmenu:
     title: '&7---- &6Manhunt Settings Menu &7----'

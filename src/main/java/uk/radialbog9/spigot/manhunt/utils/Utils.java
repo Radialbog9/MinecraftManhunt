@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2021 Radialbog9 and contributors.
- * You are allowed to use this code under the GPLv3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
+ * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
 package uk.radialbog9.spigot.manhunt.utils;
@@ -12,22 +12,33 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.kits.Kit;
+import uk.radialbog9.spigot.manhunt.kits.KitType;
+
+import java.util.ArrayList;
 
 /**
- * Utilities to use
+ * Utilities that are used throughout the plugin
  */
+@SuppressWarnings({"ConstantConditions", "unused"})
 public class Utils {
 
-    private static String[] manhuntPermissions = {
+    private static final String[] manhuntPermissions = {
             "manhunt.add",
             "manhunt.remove",
             "manhunt.start",
             "manhunt.stop",
             "manhunt.list",
-            "manhunt.spectate"
+            "manhunt.spectate",
+            "manhunt.admin",
+            "manhunt.settings"
     };
 
     /**
@@ -125,5 +136,26 @@ public class Utils {
      */
     public static TextComponent genTextComponentSuggestCommand(@NotNull String text, @NotNull String command) {
         return genTextComponentSuggestCommand(text, command, null);
+    }
+
+    /**
+     * Retrieves hunter kits from the config
+     * @see Kit
+     * @return ArrayList&lt;Kit&gt; the kit
+     */
+    public static ArrayList<Kit> getHunterKits() {
+        ArrayList<Kit> kits = new ArrayList<>();
+        ConfigurationSection hunterKitsSection = Manhunt.getInstance().getConfig().getConfigurationSection("kits.hunters");
+        for (String key : hunterKitsSection.getKeys(false)) {
+            ConfigurationSection kitsec = hunterKitsSection.getConfigurationSection(key);
+            ArrayList<ItemStack> itemStacks = new ArrayList<>();
+            for (String stack : kitsec.getConfigurationSection("items").getKeys(false)) {
+                int amount = Math.min(kitsec.getConfigurationSection(stack).getInt("quantity"), 64);
+                ItemStack itemStack = new ItemStack(Material.getMaterial(kitsec.getConfigurationSection(stack).getString("item")), amount);
+                itemStacks.add(itemStack);
+            }
+            Kit thisKit = new Kit(key, KitType.HUNTER, itemStacks);
+        }
+        return kits;
     }
 }
