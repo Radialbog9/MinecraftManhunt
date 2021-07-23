@@ -11,6 +11,7 @@
 
     <groupId>uk.radialbog9.spigot</groupId>
     <artifactId>MinecraftManhunt</artifactId>
+    <packaging>jar</packaging>
     <version>2.0.2-SNAPSHOT</version>
 
     <repositories>
@@ -87,4 +88,19 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Append build number to end of filename if building on Jenkins (no idea if this'll work) -->
+        <profile>
+            <id>jenkins-build</id>
+            <activation>
+                <property>
+                    <name>env.BUILD_NUMBER</name>
+                </property>
+            </activation>
+            <build>
+                <finalName>${project.artifactId}-${project.version}_${env.BUILD_NUMBER}</finalName>
+            </build>
+        </profile>
+    </profiles>
 </project>
