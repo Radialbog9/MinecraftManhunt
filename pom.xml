@@ -23,6 +23,7 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
     <dependencies>
         <!-- Spigot API -->
         <dependency>
@@ -43,6 +44,7 @@
             <artifactId>SuperVanish</artifactId>
             <version>6.2.0</version>
         </dependency>
+        <!-- JetBrains Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>

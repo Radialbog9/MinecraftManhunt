@@ -141,7 +141,7 @@ public class Utils {
     /**
      * Retrieves hunter kits from the config
      * @see Kit
-     * @return ArrayList&lt;Kit&gt; the kit
+     * @return ArrayList&lt;Kit&gt; the kit list
      */
     public static ArrayList<Kit> getHunterKits() {
         ArrayList<Kit> kits = new ArrayList<>();
@@ -155,6 +155,27 @@ public class Utils {
                 itemStacks.add(itemStack);
             }
             Kit thisKit = new Kit(key, KitType.HUNTER, itemStacks);
+        }
+        return kits;
+    }
+
+    /**
+     * Retrieves runner kits from the config
+     * @see Kit
+     * @return ArrayList&lt;Kit&gt; the kit list
+     */
+    public static ArrayList<Kit> getRunnerKits() {
+        ArrayList<Kit> kits = new ArrayList<>();
+        ConfigurationSection runnerKitsSection = Manhunt.getInstance().getConfig().getConfigurationSection("kits.runners");
+        for (String key : runnerKitsSection.getKeys(false)) {
+            ConfigurationSection kitsec = runnerKitsSection.getConfigurationSection(key);
+            ArrayList<ItemStack> itemStacks = new ArrayList<>();
+            for (String stack : kitsec.getConfigurationSection("items").getKeys(false)) {
+                int amount = Math.min(kitsec.getConfigurationSection(stack).getInt("quantity"), 64);
+                ItemStack itemStack = new ItemStack(Material.getMaterial(kitsec.getConfigurationSection(stack).getString("item")), amount);
+                itemStacks.add(itemStack);
+            }
+            Kit thisKit = new Kit(key, KitType.RUNNER, itemStacks);
         }
         return kits;
     }

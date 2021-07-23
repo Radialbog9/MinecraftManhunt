@@ -317,8 +317,13 @@ public class ManhuntCommand implements CommandExecutor {
                         //check if integer
                         try {
                             int time = Integer.parseInt(args[2]);
-                            ManhuntSettings.setHeadStartTime(time);
-                            sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.head-start-timer-set"), time)));
+                            if(time > 0) {
+                                ManhuntSettings.setHeadStartTime(time);
+                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.head-start-timer-set"), time)));
+                            }
+                            else {
+                                sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.invalid-integer")));
+                            }
                         } catch (NumberFormatException e) {
                             sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.invalid-integer")));
                         }
