@@ -290,7 +290,7 @@ public class ManhuntCommand implements CommandExecutor {
             }
         } else if (args[0].equalsIgnoreCase("settings")) {
             if(sender.hasPermission("manhunt.settings")) {
-                if (args.length == 0) {
+                if (args.length == 1) {
                     if(sender instanceof Player) {
                         SettingsMenu.displayMenu((Player) sender);
                     } else {

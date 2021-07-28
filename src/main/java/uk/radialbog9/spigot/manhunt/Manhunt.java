@@ -39,7 +39,7 @@ import java.util.logging.Level;
 @SuppressWarnings({"ConstantConditions", "unused"})
 
 @Plugin(name = "Manhunt", version = "2.0.1")
-@ApiVersion(ApiVersion.Target.DEFAULT)
+@ApiVersion(ApiVersion.Target.v1_16)
 @Author("Radialbog9")
 @Description("Play Dream's iconic Manhunt game!")
 @SoftDependsOn({
@@ -137,5 +137,4 @@ public class Manhunt extends JavaPlugin {
     public static void setInstance(Manhunt instance) {
         Manhunt.instance = instance;
     }
-
 }

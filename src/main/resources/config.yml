@@ -43,6 +43,16 @@ kits:
           material: "COMPASS"
           quantity: 1
 
+### SCENARIOS ###
+scenarios:
+  runner-creative:
+    # Runners are set to creative every `time` seconds.
+    time: 200
+    # Runners can keep creative for `duration` seconds.
+    duration: 5
+    # ALlow flying while runners in creative?
+    allow-fly: false
+
 
 ### Join Message ###
 join-message:
@@ -120,15 +130,19 @@ language:
   head-start-enabled: '&6[Manhunt]&r&a Head Start is now enabled!'
   head-start-disabled: '&6[Manhunt]&r&a Head Start is now disabled!'
   head-start-timer-set: '&6[Manhunt]&r&a Head Start Timer has been set to&c %s &r&aseconds.'
-  # Settings menu (beta feature)
+  # Settings menu
   settingsmenu:
     title: '&7---- &6Manhunt Settings Menu &7----'
     enabled: '&a✓'
     disabled: '&c✕'
     click-to-toggle: '&6Click to toggle!'
     click-to-change: '&6Click to change!'
+    click-to-add: '&6Click to add!'
     click-to-start: '&6Click to start!'
     options:
       head-start: '&7[ &r%s &r&7] &eHead start'
       head-start-timer: '&7[ &r&a%s seconds &r&7] &eHead start timer'
-      start-game: '&eStart game'
+      add-runner: '&eAdd Runner'
+      add-hunter: '&eAdd Hunter'
+      scenarios: '&eEdit scenarios (beta)'
+      start-game: '&e&lStart game'

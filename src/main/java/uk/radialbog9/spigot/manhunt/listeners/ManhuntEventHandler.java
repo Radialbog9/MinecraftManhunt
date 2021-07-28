@@ -8,11 +8,15 @@ package uk.radialbog9.spigot.manhunt.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Piglin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.PiglinBarterEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,6 +25,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
+import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -29,7 +34,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 public class ManhuntEventHandler implements Listener {
     /**
      * Detects death for runners
-     * @param e PlayerDeathEvent the event
+     * @param e the event
      */
     @EventHandler
     public void runnerDeathEvent(PlayerDeathEvent e) {
@@ -56,7 +61,7 @@ public class ManhuntEventHandler implements Listener {
 
     /**
      * Detects when hunters respawn and gives them a compass
-     * @param e PlayerDeathEvent the event
+     * @param e the event
      */
     @EventHandler
     public void hunterRespawnEvent(PlayerRespawnEvent e) {
@@ -70,7 +75,7 @@ public class ManhuntEventHandler implements Listener {
 
     /**
      * Detects compass right click for hunters.
-     * @param e PlayerInteractEvent the event
+     * @param e the event
      */
     @EventHandler
     public void compassRightClickEvent(PlayerInteractEvent e) {
@@ -102,7 +107,7 @@ public class ManhuntEventHandler implements Listener {
 
     /**
      * Detects when player joins server while the server is running a manhunt game.
-     * @param e PlayerJoinEvent the event
+     * @param e the event
      */
     @EventHandler
     public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
@@ -114,7 +119,7 @@ public class ManhuntEventHandler implements Listener {
 
     /**
      * Detects when hunter/runner leaves the server and sets them as a spectator
-     * @param e PlayerQuitEvent the event
+     * @param e the event
      */
     @EventHandler
     public void inGamePlayerLeaveEvent(PlayerQuitEvent e) {
@@ -142,7 +147,7 @@ public class ManhuntEventHandler implements Listener {
 
     /**
      * Detects ender dragon death.
-     * @param e EntityDeathEvent the event
+     * @param e the event
      */
     @EventHandler
     public void enderDragonDeathEvent(EntityDeathEvent e) {
@@ -157,8 +162,49 @@ public class ManhuntEventHandler implements Listener {
     }
 
     /**
+     * Allows use of "dream mode" to increase drop rates
+     * @param e the event
+     */
+    @EventHandler
+    public void dreamModeKillEvent(EntityDeathEvent e) {
+        if(ManhuntSettings.isDreamModeEnabled()) {
+            if(e.getEntityType() == EntityType.BLAZE && e.getEntity().getKiller() != null) {
+                Player killer = e.getEntity().getKiller();
+                if (killer.getInventory().getItemInMainHand().containsEnchantment(Enchantment.LOOT_BONUS_MOBS)) {
+                    e.getDrops().clear();
+                    e.getDrops().add(
+                            new ItemStack(
+                                    Material.BLAZE_ROD,
+                                    Math.min(killer.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS) + 1, 64)
+                            )
+                    );
+                } else {
+                    e.getDrops().clear();
+                    e.getDrops().add(new ItemStack(Material.BLAZE_ROD));
+                }
+                e.getEntity().getKiller().sendMessage("kill blaze");
+            } else if (e.getEntityType() == EntityType.ENDERMAN && e.getEntity().getKiller() != null) {
+                Player killer = e.getEntity().getKiller();
+                if (killer.getInventory().getItemInMainHand().containsEnchantment(Enchantment.LOOT_BONUS_MOBS)) {
+                    e.getDrops().clear();
+                    e.getDrops().add(
+                            new ItemStack(
+                                    Material.ENDER_PEARL,
+                                    Math.min(killer.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS) + 1, 16)
+                            )
+                    );
+                } else {
+                    e.getDrops().clear();
+                    e.getDrops().add(new ItemStack(Material.ENDER_PEARL));
+                }
+                e.getEntity().getKiller().sendMessage("kill enderman");
+            }
+        }
+    }
+
+    /**
      * Detects player joining when game is not started
-     * @param e PlayerJoinEvent the event
+     * @param e the event
      */
     @EventHandler
     public void noGamePLayerJoinEvent(PlayerJoinEvent e) {

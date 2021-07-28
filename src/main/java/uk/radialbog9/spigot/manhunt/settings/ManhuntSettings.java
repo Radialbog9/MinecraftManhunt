@@ -14,6 +14,8 @@ public class ManhuntSettings {
     private static boolean headStartEnabled = true;
     private static int headStartTime = 20;
 
+    private static boolean dreamModeEnabled = false;
+
     public static void save() {
         Manhunt.getInstance().getConfig().set("head-start.enabled", headStartEnabled);
         Manhunt.getInstance().getConfig().set("head-start.length", headStartTime);
@@ -37,5 +39,14 @@ public class ManhuntSettings {
     }
     public static void setHeadStartTime(int headStartTime) {
         ManhuntSettings.headStartTime = headStartTime;
+    }
+
+
+    public static boolean isDreamModeEnabled() {
+        return dreamModeEnabled;
+    }
+
+    public static void setDreamModeEnabled(boolean dreamModeEnabled) {
+        ManhuntSettings.dreamModeEnabled = dreamModeEnabled;
     }
 }

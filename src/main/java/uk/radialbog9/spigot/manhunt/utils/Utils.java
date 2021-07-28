@@ -23,6 +23,7 @@ import uk.radialbog9.spigot.manhunt.kits.Kit;
 import uk.radialbog9.spigot.manhunt.kits.KitType;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Utilities that are used throughout the plugin
@@ -130,9 +131,9 @@ public class Utils {
     }
     /**
      * Generate a text component and run suggest command click event
-     * @param text String contents of message
-     * @param command String command to run
-     * @return TextComponent the generated text component
+     * @param text contents of message
+     * @param command command to run
+     * @return The generated text component
      */
     public static TextComponent genTextComponentSuggestCommand(@NotNull String text, @NotNull String command) {
         return genTextComponentSuggestCommand(text, command, null);
@@ -141,7 +142,7 @@ public class Utils {
     /**
      * Retrieves hunter kits from the config
      * @see Kit
-     * @return ArrayList&lt;Kit&gt; the kit list
+     * @return The kit list
      */
     public static ArrayList<Kit> getHunterKits() {
         ArrayList<Kit> kits = new ArrayList<>();
@@ -162,7 +163,7 @@ public class Utils {
     /**
      * Retrieves runner kits from the config
      * @see Kit
-     * @return ArrayList&lt;Kit&gt; the kit list
+     * @return The kit list
      */
     public static ArrayList<Kit> getRunnerKits() {
         ArrayList<Kit> kits = new ArrayList<>();
@@ -178,5 +179,19 @@ public class Utils {
             Kit thisKit = new Kit(key, KitType.RUNNER, itemStacks);
         }
         return kits;
+    }
+
+    /**
+     * Generates random integers between 2 integers (inclusive)
+     * @param min minimum (inclusive)
+     * @param max maximum (inclusive)
+     * @return Random integer between min and max
+     */
+    public static int getRandomInt(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("Maximum value must be greater than minimum value!");
+        }
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }

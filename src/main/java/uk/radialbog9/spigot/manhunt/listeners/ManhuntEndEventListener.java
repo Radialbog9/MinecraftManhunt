@@ -45,7 +45,7 @@ public class ManhuntEndEventListener implements Listener {
             }
         }
         else if(e.getEndCause() == GameEndCause.RUNNERS_KILL_DRAGON) {
-            Utils.broadcastServerMessage(Manhunt.getInstance().getConfig().getString("language.no-more-hunters-left"));
+            Utils.broadcastServerMessage(Manhunt.getInstance().getConfig().getString("language.runners-kill-ender-dragon"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();

@@ -21,7 +21,7 @@ A unique take on Dream's manhunt game with many features.
 None of his original source code has been used.
 
 All credit for the idea goes to Dream. 
-His videos are awesome, and you should [check him out](https://www.youtube.com/Dream). 
+His Manhunt videos are awesome, and you should [check him out](https://www.youtube.com/Dream). 
 
 ---
 
@@ -33,25 +33,9 @@ His videos are awesome, and you should [check him out](https://www.youtube.com/D
 ___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
 
 ---
-Progress so far:
-* Added main game variables
-* Added runner death event
-* Added compass tracking for hunters
-* Add join event for when game is ongoing
-* Add hunter death event
-* Add commands
-* Add hunter win event
-* Finish player data local storage
-
-To do:
-* Finish moving language to config file
-
----
 
 ## Basic setup
-* Add the runners by typing command: `/manhunt runner <player>`.
-* Add the hunters by typing command: `/manhunt hunter <player>`.
-* Start the game by typing command: `/manhunt start`.
+* Change settings and add hunters/runners with `/manhunt settings`.
 * If you want to stop the game manually run `/manhunt stop`.
 
 ## Info
@@ -59,6 +43,14 @@ When the game is started, all other players will be put into spectator, and the 
 When all runners are dead the hunters win but if one of the runners kills the Ender Dragon the runners win. 
 The runners cannot respawn, but the hunters can.
 For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhunt/rulebook) (obviously you can make up your own rules if these don't fit your taste).
+
+## Features
+* Multiple hunters/runners support
+* SuperVanish/PremiumVanish support
+* "Dream mode" - increases drop rates on blaze/endermen and ender pearl barter rates
+* Spectator support
+* Auto-kicking on disconnect
+* Settings menu
 
 ##Dependencies
 This plugin does not have any dependencies, but it works with SuperVanish or PremiumVanish to hide any spectators who are in vanish from the Manhunt player list.
@@ -81,6 +73,7 @@ We use bStats to track how people use our plugin.
 The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
 
 Below is parts of the default config. More documentation about the config can be found [here](https://radialbog9.github.io/MinecraftManhunt/config).
+On large updates, you might have to delete the config file and let it regenerate.
 ```yaml
 # Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
 # Set to false for a more authentic manhunt.

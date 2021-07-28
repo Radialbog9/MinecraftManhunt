@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class ManhuntTabCompleter implements TabCompleter {
      * @return List&lt;String&gt;
      */
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-
+    public List<String> onTabComplete(@NotNull CommandSender sender, Command cmd, @NotNull String alias, String[] args) {
+        if(!cmd.getName().equalsIgnoreCase("manhunt")) return null;
 
         // /manhunt <command> command
         if(args.length == 1) {
@@ -37,6 +38,7 @@ public class ManhuntTabCompleter implements TabCompleter {
             if(sender.hasPermission("manhunt.list")) arguments.add("list");
             if(sender.hasPermission("manhunt.reset")) arguments.add("reset");
             if(sender.hasPermission("manhunt.remove")) arguments.add("remove");
+            if(sender.hasPermission("manhunt.settings")) arguments.add("settings");
             if(sender.hasPermission("manhunt.add")) {
                 arguments.add("hunter");
                 arguments.add("runner");
@@ -79,6 +81,15 @@ public class ManhuntTabCompleter implements TabCompleter {
             }
             return players;
         }
-        else return null;
+
+        // /manhunt settings <args> command
+        else if(args.length == 2 && args[0].equalsIgnoreCase("settings") && sender.hasPermission("manhunt.settings")) {
+            List<String> cmds = new ArrayList<>();
+            cmds.add("headstarttoggle");
+            cmds.add("headstarttime");
+            return cmds;
+        }
+
+        else return new ArrayList<>();
     }
 }

@@ -30,10 +30,26 @@ public class SettingsMenu {
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
                 Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start-timer"), ManhuntSettings.getHeadStartTime())),
-                "/manhunt settings headstarttime " + ManhuntSettings.getHeadStartTime(),
+                "/manhunt settings headstarttime ",
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
         ));
-
+        p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
+                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.add-runner")),
+                "/manhunt runner ",
+                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-add"))
+        ));
+        p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
+                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.add-hunter")),
+                "/manhunt hunter ",
+                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-add"))
+        ));
+        if(false) { //alternative to commenting out code
+            p.spigot().sendMessage(Utils.genTextComponentRunCommand(
+                    Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.scenarios")),
+                    "/manhunt scenarios",
+                    Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
+            ));
+        }
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.start-game")),
                 "/manhunt start",

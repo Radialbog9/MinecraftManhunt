@@ -25,7 +25,7 @@ public class ManhuntVars {
 
     /**
      * Checks if game is started
-     * @return boolean True if game is started, false if not
+     * @return True if game is started, false if not
      */
     public static boolean isGameStarted() {
         return ManhuntVars.gameStarted;
@@ -50,7 +50,7 @@ public class ManhuntVars {
     /**
      * Checks if current player is hunter
      * @param p Player
-     * @return boolean True if player is hunter, otherwise false.
+     * @return True if player is hunter, otherwise false.
      */
     public static boolean isHunter(Player p) {
         return ManhuntVars.hunters.contains(p);
@@ -90,7 +90,7 @@ public class ManhuntVars {
     /**
      * Checks if current player is runner
      * @param p Player
-     * @return boolean True if player is runner, otherwise false.
+     * @return True if player is runner, otherwise false.
      */
     public static boolean isRunner(Player p) {
         return ManhuntVars.runners.contains(p);
@@ -129,10 +129,18 @@ public class ManhuntVars {
         return playerConfigMap.get(p);
     }
 
+    /**
+     * Gets if SuperVanish/PremiumVanish is enabled on the server.
+     * @return If vanish is enabled
+     */
     public static boolean getVanishEnabled() {
         return ManhuntVars.vanishEnabled;
     }
 
+    /**
+     * Sets if SuperVanish/PremiumVanish is enabled on the server.
+     * @param vanishEnabled If vanish is enabled
+     */
     public static void setVanishEnabled(boolean vanishEnabled) {
         ManhuntVars.vanishEnabled = vanishEnabled;
     }
