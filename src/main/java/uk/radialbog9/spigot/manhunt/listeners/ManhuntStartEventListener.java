@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Radialbog9 and contributors.
+ * Copyright (c) 2021 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
@@ -57,6 +57,7 @@ public class ManhuntStartEventListener implements Listener {
         }
         //set game as started
         ManhuntVars.setGameStarted(true);
+        //new RandDisgScenario().runTaskTimer(Manhunt.getInstance(), 600, 6000);
         Utils.broadcastServerMessage(Manhunt.getInstance().getConfig().getString("language.game-started"));
     }
 }

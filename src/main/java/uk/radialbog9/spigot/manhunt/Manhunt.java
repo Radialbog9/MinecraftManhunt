@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2021 Radialbog9 and contributors.
+ * Copyright (c) 2021 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
 package uk.radialbog9.spigot.manhunt;
 
+import com.google.common.base.Charsets;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +33,10 @@ import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 
 /**
@@ -44,7 +51,8 @@ import java.util.logging.Level;
 @Description("Play Dream's iconic Manhunt game!")
 @SoftDependsOn({
         @SoftDependency("SuperVanish"),
-        @SoftDependency("PremiumVanish")
+        @SoftDependency("PremiumVanish"),
+        @SoftDependency("LibsDisguises")
 })
 
 @Commands({
@@ -75,6 +83,9 @@ import java.util.logging.Level;
 public class Manhunt extends JavaPlugin {
     private static Manhunt instance;
 
+    public static File langFile;
+    public static FileConfiguration languageConfig;
+
     /**
      * Called when plugin is enabled
      */
@@ -86,6 +97,8 @@ public class Manhunt extends JavaPlugin {
         saveDefaultConfig();
         saveConfig();
         reloadConfig();
+        // Load language
+        loadLang();
         // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
         getServer().getPluginManager().registerEvents(new ManhuntStartEventListener(), this);
@@ -102,6 +115,10 @@ public class Manhunt extends JavaPlugin {
         // SV/PV check
         ManhuntVars.setVanishEnabled(
                 getServer().getPluginManager().isPluginEnabled("SuperVanish") || getServer().getPluginManager().isPluginEnabled("PremiumVanish")
+        );
+        //LibsDisguises check
+        ManhuntVars.setLibsDisguisesEnabled(
+                getServer().getPluginManager().isPluginEnabled("LibsDisguises")
         );
         // Log start message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
@@ -136,5 +153,39 @@ public class Manhunt extends JavaPlugin {
      */
     public static void setInstance(Manhunt instance) {
         Manhunt.instance = instance;
+    }
+
+    /**
+     * Loads the language configuration fron lang.yml
+     */
+    public static void loadLang() {
+        langFile = new File(Manhunt.getInstance().getDataFolder(), "lang.yml");
+        if(!langFile.exists()) Manhunt.getInstance().saveResource("lang.yml", false);
+        languageConfig = YamlConfiguration.loadConfiguration(langFile);
+        try {
+            languageConfig.save(langFile);
+        } catch (IOException e) {
+            Manhunt.getInstance().getLogger().log(Level.SEVERE, "Could not save config to " + langFile, e);
+        }
+        reloadLang();
+    }
+
+    /**
+     * Loads the language configuration from lang.yml
+     */
+    public static void reloadLang() {
+        languageConfig = YamlConfiguration.loadConfiguration(langFile);
+        final InputStream defConfigStream = Manhunt.getInstance().getResource("lang.yml");
+        if (defConfigStream == null) {
+            return;
+        }
+        languageConfig.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8)));
+    }
+
+    public static FileConfiguration getLang() {
+        if(languageConfig == null) {
+            reloadLang();
+        }
+        return languageConfig;
     }
 }

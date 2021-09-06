@@ -3,8 +3,14 @@
  * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.utils;
+package uk.radialbog9.spigot.manhunt.scenario;
 
-public enum EndTrigger {
-    ENDER_DRAGON, TIMER
+public enum ScenarioType {
+    NONE,
+    RUNNER_RANDOM_MOB_DISGUISE,
+    HUNTER_RANDOM_MOB_DISGUISE,
+    RUNNER_RANDOM_HUNTER_DISGUISE,
+    HUNTER_CREATIVE,
+    RUNNER_CREATIVE,
+    ALL_CREATIVE
 }

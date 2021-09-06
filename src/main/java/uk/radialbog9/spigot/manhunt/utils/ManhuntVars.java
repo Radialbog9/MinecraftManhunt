@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Radialbog9 and contributors.
+ * Copyright (c) 2021 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
@@ -8,6 +8,7 @@ package uk.radialbog9.spigot.manhunt.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.playerconfig.PlayerConfig;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,10 @@ public class ManhuntVars {
     private static HashMap<Player, PlayerConfig> playerConfigMap = new HashMap<>();
 
     private static boolean vanishEnabled;
+
+    private static boolean libsDisguisesEnabled;
+
+    private static ScenarioType scenario;
 
 
     /**
@@ -130,18 +135,52 @@ public class ManhuntVars {
     }
 
     /**
-     * Gets if SuperVanish/PremiumVanish is enabled on the server.
-     * @return If vanish is enabled
+     * Gets if SuperVanish/PremiumVanish is enabled on the server
+     * @return If SuperVanish/PremiumVanish is enabled
      */
     public static boolean getVanishEnabled() {
         return ManhuntVars.vanishEnabled;
     }
 
     /**
-     * Sets if SuperVanish/PremiumVanish is enabled on the server.
+     * Sets if SuperVanish/PremiumVanish is enabled on the server (doesn't check if it actually is)
      * @param vanishEnabled If vanish is enabled
      */
     public static void setVanishEnabled(boolean vanishEnabled) {
         ManhuntVars.vanishEnabled = vanishEnabled;
+    }
+
+    /**
+     * Gets if libs disguises is found on the server
+     * @return If LibsDisguises is found on the server
+     */
+    public static boolean isLibsDisguisesEnabled() {
+        return ManhuntVars.libsDisguisesEnabled;
+    }
+
+    /**
+     * Sets if LibsDisguises is found on the server (doesn't check if it actually is)
+     * @param libsDisguisesEnabled If LibsDisguises is found on the server
+     */
+    public static void setLibsDisguisesEnabled(boolean libsDisguisesEnabled) {
+        ManhuntVars.libsDisguisesEnabled = libsDisguisesEnabled;
+    }
+
+    /**
+     * Gets the current scenario
+     * @return the current scenario
+     * @see ScenarioType
+     */
+    public static ScenarioType getCurrentScenario() {
+        return ManhuntVars.scenario;
+    }
+
+    /**
+     * Sets the current scenario (doesn't check for compatability)
+     * @param scenario the new scenario
+     * @see ScenarioType
+     */
+    public static void setCurrentScenario(ScenarioType scenario) {
+        ManhuntVars.scenario = scenario;
     }
 }
