@@ -25,6 +25,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -49,8 +50,7 @@ public class ManhuntEventHandler implements Listener {
                 ManhuntVars.removeRunner(p);
                 //Check if that was the last runner alive
                 if (ManhuntVars.getRunners().isEmpty()) {
-                    ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.RUNNERS_ALL_DIE);
-                    Bukkit.getServer().getPluginManager().callEvent(event);
+                    GameManager.endGame(GameEndCause.RUNNERS_ALL_DIE);
                 } else {
                     //Else say they died and how many runners remain.
                     Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), p.getDisplayName(), ManhuntVars.getRunners().size()));
@@ -129,8 +129,7 @@ public class ManhuntEventHandler implements Listener {
                 Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-disconnected"), e.getPlayer().getDisplayName()));
                 if (ManhuntVars.getRunners().isEmpty()) {
                     //If so broadcast event
-                    ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ALL_RUNNERS_LEAVE);
-                    Bukkit.getServer().getPluginManager().callEvent(event);
+                    GameManager.endGame(GameEndCause.ALL_RUNNERS_LEAVE);
                 }
             }
             if (ManhuntVars.isHunter(e.getPlayer())) {
@@ -138,8 +137,7 @@ public class ManhuntEventHandler implements Listener {
                 Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.hunter-disconnected"), e.getPlayer().getDisplayName()));
                 if(ManhuntVars.getHunters().isEmpty()) {
                     //If so broadcast event
-                    ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ALL_HUNTERS_LEAVE);
-                    Bukkit.getServer().getPluginManager().callEvent(event);
+                    GameManager.endGame(GameEndCause.ALL_HUNTERS_LEAVE);
                 }
             }
         }
@@ -155,8 +153,7 @@ public class ManhuntEventHandler implements Listener {
             //game is running, check for ender dragon death
             if(e.getEntityType() == EntityType.ENDER_DRAGON) {
                 //If so broadcast event
-                ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.RUNNERS_KILL_DRAGON);
-                Bukkit.getServer().getPluginManager().callEvent(event);
+                GameManager.endGame(GameEndCause.RUNNERS_KILL_DRAGON);
             }
         }
     }
@@ -182,7 +179,6 @@ public class ManhuntEventHandler implements Listener {
                     e.getDrops().clear();
                     e.getDrops().add(new ItemStack(Material.BLAZE_ROD));
                 }
-                e.getEntity().getKiller().sendMessage("kill blaze");
             } else if (e.getEntityType() == EntityType.ENDERMAN && e.getEntity().getKiller() != null) {
                 Player killer = e.getEntity().getKiller();
                 if (killer.getInventory().getItemInMainHand().containsEnchantment(Enchantment.LOOT_BONUS_MOBS)) {
@@ -197,7 +193,6 @@ public class ManhuntEventHandler implements Listener {
                     e.getDrops().clear();
                     e.getDrops().add(new ItemStack(Material.ENDER_PEARL));
                 }
-                e.getEntity().getKiller().sendMessage("kill enderman");
             }
         }
     }

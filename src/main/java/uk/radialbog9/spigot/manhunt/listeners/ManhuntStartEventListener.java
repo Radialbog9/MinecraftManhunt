@@ -25,39 +25,6 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
  */
 public class ManhuntStartEventListener implements Listener {
     @EventHandler
-    public void gameStartEvent(ManhuntGameStartEvent e) {
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) {
-                //HUNTERS AND RUNNERS
-                //set gamemode to survival
-                p.setGameMode(GameMode.SURVIVAL);
-                //clear inventory
-                p.getInventory().clear();
-                //set health, hunger and XP
-                p.setHealth(20);
-                p.setLevel(0);
-                p.setExp(0);
-                p.setFoodLevel(20);
-                //TP to spawn
-                p.teleport(p.getWorld().getSpawnLocation());
-                if(ManhuntVars.isHunter(p)) {
-                    //give blindness and weakness for 5 seconds
-                    if(ManhuntSettings.getHeadStartEnabled()) {
-                        new PotionEffect(PotionEffectType.WEAKNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
-                        new PotionEffect(PotionEffectType.BLINDNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
-                    }
-                    //give player compass
-                    p.getInventory().addItem(new ItemStack(Material.COMPASS));
-                }
-            } else {
-                //SPECTATORS
-                //Set spectator gamemode
-                p.setGameMode(GameMode.SPECTATOR);
-            }
-        }
-        //set game as started
-        ManhuntVars.setGameStarted(true);
-        //new RandDisgScenario().runTaskTimer(Manhunt.getInstance(), 600, 6000);
-        Utils.broadcastServerMessage(Manhunt.getInstance().getConfig().getString("language.game-started"));
-    }
+    public void gameStartEvent(ManhuntGameStartEvent e) {}
+
 }

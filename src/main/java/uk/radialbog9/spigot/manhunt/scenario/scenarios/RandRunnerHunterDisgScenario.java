@@ -9,28 +9,23 @@ import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
+import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
-public class RandRunnerMobDisgScenario extends BukkitRunnable {
+public class RandRunnerHunterDisgScenario extends BukkitRunnable {
     @Override
     public void run() {
-        if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted() /*&&
-                ManhuntVars.getCurrentScenario() == ScenarioType.RUNNER_RANDOM_MOB_DISGUISE*/) {
+        if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted() &&
+                ManhuntVars.getCurrentScenario() == ScenarioType.RUNNER_RANDOM_HUNTER_DISGUISE) {
             for(Player p : ManhuntVars.getRunners()) {
-                boolean isMobYet = false;
-                DisguiseType disguisetype = null;
-                while (!isMobYet) {
-                    int dis = Utils.getRandomInt(0, DisguiseType.values().length - 1);
-                    disguisetype = DisguiseType.values()[dis];
-                    isMobYet = disguisetype.isMob();
-                }
-                Disguise disguise = new MobDisguise(disguisetype);
+                Player randplayer = (Player) ManhuntVars.getHunters().toArray()[Utils.getRandomInt(0, ManhuntVars.getHunters().size() - 1)];
+                Disguise disguise = new PlayerDisguise(randplayer);
                 DisguiseAPI.disguiseEntity(p, disguise);
-                p.sendMessage("You are now a " + disguisetype.toReadable());
+                p.sendMessage("You are now disguised as " + randplayer.getDisplayName());
             }
         } else {
             this.cancel();

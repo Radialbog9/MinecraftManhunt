@@ -52,7 +52,8 @@ import java.util.logging.Level;
 @SoftDependsOn({
         @SoftDependency("SuperVanish"),
         @SoftDependency("PremiumVanish"),
-        @SoftDependency("LibsDisguises")
+        @SoftDependency("LibsDisguises"),
+        @SoftDependency("ProtocolLib")
 })
 
 @Commands({
@@ -101,8 +102,6 @@ public class Manhunt extends JavaPlugin {
         loadLang();
         // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
-        getServer().getPluginManager().registerEvents(new ManhuntStartEventListener(), this);
-        getServer().getPluginManager().registerEvents(new ManhuntEndEventListener(), this);
         // Register commands
         this.getCommand("manhunt").setExecutor(new ManhuntCommand());
         this.getCommand("spectate").setExecutor(new SpectateCommand());

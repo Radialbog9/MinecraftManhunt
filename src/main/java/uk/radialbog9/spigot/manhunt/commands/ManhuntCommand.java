@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
@@ -258,8 +259,7 @@ public class ManhuntCommand implements CommandExecutor {
                 if(!ManhuntVars.isGameStarted()) {
                     //game is not started, start it if there is enough players
                     if (ManhuntVars.getHunters().size() >= 1 && ManhuntVars.getRunners().size() >= 1) {
-                        Event event = new ManhuntGameStartEvent();
-                        Bukkit.getServer().getPluginManager().callEvent(event);
+                        GameManager.startGame();
                     } else {
                         sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-few-players")));
                     }
@@ -273,8 +273,7 @@ public class ManhuntCommand implements CommandExecutor {
             }
         } else if (args[0].equalsIgnoreCase("stop")) {
             if(sender.hasPermission("manhunt.stop")) {
-                ManhuntGameEndEvent event = new ManhuntGameEndEvent(GameEndCause.ENDED_PREMATURELY);
-                Bukkit.getServer().getPluginManager().callEvent(event);
+                GameManager.endGame(GameEndCause.ENDED_PREMATURELY);
             } else {
                 //no perm
                 sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));

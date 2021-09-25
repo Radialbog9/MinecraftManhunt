@@ -7,6 +7,7 @@ package uk.radialbog9.spigot.manhunt.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 
 /**
@@ -49,7 +50,7 @@ public class ManhuntGameEndEvent extends Event {
 
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return handlers;
     }
 

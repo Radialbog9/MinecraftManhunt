@@ -5,6 +5,7 @@
 
 package uk.radialbog9.spigot.manhunt.events;
 
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -12,8 +13,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * This event is called when the game starts.
  */
-public class ManhuntGameStartEvent extends Event {
+public class ManhuntGameStartEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private boolean cancelled = false;
 
     @NotNull
     @Override
@@ -24,5 +26,15 @@ public class ManhuntGameStartEvent extends Event {
     @NotNull
     public static HandlerList getHandlerList() {
         return handlers;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancel) {
+        cancelled = cancel;
     }
 }
