@@ -34,7 +34,7 @@ now-hunter: '&6[Manhunt]&r&a You are now a hunter!'
 no-change-hunter-in-game: '&6[Manhunt]&r&a You can not change hunters while the game is ongoing.'
 hunter-disconnected: '&6[Manhunt]&r&c %s &r&ahas disconnected. They are no longer a hunter.'
 # Hunter compass
-tracking-player: '&6[Manhunt]&r&a Tracking player &r&c{0}&r&a.'
+tracking-player: '&6[Manhunt]&r&a Tracking player &r&c{0}&r&a (&r&c{1} &r&ablocks away).'
 no-players-to-track: '&6[Manhunt]&r&a &cNo players found to track.'
 # Runners
 p-now-runner: '&6[Manhunt]&r&c {0} &r&ais now a runner!'

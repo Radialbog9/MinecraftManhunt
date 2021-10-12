@@ -63,7 +63,7 @@ public class ManhuntTabCompleter implements TabCompleter {
             List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(!ManhuntVars.isHunter(p)) {
+                if(!ManhuntVars.isRunner(p)) {
                     players.add(name);
                 }
             }
@@ -76,6 +76,18 @@ public class ManhuntTabCompleter implements TabCompleter {
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p)) {
+                    players.add(name);
+                }
+            }
+            return players;
+        }
+
+        // /manhunt revive <player> command
+        else if(args.length == 2 && args[0].equalsIgnoreCase("revive") && sender.hasPermission("manhunt.revive")) {
+            List<String> players = new ArrayList<>();
+            for(Player p : Bukkit.getOnlinePlayers()) {
+                String name = p.getName();
+                if(ManhuntVars.previousRunners.contains(p)) {
                     players.add(name);
                 }
             }

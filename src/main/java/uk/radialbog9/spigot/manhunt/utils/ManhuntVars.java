@@ -25,7 +25,7 @@ public class ManhuntVars {
 
     private static boolean libsDisguisesEnabled;
 
-    private static ScenarioType scenario;
+    private static ArrayList<ScenarioType> scenario = new ArrayList<>();
 
 
     /**
@@ -167,20 +167,16 @@ public class ManhuntVars {
     }
 
     /**
-     * Gets the current scenario
-     * @return the current scenario
+     * Gets the list of scenarios
+     * @return the list of scenarios
      * @see ScenarioType
      */
-    public static ScenarioType getCurrentScenario() {
+    public static ArrayList<ScenarioType> getScenarioList() {
         return ManhuntVars.scenario;
     }
 
     /**
-     * Sets the current scenario (doesn't check for compatability)
-     * @param scenario the new scenario
-     * @see ScenarioType
+     * Previous runners
      */
-    public static void setCurrentScenario(ScenarioType scenario) {
-        ManhuntVars.scenario = scenario;
-    }
+    public static ArrayList<Player> previousRunners = new ArrayList<>();
 }

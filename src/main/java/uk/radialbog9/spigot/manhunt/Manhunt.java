@@ -70,7 +70,8 @@ import java.util.logging.Level;
                 @ChildPermission(name = "manhunt.list"),
                 @ChildPermission(name = "manhunt.spectate"),
                 @ChildPermission(name = "manhunt.admin"),
-                @ChildPermission(name = "manhunt.settings")
+                @ChildPermission(name = "manhunt.settings"),
+                @ChildPermission(name = "manhunt.revive")
         }),
         @Permission(name = "manhunt.add", desc = "Allows player to add others to hunters/runners", defaultValue =  PermissionDefault.OP),
         @Permission(name = "manhunt.remove", desc = "Allows player to remove others from the game", defaultValue = PermissionDefault.OP),
@@ -79,7 +80,8 @@ import java.util.logging.Level;
         @Permission(name = "manhunt.list", desc = "Allows player to list other players in the game", defaultValue = PermissionDefault.TRUE),
         @Permission(name = "manhunt.spectate", desc = "Allows player to spectate hunters/runner while in a game", defaultValue = PermissionDefault.TRUE),
         @Permission(name = "manhunt.admin", desc = "Sends join messages for admins on joining (if enabled)", defaultValue = PermissionDefault.OP),
-        @Permission(name = "manhunt.settings", desc = "Allows player to use settings menu", defaultValue = PermissionDefault.OP)
+        @Permission(name = "manhunt.settings", desc = "Allows player to use settings menu", defaultValue = PermissionDefault.OP),
+        @Permission(name = "manhunt.revive", desc = "Allows player to ", defaultValue = PermissionDefault.OP)
 })
 public class Manhunt extends JavaPlugin {
     private static Manhunt instance;

@@ -19,8 +19,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 public class RandRunnerHunterDisgScenario extends BukkitRunnable {
     @Override
     public void run() {
-        if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted() &&
-                ManhuntVars.getCurrentScenario() == ScenarioType.RUNNER_RANDOM_HUNTER_DISGUISE) {
+        if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted()) {
             for(Player p : ManhuntVars.getRunners()) {
                 Player randplayer = (Player) ManhuntVars.getHunters().toArray()[Utils.getRandomInt(0, ManhuntVars.getHunters().size() - 1)];
                 Disguise disguise = new PlayerDisguise(randplayer);

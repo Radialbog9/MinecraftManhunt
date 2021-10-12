@@ -12,13 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.RandHunterMobDisgScenario;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.RandRunnerHunterDisgScenario;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.RandRunnerMobDisgScenario;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
@@ -30,7 +25,9 @@ public class GameManager {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
         Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if(event.isCancelled()) return; //event is cancelled, do not proceed
+        if(event.isCancelled()) return; //if event is cancelled by another plugin do not proceed
+
+        ManhuntVars.previousRunners.clear();
 
         for(Player p : Bukkit.getOnlinePlayers()) {
             if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) {
@@ -119,6 +116,8 @@ public class GameManager {
         //reset runners and hunters
         ManhuntVars.removeAllHunters();
         ManhuntVars.removeAllRunners();
+
+        ManhuntVars.previousRunners.clear();
 
         //fully end game
         ManhuntVars.setGameStarted(false);

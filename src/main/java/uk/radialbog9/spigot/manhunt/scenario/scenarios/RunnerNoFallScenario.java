@@ -5,5 +5,26 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
-public class RunnerNoFallScenario {
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
+import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+
+public class RunnerNoFallScenario implements Listener {
+    @EventHandler
+    public void runnerNoFall(EntityDamageEvent e) {
+        if(
+                ManhuntVars.isGameStarted() &&
+                e.getEntityType() == EntityType.PLAYER &&
+                ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_NO_FALL)
+        ) {
+            Player p = (Player) e.getEntity();
+            if(ManhuntVars.isRunner(p) && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                e.setCancelled(true);
+            }
+        }
+    }
 }

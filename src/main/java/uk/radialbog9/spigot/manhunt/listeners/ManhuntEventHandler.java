@@ -28,6 +28,7 @@ import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
+import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -54,6 +55,8 @@ public class ManhuntEventHandler implements Listener {
                 } else {
                     //Else say they died and how many runners remain.
                     Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), p.getDisplayName(), ManhuntVars.getRunners().size()));
+                    //add them to die list so they can be revived
+                    ManhuntVars.previousRunners.add(p);
                 }
             }
         }
@@ -94,12 +97,14 @@ public class ManhuntEventHandler implements Listener {
             }
             if (closestPlayer == null) {
                 //No runners nearby in the same world
-                p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-players-to-track")));
+                p.sendMessage(LanguageTranslator.translate("no-players-to-track"));
             } else {
                 //the closest runner has been found
                 p.setCompassTarget(closestPlayer.getLocation());
-                p.sendMessage(Utils.getMsgColor(
-                        String.format(Manhunt.getInstance().getConfig().getString("language.tracking-player"), closestPlayer.getDisplayName())
+                p.sendMessage(LanguageTranslator.translate(
+                        "tracking-player",
+                        closestPlayer.getDisplayName(),
+                        String.valueOf(closestPlayer.getLocation().distance(p.getLocation()))
                 ));
             }
         }
@@ -126,6 +131,7 @@ public class ManhuntEventHandler implements Listener {
         if (ManhuntVars.isGameStarted()) {
             if (ManhuntVars.isRunner(e.getPlayer())) {
                 ManhuntVars.removeRunner(e.getPlayer());
+                ManhuntVars.previousRunners.remove(e.getPlayer());
                 Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-disconnected"), e.getPlayer().getDisplayName()));
                 if (ManhuntVars.getRunners().isEmpty()) {
                     //If so broadcast event

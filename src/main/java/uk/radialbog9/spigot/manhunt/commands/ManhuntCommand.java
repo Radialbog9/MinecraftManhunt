@@ -92,14 +92,14 @@ public class ManhuntCommand implements CommandExecutor {
             if(sender.hasPermission("manhunt.add")) {
                 if(args.length < 2) {
                     //no player specified
-                    sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.not-enough-args")));
+                    sender.sendMessage(LanguageTranslator.translate("not-enough-args"));
                     sender.sendMessage(LanguageTranslator.translate(
                             "usage",
                             "/manhunt hunter " + LanguageTranslator.translate("player-placeholder")
                     ));
                 } else if (args.length > 2) {
                     //too many players specified
-                    sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-many-args")));
+                    sender.sendMessage(LanguageTranslator.translate("too-many-args"));
                     sender.sendMessage(LanguageTranslator.translate(
                             "usage",
                             "/manhunt hunter " + LanguageTranslator.translate("player-placeholder")
@@ -131,18 +131,18 @@ public class ManhuntCommand implements CommandExecutor {
                         } else {
                             //player does not exist/is not online
                             sender.sendMessage(LanguageTranslator.translate(
-                                    "playar-not-online",
+                                    "player-not-online",
                                     args[1]
                             ));
                         }
                     } else {
                         //cannot change hunters in game
-                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-change-hunter-in-game")));
+                        sender.sendMessage(LanguageTranslator.translate("no-change-hunter-in-game"));
                     }
                 }
             } else {
                 //no perm
-                sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
+                sender.sendMessage(LanguageTranslator.translate("no-permission"));
             }
         } else if (args[0].equalsIgnoreCase("runner")) {
             if(sender.hasPermission("manhunt.add")) {
@@ -375,9 +375,53 @@ public class ManhuntCommand implements CommandExecutor {
                     }
                 }
             }
+        } else if (args[0].equalsIgnoreCase("revive")) {
+            if(args.length < 2) {
+                //no player specified
+                sender.sendMessage(LanguageTranslator.translate("not-enough-args"));
+                sender.sendMessage(LanguageTranslator.translate(
+                        "usage",
+                        "/manhunt revive " + LanguageTranslator.translate("player-placeholder")
+                ));
+            } else if (args.length > 2) {
+                //too many players specified
+                sender.sendMessage(LanguageTranslator.translate("too-many-args"));
+                sender.sendMessage(LanguageTranslator.translate(
+                        "usage",
+                        "/manhunt revive " + LanguageTranslator.translate("player-placeholder")
+                ));
+            } else {
+                //player is specified
+                //player specified
+                //check if game is started
+                if(ManhuntVars.isGameStarted()) {
+                    //game is not started, we can
+                    //check if player exists
+                    Player pl = Bukkit.getPlayer(args[1]);
+
+                    boolean playerExists = pl != null;
+                    boolean canSee = true;
+                    if(playerExists && ManhuntVars.getVanishEnabled() && sender instanceof Player)
+                        canSee = VanishAPI.canSee((Player) sender, pl);
+
+                    if (playerExists && canSee) {
+                        if(ManhuntVars.previousRunners.contains(pl)) {
+                            pl.teleport(pl.getBedSpawnLocation() != null ? pl.getBedSpawnLocation() : pl.getWorld().getSpawnLocation());
+                            ManhuntVars.addRunner(pl);
+                            pl.setGameMode(GameMode.SURVIVAL);
+                            pl.sendMessage("You have been revived!");
+                            sender.sendMessage("Revived " + pl.getDisplayName());
+                        } else {
+                            sender.sendMessage("Player cannot be revived");
+                        }
+                    } else {
+                        sender.sendMessage(LanguageTranslator.translate("player-not-online"));
+                    }
+                }
+            }
         } else {
             //unknown subcommand
-            sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.unknown-subcommand")));
+            sender.sendMessage(LanguageTranslator.translate("unknown-subcommand"));
         }
         return true;
     }

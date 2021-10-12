@@ -60,18 +60,18 @@
             <version>20.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <!-- ProtocolLib -->
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.7.0</version>
+        </dependency>
         <!-- LibsDisguises -->
         <dependency>
             <groupId>LibsDisguises</groupId>
             <artifactId>LibsDisguises</artifactId>
             <version>10.0.26</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- ProtocolLib -->
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>4.7.0</version>
         </dependency>
     </dependencies>
 

@@ -18,8 +18,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 public class RandRunnerMobDisgScenario extends BukkitRunnable {
     @Override
     public void run() {
-        if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted() /*&&
-                ManhuntVars.getCurrentScenario() == ScenarioType.RUNNER_RANDOM_MOB_DISGUISE*/) {
+        if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted()) {
             for(Player p : ManhuntVars.getRunners()) {
                 boolean isMobYet = false;
                 DisguiseType disguisetype = null;
