@@ -26,6 +26,7 @@ help:
   start: 'Starts the manhunt'
   stop: 'Stops the game'
   list: 'List all runners and hunters'
+  revive: 'Revives a specified runner'
   spectate: 'Spectates players'
 # Hunters
 p-now-hunter: '&6[Manhunt]&r&c {0} &r&ais now a hunter!'
@@ -67,10 +68,6 @@ list-count: '&6[Manhunt]&r&a There are&r&c {0} &r&ahunters,&r&c {1} &r&arunners,
 hunter-list: '&6[Manhunt]&r&a Hunters: {0}'
 runner-list: '&6[Manhunt]&r&a Runners: {1}'
 spectator-list: '&6[Manhunt]&r&a Spectators: {2}'
-# - The two variables below at default values would give something like "&r&cNotch&r&a, &r&cjeb_&r&a" in the manhunt player list
-# - If you change the colours in display names with Essentials or another plugin their prefix will override this one.
-list-name-prefix: '&r&c'
-list-name-suffix: '&r&a'
 # Spectate command
 console-cannot-spectate: '&6[Manhunt]&r&a Console cannot spectate players!'
 not-spectator: '&6[Manhunt]&r&a You are not a spectator!'

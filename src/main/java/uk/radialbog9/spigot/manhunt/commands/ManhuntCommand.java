@@ -7,19 +7,12 @@ package uk.radialbog9.spigot.manhunt.commands;
 import de.myzelyam.api.vanish.VanishAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
-import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
@@ -81,6 +74,12 @@ public class ManhuntCommand implements CommandExecutor {
                         "help-format",
                         "/manhunt list",
                         LanguageTranslator.translate("help.list")
+                ));
+            if(sender.hasPermission("manhunt.revive"))
+                sender.sendMessage(LanguageTranslator.translate(
+                        "help-format",
+                        "/manhunt revive " + LanguageTranslator.translate("player-placeholder"),
+                        LanguageTranslator.translate("help.revive")
                 ));
             if(sender.hasPermission("manhunt.spectate"))
                 sender.sendMessage(LanguageTranslator.translate(
@@ -325,13 +324,13 @@ public class ManhuntCommand implements CommandExecutor {
                 }
                 if(ManhuntVars.isGameStarted()) sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-started")));
                 else sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.game-is-stopped")));
-                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.list-count"), hunterCount, runnerCount, spectatorCount)));
-                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.hunter-list"), hunters)));
-                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.runner-list"), runners)));
-                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.spectator-list"), spectators)));
+                sender.sendMessage(LanguageTranslator.translate("list-count", String.valueOf(hunterCount), String.valueOf(runnerCount), String.valueOf(spectatorCount)));
+                sender.sendMessage(LanguageTranslator.translate("hunter-list", hunters.toString()));
+                sender.sendMessage(LanguageTranslator.translate("runner-list", runners.toString()));
+                sender.sendMessage(LanguageTranslator.translate("spectator-list", spectators.toString()));
             } else {
                 //no perm
-                sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.no-permission")));
+                sender.sendMessage(LanguageTranslator.translate("no-permission"));
             }
         } else if (args[0].equalsIgnoreCase("settings")) {
             if(sender.hasPermission("manhunt.settings")) {
@@ -345,32 +344,32 @@ public class ManhuntCommand implements CommandExecutor {
                     if(ManhuntSettings.getHeadStartEnabled()) {
                         //head start enabled so disable it
                         ManhuntSettings.setHeadStartEnabled(false);
-                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.head-start-disabled")));
+                        sender.sendMessage(LanguageTranslator.translate("head-start-disabled"));
                     } else {
                         //head start disabled so enable it
                         ManhuntSettings.setHeadStartEnabled(true);
-                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.head-start-enabled")));
+                        sender.sendMessage(LanguageTranslator.translate("head-start-enabled"));
                     }
                 } else if (args[1].equalsIgnoreCase("headstarttime")) {
                     if(args.length == 2) {
                         //no time has been specified
-                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.not-enough-args")));
+                        sender.sendMessage(LanguageTranslator.translate("not-enough-args"));
                     } else if (args.length > 3) {
                         //too many args
-                        sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-many-args")));
+                        sender.sendMessage(LanguageTranslator.translate("too-many-args"));
                     } else {
                         //check if integer
                         try {
                             int time = Integer.parseInt(args[2]);
                             if(time > 0) {
                                 ManhuntSettings.setHeadStartTime(time);
-                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.head-start-timer-set"), time)));
+                                sender.sendMessage(LanguageTranslator.translate("head-start-timer-set", String.valueOf(time)));
                             }
                             else {
-                                sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.invalid-integer")));
+                                sender.sendMessage(LanguageTranslator.translate("invalid-integer"));
                             }
                         } catch (NumberFormatException e) {
-                            sender.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.invalid-integer")));
+                            sender.sendMessage(LanguageTranslator.translate("invalid-integer"));
                         }
                     }
                 }
