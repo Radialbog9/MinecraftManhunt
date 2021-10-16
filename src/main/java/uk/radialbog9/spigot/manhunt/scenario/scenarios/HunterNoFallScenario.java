@@ -15,16 +15,16 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
 @Scenario(ScenarioType.HUNTER_NO_FALL)
-public class RunnerNoFallScenario implements Listener {
+public class HunterNoFallScenario implements Listener {
     @EventHandler
     public void runnerNoFall(EntityDamageEvent e) {
         if(
                 ManhuntVars.isGameStarted() &&
                 e.getEntityType() == EntityType.PLAYER &&
-                ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_NO_FALL)
+                ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_NO_FALL)
         ) {
             Player p = (Player) e.getEntity();
-            if(ManhuntVars.isRunner(p) && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            if(ManhuntVars.isHunter(p) && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 e.setCancelled(true);
             }
         }

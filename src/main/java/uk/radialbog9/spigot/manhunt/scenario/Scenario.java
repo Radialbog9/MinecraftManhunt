@@ -6,6 +6,5 @@
 package uk.radialbog9.spigot.manhunt.scenario;
 
 public @interface Scenario {
-    ScenarioType scenario();
-    String name();
+    ScenarioType value();
 }

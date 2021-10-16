@@ -6,6 +6,9 @@
 package uk.radialbog9.spigot.manhunt.settings;
 
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
+
+import java.util.ArrayList;
 
 /**
  * Basic class to store settings for Manhunt
@@ -15,6 +18,8 @@ public class ManhuntSettings {
     private static int headStartTime = 20;
 
     private static boolean dreamModeEnabled = false;
+
+    private static ArrayList<ScenarioType> scenariosEnabled = new ArrayList<>();
 
     public static void save() {
         Manhunt.getInstance().getConfig().set("head-start.enabled", headStartEnabled);
@@ -49,4 +54,6 @@ public class ManhuntSettings {
     public static void setDreamModeEnabled(boolean dreamModeEnabled) {
         ManhuntSettings.dreamModeEnabled = dreamModeEnabled;
     }
+
+
 }

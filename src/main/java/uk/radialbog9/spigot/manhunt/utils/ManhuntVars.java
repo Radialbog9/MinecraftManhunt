@@ -5,6 +5,8 @@
 
 package uk.radialbog9.spigot.manhunt.utils;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.playerconfig.PlayerConfig;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ManhuntVars {
+    @Getter
+    @Setter
     private static boolean gameStarted;
 
     private static ArrayList<Player> hunters = new ArrayList<>();
@@ -21,28 +25,15 @@ public class ManhuntVars {
 
     private static HashMap<Player, PlayerConfig> playerConfigMap = new HashMap<>();
 
+    @Getter
+    @Setter
     private static boolean vanishEnabled;
 
+    @Getter
+    @Setter
     private static boolean libsDisguisesEnabled;
 
     private static ArrayList<ScenarioType> scenario = new ArrayList<>();
-
-
-    /**
-     * Checks if game is started
-     * @return True if game is started, false if not
-     */
-    public static boolean isGameStarted() {
-        return ManhuntVars.gameStarted;
-    }
-
-    /**
-     * Sets if the game is started
-     * @param gameStarted If game is started1
-     */
-    public static void setGameStarted(boolean gameStarted) {
-        ManhuntVars.gameStarted = gameStarted;
-    }
 
     /**
      * Current list of hunters
@@ -132,38 +123,6 @@ public class ManhuntVars {
     public static PlayerConfig getPlayerConfig(Player p) {
         if(!playerConfigMap.containsKey(p)) playerConfigMap.put(p, new PlayerConfig(p));
         return playerConfigMap.get(p);
-    }
-
-    /**
-     * Gets if SuperVanish/PremiumVanish is enabled on the server
-     * @return If SuperVanish/PremiumVanish is enabled
-     */
-    public static boolean getVanishEnabled() {
-        return ManhuntVars.vanishEnabled;
-    }
-
-    /**
-     * Sets if SuperVanish/PremiumVanish is enabled on the server (doesn't check if it actually is)
-     * @param vanishEnabled If vanish is enabled
-     */
-    public static void setVanishEnabled(boolean vanishEnabled) {
-        ManhuntVars.vanishEnabled = vanishEnabled;
-    }
-
-    /**
-     * Gets if libs disguises is found on the server
-     * @return If LibsDisguises is found on the server
-     */
-    public static boolean isLibsDisguisesEnabled() {
-        return ManhuntVars.libsDisguisesEnabled;
-    }
-
-    /**
-     * Sets if LibsDisguises is found on the server (doesn't check if it actually is)
-     * @param libsDisguisesEnabled If LibsDisguises is found on the server
-     */
-    public static void setLibsDisguisesEnabled(boolean libsDisguisesEnabled) {
-        ManhuntVars.libsDisguisesEnabled = libsDisguisesEnabled;
     }
 
     /**
