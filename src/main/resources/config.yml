@@ -18,7 +18,7 @@
 # These are the default settings, most of which will be changable in the upcoming settings menu
 
 # Gives runner(s) a head start by giving hunter(s) blindness, slowness, and weakness
-# Set to false for a more authentic manhunt.
+# Set to false in here or in the settings menu for a more authentic manhunt.
 head-start:
   # Head start enabled?
   enabled: true
@@ -52,6 +52,13 @@ scenarios:
     duration: 5
     # ALlow flying while runners in creative?
     allow-fly: false
+  hunter-creative:
+    # Hunters are set to creative every `time` seconds.
+    time: 200
+    # Hunters can keep creative for `duration` seconds.
+    duration: 5
+    # ALlow flying while hunters in creative?
+    allow-fly: false
 
 
 ### Join Message ###
@@ -60,7 +67,7 @@ join-message:
   noperm: '&aWelcome to this Manhunt server! The game will start shortly.'
   perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings (beta) to change settings and start the game!'
 
-### Language ###
+### Language ###  THIS HAS BEEN MOVED TO lang.yml!
 # Some entries have required arguments (such as player names) which are indicated by '%s'.
 # The arguments have to be in the order they were set in the default language.
 language:

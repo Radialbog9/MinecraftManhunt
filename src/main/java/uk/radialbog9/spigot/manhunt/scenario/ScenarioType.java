@@ -6,13 +6,11 @@
 package uk.radialbog9.spigot.manhunt.scenario;
 
 public enum ScenarioType {
-    NONE,
     RUNNER_RANDOM_MOB_DISGUISE,
     HUNTER_RANDOM_MOB_DISGUISE,
     RUNNER_RANDOM_HUNTER_DISGUISE,
     RUNNER_NO_FALL,
     HUNTER_NO_FALL,
     HUNTER_CREATIVE,
-    RUNNER_CREATIVE,
-    ALL_CREATIVE
+    RUNNER_CREATIVE
 }

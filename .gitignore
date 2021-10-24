@@ -303,5 +303,9 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,windows,intellij,intellij+all,eclipse
 
+# More stuff ripped off from Dream
+.idea/**
+.DS_Store
+# End of more stuff stolen from Dream
 
 .classpath

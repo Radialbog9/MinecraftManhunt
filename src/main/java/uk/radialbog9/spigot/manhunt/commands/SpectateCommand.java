@@ -12,6 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -35,13 +36,11 @@ public class SpectateCommand implements CommandExecutor {
                 if(args.length == 0) {
                     //no player specified
                     p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.not-enough-args")));
-                    String a = Manhunt.getInstance().getConfig().getString("language.usage");
-                    if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, "/spectate <player>")));
+                    p.sendMessage(LanguageTranslator.translate("usage", "/spectate <player>"));
                 } else if (args.length > 1) {
                     //too many arguments
                     p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.too-many-args")));
-                    String a = Manhunt.getInstance().getConfig().getString("language.usage");
-                    if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, "/spectate <player>")));
+                    p.sendMessage(LanguageTranslator.translate("usage", "/spectate <player>"));
                 } else {
                     //player given
                     //check if in game
@@ -55,8 +54,7 @@ public class SpectateCommand implements CommandExecutor {
                                 if(ManhuntVars.isRunner(existingPlayer) || ManhuntVars.isHunter(existingPlayer)) {
                                     p.setGameMode(GameMode.SPECTATOR);
                                     p.teleport(existingPlayer);
-                                    String a = Manhunt.getInstance().getConfig().getString("language.now-spectating-player");
-                                    if(a != null) p.sendMessage(Utils.getMsgColor(String.format(a, existingPlayer.getDisplayName())));
+                                    p.sendMessage(LanguageTranslator.translate("now-spectating-player", existingPlayer.getDisplayName()));
                                 }
                             } else {
                                 String a = Manhunt.getInstance().getConfig().getString("language.player-not-online");

@@ -22,8 +22,10 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.kits.Kit;
 import uk.radialbog9.spigot.manhunt.kits.KitType;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.File;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * Utilities that are used throughout the plugin
@@ -194,5 +196,30 @@ public class Utils {
         }
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
+    }
+
+    /**
+     * Get classes in specific package in a jar
+     * @param jarFile The jar file to search in
+     * @param packageName Name of the package to get from
+     * @return Set of classes in the package
+     */
+    public static Set<Class<?>> getClasses(File jarFile, String packageName) {
+        HashSet<Class<?>> classes = new HashSet<>();
+        try {
+            JarFile file = new JarFile(jarFile);
+            Enumeration<JarEntry> entry = file.entries();
+            while (entry.hasMoreElements()) {
+                JarEntry jarEntry = entry.nextElement();
+                String name = jarEntry.getName().replace("/", ".");
+                if (!name.startsWith(packageName) || !name.endsWith(".class"))
+                    continue;
+                classes.add(Class.forName(name.substring(0, name.length() - 6)));
+            }
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return classes;
     }
 }
