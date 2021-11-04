@@ -342,7 +342,7 @@ public class ManhuntCommand implements CommandExecutor {
                         sender.sendMessage(Utils.getMsgColor("&cYou can't use the settings menu as console!"));
                     }
                 } else if (args[1].equalsIgnoreCase("headstarttoggle")) {
-                    if(ManhuntSettings.getHeadStartEnabled()) {
+                    if(ManhuntSettings.isHeadStartEnabled()) {
                         //head start enabled so disable it
                         ManhuntSettings.setHeadStartEnabled(false);
                         sender.sendMessage(LanguageTranslator.translate("head-start-disabled"));

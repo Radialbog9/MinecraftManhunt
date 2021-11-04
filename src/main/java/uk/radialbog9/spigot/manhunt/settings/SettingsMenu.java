@@ -20,7 +20,7 @@ public class SettingsMenu {
      */
     public static void displayMenu(Player p) {
         p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.title")));
-        String headStartTickCross = ManhuntSettings.getHeadStartEnabled() ?
+        String headStartTickCross = ManhuntSettings.isHeadStartEnabled() ?
                 Manhunt.getInstance().getConfig().getString("language.settingsmenu.enabled") :
                 Manhunt.getInstance().getConfig().getString("language.settingsmenu.disabled");
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
