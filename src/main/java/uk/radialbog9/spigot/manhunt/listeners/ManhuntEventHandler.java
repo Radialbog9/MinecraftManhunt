@@ -51,7 +51,7 @@ public class ManhuntEventHandler implements Listener {
                     //Else say they died and how many runners remain.
                     Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), p.getDisplayName(), ManhuntVars.getRunners().size()));
                     //add them to die list so they can be revived
-                    ManhuntVars.previousRunners.add(p);
+                    ManhuntVars.getPreviousRunners().add(p);
                 }
             }
         }
@@ -126,7 +126,7 @@ public class ManhuntEventHandler implements Listener {
         if (ManhuntVars.isGameStarted()) {
             if (ManhuntVars.isRunner(e.getPlayer())) {
                 ManhuntVars.removeRunner(e.getPlayer());
-                ManhuntVars.previousRunners.remove(e.getPlayer());
+                ManhuntVars.getPreviousRunners().remove(e.getPlayer());
                 Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-disconnected"), e.getPlayer().getDisplayName()));
                 if (ManhuntVars.getRunners().isEmpty()) {
                     //If so broadcast event

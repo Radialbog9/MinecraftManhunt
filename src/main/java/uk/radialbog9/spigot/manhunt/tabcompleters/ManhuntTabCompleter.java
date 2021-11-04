@@ -87,7 +87,7 @@ public class ManhuntTabCompleter implements TabCompleter {
             List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(ManhuntVars.previousRunners.contains(p)) {
+                if(ManhuntVars.getPreviousRunners().contains(p)) {
                     players.add(name);
                 }
             }

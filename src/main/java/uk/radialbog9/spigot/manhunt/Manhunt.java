@@ -6,6 +6,9 @@
 package uk.radialbog9.spigot.manhunt;
 
 import com.google.common.base.Charsets;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,6 +31,7 @@ import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEndEventListener;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntStartEventListener;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -37,6 +41,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 
 /**
@@ -57,7 +62,7 @@ import java.util.logging.Level;
 })
 
 @Commands({
-        @Command(name = "manhunt", desc = "Main manhunt command", usage = "/<command> [help|hunter <player>|runner <player>|remove <player>|start|stop|list]"),
+        @Command(name = "manhunt", desc = "Main manhunt command", usage = "/<command> [help|hunter <player>|runner <player>|remove <player>|revive [player]|start|stop|list]"),
         @Command(name = "spectate", desc = "Spectates a player while in a game", usage = "/<command> <player>")
 })
 
@@ -88,6 +93,13 @@ public class Manhunt extends JavaPlugin {
 
     public static File langFile;
     public static FileConfiguration languageConfig;
+
+    @Accessors(fluent = true)
+    @Getter
+    private static boolean areScenariosLoaded;
+
+    @Getter
+    private static ScenarioLoader scenarioLoader;
 
     /**
      * Called when plugin is enabled
@@ -121,6 +133,15 @@ public class Manhunt extends JavaPlugin {
         ManhuntVars.setLibsDisguisesEnabled(
                 getServer().getPluginManager().isPluginEnabled("LibsDisguises")
         );
+        //Load scenarios
+        try {
+            scenarioLoader = new ScenarioLoader();
+            areScenariosLoaded = true;
+        } catch (URISyntaxException e) {
+            getLogger().log(Level.WARNING, "Could not load scenarios! Scenarios will be disabled. Error:");
+            e.printStackTrace();
+            areScenariosLoaded = false;
+        }
         // Log start message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
     }
@@ -166,7 +187,7 @@ public class Manhunt extends JavaPlugin {
         try {
             languageConfig.save(langFile);
         } catch (IOException e) {
-            Manhunt.getInstance().getLogger().log(Level.SEVERE, "Could not save config to " + langFile, e);
+            Manhunt.getInstance().getLogger().log(Level.SEVERE, "Could not save language to " + langFile, e);
         }
         reloadLang();
     }

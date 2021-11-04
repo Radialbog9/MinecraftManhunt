@@ -137,5 +137,6 @@ public class ManhuntVars {
     /**
      * Previous runners
      */
-    public static ArrayList<Player> previousRunners = new ArrayList<>();
+    @Getter
+    private static ArrayList<Player> previousRunners = new ArrayList<>();
 }

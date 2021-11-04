@@ -27,7 +27,7 @@ public class GameManager {
 
         if(event.isCancelled()) return; //if event is cancelled by another plugin do not proceed
 
-        ManhuntVars.previousRunners.clear();
+        ManhuntVars.getPreviousRunners().clear();
 
         for(Player p : Bukkit.getOnlinePlayers()) {
             if(ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) {
@@ -117,7 +117,7 @@ public class GameManager {
         ManhuntVars.removeAllHunters();
         ManhuntVars.removeAllRunners();
 
-        ManhuntVars.previousRunners.clear();
+        ManhuntVars.getPreviousRunners().clear();
 
         //fully end game
         ManhuntVars.setGameStarted(false);

@@ -14,12 +14,15 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
+
+import java.util.HashMap;
 
 @SuppressWarnings("ConstantConditions")
 public class ManhuntCommand implements CommandExecutor {
@@ -402,7 +405,7 @@ public class ManhuntCommand implements CommandExecutor {
                         canSee = VanishAPI.canSee((Player) sender, pl);
 
                     if (playerExists && canSee) {
-                        if(ManhuntVars.previousRunners.contains(pl)) {
+                        if(ManhuntVars.getPreviousRunners().contains(pl)) {
                             pl.teleport(pl.getBedSpawnLocation() != null ? pl.getBedSpawnLocation() : pl.getWorld().getSpawnLocation());
                             ManhuntVars.addRunner(pl);
                             pl.setGameMode(GameMode.SURVIVAL);
@@ -416,6 +419,17 @@ public class ManhuntCommand implements CommandExecutor {
                     }
                 }
             }
+        } else if (args[0].equalsIgnoreCase("scenarios")) {
+            if(Manhunt.areScenariosLoaded()) {
+                sender.sendMessage("Available scenarios:");
+                HashMap<ScenarioType, Class<?>> scenarioTypeClassArrayList = Manhunt.getScenarioLoader().getAvailableScenarios();
+                for (ScenarioType scenario : scenarioTypeClassArrayList.keySet()) {
+                    sender.sendMessage(scenario.toString() + " : " + scenarioTypeClassArrayList.get(scenario).getName());
+                }
+            } else {
+                sender.sendMessage("Scenarios haven't loaded.");
+            }
+
         } else {
             //unknown subcommand
             sender.sendMessage(LanguageTranslator.translate("unknown-subcommand"));

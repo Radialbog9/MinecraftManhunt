@@ -5,6 +5,7 @@
 
 package uk.radialbog9.spigot.manhunt.utils;
 
+import com.google.common.reflect.ClassPath;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -23,6 +24,8 @@ import uk.radialbog9.spigot.manhunt.kits.Kit;
 import uk.radialbog9.spigot.manhunt.kits.KitType;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -222,4 +225,5 @@ public class Utils {
         }
         return classes;
     }
+
 }
