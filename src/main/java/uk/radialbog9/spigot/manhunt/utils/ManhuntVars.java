@@ -33,7 +33,8 @@ public class ManhuntVars {
     @Setter
     private static boolean libsDisguisesEnabled;
 
-    private static ArrayList<ScenarioType> scenario = new ArrayList<>();
+    @Getter
+    private static ArrayList<ScenarioType> scenarioList = new ArrayList<>();
 
     /**
      * Current list of hunters
@@ -123,15 +124,6 @@ public class ManhuntVars {
     public static PlayerConfig getPlayerConfig(Player p) {
         if(!playerConfigMap.containsKey(p)) playerConfigMap.put(p, new PlayerConfig(p));
         return playerConfigMap.get(p);
-    }
-
-    /**
-     * Gets the list of scenarios
-     * @return the list of scenarios
-     * @see ScenarioType
-     */
-    public static ArrayList<ScenarioType> getScenarioList() {
-        return ManhuntVars.scenario;
     }
 
     /**

@@ -27,8 +27,6 @@ public class ManhuntSettings {
     @Setter
     private static boolean dreamModeEnabled = false;
 
-    private static ArrayList<ScenarioType> scenariosEnabled = new ArrayList<>();
-
     public static void save() {
         Manhunt.getInstance().getConfig().set("head-start.enabled", headStartEnabled);
         Manhunt.getInstance().getConfig().set("head-start.length", headStartTime);
