@@ -5,6 +5,10 @@
 
 package uk.radialbog9.spigot.manhunt.scenario;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Scenario {
     ScenarioType value();
 }

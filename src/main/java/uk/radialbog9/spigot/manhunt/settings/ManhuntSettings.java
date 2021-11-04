@@ -5,6 +5,8 @@
 
 package uk.radialbog9.spigot.manhunt.settings;
 
+import lombok.Getter;
+import lombok.Setter;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 
@@ -14,9 +16,15 @@ import java.util.ArrayList;
  * Basic class to store settings for Manhunt
  */
 public class ManhuntSettings {
+    @Getter
+    @Setter
     private static boolean headStartEnabled = true;
+    @Getter
+    @Setter
     private static int headStartTime = 20;
 
+    @Getter
+    @Setter
     private static boolean dreamModeEnabled = false;
 
     private static ArrayList<ScenarioType> scenariosEnabled = new ArrayList<>();
@@ -31,29 +39,4 @@ public class ManhuntSettings {
         setHeadStartEnabled(Manhunt.getInstance().getConfig().getBoolean("head-start.enabled"));
         setHeadStartTime(Manhunt.getInstance().getConfig().getInt("head-start.length"));
     }
-
-    public static boolean getHeadStartEnabled() {
-        return ManhuntSettings.headStartEnabled;
-    }
-    public static void setHeadStartEnabled(boolean headStartEnabled) {
-        ManhuntSettings.headStartEnabled = headStartEnabled;
-    }
-
-    public static int getHeadStartTime() {
-        return ManhuntSettings.headStartTime;
-    }
-    public static void setHeadStartTime(int headStartTime) {
-        ManhuntSettings.headStartTime = headStartTime;
-    }
-
-
-    public static boolean isDreamModeEnabled() {
-        return dreamModeEnabled;
-    }
-
-    public static void setDreamModeEnabled(boolean dreamModeEnabled) {
-        ManhuntSettings.dreamModeEnabled = dreamModeEnabled;
-    }
-
-
 }

@@ -17,8 +17,7 @@
 
 ---
 
-A unique take on Dream's manhunt game with many features. 
-None of his original source code has been used.
+A unique take on Dream's manhunt game with many features, built from scratch.
 
 All credit for the idea goes to Dream. 
 His Manhunt videos are awesome, and you should [check him out](https://www.youtube.com/Dream). 
@@ -52,7 +51,7 @@ For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhun
 * Auto-kicking on disconnect
 * Settings menu
 
-##Dependencies
+## Dependencies
 This plugin does not have any dependencies, but it works with SuperVanish or PremiumVanish to hide any spectators who are in vanish from the Manhunt player list.
 
 ## Contributing

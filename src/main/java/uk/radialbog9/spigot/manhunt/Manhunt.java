@@ -7,7 +7,6 @@ package uk.radialbog9.spigot.manhunt;
 
 import com.google.common.base.Charsets;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,9 +27,7 @@ import org.bukkit.plugin.java.annotation.plugin.Plugin;
 import org.bukkit.plugin.java.annotation.plugin.author.Author;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
-import uk.radialbog9.spigot.manhunt.listeners.ManhuntEndEventListener;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
-import uk.radialbog9.spigot.manhunt.listeners.ManhuntStartEventListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;

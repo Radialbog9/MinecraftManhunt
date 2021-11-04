@@ -45,7 +45,7 @@ public class GameManager {
                 p.teleport(p.getWorld().getSpawnLocation());
                 if(ManhuntVars.isHunter(p)) {
                     //give blindness and weakness for 5 seconds
-                    if(ManhuntSettings.getHeadStartEnabled()) {
+                    if(ManhuntSettings.isHeadStartEnabled()) {
                         new PotionEffect(PotionEffectType.WEAKNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
                         new PotionEffect(PotionEffectType.BLINDNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
                     }
@@ -58,6 +58,9 @@ public class GameManager {
                 p.setGameMode(GameMode.SPECTATOR);
             }
         }
+        //Scenarios
+        // something should be here but it isn't
+
         //set game as started
         ManhuntVars.setGameStarted(true);
 
