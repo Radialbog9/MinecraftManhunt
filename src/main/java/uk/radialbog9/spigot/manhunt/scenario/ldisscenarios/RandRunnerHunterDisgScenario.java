@@ -3,12 +3,10 @@
  * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.scenario.scenarios;
+package uk.radialbog9.spigot.manhunt.scenario.ldisscenarios;
 
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.DisguiseType;
-import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

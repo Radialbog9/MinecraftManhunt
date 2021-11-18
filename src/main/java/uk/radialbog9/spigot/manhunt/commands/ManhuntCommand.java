@@ -351,6 +351,7 @@ public class ManhuntCommand implements CommandExecutor {
                         ManhuntSettings.setHeadStartEnabled(true);
                         sender.sendMessage(LanguageTranslator.translate("head-start-enabled"));
                     }
+                    if(sender instanceof Player) SettingsMenu.displayMenu((Player) sender);
                 } else if (args[1].equalsIgnoreCase("headstarttime")) {
                     if(args.length == 2) {
                         //no time has been specified
@@ -373,6 +374,7 @@ public class ManhuntCommand implements CommandExecutor {
                             sender.sendMessage(LanguageTranslator.translate("invalid-integer"));
                         }
                     }
+                    if(sender instanceof Player) SettingsMenu.displayMenu((Player) sender);
                 }
             }
         } else if (args[0].equalsIgnoreCase("revive")) {

@@ -134,7 +134,7 @@ public class Manhunt extends JavaPlugin {
         try {
             scenarioLoader = new ScenarioLoader();
             areScenariosLoaded = true;
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             getLogger().log(Level.WARNING, "Could not load scenarios! Scenarios will be disabled. Error:");
             e.printStackTrace();
             areScenariosLoaded = false;

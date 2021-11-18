@@ -43,13 +43,11 @@ public class SettingsMenu {
                 "/manhunt hunter ",
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-add"))
         ));
-        if(false) { //alternative to commenting out code because intellij doesn't like that
-            p.spigot().sendMessage(Utils.genTextComponentRunCommand(
-                    Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.scenarios")),
-                    "/manhunt scenarios",
-                    Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
-            ));
-        }
+        p.spigot().sendMessage(Utils.genTextComponentRunCommand(
+                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.scenarios")),
+                "/manhunt scenarios",
+                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
+        ));
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                 Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.start-game")),
                 "/manhunt start",
