@@ -2,9 +2,9 @@
 
 
 [![Jenkins build status](https://ci.radialbog9.uk/job/MinecraftManhunt/badge/icon?style=flat-square)](https://ci.radialbog9.uk/job/MinecraftManhunt/)
-[![Donate](https://img.shields.io/badge/donate-PayPal-orange?style=flat-square&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DFKLGMU7QAMU&source=url)
-[![Subscribe](https://img.shields.io/badge/subscribe-YouTube-orange?style=flat-square&logo=youtube)](https://bit.ly/Sub2Radialbog9)
-[![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)](https://discord.gg/drtz8wm)
+[![Donate](https://img.shields.io/badge/donate-Buy%20Me%20A%20Coffee-orange?style=flat-square&logo=buymeacoffee)](https://buymeacoff.ee/Radialbog9)
+[![Subscribe](https://img.shields.io/badge/subscribe-YouTube-orange?style=flat-square&logo=youtube)](https://rb9.xyz/sub)
+[![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)](https://discord.radialbog9.uk)
 
 ![bStats Players](https://img.shields.io/bstats/players/9573?style=for-the-badge&color=yellow)
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
@@ -48,7 +48,7 @@ For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhun
 * SuperVanish/PremiumVanish support
 * "Dream mode" - increases drop rates on blaze/endermen and ender pearl barter rates
 * Spectator support
-* Auto-kicking on disconnect
+* Automatic removal of player from game if they disconnect
 * Settings menu
 
 ## Dependencies
@@ -56,7 +56,7 @@ This plugin does not have any dependencies, but it works with SuperVanish or Pre
 
 ## Contributing
 Please report any bugs you find in a GitHub Issue or improve our code and make a pull request! 
-We're always open for suggestions!
+We're always open to suggestions!
 
 ## API
 This plugin has a (somewhat simple) API for developers to use. 
