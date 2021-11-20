@@ -146,6 +146,18 @@ public class Utils {
     }
 
     /**
+     * Generate a text component with hover
+     * @param text String contents of message
+     * @param hover String hover
+     * @return TextComponent the generated text component
+     */
+    public static TextComponent genTextComponentHoverOnly(@NotNull String text, @NotNull String hover) {
+        TextComponent tc = new TextComponent(getMsgColor(text));
+        if(hover != null) tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
+        return tc;
+    }
+
+    /**
      * Retrieves hunter kits from the config
      * @see Kit
      * @return The kit list

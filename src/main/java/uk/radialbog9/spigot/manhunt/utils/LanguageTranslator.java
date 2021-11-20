@@ -11,18 +11,18 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 /**
  * Provides functions to translate language keys to the language configuration.
  */
-@SuppressWarnings({"ConstantConditions"})
+@SuppressWarnings({"NullArgumentToVariableArgMethod"})
 public class LanguageTranslator {
     /**
      * Gets the specified key from the language configuration then replaces {0}, {1}, etc with the arguments.
      * @param key The language key
      * @param args The arguments
-     * @return String of language key with replacements or empty string if language key produces null
+     * @return String of language key with replacements or language key if the language request produces null
      */
     public static String translate(@NotNull String key, String... args) {
         String out = "";
         if(Manhunt.getLang().getString(key) != null) {
-            out = Manhunt.getLang().getString(key);
+            out = Manhunt.getLang().getString(key, key); // get key or return the key if key doesn't exist in lang
             if(args != null) {
                 for (int i = 0; i < args.length; i++) {
                     out = out.replace("{" + i + "}", args[i]);
