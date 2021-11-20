@@ -14,7 +14,7 @@ import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
-@Scenario(ScenarioType.HUNTER_NO_FALL)
+@Scenario(ScenarioType.RUNNER_NO_FALL)
 public class RunnerNoFallScenario implements Listener {
     @EventHandler
     public void runnerNoFall(EntityDamageEvent e) {

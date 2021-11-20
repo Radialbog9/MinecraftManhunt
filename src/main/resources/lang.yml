@@ -108,3 +108,21 @@ settingsmenu:
     add-hunter: '&eAdd Hunter'
     scenarios: '&eEdit scenarios (beta)'
     start-game: '&e&lStart game'
+# scenarios
+scenariomenu:
+  title: '&7---- &6Manhunt Scenario Menu &7----'
+  enabled: '&a✓'
+  disabled: '&c✕'
+  unavailable: '&8✕'
+  click-to-enable: '&6Click to &aenable&6!'
+  click-to-disable: '&6Click to &cdisable&6!'
+  display-format: '&7[&r{0}&r&7] &a{1}' # example with default value: [✓] Runners take no fall damage
+  not-available:
+    generic-load-error: '&4Not available: &cLoad error'
+    requires-libs: '&4Not available: &cCouldn''t find LibsDisguises'
+scenario:
+  RUNNER_NO_FALL: 'Runners take no fall damage'
+  HUNTER_NO_FALL: 'Hunters take no fall damage'
+  HUNTER_RANDOM_MOB_DISGUISE: 'Hunters get disguised as a random mob'
+  RUNNER_RANDOM_MOB_DISGUISE: 'Runners get disguised as a random mob'
+  RUNNER_RANDOM_HUNTER_DISGUISE: 'Runners get disguised as a random hunter'

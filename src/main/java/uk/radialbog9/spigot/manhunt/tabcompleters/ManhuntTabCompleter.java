@@ -5,6 +5,7 @@
 
 package uk.radialbog9.spigot.manhunt.tabcompleters;
 
+import de.myzelyam.api.vanish.VanishAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,11 +39,15 @@ public class ManhuntTabCompleter implements TabCompleter {
             if(sender.hasPermission("manhunt.list")) arguments.add("list");
             if(sender.hasPermission("manhunt.reset")) arguments.add("reset");
             if(sender.hasPermission("manhunt.remove")) arguments.add("remove");
-            if(sender.hasPermission("manhunt.settings")) arguments.add("settings");
+            if(sender.hasPermission("manhunt.settings")) {
+                arguments.add("settings");
+                arguments.add("scenarios");
+            }
             if(sender.hasPermission("manhunt.add")) {
                 arguments.add("hunter");
                 arguments.add("runner");
             }
+            if(sender.hasPermission("manhunt.revive")) arguments.add("revive");
             return arguments;
         }
 
@@ -52,7 +57,13 @@ public class ManhuntTabCompleter implements TabCompleter {
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(!ManhuntVars.isHunter(p)) {
-                    players.add(name);
+                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                        if(VanishAPI.canSee((Player) sender, p)) {
+                            players.add(name);
+                        }
+                    } else {
+                        players.add(name);
+                    }
                 }
             }
             return players;
@@ -64,7 +75,13 @@ public class ManhuntTabCompleter implements TabCompleter {
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(!ManhuntVars.isRunner(p)) {
-                    players.add(name);
+                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                        if(VanishAPI.canSee((Player) sender, p)) {
+                            players.add(name);
+                        }
+                    } else {
+                        players.add(name);
+                    }
                 }
             }
             return players;
@@ -76,7 +93,13 @@ public class ManhuntTabCompleter implements TabCompleter {
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p)) {
-                    players.add(name);
+                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                        if(VanishAPI.canSee((Player) sender, p)) {
+                            players.add(name);
+                        }
+                    } else {
+                        players.add(name);
+                    }
                 }
             }
             return players;
@@ -88,7 +111,13 @@ public class ManhuntTabCompleter implements TabCompleter {
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
                 if(ManhuntVars.getPreviousRunners().contains(p)) {
-                    players.add(name);
+                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                        if(VanishAPI.canSee((Player) sender, p)) {
+                            players.add(name);
+                        }
+                    } else {
+                        players.add(name);
+                    }
                 }
             }
             return players;

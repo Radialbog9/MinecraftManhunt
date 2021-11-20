@@ -422,14 +422,16 @@ public class ManhuntCommand implements CommandExecutor {
                 }
             }
         } else if (args[0].equalsIgnoreCase("scenarios")) {
-            if(Manhunt.areScenariosLoaded()) {
-                sender.sendMessage("Available scenarios:");
-                HashMap<ScenarioType, Class<?>> scenarioTypeClassArrayList = Manhunt.getScenarioLoader().getAvailableScenarios();
-                for (ScenarioType scenario : scenarioTypeClassArrayList.keySet()) {
-                    sender.sendMessage(scenario.toString() + " : " + scenarioTypeClassArrayList.get(scenario).getName());
+            if(sender instanceof Player) {
+                if(Manhunt.areScenariosLoaded()) {
+                    sender.sendMessage("Available scenarios:");
+                    HashMap<ScenarioType, Class<?>> scenarioTypeClassArrayList = Manhunt.getScenarioLoader().getAvailableScenarios();
+                    for (ScenarioType scenario : scenarioTypeClassArrayList.keySet()) {
+                        sender.sendMessage(scenario.toString() + " : " + scenarioTypeClassArrayList.get(scenario).getName());
+                    }
+                } else {
+                    sender.sendMessage("Scenarios haven't loaded.");
                 }
-            } else {
-                sender.sendMessage("Scenarios haven't loaded.");
             }
 
         } else {

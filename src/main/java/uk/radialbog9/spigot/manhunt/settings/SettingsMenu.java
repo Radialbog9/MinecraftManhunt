@@ -7,51 +7,51 @@ package uk.radialbog9.spigot.manhunt.settings;
 
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 /**
  * Class for settings menu
  */
-@SuppressWarnings("ConstantConditions")
 public class SettingsMenu {
     /**
      * Displays settings menu to player
      * @param p Player the player
      */
     public static void displayMenu(Player p) {
-        p.sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.title")));
+        p.sendMessage(LanguageTranslator.translate("settingsmenu.title"));
         String headStartTickCross = ManhuntSettings.isHeadStartEnabled() ?
-                Manhunt.getInstance().getConfig().getString("language.settingsmenu.enabled") :
-                Manhunt.getInstance().getConfig().getString("language.settingsmenu.disabled");
+                LanguageTranslator.translate("settingsmenu.enabled") :
+                LanguageTranslator.translate("settingsmenu.disabled");
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
-                Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start"), headStartTickCross)),
+                LanguageTranslator.translate("settingsmenu.options.head-start", headStartTickCross),
                 "/manhunt settings headstarttoggle",
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-toggle"))
+                LanguageTranslator.translate("settingsmenu.click-to-toggle")
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.head-start-timer"), ManhuntSettings.getHeadStartTime())),
+                LanguageTranslator.translate("settingsmenu.options.head-start-timer", String.valueOf(ManhuntSettings.getHeadStartTime())),
                 "/manhunt settings headstarttime ",
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
+                LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.add-runner")),
+                LanguageTranslator.translate("language.settingsmenu.options.add-runner"),
                 "/manhunt runner ",
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-add"))
+                LanguageTranslator.translate("settingsmenu.click-to-add")
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.add-hunter")),
+                LanguageTranslator.translate("settingsmenu.options.add-hunter"),
                 "/manhunt hunter ",
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-add"))
+                LanguageTranslator.translate("settingsmenu.click-to-add")
         ));
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.scenarios")),
+                LanguageTranslator.translate("settingsmenu.options.scenarios"),
                 "/manhunt scenarios",
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-change"))
+                LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.options.start-game")),
+                LanguageTranslator.translate("settingsmenu.options.start-game"),
                 "/manhunt start",
-                Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.settingsmenu.click-to-start"))
+                LanguageTranslator.translate("settingsmenu.click-to-start")
         ));
     }
 }
