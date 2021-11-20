@@ -34,7 +34,7 @@ public class SettingsMenu {
                 LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                LanguageTranslator.translate("language.settingsmenu.options.add-runner"),
+                LanguageTranslator.translate("settingsmenu.options.add-runner"),
                 "/manhunt runner ",
                 LanguageTranslator.translate("settingsmenu.click-to-add")
         ));
