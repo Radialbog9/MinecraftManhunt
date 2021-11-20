@@ -9,16 +9,29 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
+import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandHunterMobDisgScenario;
+import uk.radialbog9.spigot.manhunt.scenario.scenarios.HunterNoFallScenario;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
 
 public class GameManager {
     public static void startGame() {
@@ -59,7 +72,31 @@ public class GameManager {
             }
         }
         //Scenarios
-        // something should be here but it isn't
+        ArrayList<ScenarioType> scenarios = ManhuntVars.getScenarioList();
+        for (ScenarioType scenarioType : scenarios) {
+            Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
+            if (scenario.getAnnotation(ScenarioListener.class) != null) {
+                //Is a listener
+                try {
+                    Manhunt.getInstance().getServer().getPluginManager().registerEvents((Listener) scenario.cast(Listener.class), Manhunt.getInstance());
+                } catch (ClassCastException e) {
+                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the listener wouldn't load!");
+                    e.printStackTrace();
+                }
+            }
+            else if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
+                //Is a runnable
+                try {
+                    ((BukkitRunnable) scenario.cast(BukkitRunnable.class)).runTaskTimer(Manhunt.getInstance(),
+                            Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L,
+                            Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L
+                    );
+                } catch (ClassCastException e) {
+                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the runnable wouldn't load!");
+                    e.printStackTrace();
+                }
+            }
+        }
 
         //set game as started
         ManhuntVars.setGameStarted(true);
@@ -72,47 +109,47 @@ public class GameManager {
         Bukkit.getServer().getPluginManager().callEvent(event);
 
         //check win causes, modify player data, and then end the game
-        if(e == GameEndCause.ALL_RUNNERS_LEAVE) {
+        if (e == GameEndCause.ALL_RUNNERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("no-more-runners-left"));
             for(Player p : ManhuntVars.getHunters()) {
                 ManhuntVars.getPlayerConfig(p).addHunterWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
-        else if(e == GameEndCause.RUNNERS_ALL_DIE) {
+        else if (e == GameEndCause.RUNNERS_ALL_DIE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("all-runners-dead"));
             for(Player p : ManhuntVars.getHunters()) {
                 ManhuntVars.getPlayerConfig(p).addHunterWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
-        else if(e == GameEndCause.ALL_HUNTERS_LEAVE) {
+        else if (e == GameEndCause.ALL_HUNTERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("no-more-hunters-left"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
-        else if(e == GameEndCause.RUNNERS_KILL_DRAGON) {
+        else if (e == GameEndCause.RUNNERS_KILL_DRAGON) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("runners-kill-ender-dragon"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
-        else if(e == GameEndCause.TIME_UP) {
+        else if (e == GameEndCause.TIME_UP) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("time_up"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
-        else if(e == GameEndCause.ENDED_PREMATURELY) {
+        else if (e == GameEndCause.ENDED_PREMATURELY) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended-prematurely"));
         }
 
         //set all players to spectator
-        for(Player p : Bukkit.getOnlinePlayers()) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
             if (ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.setGameMode(GameMode.SPECTATOR);
         }
 

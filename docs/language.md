@@ -1,3 +1,7 @@
+__Note:__ When updating the plugin to a newer version, you may need to regenerate the config by deleting your current language file, as some language may not be displayed properly.
+
+Here is the default language file (`plugins/Manhunt/lang.yml`):
+```yaml
 ######################################################################################################
 #   ▄▄       ▄▄   ▄▄▄▄▄▄▄▄▄▄▄   ▄▄        ▄   ▄         ▄   ▄         ▄   ▄▄        ▄   ▄▄▄▄▄▄▄▄▄▄▄  #
 #  ▐░░▌     ▐░░▌ ▐░░░░░░░░░░░▌ ▐░░▌      ▐░▌ ▐░▌       ▐░▌ ▐░▌       ▐░▌ ▐░░▌      ▐░▌ ▐░░░░░░░░░░░▌ #
@@ -23,11 +27,9 @@ player-not-online: '&6[Manhunt]&r&a The player&r&c {0} &r&ais not online!'
 unknown-subcommand: '&6[Manhunt]&r&a Unknown subcommand!'
 not-enough-args: '&6[Manhunt]&r&a Not enough arguments!'
 too-many-args: '&6[Manhunt]&r&a Too many arguments!'
-invalid-arg: '&6[Manhunt]&r&a Invalid argument!'
 invalid-integer: '&6[Manhunt]&r&a You have typed an invalid integer!'
 no-game-in-progress: '&6[Manhunt]&r&a There is no game in progress.'
 join-in-progress: '&6[Manhunt]&r&a A game is in progress so you have been put into spectator!'
-no-run-console: '&6[Manhunt]&r&a You can''t run this command as console!'
 # Main command
 no-command-specified: '&6[Manhunt]&r&a No command specified. Type /manhunt help for command help.'
 # Help and usage
@@ -84,8 +86,8 @@ game-is-started: '&6[Manhunt]&r&a The game is &r&cstarted&r&a.'
 game-is-stopped: '&6[Manhunt]&r&a The game is &r&cstopped&r&a.'
 list-count: '&6[Manhunt]&r&a There are&r&c {0} &r&ahunters,&r&c {1} &r&arunners, and&r&c {2} &r&aspectators.'
 hunter-list: '&6[Manhunt]&r&a Hunters: {0}'
-runner-list: '&6[Manhunt]&r&a Runners: {0}'
-spectator-list: '&6[Manhunt]&r&a Spectators: {0}'
+runner-list: '&6[Manhunt]&r&a Runners: {1}'
+spectator-list: '&6[Manhunt]&r&a Spectators: {2}'
 # Spectate command
 console-cannot-spectate: '&6[Manhunt]&r&a Console cannot spectate players!'
 not-spectator: '&6[Manhunt]&r&a You are not a spectator!'
@@ -119,10 +121,6 @@ scenariomenu:
   click-to-enable: '&6Click to &aenable&6!'
   click-to-disable: '&6Click to &cdisable&6!'
   display-format: '&7[&r{0}&r&7] &a{1}' # example with default value: [✓] Runners take no fall damage
-  could-not-load: '&6[Manhunt]&r&a &aScenarios could not be loaded.'
-  scenario-unavailable: '&6[Manhunt]&r&a Scenario &c{0} &ais not available!'
-  scenario-enabled: '&6[Manhunt]&r&a Scenario &c{0} &ahas been enabled!'
-  scenario-disabled: '&6[Manhunt]&r&a Scenario &c{0} &ahas been disabled!'
   not-available:
     generic-load-error: '&4Not available: &cLoad error'
 scenario:
@@ -133,3 +131,4 @@ scenario:
   RUNNER_RANDOM_MOB_DISGUISE: 'Runners get disguised as a random mob'
   HUNTER_RANDOM_MOB_DISGUISE: 'Hunters get disguised as a random mob'
   RUNNER_RANDOM_HUNTER_DISGUISE: 'Runners get disguised as a random hunter'
+```

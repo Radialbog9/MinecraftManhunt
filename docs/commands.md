@@ -12,6 +12,8 @@ All commands are listed below.
 | `/manhunt start`                           | Starts the manhunt.                                             |
 | `/manhunt stop`                            | Ends the manhunt prematurely.                                   |
 | `/manhunt list`                            | Lists the players who are runners and hunters.                  |
+| `/manhunt settings`                        | Fancy settings menu                                             |
+| `/manhunt scenarios`                       | Fancy scenarios menu                                            |
 | `/spectate <player>`                       | Teleports to a runner/hunter (only works if you're a spectator) |
 
 ## Permissions
@@ -25,4 +27,5 @@ All commands are listed below.
 | manhunt.list     | Allows player to list hunters/runners              | All Players |
 | manhunt.reset    | Allows player to reset the game                    | OP Players  |
 | manhunt.spectate | Allows players to use `/spectate <player>`         | All Players |
-| manhunt.admin    | Lets players recieve admin join message if enabled | OP Players |
+| manhunt.admin    | Lets players recieve admin join message if enabled | OP Players  |
+| manhunt.settings | Lets players change settings and scenarios         | OP Players  |

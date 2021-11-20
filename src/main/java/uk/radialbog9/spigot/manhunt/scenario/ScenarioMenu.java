@@ -19,6 +19,8 @@ public class ScenarioMenu {
     public static void displayMenu(Player p) {
         p.sendMessage(LanguageTranslator.translate("scenariomenu.title"));
 
+        p.sendMessage(Utils.getMsgColor("&cWARNING: Scenarios DO NOT work! Don't try and use them."));
+
         String enabled = LanguageTranslator.translate("scenariomenu.enabled");
         String disabled = LanguageTranslator.translate("scenariomenu.disabled");
         String unavailable = LanguageTranslator.translate("scenariomenu.unavailable");

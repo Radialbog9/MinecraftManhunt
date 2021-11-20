@@ -45,20 +45,29 @@ kits:
 
 ### SCENARIOS ###
 scenarios:
-  runner-creative:
+  RUNNER_CREATIVE:
     # Runners are set to creative every `time` seconds.
-    time: 200
+    time: 300
     # Runners can keep creative for `duration` seconds.
     duration: 5
     # ALlow flying while runners in creative?
     allow-fly: false
-  hunter-creative:
+  HUNTER_CREATIVE:
     # Hunters are set to creative every `time` seconds.
-    time: 200
+    time: 300
     # Hunters can keep creative for `duration` seconds.
     duration: 5
     # ALlow flying while hunters in creative?
     allow-fly: false
+  HUNTER_RANDOM_MOB_DISGUISE:
+    # Hunters are disguised as mobs every `time` seconds
+    time: 300
+  RUNNER_RANDOM_MOB_DISGUISE:
+    # Runners are disguised as mobs every `time` seconds
+    time: 300
+  RUNNER_RANDOM_HUNTER_DISGUISE:
+    # Runners are disguised as hunters every `time` seconds
+    time: 300
 
 
 ### Join Message ###
