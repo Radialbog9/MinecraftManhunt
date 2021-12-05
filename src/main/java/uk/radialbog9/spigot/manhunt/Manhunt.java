@@ -5,6 +5,7 @@
 
 package uk.radialbog9.spigot.manhunt;
 
+import com.github.zafarkhaja.semver.Version;
 import com.google.common.base.Charsets;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -32,6 +33,7 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.UpdateChecker;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
@@ -47,7 +49,7 @@ import java.util.logging.Level;
 @SuppressWarnings({"ConstantConditions", "unused"})
 
 @Plugin(name = "Manhunt", version = "2.0.1")
-@ApiVersion(ApiVersion.Target.v1_16)
+@ApiVersion(ApiVersion.Target.v1_17)
 @Author("Radialbog9")
 @Description("Play Dream's iconic Manhunt game!")
 @SoftDependsOn({
@@ -205,5 +207,33 @@ public class Manhunt extends JavaPlugin {
             reloadLang();
         }
         return languageConfig;
+    }
+
+    public void checkForUpdates() {
+        new UpdateChecker(this, 12345).getVersion(version -> {
+            Version thisVersion = Version.valueOf(this.getDescription().getVersion());
+            Version currentVersion = Version.valueOf(version);
+            if (thisVersion.lessThan(currentVersion)) {
+                //old version
+                getLogger().log(Level.INFO,
+                        "There's a new Manhunt update on Spigot! " +
+                                "Your version: " + thisVersion.getNormalVersion() +
+                                ", New version: " + currentVersion.getNormalVersion()
+                );
+            } else if (thisVersion.equals(currentVersion)) {
+                //same version
+                getLogger().log(Level.INFO,
+                        "You're running the latest version of Manhunt! " +
+                                "Your version: " + thisVersion.getNormalVersion()
+                );
+            } else {
+                //newer version
+                getLogger().log(Level.WARNING,
+                        "You're running a later version of Manhunt than on Spigot! " +
+                                "Your version: " + thisVersion.getNormalVersion() +
+                                ", Spigot version: " + currentVersion.getNormalVersion()
+                );
+            }
+        });
     }
 }
