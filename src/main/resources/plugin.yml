@@ -1,0 +1,52 @@
+name: Manhunt
+main: uk.radialbog9.spigot.manhunt.Manhunt
+version: ${project.version}
+description: Play Dream's iconic Manhunt game!
+author: Radialbog9
+api-version: '1.17'
+softdepend:
+  - SuperVanish
+  - PremiumVanish
+  - LibsDisguises
+  - ProtocolLib
+commands:
+  manhunt:
+    description: Main manhunt command
+    usage: /<command> [help|hunter <player>|runner <player>|remove <player>|revive
+      [player]|start|stop|list|settings|scenarios]
+  spectate:
+    description: Spectates a player while in a game
+    usage: /<command> <player>
+permissions:
+  manhunt.*:
+    description: Allows player to use all manhunt commands
+    children:
+      manhunt.add: true
+      manhunt.remove: true
+      manhunt.start: true
+      manhunt.stop: true
+      manhunt.list: true
+      manhunt.spectate: true
+      manhunt.admin: true
+      manhunt.settings: true
+      manhunt.revive: true
+  manhunt.add:
+    description: Allows player to add others to hunters/runners
+  manhunt.remove:
+    description: Allows player to remove others from the game
+  manhunt.start:
+    description: Allows player to start the game
+  manhunt.stop:
+    description: Allows player to stop the game
+  manhunt.list:
+    description: Allows player to list other players in the game
+    default: 'true'
+  manhunt.spectate:
+    description: Allows player to spectate hunters/runner while in a game
+    default: 'true'
+  manhunt.admin:
+    description: Sends join messages for admins on joining (if enabled)
+  manhunt.settings:
+    description: Allows player to use settings menu and scenarios menu
+  manhunt.revive:
+    description: 'Allows player to revive dead hunters'
