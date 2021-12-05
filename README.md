@@ -29,7 +29,8 @@ His Manhunt videos are awesome, and you should [check him out](https://www.youtu
 ---
 
 ## Notice
-___This plugin is out of beta, but there's still a lot of bugs! You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/Minecraft%20Manhunt/) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
+___This plugin is out of beta, but there's probably still a lot of bugs!___ 
+___You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/MinecraftManhunt/) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
 
 ---
 
@@ -59,7 +60,7 @@ Please report any bugs you find in a GitHub Issue or improve our code and make a
 We're always open to suggestions!
 
 ## API
-This plugin has a (somewhat simple) API for developers to use. 
+This plugin has a (somewhat simple and somewhat terrible) API for developers to use. 
 You can start and stop the game and access the list of runners and hunters.
 See [this page](https://radialbog9.github.io/api.md) for more info.
 

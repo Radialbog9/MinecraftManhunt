@@ -4,6 +4,7 @@
 * [API](https://radialbog9.github.io/MinecraftManhunt/api)
 * [Commands and Permissions](https://radialbog9.github.io/MinecraftManhunt/commands)
 * [Configuration](https://radialbog9.github.io/MinecraftManhunt/config)
+* [Language](https://radialbog9.github.io/MinecraftManhunt/language)
 * [Rule Book](https://radialbog9.github.io/MinecraftManhunt/rulebook)
 
 ## Introduction

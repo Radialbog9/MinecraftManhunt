@@ -9,16 +9,13 @@ import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.Scenario;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
+import uk.radialbog9.spigot.manhunt.scenario.*;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario(ScenarioType.RUNNER_RANDOM_HUNTER_DISGUISE)
 @ScenarioRunnable
-public class RandRunnerHunterDisgScenario extends BukkitRunnable {
+public class RandRunnerHunterDisgScenario extends RunnableScenario implements ScenarioBase {
     @Override
     public void run() {
         if(ManhuntVars.isLibsDisguisesEnabled() && ManhuntVars.isGameStarted()) {

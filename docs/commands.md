@@ -9,6 +9,7 @@ All commands are listed below.
 | `/manhunt hunter <player>`                 | Sets a player as hunter and remove them from runner.            |
 | `/manhunt runner <player>`                 | Sets a player as runner and remove them from hunter.            |
 | `/manhunt remove <player>`                 | Removes a specific player from the manhunt.                     |
+| `/manhunt revive <player>`                 | Revives a runner if they're out.                                |
 | `/manhunt start`                           | Starts the manhunt.                                             |
 | `/manhunt stop`                            | Ends the manhunt prematurely.                                   |
 | `/manhunt list`                            | Lists the players who are runners and hunters.                  |
@@ -29,3 +30,4 @@ All commands are listed below.
 | manhunt.spectate | Allows players to use `/spectate <player>`         | All Players |
 | manhunt.admin    | Lets players recieve admin join message if enabled | OP Players  |
 | manhunt.settings | Lets players change settings and scenarios         | OP Players  |
+| manhunt.revive   | Allows player to revive dead hunters               | OP Players  |

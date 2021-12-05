@@ -9,19 +9,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
-import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandHunterMobDisgScenario;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.HunterNoFallScenario;
+import uk.radialbog9.spigot.manhunt.scenario.*;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
@@ -29,8 +23,6 @@ import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 
 public class GameManager {
@@ -74,25 +66,25 @@ public class GameManager {
         //Scenarios
         ArrayList<ScenarioType> scenarios = ManhuntVars.getScenarioList();
         for (ScenarioType scenarioType : scenarios) {
-            Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
-            if (scenario.getAnnotation(ScenarioListener.class) != null) {
+            ScenarioBase scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
+            if (scenario.getClass().getAnnotation(ScenarioListener.class) != null) {
                 //Is a listener
                 try {
-                    Manhunt.getInstance().getServer().getPluginManager().registerEvents((Listener) scenario.cast(Listener.class), Manhunt.getInstance());
+                    Manhunt.getInstance().getServer().getPluginManager().registerEvents((ListenerScenario) scenario, Manhunt.getInstance());
                 } catch (ClassCastException e) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the listener wouldn't load!");
+                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getClass().getSimpleName() + " because the listener wouldn't load!");
                     e.printStackTrace();
                 }
             }
-            else if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
+            else if (scenario.getClass().getAnnotation(ScenarioRunnable.class) != null) {
                 //Is a runnable
                 try {
-                    ((BukkitRunnable) scenario.cast(BukkitRunnable.class)).runTaskTimer(Manhunt.getInstance(),
+                    ((RunnableScenario) scenario).runTaskTimer(Manhunt.getInstance(),
                             Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L,
                             Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L
                     );
                 } catch (ClassCastException e) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the runnable wouldn't load!");
+                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getClass().getSimpleName() + " because the runnable wouldn't load!");
                     e.printStackTrace();
                 }
             }
