@@ -5,8 +5,9 @@
 
 package uk.radialbog9.spigot.manhunt;
 
-import com.github.zafarkhaja.semver.Version;
 import com.google.common.base.Charsets;
+import de.jeff_media.updatechecker.UpdateChecker;
+import de.jeff_media.updatechecker.UserAgentBuilder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
@@ -21,7 +22,6 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
-import uk.radialbog9.spigot.manhunt.utils.UpdateChecker;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
@@ -49,6 +49,9 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private static ScenarioLoader scenarioLoader;
 
+    private static final int SPIGOT_RESOURCE_ID = 97765;
+    private static final int BSTATS_ID = 9573;
+
     /**
      * Called when plugin is enabled
      */
@@ -71,8 +74,7 @@ public class Manhunt extends JavaPlugin {
         this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
         this.getCommand("spectate").setTabCompleter(new SpectateTabCompleter());
         // Register bStats
-        int bStatsId = 9573;
-        Metrics metrics = new Metrics(this, bStatsId);
+        Metrics metrics = new Metrics(this, BSTATS_ID);
         // SV/PV check
         ManhuntVars.setVanishEnabled(
                 getServer().getPluginManager().isPluginEnabled("SuperVanish") || getServer().getPluginManager().isPluginEnabled("PremiumVanish")
@@ -91,7 +93,14 @@ public class Manhunt extends JavaPlugin {
             areScenariosLoaded = false;
         }
         // Update Check
-        checkForUpdates();
+        UpdateChecker.init(this, SPIGOT_RESOURCE_ID)
+                .setDonationLink("https://buymeacoff.ee/Radialbog9")
+                .setChangelogLink(SPIGOT_RESOURCE_ID)
+                .setNotifyOpsOnJoin(true)
+                .setNotifyByPermissionOnJoin("manhunt.updates")
+                .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
+                .checkEveryXHours(6)
+                .checkNow();
         // Log start message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
     }
@@ -159,33 +168,5 @@ public class Manhunt extends JavaPlugin {
             reloadLang();
         }
         return languageConfig;
-    }
-
-    public void checkForUpdates() {
-        new UpdateChecker(this, 12345).getVersion(version -> {
-            Version thisVersion = Version.valueOf(this.getDescription().getVersion());
-            Version currentVersion = Version.valueOf(version);
-            if (thisVersion.lessThan(currentVersion)) {
-                //old version
-                getLogger().log(Level.INFO,
-                        "There's a new Manhunt update on Spigot! " +
-                                "Your version: " + thisVersion.getNormalVersion() +
-                                ", New version: " + currentVersion.getNormalVersion()
-                );
-            } else if (thisVersion.equals(currentVersion)) {
-                //same version
-                getLogger().log(Level.INFO,
-                        "You're running the latest version of Manhunt! " +
-                                "Your version: " + thisVersion.getNormalVersion()
-                );
-            } else {
-                //newer version
-                getLogger().log(Level.WARNING,
-                        "You're running a later version of Manhunt than on Spigot! No support will be provided. " +
-                                "Your version: " + thisVersion.getNormalVersion() +
-                                ", Spigot version: " + currentVersion.getNormalVersion()
-                );
-            }
-        });
     }
 }
