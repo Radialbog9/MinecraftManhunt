@@ -127,11 +127,11 @@ public class Manhunt extends JavaPlugin {
         ManhuntVars.setVanishEnabled(
                 getServer().getPluginManager().isPluginEnabled("SuperVanish") || getServer().getPluginManager().isPluginEnabled("PremiumVanish")
         );
-        //LibsDisguises check
+        // LibsDisguises check
         ManhuntVars.setLibsDisguisesEnabled(
                 getServer().getPluginManager().isPluginEnabled("LibsDisguises")
         );
-        //Load scenarios
+        // Load scenarios
         try {
             scenarioLoader = new ScenarioLoader();
             areScenariosLoaded = true;
@@ -140,6 +140,8 @@ public class Manhunt extends JavaPlugin {
             e.printStackTrace();
             areScenariosLoaded = false;
         }
+        // Update Check
+        checkForUpdates();
         // Log start message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
     }
@@ -229,7 +231,7 @@ public class Manhunt extends JavaPlugin {
             } else {
                 //newer version
                 getLogger().log(Level.WARNING,
-                        "You're running a later version of Manhunt than on Spigot! " +
+                        "You're running a later version of Manhunt than on Spigot! No support will be provided. " +
                                 "Your version: " + thisVersion.getNormalVersion() +
                                 ", Spigot version: " + currentVersion.getNormalVersion()
                 );
