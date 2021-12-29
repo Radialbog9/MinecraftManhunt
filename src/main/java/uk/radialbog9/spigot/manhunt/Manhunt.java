@@ -9,6 +9,7 @@ import com.google.common.base.Charsets;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
+import uk.radialbog9.spigot.manhunt.kits.KitProvider;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
@@ -37,6 +39,8 @@ import java.util.logging.Level;
 @SuppressWarnings({"ConstantConditions", "unused"})
 
 public class Manhunt extends JavaPlugin {
+    @Getter
+    @Setter
     private static Manhunt instance;
 
     public static File langFile;
@@ -48,6 +52,9 @@ public class Manhunt extends JavaPlugin {
 
     @Getter
     private static ScenarioLoader scenarioLoader;
+
+    @Getter
+    private static KitProvider kitProvider;
 
     private static final int SPIGOT_RESOURCE_ID = 97765;
     private static final int BSTATS_ID = 9573;
@@ -92,6 +99,8 @@ public class Manhunt extends JavaPlugin {
             e.printStackTrace();
             areScenariosLoaded = false;
         }
+        // Get kits
+        kitProvider = new KitProvider();
         // Update Check
         UpdateChecker.init(this, SPIGOT_RESOURCE_ID)
                 .setDonationLink("https://buymeacoff.ee/Radialbog9")
@@ -118,22 +127,6 @@ public class Manhunt extends JavaPlugin {
         }
         //Log message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been disabled!"));
-    }
-
-    /**
-     * Gets the instance of the plugin
-     * @return Manhunt instance
-     */
-    public static Manhunt getInstance() {
-        return instance;
-    }
-
-    /**
-     * Sets the instance of the plugin
-     * @param instance the instance
-     */
-    public static void setInstance(Manhunt instance) {
-        Manhunt.instance = instance;
     }
 
     /**
