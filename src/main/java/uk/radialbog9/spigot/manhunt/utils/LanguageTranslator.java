@@ -21,12 +21,10 @@ public class LanguageTranslator {
      */
     public static String translate(@NotNull String key, String... args) {
         String out = "";
-        if(Manhunt.getLang().getString(key) != null) {
-            out = Manhunt.getLang().getString(key, key); // get key or return the key if key doesn't exist in lang
-            if(args != null) {
-                for (int i = 0; i < args.length; i++) {
-                    out = out.replace("{" + i + "}", args[i]);
-                }
+        out = Manhunt.getLanguage().getProperty(key, key); // get key or return the key if key doesn't exist in lang
+        if(args != null) {
+            for (int i = 0; i < args.length; i++) {
+                out = out.replace("{" + i + "}", args[i]);
             }
         }
         return Utils.getMsgColor(out);

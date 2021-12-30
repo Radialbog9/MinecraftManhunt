@@ -5,14 +5,11 @@
 
 package uk.radialbog9.spigot.manhunt;
 
-import com.google.common.base.Charsets;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
@@ -25,9 +22,10 @@ import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Properties;
 import java.util.logging.Level;
 
 /**
@@ -39,15 +37,15 @@ import java.util.logging.Level;
 public class Manhunt extends JavaPlugin {
     private static Manhunt instance;
 
-    public static File langFile;
-    public static FileConfiguration languageConfig;
-
     @Accessors(fluent = true)
     @Getter
     private static boolean areScenariosLoaded;
 
     @Getter
     private static ScenarioLoader scenarioLoader;
+
+    @Getter
+    private static Properties language;
 
     private static final int SPIGOT_RESOURCE_ID = 97765;
     private static final int BSTATS_ID = 9573;
@@ -64,7 +62,21 @@ public class Manhunt extends JavaPlugin {
         saveConfig();
         reloadConfig();
         // Load language
-        loadLang();
+        try {
+            language = new Properties();
+            String languageSpecified = getConfig().getString("language");
+            if (languageSpecified.equals("custom")) {
+                File customFile = new File(getDataFolder(), "language.properties");
+                if(!customFile.exists()) saveResource("language.properties", false);
+                language.load(new FileReader(customFile));
+            } else {
+                InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
+                if(languageStream == null) languageStream = getResource("language-en_GB.properties");
+                language.load(languageStream);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
         // Register commands
@@ -134,39 +146,5 @@ public class Manhunt extends JavaPlugin {
      */
     public static void setInstance(Manhunt instance) {
         Manhunt.instance = instance;
-    }
-
-    /**
-     * Loads the language configuration fron lang.yml
-     */
-    public static void loadLang() {
-        langFile = new File(Manhunt.getInstance().getDataFolder(), "lang.yml");
-        if(!langFile.exists()) Manhunt.getInstance().saveResource("lang.yml", false);
-        languageConfig = YamlConfiguration.loadConfiguration(langFile);
-        try {
-            languageConfig.save(langFile);
-        } catch (IOException e) {
-            Manhunt.getInstance().getLogger().log(Level.SEVERE, "Could not save language to " + langFile, e);
-        }
-        reloadLang();
-    }
-
-    /**
-     * Loads the language configuration from lang.yml
-     */
-    public static void reloadLang() {
-        languageConfig = YamlConfiguration.loadConfiguration(langFile);
-        final InputStream defConfigStream = Manhunt.getInstance().getResource("lang.yml");
-        if (defConfigStream == null) {
-            return;
-        }
-        languageConfig.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8)));
-    }
-
-    public static FileConfiguration getLang() {
-        if(languageConfig == null) {
-            reloadLang();
-        }
-        return languageConfig;
     }
 }

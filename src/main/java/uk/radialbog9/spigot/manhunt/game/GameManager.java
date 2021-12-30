@@ -102,42 +102,42 @@ public class GameManager {
 
         //check win causes, modify player data, and then end the game
         if (e == GameEndCause.ALL_RUNNERS_LEAVE) {
-            Utils.broadcastServerMessage(LanguageTranslator.translate("no-more-runners-left"));
+            Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-runners-left"));
             for(Player p : ManhuntVars.getHunters()) {
                 ManhuntVars.getPlayerConfig(p).addHunterWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
         else if (e == GameEndCause.RUNNERS_ALL_DIE) {
-            Utils.broadcastServerMessage(LanguageTranslator.translate("all-runners-dead"));
+            Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.all-runners-dead"));
             for(Player p : ManhuntVars.getHunters()) {
                 ManhuntVars.getPlayerConfig(p).addHunterWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
         else if (e == GameEndCause.ALL_HUNTERS_LEAVE) {
-            Utils.broadcastServerMessage(LanguageTranslator.translate("no-more-hunters-left"));
+            Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-hunters-left"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
         else if (e == GameEndCause.RUNNERS_KILL_DRAGON) {
-            Utils.broadcastServerMessage(LanguageTranslator.translate("runners-kill-ender-dragon"));
+            Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.runners-kill-ender-dragon"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
         else if (e == GameEndCause.TIME_UP) {
-            Utils.broadcastServerMessage(LanguageTranslator.translate("time_up"));
+            Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.time-up"));
             for(Player p : ManhuntVars.getRunners()) {
                 ManhuntVars.getPlayerConfig(p).addRunnerWin();
                 ManhuntVars.getPlayerConfig(p).save();
             }
         }
         else if (e == GameEndCause.ENDED_PREMATURELY) {
-            Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended-prematurely"));
+            Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.game-ended-prematurely"));
         }
 
         //set all players to spectator
