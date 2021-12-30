@@ -5,7 +5,6 @@
 
 package uk.radialbog9.spigot.manhunt.utils;
 
-import com.google.common.reflect.ClassPath;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,20 +12,15 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.kits.Kit;
-import uk.radialbog9.spigot.manhunt.kits.KitType;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -155,48 +149,6 @@ public class Utils {
         TextComponent tc = new TextComponent(getMsgColor(text));
         if(hover != null) tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
         return tc;
-    }
-
-    /**
-     * Retrieves hunter kits from the config
-     * @see Kit
-     * @return The kit list
-     */
-    public static ArrayList<Kit> getHunterKits() {
-        ArrayList<Kit> kits = new ArrayList<>();
-        ConfigurationSection hunterKitsSection = Manhunt.getInstance().getConfig().getConfigurationSection("kits.hunters");
-        for (String key : hunterKitsSection.getKeys(false)) {
-            ConfigurationSection kitsec = hunterKitsSection.getConfigurationSection(key);
-            ArrayList<ItemStack> itemStacks = new ArrayList<>();
-            for (String stack : kitsec.getConfigurationSection("items").getKeys(false)) {
-                int amount = Math.min(kitsec.getConfigurationSection(stack).getInt("quantity"), 64);
-                ItemStack itemStack = new ItemStack(Material.getMaterial(kitsec.getConfigurationSection(stack).getString("item")), amount);
-                itemStacks.add(itemStack);
-            }
-            Kit thisKit = new Kit(key, KitType.HUNTER, itemStacks);
-        }
-        return kits;
-    }
-
-    /**
-     * Retrieves runner kits from the config
-     * @see Kit
-     * @return The kit list
-     */
-    public static ArrayList<Kit> getRunnerKits() {
-        ArrayList<Kit> kits = new ArrayList<>();
-        ConfigurationSection runnerKitsSection = Manhunt.getInstance().getConfig().getConfigurationSection("kits.runners");
-        for (String key : runnerKitsSection.getKeys(false)) {
-            ConfigurationSection kitsec = runnerKitsSection.getConfigurationSection(key);
-            ArrayList<ItemStack> itemStacks = new ArrayList<>();
-            for (String stack : kitsec.getConfigurationSection("items").getKeys(false)) {
-                int amount = Math.min(kitsec.getConfigurationSection(stack).getInt("quantity"), 64);
-                ItemStack itemStack = new ItemStack(Material.getMaterial(kitsec.getConfigurationSection(stack).getString("item")), amount);
-                itemStacks.add(itemStack);
-            }
-            Kit thisKit = new Kit(key, KitType.RUNNER, itemStacks);
-        }
-        return kits;
     }
 
     /**

@@ -5,42 +5,25 @@
 
 package uk.radialbog9.spigot.manhunt.kits;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
 @SuppressWarnings({"unused"})
 public class Kit {
+    @Getter
     private String name;
-    private ArrayList<ItemStack> items;
+    @Getter
     private KitType kitType;
+    @Getter
+    @Setter
+    private ArrayList<ItemStack> items;
 
     public Kit(String name, KitType kitType, ArrayList<ItemStack> items) {
         this.name = name;
         this.kitType = kitType;
         this.items = items;
     }
-
-    public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<ItemStack> getItems() {
-        return this.items;
-    }
-    public void setItems(ArrayList<ItemStack> items) {
-        this.items = items;
-    }
-
-    public KitType getKitType() {
-        return this.kitType;
-    }
-    public void setKitType(KitType kitType) {
-        this.kitType = kitType;
-    }
-
-
 }

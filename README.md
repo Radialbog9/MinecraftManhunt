@@ -4,16 +4,20 @@
 [![Jenkins build status](https://ci.radialbog9.uk/job/MinecraftManhunt/badge/icon?style=flat-square)](https://ci.radialbog9.uk/job/MinecraftManhunt/)
 [![Donate](https://img.shields.io/badge/donate-Buy%20Me%20A%20Coffee-orange?style=flat-square&logo=buymeacoffee)](https://buymeacoff.ee/Radialbog9)
 [![Subscribe](https://img.shields.io/badge/subscribe-YouTube-orange?style=flat-square&logo=youtube)](https://rb9.xyz/sub)
-[![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)](https://discord.radialbog9.uk)
+[![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)](https://rb9.xyz/discord)
 
 ![bStats Players](https://img.shields.io/bstats/players/9573?style=for-the-badge&color=yellow)
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
+![SpigotMC tested server versions](https://img.shields.io/spiget/tested-versions/97765?color=yellow&style=for-the-badge)
 
+[![GitHub license](https://img.shields.io/github/license/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)](https://github.com/Radialbog9/MinecraftManhunt/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/network)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)
 ![GitHub all releases](https://img.shields.io/github/downloads/Radialbog9/MinecraftManhunt/total?style=for-the-badge&color=blue&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
+![GitHub repo size](https://img.shields.io/github/repo-size/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)
+![Lines of code](https://img.shields.io/tokei/lines/github/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 
 ---
 
