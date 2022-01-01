@@ -9,9 +9,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
@@ -66,11 +68,11 @@ public class GameManager {
         //Scenarios
         ArrayList<ScenarioType> scenarios = ManhuntVars.getScenarioList();
         for (ScenarioType scenarioType : scenarios) {
-            ScenarioBase scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
-            if (scenario.getClass().getAnnotation(ScenarioListener.class) != null) {
+            Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
+            if (scenario.getAnnotation(ScenarioListener.class) != null) {
                 //Is a listener
                 try {
-                    Manhunt.getInstance().getServer().getPluginManager().registerEvents((ListenerScenario) scenario, Manhunt.getInstance());
+                    Manhunt.getInstance().getServer().getPluginManager().registerEvents((Listener) scenario.cast(Listener.class), Manhunt.getInstance());
                 } catch (ClassCastException e) {
                     Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getClass().getSimpleName() + " because the listener wouldn't load!");
                     e.printStackTrace();
@@ -79,7 +81,7 @@ public class GameManager {
             else if (scenario.getClass().getAnnotation(ScenarioRunnable.class) != null) {
                 //Is a runnable
                 try {
-                    ((RunnableScenario) scenario).runTaskTimer(Manhunt.getInstance(),
+                    ((BukkitRunnable) scenario.cast(BukkitRunnable.class)).runTaskTimer(Manhunt.getInstance(),
                             Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L,
                             Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L
                     );

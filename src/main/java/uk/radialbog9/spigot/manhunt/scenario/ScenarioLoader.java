@@ -14,7 +14,7 @@ import java.util.logging.Level;
 @SuppressWarnings({"unused"})
 public class ScenarioLoader {
     @Getter
-    private final HashMap<ScenarioType, ScenarioBase> availableScenarios;
+    private final HashMap<ScenarioType, Class<?>> availableScenarios;
 
     public ScenarioLoader() throws Exception {
         availableScenarios = new HashMap<>();
@@ -23,22 +23,11 @@ public class ScenarioLoader {
                 "uk.radialbog9.spigot.manhunt.scenario.scenarios"
         );
         for(Class<?> cla : classSet) {
-            Object cl = cla;
-            ScenarioBase c = null;
-            if(Arrays.asList(cl.getClass().getInterfaces()).contains(ScenarioBase.class)) {
-                c = (ScenarioBase) cl;
-            }
-
-            if(c == null) {
-                Manhunt.getInstance().getLogger().log(Level.WARNING, "Scenario " + cl.getClass().getSimpleName() + " wasn't a base!");
-                continue;
-            }
-
             //Get if the class is a scenario
-            Scenario annotation = c.getClass().getAnnotation(Scenario.class);
+            Scenario annotation = cla.getAnnotation(Scenario.class);
             if(annotation == null) continue;
             //If check is fine then add to the list of available scenarios
-            availableScenarios.put(annotation.value(), c);
+            availableScenarios.put(annotation.value(), cla);
         }
 
         //load scenarios that require LibsDisguises if enabled
@@ -47,23 +36,12 @@ public class ScenarioLoader {
                     new File(Manhunt.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()),
                     "uk.radialbog9.spigot.manhunt.scenario.ldisscenarios"
             );
-            for(Object cla : classSet2) {
-                Object cl = cla;
-                ScenarioBase c = null;
-                if(Arrays.asList(cl.getClass().getInterfaces()).contains(ScenarioBase.class)) {
-                    c = (ScenarioBase) cl.getClass().cast(ScenarioBase.class);
-                }
-
-                if(c == null) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Scenario " + cl.getClass().getSimpleName() + " wasn't a base!");
-                    continue;
-                }
-
+            for(Class<?> cla : classSet2) {
                 //Get if the class is a scenario
-                Scenario annotation = c.getClass().getAnnotation(Scenario.class);
+                Scenario annotation = cla.getAnnotation(Scenario.class);
                 if(annotation == null) continue;
                 //If check is fine then add to the list of available scenarios
-                availableScenarios.put(annotation.value(), c);
+                availableScenarios.put(annotation.value(), cla);
             }
         }
     }

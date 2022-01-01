@@ -29,7 +29,7 @@ public class ScenarioMenu {
 
         ArrayList<ScenarioType> unavailables = new ArrayList<>(Arrays.asList(ScenarioType.values()));
 
-        HashMap<ScenarioType, ScenarioBase> availables = Manhunt.getScenarioLoader().getAvailableScenarios();
+        HashMap<ScenarioType, Class<?>> availables = Manhunt.getScenarioLoader().getAvailableScenarios();
 
         for (ScenarioType scenario : availables.keySet()) {
             unavailables.remove(scenario);
