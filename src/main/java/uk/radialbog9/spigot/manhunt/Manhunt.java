@@ -17,6 +17,8 @@ import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.kits.KitProvider;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
+import uk.radialbog9.spigot.manhunt.scenario.scenarios.HunterNoFallScenario;
+import uk.radialbog9.spigot.manhunt.scenario.scenarios.RunnerNoFallScenario;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -111,6 +113,11 @@ public class Manhunt extends JavaPlugin {
             e.printStackTrace();
             areScenariosLoaded = false;
         }
+
+        // Loading listeners now instead of later
+        Manhunt.getInstance().getServer().getPluginManager().registerEvents(new HunterNoFallScenario(), Manhunt.getInstance());
+        Manhunt.getInstance().getServer().getPluginManager().registerEvents(new RunnerNoFallScenario(), Manhunt.getInstance());
+
         // Get kits
         kitProvider = new KitProvider();
         // Update Check

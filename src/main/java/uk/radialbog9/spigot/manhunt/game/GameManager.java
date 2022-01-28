@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -22,8 +21,6 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandHunterMobDisgScenario;
 import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandRunnerHunterDisgScenario;
 import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandRunnerMobDisgScenario;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.HunterNoFallScenario;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.RunnerNoFallScenario;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -33,7 +30,6 @@ import java.util.ArrayList;
 
 @SuppressWarnings("CommentedOutCode")
 public class GameManager {
-    private static ArrayList<Listener> enabledListeners = new ArrayList<>();
     private static ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
 
     public static void startGame() {
@@ -102,16 +98,6 @@ public class GameManager {
         }*/
 
         // i can't be bothered to come up with something better that actually works
-        if (ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_NO_FALL)) {
-            Listener listener = new HunterNoFallScenario();
-            Manhunt.getInstance().getServer().getPluginManager().registerEvents(listener, Manhunt.getInstance());
-            enabledListeners.add(listener);
-        }
-        if (ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_NO_FALL)) {
-            Listener listener = new RunnerNoFallScenario();
-            Manhunt.getInstance().getServer().getPluginManager().registerEvents(listener, Manhunt.getInstance());
-            enabledListeners.add(listener);
-        }
         if (ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)) {
             BukkitRunnable runnable = new RandHunterMobDisgScenario();
             runnable.runTaskTimer(Manhunt.getInstance(),
@@ -198,6 +184,10 @@ public class GameManager {
         ManhuntVars.removeAllRunners();
 
         ManhuntVars.getPreviousRunners().clear();
+
+        for(BukkitRunnable runnable : enabledRunnables) {
+            runnable.cancel();
+        }
 
         //fully end game
         ManhuntVars.setGameStarted(false);
