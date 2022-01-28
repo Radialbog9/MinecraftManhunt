@@ -11,10 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
-import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 public class SpectateCommand implements CommandExecutor {
 

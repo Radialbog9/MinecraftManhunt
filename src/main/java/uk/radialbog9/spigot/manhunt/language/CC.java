@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2021 Radialbog9/TheJoeCoder and contributors.
+ * Copyright (c) 2022 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows commercial use, distribution, modification, and licensed works, providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.utils;
+package uk.radialbog9.spigot.manhunt.language;
 
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CC class ripped out of Dream's gCursed plugin
+ * CC class stole from Dream (this is the only code i've stolen, please have mercy)
  */
+@SuppressWarnings({"unused"})
 public class CC {
     public static String blue = ChatColor.BLUE.toString(),
             aqua = ChatColor.AQUA.toString(),
@@ -71,12 +72,13 @@ public class CC {
             rightMoon = "☽", sun = "☼", boldSun = "☀ ", snowman = "☃", singleMusicNote = "♪", doubleMusicNote = "♫",
             phone = "✆", mail = "✉", female = "♂", male = "♀", upTrigle = "▲", downTrigle = "▼", leftTrigle = "◀",
             rightTrigle = "▶", thinItalicTick = "✓", italicTick = "✔",
-            smiley1 = "☺", smiley2 = "ت", smiley3 = "ツ", smiley4 = "ッ", smiley5 = "シ", smiley6 = "Ü", oneInCircle = "➀",
-            threeInCircle = "➂", fourInCircle = "➃", fiveInCircle = "➄", sixInCircle = "➅", sevenInCircle = "➆ ",
-            eightInCircle = "➇", nineInCircle = "➈",
+            smiley1 = "☺", smiley2 = "ت", smiley3 = "ツ", smiley4 = "ッ", smiley5 = "シ", smiley6 = "Ü",
+            oneInCircle = "➀", twoInCircle = "②", threeInCircle = "➂", fourInCircle = "➃", fiveInCircle = "➄",
+            sixInCircle = "➅", sevenInCircle = "➆ ", eightInCircle = "➇", nineInCircle = "➈", zeroInCircle = "⓪",
             arrow = "➨", bArrow = "➜", checkerArrow = "➣", thickArrow = "➤",
             veryLightShadedBlock = "░", lightShadedBlock = "▒", shadedBlock = "▓", fullyShadedBlock = "█",
-            pipeUp = "║", pipeUpMidSplit = "╠", pipeTopRight = "╔", pipeBottomRight = "╚", pipeTopLeft = "╗";
+            pipeUp = "║", pipeAcross = "═", pipeUpMidRightSplit = "╠", pipeUpMidLeftSplit = "╣",
+            pipeTopRight = "╔", pipeBottomRight = "╚", pipeTopLeft = "╗", pipeBottomLeft = "╝";
 
     public static List<String> wrapString(String str, int lineLength) {
         String[] split = WordUtils.wrap(str, lineLength, null, true).split("\\r\\n");

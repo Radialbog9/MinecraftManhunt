@@ -19,7 +19,7 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
-import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -39,7 +39,11 @@ public class ManhuntCommand implements CommandExecutor {
             sender.sendMessage(LanguageTranslator.translate("no-command-specified"));
         } else if (args[0].equalsIgnoreCase("help")) {
             sender.sendMessage(LanguageTranslator.translate("command-help"));
-            sender.sendMessage(LanguageTranslator.translate("help.help"));
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/manhunt help",
+                    LanguageTranslator.translate("help.help")
+            ));
             if(Utils.hasNoManhuntPermissions(sender)) sender.sendMessage(LanguageTranslator.translate("no-subcommand-perm"));
             if(sender.hasPermission("manhunt.add"))
                 sender.sendMessage(LanguageTranslator.translate(

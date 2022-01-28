@@ -7,7 +7,7 @@ package uk.radialbog9.spigot.manhunt.scenario;
 
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.utils.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 

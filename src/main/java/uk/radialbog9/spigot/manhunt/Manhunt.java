@@ -63,8 +63,7 @@ public class Manhunt extends JavaPlugin {
         // Set instance
         instance = this;
         // Enable config
-        saveDefaultConfig();
-        saveConfig();
+        if(!new File(getDataFolder(), "config.yml").exists()) saveResource("config.yml", false);
         reloadConfig();
         // Load language
         try {
@@ -74,9 +73,12 @@ public class Manhunt extends JavaPlugin {
                 File customFile = new File(getDataFolder(), "language.properties");
                 if(!customFile.exists()) saveResource("language.properties", false);
                 language.load(new FileReader(customFile));
+            } else if (languageSpecified.equals("none")) {
+                InputStream languageStream = getResource("language.properties");
+                language.load(languageStream);
             } else {
                 InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
-                if(languageStream == null) languageStream = getResource("language-en_GB.properties");
+                if(languageStream == null) languageStream = getResource("language.properties");
                 language.load(languageStream);
             }
         } catch (IOException e) {
