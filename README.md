@@ -10,6 +10,9 @@
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
 ![SpigotMC tested server versions](https://img.shields.io/spiget/tested-versions/97765?color=yellow&style=for-the-badge)
 
+![LGTM Grade](https://img.shields.io/lgtm/grade/java/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)
+![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)
+
 [![GitHub license](https://img.shields.io/github/license/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)](https://github.com/Radialbog9/MinecraftManhunt/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/network)
@@ -17,6 +20,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/Radialbog9/MinecraftManhunt/total?style=for-the-badge&color=blue&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)
+![GitHub top language](https://img.shields.io/github/languages/top/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 ![Lines of code](https://img.shields.io/tokei/lines/github/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 
 ---
