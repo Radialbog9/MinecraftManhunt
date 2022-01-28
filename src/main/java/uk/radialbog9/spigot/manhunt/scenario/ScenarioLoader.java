@@ -6,10 +6,8 @@ import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.logging.Level;
 
 @SuppressWarnings({"unused"})
 public class ScenarioLoader {

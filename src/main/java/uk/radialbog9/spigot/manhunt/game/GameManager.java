@@ -17,17 +17,25 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
-import uk.radialbog9.spigot.manhunt.scenario.*;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
+import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandHunterMobDisgScenario;
+import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandRunnerHunterDisgScenario;
+import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandRunnerMobDisgScenario;
+import uk.radialbog9.spigot.manhunt.scenario.scenarios.HunterNoFallScenario;
+import uk.radialbog9.spigot.manhunt.scenario.scenarios.RunnerNoFallScenario;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
-import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 
+@SuppressWarnings("CommentedOutCode")
 public class GameManager {
+    private static ArrayList<Listener> enabledListeners = new ArrayList<>();
+    private static ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
+
     public static void startGame() {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
         Bukkit.getServer().getPluginManager().callEvent(event);
@@ -66,6 +74,7 @@ public class GameManager {
             }
         }
         //Scenarios
+        /*
         ArrayList<ScenarioType> scenarios = ManhuntVars.getScenarioList();
         for (ScenarioType scenarioType : scenarios) {
             Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
@@ -90,7 +99,44 @@ public class GameManager {
                     e.printStackTrace();
                 }
             }
+        }*/
+
+        // i can't be bothered to come up with something better that actually works
+        if (ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_NO_FALL)) {
+            Listener listener = new HunterNoFallScenario();
+            Manhunt.getInstance().getServer().getPluginManager().registerEvents(listener, Manhunt.getInstance());
+            enabledListeners.add(listener);
         }
+        if (ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_NO_FALL)) {
+            Listener listener = new RunnerNoFallScenario();
+            Manhunt.getInstance().getServer().getPluginManager().registerEvents(listener, Manhunt.getInstance());
+            enabledListeners.add(listener);
+        }
+        if (ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)) {
+            BukkitRunnable runnable = new RandHunterMobDisgScenario();
+            runnable.runTaskTimer(Manhunt.getInstance(),
+                    Manhunt.getInstance().getConfig().getInt("scenarios.HUNTER_RANDOM_MOB_DISGUISE.time", 300) * 20L,
+                    Manhunt.getInstance().getConfig().getInt("scenarios.HUNTER_RANDOM_MOB_DISGUISE.time", 300) * 20L
+            );
+            enabledRunnables.add(runnable);
+        }
+        if (ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_RANDOM_MOB_DISGUISE)) {
+            BukkitRunnable runnable = new RandRunnerMobDisgScenario();
+            runnable.runTaskTimer(Manhunt.getInstance(),
+                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_MOB_DISGUISE.time", 300) * 20L,
+                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_MOB_DISGUISE.time", 300) * 20L
+            );
+            enabledRunnables.add(runnable);
+        }
+        if (ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_RANDOM_HUNTER_DISGUISE)) {
+            BukkitRunnable runnable = new RandRunnerHunterDisgScenario();
+            runnable.runTaskTimer(Manhunt.getInstance(),
+                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_HUNTER_DISGUISE.time", 300) * 20L,
+                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_HUNTER_DISGUISE.time", 300) * 20L
+            );
+            enabledRunnables.add(runnable);
+        }
+
 
         //set game as started
         ManhuntVars.setGameStarted(true);

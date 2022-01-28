@@ -80,7 +80,7 @@ We use bStats to track how people use our plugin.
 ## Config
 The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
 
-Below is parts of the default config. More documentation about the config can be found [here](https://radialbog9.github.io/MinecraftManhunt/config).
+Below are some parts of the default config. More documentation about the config can be found [here](https://radialbog9.github.io/MinecraftManhunt/config).
 On large updates, you might have to delete the config file and let it regenerate.
 ```yaml
 # Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
@@ -102,66 +102,42 @@ scenarios:
     duration: 5
     # ALlow flying while runners in creative?
     allow-fly: false
-  HUNTER_CREATIVE:
-    # Hunters are set to creative every `time` seconds.
-    time: 300
-    # Hunters can keep creative for `duration` seconds.
-    duration: 5
-    # ALlow flying while hunters in creative?
-    allow-fly: false
+
+# ...
+
+### Join Message ###
+join-message:
+  enabled: true
+  noperm: '&aWelcome to this Manhunt server! The game will start shortly.'
+
+# ...
+
+### Language preferences ###
+# Set this to one of the supported languages.
+# Set this to 'custom' to generate a custom language file.
+language: 'en_gb'
 
 # ...
 ```
 
 ## Language
-This plugin uses a slightly crappy language system. 
-You can change the language, using `{0}`, `{1}`, etc to signify placeholders. 
+This plugin uses a (still slightly crappy) all-new language system.
+To use the new prebundled languages, change the `language` key in the config to one of the following:
+* `en_GB` (English UK - default)
+* `en_US` (English US)
+* `fr_FR` (French) \[Incomplete\]
+* `pl_PL` (Polish) \[Incomplete\]
+* `de_DE` (German) \[Incomplete\]
+* `es_ES` (Spanish) \[Incomplete\]
+* `it_IT` (Italian) \[Incomplete\]
+* `ja_JP` (Japanese) \[Incomplete\]
+* `ko_KR` (Korean) \[Incomplete\]
+* `nl_NL` (Dutch) \[Incomplete\]
+* `ru_RU` (Russian) \[Incomplete\]
+* `sv_SE` (Swedish) \[Incomplete\]
+* `zh_CN` (Chinese Simplified) \[Incomplete\]
+* `zh_TW` (Chinese Traditional) \[Incomplete\]
 
-Here's an example. Be aware you may have to delete the language file to let it regenerate after large updates if you experience errors. 
+If you natively speak any of these languages then you can help us translate! Just go to this website and start translating: https://crowdin.com/project/minecraft-manhunt
 
-```yaml
-# General language
-no-permission: '&6[Manhunt]&r&a You do not have permission to do this!'
-player-not-online: '&6[Manhunt]&r&a The player&r&c {0} &r&ais not online!'
-unknown-subcommand: '&6[Manhunt]&r&a Unknown subcommand!'
-not-enough-args: '&6[Manhunt]&r&a Not enough arguments!'
-
-# ...
-
-help:
-  help: 'Shows help'
-  hunter: 'Sets a player to hunter'
-  runner: 'Sets a player to runner'
-
-# ...
-
-# Settings menu
-settingsmenu:
-  title: '&7---- &6Manhunt Settings Menu &7----'
-  enabled: '&a✓'
-  disabled: '&c✕'
-  click-to-toggle: '&6Click to toggle!'
-  click-to-change: '&6Click to change!'
-  click-to-add: '&6Click to add!'
-  click-to-start: '&6Click to start!'
-  options:
-    head-start: '&7[ &r{0} &r&7] &eHead start'
-
-# ...
-
-# Scenarios
-scenariomenu:
-  title: '&7---- &6Manhunt Scenario Menu &7----'
-  enabled: '&a✓'
-  disabled: '&c✕'
-# ...
-  display-format: '&7[&r{0}&r&7] &a{1}'
-  not-available:
-    generic-load-error: '&4Not available: &cLoad error'
-scenario:
-  RUNNER_NO_FALL: 'Runners take no fall damage'
-  HUNTER_NO_FALL: 'Hunters take no fall damage'
-# ...
-```
-
-The full language file can be found here.
+If you want to be a proofreader, go to the page above and press the contact button next to `Radialbog9` to send us a message!

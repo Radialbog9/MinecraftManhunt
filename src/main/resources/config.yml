@@ -84,4 +84,4 @@ join-message:
 ### Language preferences ###
 # Set this to one of the supported languages.
 # Set this to 'custom' to generate a custom language file.
-language: 'en_gb'
+language: 'en_GB'

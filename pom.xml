@@ -129,6 +129,14 @@
                             <include>de.jeff_media:SpigotUpdateChecker</include>
                         </includes>
                     </artifactSet>
+                    <filters>
+                        <filter>
+                            <artifact>de.jeff_media:SpigotUpdateChecker</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                     <relocations>
                         <relocation>
                             <pattern>de.jeff_media.updatechecker</pattern>
