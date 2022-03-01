@@ -70,7 +70,7 @@ We're always open to suggestions!
 ## API
 This plugin has a (somewhat simple and somewhat terrible) API for developers to use. 
 You can start and stop the game and access the list of runners and hunters.
-See [this page](https://radialbog9.github.io/api.md) for more info.
+See [this page](https://radialbog9.github.io/MinecraftManhunt/api) for more info.
 
 ## bStats
 We use bStats to track how people use our plugin.
