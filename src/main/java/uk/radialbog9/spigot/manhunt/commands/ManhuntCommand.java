@@ -14,12 +14,12 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioMenu;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
-import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -427,45 +427,49 @@ public class ManhuntCommand implements CommandExecutor {
         } else if (args[0].equalsIgnoreCase("scenarios")) {
             if (sender instanceof Player) {
                 if (Manhunt.areScenariosLoaded()) {
-                    if (args.length == 1) {
-                        //no argument was given, display the menu
-                        ScenarioMenu.displayMenu((Player) sender);
-                    } else if (args.length == 2) {
-                        ScenarioType value;
-                        try {
-                            value = ScenarioType.valueOf(args[1]);
-                        } catch (IllegalArgumentException ignored) { value = null; }
+                    if(!ManhuntVars.isGameStarted()) {
+                        if (args.length == 1) {
+                            //no argument was given, display the menu
+                            ScenarioMenu.displayMenu((Player) sender);
+                        } else if (args.length == 2) {
+                            ScenarioType value;
+                            try {
+                                value = ScenarioType.valueOf(args[1]);
+                            } catch (IllegalArgumentException ignored) { value = null; }
 
-                        if (value != null) {
-                            //scenario is a value
-                            if (Manhunt.getScenarioLoader().getAvailableScenarios().containsKey(value)) {
-                               //Scenario is available
-                               if (ManhuntVars.getScenarioList().contains(value)) {
-                                   //Scenario is enabled, disable it!
-                                   ManhuntVars.getScenarioList().remove(value);
-                                   sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-disabled", value.toString()));
-                               } else {
-                                   //Scenario is disabled, enable it!
-                                   ManhuntVars.getScenarioList().add(value);
-                                   sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", value.toString()));
-                               }
-                               ScenarioMenu.displayMenu((Player) sender);
+                            if (value != null) {
+                                //scenario is a value
+                                if (Manhunt.getScenarioLoader().getAvailableScenarios().containsKey(value)) {
+                                    //Scenario is available
+                                    if (ManhuntVars.getScenarioList().contains(value)) {
+                                        //Scenario is enabled, disable it!
+                                        ManhuntVars.getScenarioList().remove(value);
+                                        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-disabled", value.toString()));
+                                    } else {
+                                        //Scenario is disabled, enable it!
+                                        ManhuntVars.getScenarioList().add(value);
+                                        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", value.toString()));
+                                    }
+                                    ScenarioMenu.displayMenu((Player) sender);
+                                } else {
+                                    sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-unavailable", value.toString()));
+                                }
                             } else {
-                                sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-unavailable", value.toString()));
+                                sender.sendMessage(LanguageTranslator.translate("invalid-arg"));
+                                sender.sendMessage(LanguageTranslator.translate(
+                                        "usage",
+                                        "/manhunt scenario [scenario]"
+                                ));
                             }
                         } else {
-                            sender.sendMessage(LanguageTranslator.translate("invalid-arg"));
+                            sender.sendMessage(LanguageTranslator.translate("too-many-args"));
                             sender.sendMessage(LanguageTranslator.translate(
                                     "usage",
                                     "/manhunt scenario [scenario]"
                             ));
                         }
                     } else {
-                        sender.sendMessage(LanguageTranslator.translate("too-many-args"));
-                        sender.sendMessage(LanguageTranslator.translate(
-                                "usage",
-                                "/manhunt scenario [scenario]"
-                        ));
+                        sender.sendMessage(LanguageTranslator.translate("scenariomenu.no-change-ingame"));
                     }
                 } else {
                     sender.sendMessage(LanguageTranslator.translate("scenariomenu.could-not-load"));

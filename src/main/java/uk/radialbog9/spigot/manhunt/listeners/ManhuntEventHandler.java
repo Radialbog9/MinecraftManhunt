@@ -7,7 +7,6 @@ package uk.radialbog9.spigot.manhunt.listeners;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,13 +20,11 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
-import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
-import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
-@SuppressWarnings("ConstantConditions")
 public class ManhuntEventHandler implements Listener {
     /**
      * Detects death for runners
@@ -49,7 +46,11 @@ public class ManhuntEventHandler implements Listener {
                     GameManager.endGame(GameEndCause.RUNNERS_ALL_DIE);
                 } else {
                     //Else say they died and how many runners remain.
-                    Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-died"), p.getDisplayName(), ManhuntVars.getRunners().size()));
+                    Utils.broadcastServerMessage(LanguageTranslator.translate(
+                            "runner-died",
+                            p.getDisplayName(),
+                            String.valueOf(ManhuntVars.getRunners().size())
+                    ));
                     //add them to die list so they can be revived
                     ManhuntVars.getPreviousRunners().add(p);
                 }
@@ -99,7 +100,7 @@ public class ManhuntEventHandler implements Listener {
                 p.sendMessage(LanguageTranslator.translate(
                         "tracking-player",
                         closestPlayer.getDisplayName(),
-                        String.valueOf(closestPlayer.getLocation().distance(p.getLocation()))
+                        String.valueOf(Math.floor(closestPlayer.getLocation().distance(p.getLocation())))
                 ));
             }
         }
@@ -113,7 +114,7 @@ public class ManhuntEventHandler implements Listener {
     public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
         if (ManhuntVars.isGameStarted()) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("language.join-in-progress")));
+            e.getPlayer().sendMessage(LanguageTranslator.translate("join-in-progress"));
         }
     }
 
@@ -127,7 +128,7 @@ public class ManhuntEventHandler implements Listener {
             if (ManhuntVars.isRunner(e.getPlayer())) {
                 ManhuntVars.removeRunner(e.getPlayer());
                 ManhuntVars.getPreviousRunners().remove(e.getPlayer());
-                Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.runner-disconnected"), e.getPlayer().getDisplayName()));
+                Utils.broadcastServerMessage(LanguageTranslator.translate("runner-disconnected", e.getPlayer().getDisplayName()));
                 if (ManhuntVars.getRunners().isEmpty()) {
                     //If so broadcast event
                     GameManager.endGame(GameEndCause.ALL_RUNNERS_LEAVE);
@@ -135,7 +136,7 @@ public class ManhuntEventHandler implements Listener {
             }
             if (ManhuntVars.isHunter(e.getPlayer())) {
                 ManhuntVars.removeHunter(e.getPlayer());
-                Utils.broadcastServerMessage(String.format(Manhunt.getInstance().getConfig().getString("language.hunter-disconnected"), e.getPlayer().getDisplayName()));
+                Utils.broadcastServerMessage(LanguageTranslator.translate("hunter-disconnected", e.getPlayer().getDisplayName()));
                 if(ManhuntVars.getHunters().isEmpty()) {
                     //If so broadcast event
                     GameManager.endGame(GameEndCause.ALL_HUNTERS_LEAVE);
@@ -155,45 +156,6 @@ public class ManhuntEventHandler implements Listener {
             if(e.getEntityType() == EntityType.ENDER_DRAGON) {
                 //If so broadcast event
                 GameManager.endGame(GameEndCause.RUNNERS_KILL_DRAGON);
-            }
-        }
-    }
-
-    /**
-     * Allows use of "dream mode" to increase drop rates
-     * @param e the event
-     */
-    @EventHandler
-    public void dreamModeKillEvent(EntityDeathEvent e) {
-        if(ManhuntSettings.isDreamModeEnabled()) {
-            if(e.getEntityType() == EntityType.BLAZE && e.getEntity().getKiller() != null) {
-                Player killer = e.getEntity().getKiller();
-                if (killer.getInventory().getItemInMainHand().containsEnchantment(Enchantment.LOOT_BONUS_MOBS)) {
-                    e.getDrops().clear();
-                    e.getDrops().add(
-                            new ItemStack(
-                                    Material.BLAZE_ROD,
-                                    Math.min(killer.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS) + 1, 64)
-                            )
-                    );
-                } else {
-                    e.getDrops().clear();
-                    e.getDrops().add(new ItemStack(Material.BLAZE_ROD));
-                }
-            } else if (e.getEntityType() == EntityType.ENDERMAN && e.getEntity().getKiller() != null) {
-                Player killer = e.getEntity().getKiller();
-                if (killer.getInventory().getItemInMainHand().containsEnchantment(Enchantment.LOOT_BONUS_MOBS)) {
-                    e.getDrops().clear();
-                    e.getDrops().add(
-                            new ItemStack(
-                                    Material.ENDER_PEARL,
-                                    Math.min(killer.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS) + 1, 16)
-                            )
-                    );
-                } else {
-                    e.getDrops().clear();
-                    e.getDrops().add(new ItemStack(Material.ENDER_PEARL));
-                }
             }
         }
     }

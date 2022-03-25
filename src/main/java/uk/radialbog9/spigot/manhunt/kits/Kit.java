@@ -16,14 +16,11 @@ public class Kit {
     @Getter
     private String name;
     @Getter
-    private KitType kitType;
-    @Getter
     @Setter
     private ArrayList<ItemStack> items;
 
-    public Kit(String name, KitType kitType, ArrayList<ItemStack> items) {
+    public Kit(String name, ArrayList<ItemStack> items) {
         this.name = name;
-        this.kitType = kitType;
         this.items = items;
     }
 }
