@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -17,18 +18,17 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameEndEvent;
 import uk.radialbog9.spigot.manhunt.events.ManhuntGameStartEvent;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
-import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandHunterMobDisgScenario;
-import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandRunnerHunterDisgScenario;
-import uk.radialbog9.spigot.manhunt.scenario.ldisscenarios.RandRunnerMobDisgScenario;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
-@SuppressWarnings("CommentedOutCode")
 public class GameManager {
     private static ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
 
@@ -70,59 +70,34 @@ public class GameManager {
             }
         }
         //Scenarios
-        /*
         ArrayList<ScenarioType> scenarios = ManhuntVars.getScenarioList();
         for (ScenarioType scenarioType : scenarios) {
             Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
             if (scenario.getAnnotation(ScenarioListener.class) != null) {
                 //Is a listener
                 try {
-                    Manhunt.getInstance().getServer().getPluginManager().registerEvents((Listener) scenario.cast(Listener.class), Manhunt.getInstance());
-                } catch (ClassCastException e) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getClass().getSimpleName() + " because the listener wouldn't load!");
+                    Listener scenariolistener = (Listener) scenario.getConstructor().newInstance(); //create a new class instance as a listener
+                    Manhunt.getInstance().getServer().getPluginManager().registerEvents(scenariolistener, Manhunt.getInstance());
+                } catch (Exception e) {
+                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the listener wouldn't load!");
                     e.printStackTrace();
                 }
             }
-            else if (scenario.getClass().getAnnotation(ScenarioRunnable.class) != null) {
+            else if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
                 //Is a runnable
                 try {
-                    ((BukkitRunnable) scenario.cast(BukkitRunnable.class)).runTaskTimer(Manhunt.getInstance(),
+                    BukkitRunnable runnable = (BukkitRunnable) scenario.getConstructor().newInstance(); //create a new BukkitRunnable object from the scenario's class
+                    runnable.runTaskTimer(Manhunt.getInstance(),
                             Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L,
                             Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L
                     );
-                } catch (ClassCastException e) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getClass().getSimpleName() + " because the runnable wouldn't load!");
+                    enabledRunnables.add(runnable);
+                } catch (Exception e) {
+                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the runnable wouldn't load!");
                     e.printStackTrace();
                 }
             }
-        }*/
-
-        // i can't be bothered to come up with something better that actually works
-        if (ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)) {
-            BukkitRunnable runnable = new RandHunterMobDisgScenario();
-            runnable.runTaskTimer(Manhunt.getInstance(),
-                    Manhunt.getInstance().getConfig().getInt("scenarios.HUNTER_RANDOM_MOB_DISGUISE.time", 300) * 20L,
-                    Manhunt.getInstance().getConfig().getInt("scenarios.HUNTER_RANDOM_MOB_DISGUISE.time", 300) * 20L
-            );
-            enabledRunnables.add(runnable);
         }
-        if (ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_RANDOM_MOB_DISGUISE)) {
-            BukkitRunnable runnable = new RandRunnerMobDisgScenario();
-            runnable.runTaskTimer(Manhunt.getInstance(),
-                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_MOB_DISGUISE.time", 300) * 20L,
-                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_MOB_DISGUISE.time", 300) * 20L
-            );
-            enabledRunnables.add(runnable);
-        }
-        if (ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_RANDOM_HUNTER_DISGUISE)) {
-            BukkitRunnable runnable = new RandRunnerHunterDisgScenario();
-            runnable.runTaskTimer(Manhunt.getInstance(),
-                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_HUNTER_DISGUISE.time", 300) * 20L,
-                    Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_RANDOM_HUNTER_DISGUISE.time", 300) * 20L
-            );
-            enabledRunnables.add(runnable);
-        }
-
 
         //set game as started
         ManhuntVars.setGameStarted(true);
@@ -185,6 +160,10 @@ public class GameManager {
 
         ManhuntVars.getPreviousRunners().clear();
 
+        //Clear active scenarios
+        ManhuntVars.getScenarioList().clear();
+
+        //Cancel runnables
         for(BukkitRunnable runnable : enabledRunnables) {
             runnable.cancel();
         }

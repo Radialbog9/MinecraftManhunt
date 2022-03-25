@@ -14,11 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
-import uk.radialbog9.spigot.manhunt.kits.KitProvider;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.HunterNoFallScenario;
-import uk.radialbog9.spigot.manhunt.scenario.scenarios.RunnerNoFallScenario;
+import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
@@ -48,8 +46,8 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private static ScenarioLoader scenarioLoader;
 
-    @Getter
-    private static KitProvider kitProvider;
+    //@Getter
+    //private static KitProvider kitProvider;
 
     @Getter
     private static Properties language;
@@ -88,14 +86,18 @@ public class Manhunt extends JavaPlugin {
         }
         // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
+
         // Register commands
         this.getCommand("manhunt").setExecutor(new ManhuntCommand());
         this.getCommand("spectate").setExecutor(new SpectateCommand());
+
         // Register tab completer
         this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
         this.getCommand("spectate").setTabCompleter(new SpectateTabCompleter());
+
         // Register bStats
         Metrics metrics = new Metrics(this, BSTATS_ID);
+
         // SV/PV check
         ManhuntVars.setVanishEnabled(
                 getServer().getPluginManager().isPluginEnabled("SuperVanish") || getServer().getPluginManager().isPluginEnabled("PremiumVanish")
@@ -104,6 +106,10 @@ public class Manhunt extends JavaPlugin {
         ManhuntVars.setLibsDisguisesEnabled(
                 getServer().getPluginManager().isPluginEnabled("LibsDisguises")
         );
+
+        //Load settings
+        ManhuntSettings.loadFromCfg();
+
         // Load scenarios
         try {
             scenarioLoader = new ScenarioLoader();
@@ -114,12 +120,9 @@ public class Manhunt extends JavaPlugin {
             areScenariosLoaded = false;
         }
 
-        // Loading listeners now instead of later
-        Manhunt.getInstance().getServer().getPluginManager().registerEvents(new HunterNoFallScenario(), Manhunt.getInstance());
-        Manhunt.getInstance().getServer().getPluginManager().registerEvents(new RunnerNoFallScenario(), Manhunt.getInstance());
-
         // Get kits
-        kitProvider = new KitProvider();
+        //kitProvider = new KitProvider();
+
         // Update Check
         UpdateChecker.init(this, SPIGOT_RESOURCE_ID)
                 .setDonationLink("https://buymeacoff.ee/Radialbog9")
