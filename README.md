@@ -55,7 +55,7 @@ For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhun
 ## Features
 * Multiple hunters/runners support
 * SuperVanish/PremiumVanish support
-* "Dream mode" - increases drop rates on blaze/endermen and ender pearl barter rates
+* Scenarios - Add twists to your game
 * Spectator support
 * Automatic removal of player from game if they disconnect
 * Settings menu
@@ -122,22 +122,24 @@ language: 'en_gb'
 
 ## Language
 This plugin uses a (still slightly crappy) all-new language system.
-To use the new prebundled languages, change the `language` key in the config to one of the following:
+To use the new prebundled languages, change the `language` key in the config to one of the following (in order of completeness):
 * `en_GB` (English UK - default)
 * `en_US` (English US)
+* `pl_PL` (Polish)
+* `ko_KR` (Korean) \[Needs Proof-reading\]
+* `sv_SE` (Swedish) \[Incomplete\]
 * `fr_FR` (French) \[Incomplete\]
-* `pl_PL` (Polish) \[Incomplete\]
 * `de_DE` (German) \[Incomplete\]
 * `es_ES` (Spanish) \[Incomplete\]
 * `it_IT` (Italian) \[Incomplete\]
 * `ja_JP` (Japanese) \[Incomplete\]
-* `ko_KR` (Korean) \[Incomplete\]
 * `nl_NL` (Dutch) \[Incomplete\]
 * `ru_RU` (Russian) \[Incomplete\]
-* `sv_SE` (Swedish) \[Incomplete\]
 * `zh_CN` (Chinese Simplified) \[Incomplete\]
 * `zh_TW` (Chinese Traditional) \[Incomplete\]
 
-If you natively speak any of these languages then you can help us translate! Just go to this website and start translating: https://crowdin.com/project/minecraft-manhunt
+This list may be incomplete, so check the Crowdin page for more up-to-date info.
 
-If you want to be a proofreader, go to the page above and press the contact button next to `Radialbog9` to send us a message!
+If you natively speak or are fluent in any of these languages then you can help us translate! Just go to this website and start translating: https://crowdin.com/project/minecraft-manhunt
+
+If you want to be a proofreader, go to the page above and press the contact button next to `Radialbog9` to send us a message, or DM Radialbog9#0001 on Discord!
