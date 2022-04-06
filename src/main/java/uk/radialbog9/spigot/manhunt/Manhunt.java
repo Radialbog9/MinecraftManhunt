@@ -120,9 +120,6 @@ public class Manhunt extends JavaPlugin {
             areScenariosLoaded = false;
         }
 
-        // Get kits
-        //kitProvider = new KitProvider();
-
         // Update Check
         UpdateChecker.init(this, SPIGOT_RESOURCE_ID)
                 .setDonationLink("https://buymeacoff.ee/Radialbog9")
