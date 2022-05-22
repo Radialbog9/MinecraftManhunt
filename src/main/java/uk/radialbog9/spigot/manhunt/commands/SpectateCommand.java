@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
@@ -26,7 +27,7 @@ public class SpectateCommand implements CommandExecutor {
      * @param args String[] arguments
      * @return boolean always true
      */
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if(sender instanceof Player) {
             Player p = (Player) sender;
             if(sender.hasPermission("manhunt.spectate")) {

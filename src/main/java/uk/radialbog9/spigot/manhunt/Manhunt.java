@@ -46,9 +46,6 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private static ScenarioLoader scenarioLoader;
 
-    //@Getter
-    //private static KitProvider kitProvider;
-
     @Getter
     private static Properties language;
 

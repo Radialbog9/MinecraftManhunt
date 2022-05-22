@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * This event is called when the game starts.
  */
+@SuppressWarnings("unused")
 public class ManhuntGameStartEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;

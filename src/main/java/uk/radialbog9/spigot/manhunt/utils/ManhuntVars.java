@@ -20,10 +20,10 @@ public class ManhuntVars {
     @Setter
     private static boolean gameStarted;
 
-    private static ArrayList<Player> hunters = new ArrayList<>();
-    private static ArrayList<Player> runners = new ArrayList<>();
+    private static final ArrayList<Player> hunters = new ArrayList<>();
+    private static final ArrayList<Player> runners = new ArrayList<>();
 
-    private static HashMap<Player, PlayerConfig> playerConfigMap = new HashMap<>();
+    private static final HashMap<Player, PlayerConfig> playerConfigMap = new HashMap<>();
 
     @Getter
     @Setter
@@ -34,7 +34,7 @@ public class ManhuntVars {
     private static boolean libsDisguisesEnabled;
 
     @Getter
-    private static ArrayList<ScenarioType> scenarioList = new ArrayList<>();
+    private static final ArrayList<ScenarioType> scenarioList = new ArrayList<>();
 
     /**
      * Current list of hunters
@@ -130,5 +130,5 @@ public class ManhuntVars {
      * Previous runners
      */
     @Getter
-    private static ArrayList<Player> previousRunners = new ArrayList<>();
+    private static final ArrayList<Player> previousRunners = new ArrayList<>();
 }

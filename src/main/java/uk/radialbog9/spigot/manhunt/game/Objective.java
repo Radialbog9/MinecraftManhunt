@@ -5,6 +5,7 @@
 
 package uk.radialbog9.spigot.manhunt.game;
 
+@SuppressWarnings("unused")
 public enum Objective {
     DEFEAT_ENDER_DRAGON, SURVIVE
 }

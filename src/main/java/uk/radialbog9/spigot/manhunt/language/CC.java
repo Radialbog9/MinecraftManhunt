@@ -16,7 +16,7 @@ import java.util.List;
  */
 @SuppressWarnings({"unused"})
 public class CC {
-    public static String blue = ChatColor.BLUE.toString(),
+    public static final String blue = ChatColor.BLUE.toString(),
             aqua = ChatColor.AQUA.toString(),
             yellow = ChatColor.YELLOW.toString(),
             red = ChatColor.RED.toString(),
@@ -25,47 +25,47 @@ public class CC {
             green = ChatColor.GREEN.toString(),
             white = ChatColor.WHITE.toString(),
             black = ChatColor.BLACK.toString();
-    public static String
+    public static final String
             darkBlue = ChatColor.DARK_BLUE.toString(),
             darkAqua = ChatColor.DARK_AQUA.toString(),
             darkGray = ChatColor.DARK_GRAY.toString(),
             darkGreen = ChatColor.DARK_GREEN.toString(),
             darkPurple = ChatColor.DARK_PURPLE.toString(),
             darkRed = ChatColor.DARK_RED.toString();
-    public static String
+    public static final String
             dBlue = darkBlue,
             dAqua = darkAqua,
             dGray = darkGray,
             dGreen = darkGreen,
             dPurple = darkPurple,
             dRed = darkRed;
-    public static String lightPurple = ChatColor.LIGHT_PURPLE.toString();
-    public static String lPurple = lightPurple;
-    public static String
+    public static final String lightPurple = ChatColor.LIGHT_PURPLE.toString();
+    public static final String lPurple = lightPurple;
+    public static final String
             bold = ChatColor.BOLD.toString(),
             magic = ChatColor.MAGIC.toString(),
             italic = ChatColor.ITALIC.toString(),
             strikeThrough = ChatColor.STRIKETHROUGH.toString(),
             underLine = ChatColor.UNDERLINE.toString(),
             reset = ChatColor.RESET.toString();
-    public static String
+    public static final String
             b = bold,
             m = magic,
             i = italic,
             s = strikeThrough,
             r = reset;
-    public static String bBlue = blue + b, bAqua = aqua + b, bYellow = yellow + b, bRed = red + b, bGray = gray + b;
-    public static String bGold = gold + b, bGreen = green + b, bWhite = white + b, bBlack = black + b;
-    public static String bdBlue = dBlue + b, bdAqua = dAqua + b, bdGray = dGray + b, bdGreen = dGreen + b, bdPurple = dPurple + b;
-    public static String bdRed = dRed + b;
-    public static String blPurple = lPurple + b;
-    public static String iBlue = blue + i, iAqua = aqua + i, iYellow = yellow + i, iRed = red + i, iGray = gray + i;
-    public static String iGold = gold + i, iGreen = green + i, iWhite = white + i, iBlack = black + i;
-    public static String idBlue = dBlue + i, idAqua = dAqua + i, idGray = dGray + i, idGreen = dGreen + i, idPurple = dPurple + i;
-    public static String idRed = dRed + i;
-    public static String ilPurple = lPurple + i;
+    public static final String bBlue = blue + b, bAqua = aqua + b, bYellow = yellow + b, bRed = red + b, bGray = gray + b;
+    public static final String bGold = gold + b, bGreen = green + b, bWhite = white + b, bBlack = black + b;
+    public static final String bdBlue = dBlue + b, bdAqua = dAqua + b, bdGray = dGray + b, bdGreen = dGreen + b, bdPurple = dPurple + b;
+    public static final String bdRed = dRed + b;
+    public static final String blPurple = lPurple + b;
+    public static final String iBlue = blue + i, iAqua = aqua + i, iYellow = yellow + i, iRed = red + i, iGray = gray + i;
+    public static final String iGold = gold + i, iGreen = green + i, iWhite = white + i, iBlack = black + i;
+    public static final String idBlue = dBlue + i, idAqua = dAqua + i, idGray = dGray + i, idGreen = dGreen + i, idPurple = dPurple + i;
+    public static final String idRed = dRed + i;
+    public static final String ilPurple = lPurple + i;
 
-    public static String
+    public static final String
             peace = "☮", flower = "✿", plane = "✈", sixyNine = "♋", death = "☠", yinYan = "☯", heart = "♥",
             peaceHand = "✌", thickCross = "✖", nuke = "☢", biohazard = "☣", medical = "☤", hollowHeart = "♡",
             thinItalicCross = "✗", ItalicCross = "✘", star = "★", hollowStar = "☆", checkerStar = "✯", leftMoon = "☾",

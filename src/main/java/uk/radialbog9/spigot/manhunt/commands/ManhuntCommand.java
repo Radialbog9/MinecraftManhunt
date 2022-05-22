@@ -23,7 +23,6 @@ import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
-@SuppressWarnings("ConstantConditions")
 public class ManhuntCommand implements CommandExecutor {
 
     /**
@@ -186,8 +185,8 @@ public class ManhuntCommand implements CommandExecutor {
                                 sender.sendMessage(LanguageTranslator.translate("p-now-runner", pl.getDisplayName()));
                                 pl.sendMessage(LanguageTranslator.translate("now-runner"));
                             } else {
-                                //already a hunter
-                                sender.sendMessage(Utils.getMsgColor(String.format(Manhunt.getInstance().getConfig().getString("language.p-already-hunter"), pl.getDisplayName())));
+                                //already a runner
+                                sender.sendMessage(LanguageTranslator.translate("p-already-runner", pl.getDisplayName()));
                             }
                         } else {
                             //player does not exist/is not online

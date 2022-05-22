@@ -14,11 +14,11 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 import java.io.File;
 import java.io.IOException;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
+@SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
 public class PlayerConfig {
-    private Player player;
+    private final Player player;
     private FileConfiguration config;
-    private File configFile;
+    private final File configFile;
     private int hunterWins = 0;
     private int hunterLosses = 0;
     private int runnerWins = 0;
@@ -31,7 +31,7 @@ public class PlayerConfig {
         //create the data file on the system
         File playerDataFolder = new File(Manhunt.getInstance().getDataFolder(), "playerdata");
         if(!playerDataFolder.exists()) playerDataFolder.mkdirs();
-        configFile = new File(playerDataFolder, p.getUniqueId().toString() + ".yml");
+        configFile = new File(playerDataFolder, p.getUniqueId() + ".yml");
         boolean configExists = configFile.exists();
         try {
             if(!configExists) configFile.createNewFile();

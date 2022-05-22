@@ -17,6 +17,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario(ScenarioType.RUNNER_RANDOM_MOB_DISGUISE)
 @ScenarioRunnable
+@SuppressWarnings({"unused"})
 public class RandRunnerMobDisgScenario extends BukkitRunnable {
     @Override
     public void run() {

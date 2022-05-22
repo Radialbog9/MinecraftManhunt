@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class GameManager {
-    private static ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
+    private static final ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
 
     public static void startGame() {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();

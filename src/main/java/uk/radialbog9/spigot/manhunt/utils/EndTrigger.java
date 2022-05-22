@@ -5,6 +5,7 @@
 
 package uk.radialbog9.spigot.manhunt.utils;
 
+@SuppressWarnings("unused")
 public enum EndTrigger {
     ENDER_DRAGON, TIMER
 }

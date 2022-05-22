@@ -12,6 +12,7 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 /**
  * Basic class to store settings for Manhunt
  */
+@SuppressWarnings({"unused"})
 public class ManhuntSettings {
     @Getter
     @Setter
