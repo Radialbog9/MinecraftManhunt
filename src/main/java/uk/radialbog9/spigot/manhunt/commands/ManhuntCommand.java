@@ -413,10 +413,16 @@ public class ManhuntCommand implements CommandExecutor {
                             pl.teleport(pl.getBedSpawnLocation() != null ? pl.getBedSpawnLocation() : pl.getWorld().getSpawnLocation());
                             ManhuntVars.addRunner(pl);
                             pl.setGameMode(GameMode.SURVIVAL);
-                            pl.sendMessage("You have been revived!");
-                            sender.sendMessage("Revived " + pl.getDisplayName());
+                            //broadcast messages
+                            pl.sendMessage(LanguageTranslator.translate("you-revived"));
+                            sender.sendMessage(LanguageTranslator.translate("revived-player", pl.getDisplayName()));
+                            Utils.broadcastServerMessage(LanguageTranslator.translate(
+                                    "player-revived-bc",
+                                    pl.getDisplayName(),
+                                    String.valueOf(ManhuntVars.getRunners().size()
+                            )));
                         } else {
-                            sender.sendMessage("Player cannot be revived");
+                            sender.sendMessage(LanguageTranslator.translate("cannot-revive-player", pl.getDisplayName()));
                         }
                     } else {
                         sender.sendMessage(LanguageTranslator.translate("player-not-online"));
