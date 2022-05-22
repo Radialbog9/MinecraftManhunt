@@ -32,13 +32,14 @@ public class ScenarioMenu {
         for (ScenarioType scenario : availables.keySet()) {
             unavailables.remove(scenario);
             boolean scenarioenabled = ManhuntVars.getScenarioList().contains(scenario);
+            String scenarioenabledstring = scenarioenabled ? clickToDisable : clickToEnable;
             p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.display-format",
                             scenarioenabled ? enabled : disabled,
                             LanguageTranslator.translate("scenario." + scenario.toString())
                     ),
                     "/manhunt scenarios " + scenario,
-                    scenarioenabled ? clickToDisable : clickToEnable
+                    scenarioenabledstring + "\n&7Class name: " + availables.get(scenario).getSimpleName()
             ));
         }
 
