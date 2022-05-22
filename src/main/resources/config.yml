@@ -30,24 +30,6 @@ head-start:
   # Length of the head start (in seconds)
   length: 30
 
-# Kits (incomplete feature; doesn't work yet)
-kits:
-  defaultkits:
-    runner: default
-    hunter: default
-  runners:
-    default:
-      items:
-        '1':
-          material: "POISONOUS_POTATO"
-          quantity: 1
-  hunters:
-    default:
-      items:
-        '1':
-          material: "COMPASS"
-          quantity: 1
-
 ### SCENARIOS ###
 scenarios:
   RUNNER_CREATIVE:
@@ -73,7 +55,6 @@ scenarios:
   RUNNER_RANDOM_HUNTER_DISGUISE:
     # Runners are disguised as hunters every `time` seconds
     time: 300
-
 
 ### Join Message ###
 join-message:

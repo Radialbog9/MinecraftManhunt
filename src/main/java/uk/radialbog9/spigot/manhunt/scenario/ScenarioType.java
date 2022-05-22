@@ -12,5 +12,6 @@ public enum ScenarioType {
     RUNNER_NO_FALL,
     HUNTER_NO_FALL,
     HUNTER_CREATIVE,
-    RUNNER_CREATIVE
+    RUNNER_CREATIVE,
+    OP_LOOT_POTATOES
 }
