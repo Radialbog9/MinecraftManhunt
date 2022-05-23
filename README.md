@@ -6,12 +6,15 @@
 [![Subscribe](https://img.shields.io/badge/subscribe-YouTube-orange?style=flat-square&logo=youtube)](https://rb9.xyz/sub)
 [![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)](https://rb9.xyz/discord)
 
+[![Crowdin](https://badges.crowdin.net/minecraft-manhunt/localized.svg)](https://crowdin.com/project/minecraft-manhunt)
+
 ![bStats Players](https://img.shields.io/bstats/players/9573?style=for-the-badge&color=yellow)
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
 ![SpigotMC tested server versions](https://img.shields.io/spiget/tested-versions/97765?color=yellow&style=for-the-badge)
 
 ![LGTM Grade](https://img.shields.io/lgtm/grade/java/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)
 ![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Radialbog9/MinecraftManhunt?style=for-the-badge)
 
 [![GitHub license](https://img.shields.io/github/license/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)](https://github.com/Radialbog9/MinecraftManhunt/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/issues)
