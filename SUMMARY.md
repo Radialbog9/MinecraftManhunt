@@ -8,6 +8,7 @@
 * [Commands](usage/commands.md)
 * [Permissions](usage/permissions.md)
 * [Suggested Game Rules](usage/suggested-game-rules.md)
+* [config.yml](usage/config.yml.md)
 
 ## Contributing
 
