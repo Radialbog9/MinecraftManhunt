@@ -22,13 +22,21 @@
 ### Settings ###
 # These are the default settings, most of which will be changable in the upcoming settings menu
 
-# Gives runner(s) a head start by giving hunter(s) blindness, slowness, and weakness
+# Gives runner(s) a head start by giving hunter(s) blindness, slowness, and weakness.
 # Set to false in here or in the settings menu for a more authentic manhunt.
 head-start:
   # Head start enabled?
   enabled: true
   # Length of the head start (in seconds)
   length: 30
+
+# If set to true, the hunters will be able to damage the Ender Dragon.
+# If set to false, all damage to the Ender Dragon from hunters will be cancelled.
+allow-hunters-damage-dragon: false
+
+# If set to true, the hunters will be able to destroy End Crystals.
+# If set to false, hunters will not be able to damage or destroy End Crystals.
+allow-hunters-damage-crystal: true
 
 ### SCENARIOS ###
 scenarios:

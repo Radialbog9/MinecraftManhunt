@@ -11,6 +11,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -21,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -174,4 +176,35 @@ public class ManhuntEventHandler implements Listener {
             }
         }
     }
+
+    /**
+     * Stops the hunters from being able to damage the Ender Dragon
+     * @param e the event
+     */
+    @EventHandler
+    public void hunterDragonDamageEvent(EntityDamageByEntityEvent e) {
+        if(ManhuntVars.isGameStarted() && !ManhuntSettings.isAllowHunterDamageDragon()) {
+            if(e.getEntityType() == EntityType.ENDER_DRAGON && e.getDamager().getType() == EntityType.PLAYER) {
+                if(ManhuntVars.isHunter(((Player) e.getDamager()))) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    /**
+     * Stops the hunters from being able to damage the End Crystals
+     * @param e the event
+     */
+    @EventHandler
+    public void hunterCrystalDamageEvent(EntityDamageByEntityEvent e) {
+        if(ManhuntVars.isGameStarted() && !ManhuntSettings.isAllowHunterDamageCrystal()) {
+            if(e.getEntityType() == EntityType.ENDER_CRYSTAL && e.getDamager().getType() == EntityType.PLAYER) {
+                if(ManhuntVars.isHunter(((Player) e.getDamager()))) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
 }
