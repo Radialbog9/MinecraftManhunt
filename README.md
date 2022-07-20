@@ -53,7 +53,7 @@ ___You can help out by testing the latest build on our [Jenkins](https://ci.radi
 When the game is started, all other players will be put into spectator, and the hunters will be given a compass that they can use to track the nearest runner. 
 When all runners are dead the hunters win but if one of the runners kills the Ender Dragon the runners win. 
 The runners cannot respawn, but the hunters can.
-For the rules, check the [rulebook](https://radialbog9.github.io/MinecraftManhunt/rulebook) (obviously you can make up your own rules if these don't fit your taste).
+For the rules, check the [rulebook](https://radialbog9.gitbook.io/minecraft-manhunt/usage/suggested-game-rules) (obviously you can make up your own rules if these don't fit your taste).
 
 ## Features
 * Multiple hunters/runners support
@@ -73,7 +73,7 @@ We're always open to suggestions!
 ## API
 This plugin has a (somewhat simple and somewhat terrible) API for developers to use. 
 You can start and stop the game and access the list of runners and hunters.
-See [this page](https://radialbog9.github.io/MinecraftManhunt/api) for more info.
+See [this page](https://radialbog9.gitbook.io/minecraft-manhunt/developers/api) for more info.
 
 ## bStats
 We use bStats to track how people use our plugin.
