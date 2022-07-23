@@ -24,10 +24,7 @@ import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
 import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -35,7 +32,7 @@ import java.util.logging.Level;
  * Main Manhunt plugin class
  */
 
-@SuppressWarnings({"ConstantConditions", "unused"})
+@SuppressWarnings({"ConstantConditions", "unused", "ResultOfMethodCallIgnored"})
 
 public class Manhunt extends JavaPlugin {
     @Getter
@@ -62,6 +59,7 @@ public class Manhunt extends JavaPlugin {
         // Set instance
         instance = this;
         // Enable config
+        if(!getDataFolder().exists()) getDataFolder().mkdir();
         if(!new File(getDataFolder(), "config.yml").exists()) saveResource("config.yml", false);
         reloadConfig();
         // Load language
@@ -74,11 +72,11 @@ public class Manhunt extends JavaPlugin {
                 language.load(new FileReader(customFile));
             } else if (languageSpecified.equals("none")) {
                 InputStream languageStream = getResource("language.properties");
-                language.load(languageStream);
+                language.load(new InputStreamReader(languageStream));
             } else {
                 InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
                 if(languageStream == null) languageStream = getResource("language.properties");
-                language.load(languageStream);
+                language.load(new InputStreamReader(languageStream));
             }
         } catch (IOException e) {
             e.printStackTrace();
