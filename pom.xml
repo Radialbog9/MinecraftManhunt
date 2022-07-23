@@ -14,7 +14,7 @@
     <groupId>uk.radialbog9.spigot</groupId>
     <artifactId>MinecraftManhunt</artifactId>
     <packaging>jar</packaging>
-    <version>2.1.4</version>
+    <version>2.1.5-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
         <!-- Update Checker -->
