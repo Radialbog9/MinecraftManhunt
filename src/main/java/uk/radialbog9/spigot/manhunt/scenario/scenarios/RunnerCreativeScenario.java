@@ -11,10 +11,10 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
 @Scenario(ScenarioType.RUNNER_CREATIVE)
 @ScenarioRunnable
@@ -23,17 +23,17 @@ public class RunnerCreativeScenario extends BukkitRunnable {
     @Override
     public void run() {
         if(
-                ManhuntVars.isGameStarted() &&
-                        ManhuntVars.getScenarioList().contains(ScenarioType.RUNNER_CREATIVE)
+                GameManager.getGame().isGameStarted() &&
+                        GameManager.getGame().getActiveScenarios().contains(ScenarioType.RUNNER_CREATIVE)
         ) {
-            for(Player p : ManhuntVars.getRunners()) {
+            for(Player p : GameManager.getGame().getRunners()) {
                 p.setGameMode(GameMode.CREATIVE);
                 p.setAllowFlight(Manhunt.getInstance().getConfig().getBoolean("scenarios.RUNNER_CREATIVE.allow-fly"));
             }
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    for(Player p : ManhuntVars.getRunners()) {
+                    for(Player p : GameManager.getGame().getRunners()) {
                         p.setGameMode(GameMode.SURVIVAL);
                         p.setAllowFlight(false);
                         p.setFlying(false);

@@ -9,8 +9,8 @@ package uk.radialbog9.spigot.manhunt.scenario;
 
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ScenarioMenu {
 
         for (ScenarioType scenario : availables.keySet()) {
             unavailables.remove(scenario);
-            boolean scenarioenabled = ManhuntVars.getScenarioList().contains(scenario);
+            boolean scenarioenabled = GameManager.getGame().getActiveScenarios().contains(scenario);
             String scenarioenabledstring = scenarioenabled ? clickToDisable : clickToEnable;
             p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.display-format",

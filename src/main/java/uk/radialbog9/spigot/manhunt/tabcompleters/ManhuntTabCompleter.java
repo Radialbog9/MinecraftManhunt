@@ -14,7 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +59,8 @@ public class ManhuntTabCompleter implements TabCompleter {
             List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(!ManhuntVars.isHunter(p)) {
-                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                if(!GameManager.getGame().isHunter(p)) {
+                    if(sender instanceof Player && DependencySupport.isVanishEnabled()) {
                         if(VanishAPI.canSee((Player) sender, p)) {
                             players.add(name);
                         }
@@ -76,8 +77,8 @@ public class ManhuntTabCompleter implements TabCompleter {
             List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(!ManhuntVars.isRunner(p)) {
-                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                if(!GameManager.getGame().isRunner(p)) {
+                    if(sender instanceof Player && DependencySupport.isVanishEnabled()) {
                         if(VanishAPI.canSee((Player) sender, p)) {
                             players.add(name);
                         }
@@ -94,8 +95,8 @@ public class ManhuntTabCompleter implements TabCompleter {
             List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p)) {
-                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                if(GameManager.getGame().isHunter(p) || GameManager.getGame().isRunner(p)) {
+                    if(sender instanceof Player && DependencySupport.isVanishEnabled()) {
                         if(VanishAPI.canSee((Player) sender, p)) {
                             players.add(name);
                         }
@@ -112,8 +113,8 @@ public class ManhuntTabCompleter implements TabCompleter {
             List<String> players = new ArrayList<>();
             for(Player p : Bukkit.getOnlinePlayers()) {
                 String name = p.getName();
-                if(ManhuntVars.getPreviousRunners().contains(p)) {
-                    if(sender instanceof Player && ManhuntVars.isVanishEnabled()) {
+                if(GameManager.getGame().getDeadRunners().contains(p)) {
+                    if(sender instanceof Player && DependencySupport.isVanishEnabled()) {
                         if(VanishAPI.canSee((Player) sender, p)) {
                             players.add(name);
                         }

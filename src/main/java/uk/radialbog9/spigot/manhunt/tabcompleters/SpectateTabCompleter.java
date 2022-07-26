@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class SpectateTabCompleter implements TabCompleter {
         for (Player p : Bukkit.getOnlinePlayers()) {
             String name = p.getName();
             boolean isPlayerSender = pl != null && pl.getUniqueId() == p.getUniqueId();
-            if (!isPlayerSender && (ManhuntVars.isHunter(p) || ManhuntVars.isRunner(p))) {
+            if (!isPlayerSender && (GameManager.getGame().isHunter(p) || GameManager.getGame().isRunner(p))) {
                 players.add(name);
             }
         }

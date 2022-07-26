@@ -17,11 +17,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
+import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
 import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.*;
@@ -96,11 +97,11 @@ public class Manhunt extends JavaPlugin {
         Metrics metrics = new Metrics(this, BSTATS_ID);
 
         // SV/PV check
-        ManhuntVars.setVanishEnabled(
+        DependencySupport.setVanishEnabled(
                 getServer().getPluginManager().isPluginEnabled("SuperVanish") || getServer().getPluginManager().isPluginEnabled("PremiumVanish")
         );
         // LibsDisguises check
-        ManhuntVars.setLibsDisguisesEnabled(
+        DependencySupport.setLibsDisguisesEnabled(
                 getServer().getPluginManager().isPluginEnabled("LibsDisguises")
         );
 
@@ -139,7 +140,7 @@ public class Manhunt extends JavaPlugin {
         saveConfig();
         // Save player data
         for(Player p : Bukkit.getOnlinePlayers()) {
-            ManhuntVars.getPlayerConfig(p).save();
+            DataUtils.getPlayerData(p).save();
         }
         //Log message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been disabled!"));

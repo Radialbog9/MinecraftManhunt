@@ -7,13 +7,13 @@
 
 package uk.radialbog9.spigot.manhunt.utils;
 
+import de.myzelyam.api.vanish.VanishAPI;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -76,23 +76,6 @@ public class Utils {
             if(s.hasPermission(perm)) hasNoMHP = false;
         }
         return hasNoMHP;
-    }
-
-    /**
-     * Resets the game
-     * @deprecated New event method
-     */
-    @Deprecated
-    public static void resetGame() {
-        //set all players to spectator
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if (ManhuntVars.isRunner(p) || ManhuntVars.isHunter(p)) p.setGameMode(GameMode.SPECTATOR);
-        }
-        //reset runners and hunters
-        ManhuntVars.removeAllHunters();
-        ManhuntVars.removeAllRunners();
-        //fully end game
-        ManhuntVars.setGameStarted(false);
     }
 
     /**
@@ -192,4 +175,18 @@ public class Utils {
         return classes;
     }
 
+    /**
+     * Utility method for detecting if a player can see another player.
+     * If a supported vanish plugin is detected then the result
+     * is determined by the API call to the vanish plugin.
+     * If the viewer is not a player (i.e. console) or a supported
+     * vanish plugin is not detected, it returns true.
+     * @param viewer Player who is viewing (or console sender)
+     * @param viewed Player who is being viewed
+     * @return if viewer can see viewed
+     */
+    public static boolean vanishCanSee(CommandSender viewer, Player viewed) {
+        if(viewer instanceof Player && viewed != null && DependencySupport.isVanishEnabled()) return VanishAPI.canSee((Player) viewer, viewed);
+        else return true;
+    }
 }

@@ -9,7 +9,7 @@ package uk.radialbog9.spigot.manhunt.scenario;
 
 import lombok.Getter;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public class ScenarioLoader {
         }
 
         //load scenarios that require LibsDisguises if enabled
-        if(ManhuntVars.isLibsDisguisesEnabled()) {
+        if(DependencySupport.isLibsDisguisesEnabled()) {
             Set<Class<?>> classSet2 = Utils.getClasses(
                     new File(Manhunt.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()),
                     "uk.radialbog9.spigot.manhunt.scenario.ldisscenarios"

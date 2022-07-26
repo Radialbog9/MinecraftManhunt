@@ -14,8 +14,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 
 public class SpectateCommand implements CommandExecutor {
 
@@ -45,14 +45,14 @@ public class SpectateCommand implements CommandExecutor {
                 } else {
                     //player given
                     //check if in game
-                    if(ManhuntVars.isGameStarted()) {
-                        if(!(ManhuntVars.isRunner(p) | ManhuntVars.isHunter(p))) {
+                    if(GameManager.getGame().isGameStarted()) {
+                        if(!(GameManager.getGame().isRunner(p) | GameManager.getGame().isHunter(p))) {
                             //they are spectator
                             //check the player
                             Player existingPlayer = Bukkit.getPlayer(args[0]);
                             if(existingPlayer != null) {
                                 //player exists
-                                if(ManhuntVars.isRunner(existingPlayer) || ManhuntVars.isHunter(existingPlayer)) {
+                                if(GameManager.getGame().isRunner(existingPlayer) || GameManager.getGame().isHunter(existingPlayer)) {
                                     p.setGameMode(GameMode.SPECTATOR);
                                     p.teleport(existingPlayer);
                                     p.sendMessage(LanguageTranslator.translate("now-spectating-player", existingPlayer.getDisplayName()));

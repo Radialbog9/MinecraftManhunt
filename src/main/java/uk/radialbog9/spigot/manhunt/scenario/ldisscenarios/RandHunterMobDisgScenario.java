@@ -13,8 +13,9 @@ import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.*;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
+import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)
@@ -24,11 +25,11 @@ public class RandHunterMobDisgScenario extends BukkitRunnable {
     @Override
     public void run() {
         if(
-                ManhuntVars.isLibsDisguisesEnabled() &&
-                ManhuntVars.isGameStarted() &&
-                ManhuntVars.getScenarioList().contains(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)
+                DependencySupport.isLibsDisguisesEnabled() &&
+                GameManager.getGame().isGameStarted() &&
+                GameManager.getGame().getActiveScenarios().contains(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)
         ) {
-            for(Player p : ManhuntVars.getHunters()) {
+            for(Player p : GameManager.getGame().getHunters()) {
                 boolean isMobYet = false;
                 DisguiseType disguisetype = null;
                 while (!isMobYet) {

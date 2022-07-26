@@ -5,28 +5,34 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.playerconfig;
+package uk.radialbog9.spigot.manhunt.playerdata;
 
+import lombok.Getter;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 
 import java.io.File;
 import java.io.IOException;
 
 @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
-public class PlayerConfig {
-    private final Player player;
+public class PlayerData {
+    @Getter
+    private final OfflinePlayer player;
     private FileConfiguration config;
     private final File configFile;
+    @Getter
     private int hunterWins = 0;
+    @Getter
     private int hunterLosses = 0;
+    @Getter
     private int runnerWins = 0;
-    private int runnerLosses = 0;
+    @Getter
+    private int runnerDeaths = 0;
 
-    public PlayerConfig(Player p) {
+    public PlayerData(OfflinePlayer p) {
         //set the player
         player = p;
 
@@ -48,29 +54,19 @@ public class PlayerConfig {
         else load();
     }
 
-    public Player getPlayer() { return player; }
-
-    public int getHunterWins() { return hunterWins; }
-
     public void addHunterWin() { hunterWins ++; }
-
-    public int getHunterLosses() { return hunterLosses; }
 
     public void addHunterLoss() { hunterLosses ++; }
 
-    public int getRunnerWins() { return runnerWins; }
-
     public void addRunnerWin() { runnerWins ++; }
 
-    public int getRunnerDeaths() { return runnerLosses; }
-
-    public void addRunnerDeath() { runnerLosses ++; }
+    public void addRunnerDeath() { runnerDeaths++; }
 
     public void save() {
         config.set("hunter-wins", hunterWins);
         config.set("hunter-losses", hunterLosses);
         config.set("runner-wins", runnerWins);
-        config.set("runner-deaths", runnerLosses);
+        config.set("runner-deaths", runnerDeaths);
         try {
             config.save(configFile);
         } catch (IOException e) {
@@ -79,9 +75,9 @@ public class PlayerConfig {
     }
 
     public void load() {
-        hunterWins = config.getInt("hunter-wins");
-        hunterLosses = config.getInt("hunter-losses");
-        runnerWins = config.getInt("runner-wins");
-        runnerLosses = config.getInt("runner-deaths");
+        hunterWins = config.getInt("hunter-wins", 0);
+        hunterLosses = config.getInt("hunter-losses", 0);
+        runnerWins = config.getInt("runner-wins", 0);
+        runnerDeaths = config.getInt("runner-deaths", 0);
     }
 }

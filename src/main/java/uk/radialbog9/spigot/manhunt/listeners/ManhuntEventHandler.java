@@ -26,7 +26,6 @@ import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
-import uk.radialbog9.spigot.manhunt.utils.ManhuntVars;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 public class ManhuntEventHandler implements Listener {
@@ -36,27 +35,27 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void runnerDeathEvent(PlayerDeathEvent e) {
-        if (ManhuntVars.isGameStarted()) {
+        if (GameManager.getGame().isGameStarted()) {
             Player p = e.getEntity();
             //Is runner?
-            if (ManhuntVars.isRunner(p)) {
+            if (GameManager.getGame().isRunner(p)) {
                 //The death was a runner
                 //Set gamemode to spectator
                 p.setGameMode(GameMode.SPECTATOR);
                 //Remove from runners
-                ManhuntVars.removeRunner(p);
+                GameManager.getGame().getRunners().remove(p);
                 //Check if that was the last runner alive
-                if (ManhuntVars.getRunners().isEmpty()) {
+                if (GameManager.getGame().getRunners().isEmpty()) {
                     GameManager.endGame(GameEndCause.RUNNERS_ALL_DIE);
                 } else {
                     //Else say they died and how many runners remain.
                     Utils.broadcastServerMessage(LanguageTranslator.translate(
                             "runner-died",
                             p.getDisplayName(),
-                            String.valueOf(ManhuntVars.getRunners().size())
+                            String.valueOf(GameManager.getGame().getRunners().size())
                     ));
                     //add them to die list so they can be revived
-                    ManhuntVars.getPreviousRunners().add(p);
+                    GameManager.getGame().getDeadRunners().add(p);
                 }
             }
         }
@@ -68,9 +67,9 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void hunterRespawnEvent(PlayerRespawnEvent e) {
-        if (ManhuntVars.isGameStarted()) {
+        if (GameManager.getGame().isGameStarted()) {
             Player p = e.getPlayer();
-            if (ManhuntVars.isHunter(p)) {
+            if (GameManager.getGame().isHunter(p)) {
                 p.getInventory().addItem(new ItemStack(Material.COMPASS));
             }
         }
@@ -83,10 +82,10 @@ public class ManhuntEventHandler implements Listener {
     @EventHandler
     public void compassRightClickEvent(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        if (p.getInventory().getItemInMainHand().getType() == Material.COMPASS && ManhuntVars.isGameStarted() && ManhuntVars.isHunter(p)) {
+        if (p.getInventory().getItemInMainHand().getType() == Material.COMPASS && GameManager.getGame().isGameStarted() && GameManager.getGame().isHunter(p)) {
             double closest = Double.MAX_VALUE;
             Player closestPlayer = null;
-            for (Player i : ManhuntVars.getRunners()){
+            for (Player i : GameManager.getGame().getRunners()){
                 if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName().equals(p.getWorld().getName())) {
                     double dist = i.getLocation().distance(p.getLocation());
                     if ((closest == Double.MAX_VALUE || dist < closest)){
@@ -116,7 +115,7 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void inGamePlayerJoinEvent(PlayerJoinEvent e) {
-        if (ManhuntVars.isGameStarted()) {
+        if (GameManager.getGame().isGameStarted()) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
             e.getPlayer().sendMessage(LanguageTranslator.translate("join-in-progress"));
         }
@@ -128,20 +127,20 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void inGamePlayerLeaveEvent(PlayerQuitEvent e) {
-        if (ManhuntVars.isGameStarted()) {
-            if (ManhuntVars.isRunner(e.getPlayer())) {
-                ManhuntVars.removeRunner(e.getPlayer());
-                ManhuntVars.getPreviousRunners().remove(e.getPlayer());
+        if (GameManager.getGame().isGameStarted()) {
+            if (GameManager.getGame().isRunner(e.getPlayer())) {
+                GameManager.getGame().getRunners().remove(e.getPlayer());
+                GameManager.getGame().getDeadRunners().remove(e.getPlayer());
                 Utils.broadcastServerMessage(LanguageTranslator.translate("runner-disconnected", e.getPlayer().getDisplayName()));
-                if (ManhuntVars.getRunners().isEmpty()) {
+                if (GameManager.getGame().getRunners().isEmpty()) {
                     //If so broadcast event
                     GameManager.endGame(GameEndCause.ALL_RUNNERS_LEAVE);
                 }
             }
-            if (ManhuntVars.isHunter(e.getPlayer())) {
-                ManhuntVars.removeHunter(e.getPlayer());
+            if (GameManager.getGame().isHunter(e.getPlayer())) {
+                GameManager.getGame().getHunters().remove(e.getPlayer());
                 Utils.broadcastServerMessage(LanguageTranslator.translate("hunter-disconnected", e.getPlayer().getDisplayName()));
-                if(ManhuntVars.getHunters().isEmpty()) {
+                if(GameManager.getGame().getHunters().isEmpty()) {
                     //If so broadcast event
                     GameManager.endGame(GameEndCause.ALL_HUNTERS_LEAVE);
                 }
@@ -155,7 +154,7 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void enderDragonDeathEvent(EntityDeathEvent e) {
-        if (ManhuntVars.isGameStarted()) {
+        if (GameManager.getGame().isGameStarted()) {
             //game is running, check for ender dragon death
             if(e.getEntityType() == EntityType.ENDER_DRAGON) {
                 //If so broadcast event
@@ -170,7 +169,7 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void noGamePLayerJoinEvent(PlayerJoinEvent e) {
-        if(!ManhuntVars.isGameStarted() && Manhunt.getInstance().getConfig().getBoolean("join-message.enabled")) {
+        if(!GameManager.getGame().isGameStarted() && Manhunt.getInstance().getConfig().getBoolean("join-message.enabled")) {
             if(e.getPlayer().hasPermission("manhunt.admin")) {
                e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("join-message.perm")));
             } else {
@@ -185,9 +184,9 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void hunterDragonDamageEvent(EntityDamageByEntityEvent e) {
-        if(ManhuntVars.isGameStarted() && !ManhuntSettings.isAllowHunterDamageDragon()) {
+        if(GameManager.getGame().isGameStarted() && !ManhuntSettings.isAllowHunterDamageDragon()) {
             if(e.getEntityType() == EntityType.ENDER_DRAGON && e.getDamager().getType() == EntityType.PLAYER) {
-                if(ManhuntVars.isHunter(((Player) e.getDamager()))) {
+                if(GameManager.getGame().isHunter(((Player) e.getDamager()))) {
                     e.setCancelled(true);
                 }
             }
@@ -200,9 +199,9 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void hunterCrystalDamageEvent(EntityDamageByEntityEvent e) {
-        if(ManhuntVars.isGameStarted() && !ManhuntSettings.isAllowHunterDamageCrystal()) {
+        if(GameManager.getGame().isGameStarted() && !ManhuntSettings.isAllowHunterDamageCrystal()) {
             if(e.getEntityType() == EntityType.ENDER_CRYSTAL && e.getDamager().getType() == EntityType.PLAYER) {
-                if(ManhuntVars.isHunter(((Player) e.getDamager()))) {
+                if(GameManager.getGame().isHunter(((Player) e.getDamager()))) {
                     e.setCancelled(true);
                 }
             }
