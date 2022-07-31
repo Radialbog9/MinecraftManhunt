@@ -41,7 +41,9 @@ public class Utils {
             "manhunt.spectate",
             "manhunt.admin",
             "manhunt.settings",
-            "manhunt.revive"
+            "manhunt.revive",
+            "manhunt.scenarios",
+            "manhunt.reload"
     };
 
     /**

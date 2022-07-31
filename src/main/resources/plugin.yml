@@ -32,28 +32,28 @@ permissions:
       manhunt.revive: true
       manhunt.updates: true
   manhunt.add:
-    description: Allows player to add others to hunters/runners
+    description: 'Allows player to add others to hunters/runners'
     default: 'op'
   manhunt.remove:
-    description: Allows player to remove others from the game
+    description: 'Allows player to remove others from the game'
     default: 'op'
   manhunt.start:
-    description: Allows player to start the game
+    description: 'Allows player to start the game'
     default: 'op'
   manhunt.stop:
-    description: Allows player to stop the game
+    description: 'Allows player to stop the game'
     default: 'op'
   manhunt.list:
-    description: Allows player to list other players in the game
+    description: 'Allows player to list other players in the game'
     default: 'true'
+  manhunt.settings:
+    description: 'Allows player to change settings in the game'
+    default: 'op'
   manhunt.spectate:
-    description: Allows player to spectate hunters/runner while in a game
+    description: 'Allows player to spectate hunters/runner while in a game'
     default: 'true'
   manhunt.admin:
-    description: Sends join messages for admins on joining (if enabled)
-    default: 'op'
-  manhunt.settings:
-    description: Allows player to use settings menu and scenarios menu
+    description: 'Sends join messages for admins on joining (if enabled)'
     default: 'op'
   manhunt.revive:
     description: 'Allows player to revive dead hunters'

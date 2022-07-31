@@ -59,29 +59,15 @@ public class Manhunt extends JavaPlugin {
     public void onEnable() {
         // Set instance
         instance = this;
+
         // Enable config
         if(!getDataFolder().exists()) getDataFolder().mkdir();
         if(!new File(getDataFolder(), "config.yml").exists()) saveResource("config.yml", false);
         reloadConfig();
+
         // Load language
-        try {
-            language = new Properties();
-            String languageSpecified = getConfig().getString("language");
-            if (languageSpecified.equals("custom")) {
-                File customFile = new File(getDataFolder(), "language.properties");
-                if(!customFile.exists()) saveResource("language.properties", false);
-                language.load(new FileReader(customFile));
-            } else if (languageSpecified.equals("none")) {
-                InputStream languageStream = getResource("language.properties");
-                language.load(new InputStreamReader(languageStream));
-            } else {
-                InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
-                if(languageStream == null) languageStream = getResource("language.properties");
-                language.load(new InputStreamReader(languageStream));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadLanguage();
+
         // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
 
@@ -144,5 +130,26 @@ public class Manhunt extends JavaPlugin {
         }
         //Log message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been disabled!"));
+    }
+
+    public void loadLanguage() {
+        try {
+            language = new Properties();
+            String languageSpecified = getConfig().getString("language");
+            if (languageSpecified.equals("custom")) {
+                File customFile = new File(getDataFolder(), "language.properties");
+                if(!customFile.exists()) saveResource("language.properties", false);
+                language.load(new FileReader(customFile));
+            } else if (languageSpecified.equals("none")) {
+                InputStream languageStream = getResource("language.properties");
+                language.load(new InputStreamReader(languageStream));
+            } else {
+                InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
+                if(languageStream == null) languageStream = getResource("language.properties");
+                language.load(new InputStreamReader(languageStream));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
