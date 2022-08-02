@@ -12,8 +12,8 @@
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
 ![SpigotMC tested server versions](https://img.shields.io/spiget/tested-versions/97765?color=yellow&style=for-the-badge)
 
-![LGTM Grade](https://img.shields.io/lgtm/grade/java/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)
-![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)
+[![LGTM Grade](https://img.shields.io/lgtm/grade/java/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)](https://lgtm.com/projects/g/Radialbog9/MinecraftManhunt/)
+[![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)](https://lgtm.com/projects/g/Radialbog9/MinecraftManhunt/)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Radialbog9/MinecraftManhunt?style=for-the-badge)
 
 [![GitHub license](https://img.shields.io/github/license/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)](https://github.com/Radialbog9/MinecraftManhunt/blob/master/LICENSE)
@@ -35,7 +35,7 @@ His Manhunt videos are awesome, and you should [check him out](https://www.youtu
 
 ---
 
-![bStats](https://bstats.org/signatures/bukkit/MinecraftManhunt.svg)
+[![bStats](https://bstats.org/signatures/bukkit/MinecraftManhunt.svg)](https://bstats.org/plugin/bukkit/MinecraftManhunt/9573)
 
 ---
 
@@ -139,7 +139,6 @@ To use the new prebundled languages, change the `language` key in the config to 
 * `nl_NL` (Dutch) \[Incomplete\]
 * `ru_RU` (Russian) \[Incomplete\]
 * `zh_CN` (Chinese Simplified) \[Incomplete\]
-* `zh_TW` (Chinese Traditional) \[Incomplete\]
 
 This list may be incomplete, so check the Crowdin page for more up-to-date info.
 
