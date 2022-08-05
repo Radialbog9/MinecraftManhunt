@@ -86,6 +86,13 @@
             <version>10.0.29</version>
             <scope>provided</scope>
         </dependency>
+        <!-- bStats -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -130,6 +137,7 @@
                     <artifactSet>
                         <includes>
                             <include>de.jeff_media:SpigotUpdateChecker</include>
+                            <include>org.bstats:bstats-bukkit</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -143,7 +151,11 @@
                     <relocations>
                         <relocation>
                             <pattern>de.jeff_media.updatechecker</pattern>
-                            <shadedPattern>uk.radialbog9.spigot.manhunt.updatechecker</shadedPattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.updatechecker</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
