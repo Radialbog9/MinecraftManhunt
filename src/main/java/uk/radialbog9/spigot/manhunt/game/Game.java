@@ -43,6 +43,6 @@ public class Game {
     private final ArrayList<ScenarioType> activeScenarios = new ArrayList<>();
 
     public Game() {
-
+        // nothing here yet
     }
 }
