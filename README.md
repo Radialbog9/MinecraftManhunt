@@ -27,7 +27,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 ![Lines of code](https://img.shields.io/tokei/lines/github/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 
-[![wakatime](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt.svg)](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt)
+[![wakatime](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt.svg?style=for-the-badge)](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt)
 
 ---
 
