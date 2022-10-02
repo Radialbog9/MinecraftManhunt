@@ -8,12 +8,16 @@
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.loot.LootContext;
 import org.bukkit.loot.LootTable;
 import org.bukkit.loot.LootTables;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
@@ -59,11 +63,33 @@ public class RandomLuckyDropScenario extends BukkitRunnable {
             spawnEntity(loc, EntityType.BEE);
         //51<=x<61 (10) - random amount of diamond
         else if(random >= 51 && random < 61)
-            loc.getWorld().dropItemNaturally(loc, new ItemStack(org.bukkit.Material.DIAMOND, Utils.getRandomInt(1, 32)));
+            dropItem(loc, new ItemStack(Material.DIAMOND, Utils.getRandomInt(1, 32)));
         //61<=x<71 (10) - End loot table
-        else if(random >= 61 && random < 71) {
+        else if(random >= 61 && random < 71)
             dropLootTable(loc, LootTables.END_CITY_TREASURE.getLootTable());
+        //71<=x<81 (10) - Jungle loot table
+        else if(random >= 71 && random < 81)
+            dropLootTable(loc, LootTables.JUNGLE_TEMPLE.getLootTable());
+        //81<=x<91 (10) - Giant amount of pufferfish
+        else if(random >= 81 && random < 91)
+            for(int i = 0; i < Utils.getRandomInt(3, 20); i++) dropItem(loc, new ItemStack(Material.PUFFERFISH, 64));
+        //91<=x<96 (5) - Harming Splash Potions
+        else if(random >= 91 && random < 96) {
+            ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
+            PotionMeta meta = (PotionMeta) item.getItemMeta();
+            meta.setBasePotionData(new PotionData(PotionType.INSTANT_DAMAGE, false, true));
+            dropItem(loc, item);
         }
+        //96<=x<100 (4) - Healing Splash Potions
+        else if(random >= 96 && random < 100) {
+            ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
+            PotionMeta meta = (PotionMeta) item.getItemMeta();
+            meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL, false, true));
+            dropItem(loc, item);
+        }
+        //100<=x<101 (1) - Elytra
+        else if(random == 100)
+            dropItem(loc, new ItemStack(Material.ELYTRA, 1));
     }
 
     /**
