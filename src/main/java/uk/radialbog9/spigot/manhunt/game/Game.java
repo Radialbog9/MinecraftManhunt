@@ -32,6 +32,12 @@ public class Game {
     @Getter
     private final ArrayList<Player> runners = new ArrayList<>();
     public boolean isRunner(Player p) { return runners.contains(p); }
+    public ArrayList<Player> getPlayers() {
+        ArrayList<Player> players = new ArrayList<>();
+        players.addAll(hunters);
+        players.addAll(runners);
+        return players;
+    }
     @Getter
     private final ArrayList<OfflinePlayer> disconnectedRunners = new ArrayList<>();
     public boolean isDisconnectedRunner(OfflinePlayer p) { return disconnectedRunners.contains(p); }
