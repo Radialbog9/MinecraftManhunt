@@ -132,10 +132,10 @@ To use the new prebundled languages, change the `language` key in the config to 
 * `en_GB` (English UK - default)
 * `en_US` (English US)
 * `pl_PL` (Polish)
+* `de_DE` (German)
 * `ko_KR` (Korean) \[Needs Proof-reading\]
 * `sv_SE` (Swedish) \[Incomplete\]
 * `fr_FR` (French) \[Incomplete\]
-* `de_DE` (German) \[Incomplete\]
 * `es_ES` (Spanish) \[Incomplete\]
 * `it_IT` (Italian) \[Incomplete\]
 * `ja_JP` (Japanese) \[Incomplete\]
