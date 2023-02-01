@@ -12,8 +12,6 @@
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
 ![SpigotMC tested server versions](https://img.shields.io/spiget/tested-versions/97765?color=yellow&style=for-the-badge)
 
-[![LGTM Grade](https://img.shields.io/lgtm/grade/java/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)](https://lgtm.com/projects/g/Radialbog9/MinecraftManhunt/)
-[![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/Radialbog9/MinecraftManhunt?logo=lgtm&style=for-the-badge)](https://lgtm.com/projects/g/Radialbog9/MinecraftManhunt/)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Radialbog9/MinecraftManhunt?style=for-the-badge)
 
 [![GitHub license](https://img.shields.io/github/license/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)](https://github.com/Radialbog9/MinecraftManhunt/blob/master/LICENSE)
@@ -25,7 +23,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)
 ![GitHub top language](https://img.shields.io/github/languages/top/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
-![Lines of code](https://img.shields.io/tokei/lines/github/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
+![GitHub repo file count](https://img.shields.io/github/directory-file-count/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 
 [![wakatime](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt.svg?style=for-the-badge)](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt)
 
