@@ -23,7 +23,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/Radialbog9/MinecraftManhunt?color=blue&style=for-the-badge&logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)
 ![GitHub top language](https://img.shields.io/github/languages/top/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
-![GitHub repo file count](https://img.shields.io/github/directory-file-count/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)
 
 [![wakatime](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt.svg?style=for-the-badge)](https://wakatime.com/badge/github/Radialbog9/MinecraftManhunt)
 
