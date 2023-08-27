@@ -71,7 +71,7 @@ scenarios:
 join-message:
   enabled: true
   noperm: '&aWelcome to this Manhunt server! The game will start shortly.'
-  perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings (beta) to change settings and start the game!'
+  perm: '&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!'
 
 ### Language preferences ###
 # Set this to one of the supported languages.

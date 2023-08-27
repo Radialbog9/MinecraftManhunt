@@ -59,12 +59,14 @@
             <groupId>de.jeff_media</groupId>
             <artifactId>SpigotUpdateChecker</artifactId>
             <version>1.3.2</version>
+            <scope>compile</scope>
         </dependency>
         <!-- SuperVanish -->
         <dependency>
             <groupId>com.github.LeonMangler</groupId>
             <artifactId>SuperVanish</artifactId>
             <version>6.2.17</version>
+            <scope>provided</scope>
         </dependency>
         <!-- JetBrains Annotations -->
         <dependency>
@@ -78,6 +80,7 @@
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>5.0.0</version>
+            <scope>provided</scope>
         </dependency>
         <!-- LibsDisguises -->
         <dependency>
@@ -91,6 +94,19 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Cloud command framework -->
+        <dependency>
+            <groupId>cloud.commandframework</groupId>
+            <artifactId>cloud-bukkit</artifactId>
+            <version>1.8.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cloud.commandframework</groupId>
+            <artifactId>cloud-annotations</artifactId>
+            <version>1.8.3</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -137,12 +153,32 @@
                     <artifactSet>
                         <includes>
                             <include>de.jeff_media:SpigotUpdateChecker</include>
-                            <include>org.bstats:bstats-bukkit</include>
+                            <include>org.bstats:bstats-*</include>
+                            <include>cloud.commandframework:cloud-*</include>
+                            <include>io.leangen.geantyref:geantyref</include>
                         </includes>
                     </artifactSet>
                     <filters>
                         <filter>
                             <artifact>de.jeff_media:SpigotUpdateChecker</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>org.bstats:bstats-*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>cloud.commandframework:cloud-*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>io.leangen.geantyref:geantyref</artifact>
                             <excludes>
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
@@ -156,6 +192,14 @@
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>uk.radialbog9.spigot.manhunt.lib.bstats</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>cloud.commandframework</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.cloud</shadedPattern> <!-- Replace this -->
+                        </relocation>
+                        <relocation>
+                            <pattern>io.leangen.geantyref</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.typetoken</shadedPattern> <!-- Replace this -->
                         </relocation>
                     </relocations>
                 </configuration>

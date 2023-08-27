@@ -7,34 +7,49 @@
 
 package uk.radialbog9.spigot.manhunt;
 
+import cloud.commandframework.CommandManager;
+import cloud.commandframework.annotations.AnnotationParser;
+import cloud.commandframework.arguments.standard.IntegerArgument;
+import cloud.commandframework.bukkit.BukkitCommandManager;
+import cloud.commandframework.bukkit.parsers.PlayerArgument;
+import cloud.commandframework.exceptions.ArgumentParseException;
+import cloud.commandframework.exceptions.NoPermissionException;
+import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.meta.SimpleCommandMeta;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidArgsHandler;
+import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidIntegerHandler;
+import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidPlayerHandler;
+import uk.radialbog9.spigot.manhunt.cmderrorhandlers.NoPermissionHandler;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioTypeParser;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
-import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntTabCompleter;
-import uk.radialbog9.spigot.manhunt.tabcompleters.SpectateTabCompleter;
+import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntSuggestions;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.*;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.logging.Level;
 
 /**
  * Main Manhunt plugin class
  */
 
-@SuppressWarnings({"ConstantConditions", "unused", "ResultOfMethodCallIgnored"})
+@SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
 
 public class Manhunt extends JavaPlugin {
     @Getter
@@ -49,6 +64,12 @@ public class Manhunt extends JavaPlugin {
 
     @Getter
     private static Properties language;
+
+    @Getter
+    private CommandManager<CommandSender> commandManager;
+
+    @Getter
+    private AnnotationParser<CommandSender> annotationParser;
 
     private static final int SPIGOT_RESOURCE_ID = 97765;
     private static final int BSTATS_ID = 9573;
@@ -72,13 +93,37 @@ public class Manhunt extends JavaPlugin {
         // Register event listeners
         getServer().getPluginManager().registerEvents(new ManhuntEventHandler(), this);
 
+        // Register Cloud command handler
+        try {
+            commandManager = new BukkitCommandManager<>(
+                    this,
+                    CommandExecutionCoordinator.simpleCoordinator(),
+                    Function.identity(),
+                    Function.identity()
+            );
+        } catch (Exception e) {
+            getLogger().log(Level.SEVERE, e.getMessage());
+        }
+
+        annotationParser = new AnnotationParser<>(commandManager, CommandSender.class, parameters -> SimpleCommandMeta.empty());
+
+        // Register parsers and suggestions
+        annotationParser.parse(new ScenarioTypeParser());
+        annotationParser.parse(new ManhuntSuggestions());
+
+        // Register exception handlers
+        commandManager.registerExceptionHandler(NoPermissionException.class, new NoPermissionHandler());
+        commandManager.registerExceptionHandler(ArgumentParseException.class, new InvalidArgsHandler());
+        commandManager.registerExceptionHandler(PlayerArgument.PlayerParseException.class, new InvalidPlayerHandler());
+        commandManager.registerExceptionHandler(IntegerArgument.IntegerParseException.class, new InvalidIntegerHandler());
+
         // Register commands
-        this.getCommand("manhunt").setExecutor(new ManhuntCommand());
-        this.getCommand("spectate").setExecutor(new SpectateCommand());
+        annotationParser.parse(new ManhuntCommand());
+        annotationParser.parse(new SpectateCommand());
 
         // Register tab completer
-        this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
-        this.getCommand("spectate").setTabCompleter(new SpectateTabCompleter());
+        //this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
+        //this.getCommand("spectate").setTabCompleter(new SpectateTabCompleter());
 
         // Register bStats
         Metrics metrics = new Metrics(this, BSTATS_ID);

@@ -29,7 +29,7 @@ import java.util.jar.JarFile;
 /**
  * Utilities that are used throughout the plugin
  */
-@SuppressWarnings({"ConstantConditions", "unused"})
+@SuppressWarnings({"unused"})
 public class Utils {
 
     private static final String[] manhuntPermissions = {

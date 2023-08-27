@@ -7,78 +7,52 @@
 
 package uk.radialbog9.spigot.manhunt.commands;
 
-import org.bukkit.Bukkit;
+import cloud.commandframework.annotations.Argument;
+import cloud.commandframework.annotations.CommandMethod;
+import cloud.commandframework.annotations.CommandPermission;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
-public class SpectateCommand implements CommandExecutor {
-
-    /**
-     * Spectate command
-     * <code>/spectate &lt;player&gt;</code>
-     * Allows people who are not in a game to spectate the hunters/runners.
-     * @param sender CommandSender command sender
-     * @param cmd Command command
-     * @param label String label
-     * @param args String[] arguments
-     * @return boolean always true
-     */
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        if(sender instanceof Player) {
-            Player p = (Player) sender;
-            if(sender.hasPermission("manhunt.spectate")) {
-                //permission
-                if(args.length == 0) {
-                    //no player specified
-                    p.sendMessage(LanguageTranslator.translate("not-enough-args"));
-                    p.sendMessage(LanguageTranslator.translate("usage", "/spectate <player>"));
-                } else if (args.length > 1) {
-                    //too many arguments
-                    p.sendMessage(LanguageTranslator.translate("too-many-args"));
-                    p.sendMessage(LanguageTranslator.translate("usage", "/spectate <player>"));
-                } else {
-                    //player given
-                    //check if in game
-                    if(GameManager.getGame().isGameStarted()) {
-                        if(!(GameManager.getGame().isRunner(p) | GameManager.getGame().isHunter(p))) {
-                            //they are spectator
-                            //check the player
-                            Player existingPlayer = Bukkit.getPlayer(args[0]);
-                            if(existingPlayer != null) {
-                                //player exists
-                                if(GameManager.getGame().isRunner(existingPlayer) || GameManager.getGame().isHunter(existingPlayer)) {
-                                    p.setGameMode(GameMode.SPECTATOR);
-                                    p.teleport(existingPlayer);
-                                    p.sendMessage(LanguageTranslator.translate("now-spectating-player", existingPlayer.getDisplayName()));
-                                } else {
-                                    p.sendMessage(LanguageTranslator.translate("player-not-in-game"));
-                                }
-                            } else {
-                                p.sendMessage(LanguageTranslator.translate("player-not-online", args[0]));
-                            }
-                        } else {
-                            //not spectator
-                            p.sendMessage(LanguageTranslator.translate("not-spectator"));
-                        }
-                    } else {
-                        //no game in progress
-                        p.sendMessage(LanguageTranslator.translate("no-game-in-progress"));
-                    }
-                }
-            } else {
-                //no perm
-                p.sendMessage(LanguageTranslator.translate("no-permission"));
-            }
-        } else {
+public class SpectateCommand {
+    @CommandMethod("spectate <player>")
+    @CommandPermission("manhunt.spectate")
+    public void mSpectate(@NotNull CommandSender sender, @NotNull @Argument(value = "player", suggestions = "player-sv-ingame") Player existingPlayer) {
+        if (!(sender instanceof Player)) {
             //console is executing command, deny it
             sender.sendMessage(LanguageTranslator.translate("console-cannot-spectate"));
+            return;
         }
-        return true;
+
+        Player p = (Player) sender;
+
+        if (!Utils.vanishCanSee(sender, existingPlayer)) {
+            sender.sendMessage(LanguageTranslator.translate("player-not-online", existingPlayer.getName()));
+            return;
+        }
+
+        if (!GameManager.getGame().isGameStarted()) {
+            sender.sendMessage(LanguageTranslator.translate("no-game-in-progress"));
+            return;
+        }
+
+        if (GameManager.getGame().isRunner(p) || GameManager.getGame().isHunter(p)) {
+            //not spectator
+            p.sendMessage(LanguageTranslator.translate("not-spectator"));
+            return;
+        }
+
+        if (!GameManager.getGame().isRunner(existingPlayer) && !GameManager.getGame().isHunter(existingPlayer)) {
+            p.sendMessage(LanguageTranslator.translate("player-not-in-game"));
+            return;
+        }
+
+        p.setGameMode(GameMode.SPECTATOR);
+        p.teleport(existingPlayer);
+        p.sendMessage(LanguageTranslator.translate("now-spectating-player", existingPlayer.getDisplayName()));
     }
 }

@@ -9,14 +9,6 @@ softdepend:
   - PremiumVanish
   - LibsDisguises
   - ProtocolLib
-commands:
-  manhunt:
-    description: Main manhunt command
-    usage: /<command> [help|hunter <player>|runner <player>|remove <player>|revive
-      [player]|start|stop|list|settings|scenarios]
-  spectate:
-    description: Spectates a player while in a game
-    usage: /<command> <player>
 permissions:
   manhunt.*:
     description: Allows player to use all manhunt commands
@@ -29,6 +21,7 @@ permissions:
       manhunt.spectate: true
       manhunt.admin: true
       manhunt.settings: true
+      manhunt.scenarios: true
       manhunt.revive: true
       manhunt.updates: true
   manhunt.add:
@@ -48,6 +41,9 @@ permissions:
     default: 'true'
   manhunt.settings:
     description: 'Allows player to change settings in the game'
+    default: 'op'
+  manhunt.scenarios:
+    description: 'Allows player to change scenarios in the game'
     default: 'op'
   manhunt.spectate:
     description: 'Allows player to spectate hunters/runner while in a game'

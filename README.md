@@ -124,7 +124,7 @@ language: 'en_gb'
 ```
 
 ## Language
-This plugin uses a (still slightly crappy) all-new language system.
+This plugin uses a configurable language system.
 To use the new prebundled languages, change the `language` key in the config to one of the following (in order of completeness):
 * `en_GB` (English UK - default)
 * `en_US` (English US)
@@ -144,4 +144,4 @@ This list may be incomplete, so check the Crowdin page for more up-to-date info.
 
 If you natively speak or are fluent in any of these languages then you can help us translate! Just go to this website and start translating: https://crowdin.com/project/minecraft-manhunt
 
-If you want to be a proofreader, go to the page above and press the contact button next to `Radialbog9` to send us a message, or DM `Radialbog9#0001` on Discord!
+If you want to be a proofreader, join the [Discord server](https://rb9.xyz/discord) then DM `radialbog9` on Discord!
