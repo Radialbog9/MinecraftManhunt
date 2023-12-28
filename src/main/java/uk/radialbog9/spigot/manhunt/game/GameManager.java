@@ -170,8 +170,8 @@ public class GameManager {
         //Cancel runnables
         for(BukkitRunnable runnable : enabledRunnables) {
             runnable.cancel();
-            enabledRunnables.remove(runnable);
         }
+        enabledRunnables.clear();
 
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
 
