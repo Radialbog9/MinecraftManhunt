@@ -59,7 +59,7 @@ public class GameManager {
                 //TP to spawn
                 p.teleport(p.getWorld().getSpawnLocation());
                 if(game.isHunter(p)) {
-                    //give blindness and weakness for 5 seconds
+                    //give blindness and weakness for head start time
                     if(ManhuntSettings.isHeadStartEnabled()) {
                         new PotionEffect(PotionEffectType.WEAKNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
                         new PotionEffect(PotionEffectType.BLINDNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
