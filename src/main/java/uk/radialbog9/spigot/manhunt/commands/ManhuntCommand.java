@@ -219,6 +219,7 @@ public class ManhuntCommand {
         pl.teleport(pl.getBedSpawnLocation() != null ? pl.getBedSpawnLocation() : pl.getWorld().getSpawnLocation());
         GameManager.getGame().getRunners().add(pl);
         pl.setGameMode(GameMode.SURVIVAL);
+
         //broadcast messages
         pl.sendMessage(LanguageTranslator.translate("you-revived"));
         sender.sendMessage(LanguageTranslator.translate("revived-player", pl.getDisplayName()));
@@ -294,7 +295,10 @@ public class ManhuntCommand {
     @CommandPermission("manhunt.settings")
     public void mSettingsMenu(@NotNull CommandSender sender) {
         if (sender instanceof Player) {
-            SettingsMenu.displayMenu((Player) sender);
+            if (!GameManager.getGame().isGameStarted())
+                SettingsMenu.displayMenu((Player) sender);
+            else
+                sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
         } else {
             sender.sendMessage(Utils.getMsgColor("&cYou can't use the settings menu as console!"));
         }
@@ -303,6 +307,10 @@ public class ManhuntCommand {
     @CommandMethod("manhunt settings headstarttoggle")
     @CommandPermission("manhunt.settings")
     public void mSettingsHeadStartToggle(@NotNull CommandSender sender) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
         if (ManhuntSettings.isHeadStartEnabled()) {
             //head start enabled so disable it
             ManhuntSettings.setHeadStartEnabled(false);
@@ -318,6 +326,10 @@ public class ManhuntCommand {
     @CommandMethod("manhunt settings headstarttime <time>")
     @CommandPermission("manhunt.settings")
     public void mSettingsHeadStartTime(@NotNull CommandSender sender, @Argument("time") int time) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
         if (time <= 0) {
             sender.sendMessage(LanguageTranslator.translate("invalid-integer"));
             return;
@@ -354,6 +366,7 @@ public class ManhuntCommand {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-unavailable", scenario.toString()));
             return;
         }
+
         //Scenario is available
         if (GameManager.getGame().getActiveScenarios().contains(scenario)) {
             //Scenario is enabled, disable it!
