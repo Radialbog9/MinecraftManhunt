@@ -66,6 +66,9 @@ scenarios:
   RANDOM_LUCKY_DROPS:
     # Players get lucky drops every `time` seconds
     time: 300
+  RANDOM_PROJECTILES:
+    # Players get random projectiles every `time` seconds
+    time: 300
 
 ### Join Message ###
 join-message:
