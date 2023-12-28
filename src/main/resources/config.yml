@@ -64,7 +64,7 @@ scenarios:
     # Runners are disguised as hunters every `time` seconds
     time: 300
   RANDOM_LUCKY_DROPS:
-    # Runners get lucky drops every `time` seconds
+    # Players get lucky drops every `time` seconds
     time: 300
 
 ### Join Message ###
