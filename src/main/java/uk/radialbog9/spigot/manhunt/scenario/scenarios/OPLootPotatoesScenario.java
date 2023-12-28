@@ -30,10 +30,10 @@ public class OPLootPotatoesScenario implements Listener {
     @EventHandler
     public void potatoBreakEvent(BlockBreakEvent e) {
         if(
-                !GameManager.getGame().isGameStarted()
+                GameManager.getGame().isGameStarted()
                 && GameManager.getGame().getActiveScenarios().contains(ScenarioType.OP_LOOT_POTATOES)
                 && e.getBlock().getType() == Material.POTATOES
-                && ((Ageable) e.getBlock().getBlockData()).getAge() == 7
+                && ((Ageable) e.getBlock().getBlockData()).getAge() == ((Ageable) e.getBlock().getBlockData()).getMaximumAge()
         ) {
             //Stop potatoes from dropping
             e.setDropItems(false);
