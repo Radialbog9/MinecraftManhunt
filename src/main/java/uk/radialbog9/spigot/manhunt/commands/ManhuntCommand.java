@@ -105,7 +105,7 @@ public class ManhuntCommand {
         if (sender.hasPermission("manhunt.reload"))
             sender.sendMessage(LanguageTranslator.translate(
                     "help-format",
-                    "/reload ",
+                    "/manhunt reload ",
                     LanguageTranslator.translate("help.reload")
             ));
     }
