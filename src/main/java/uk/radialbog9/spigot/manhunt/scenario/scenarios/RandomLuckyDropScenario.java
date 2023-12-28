@@ -22,7 +22,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
@@ -132,7 +131,7 @@ public class RandomLuckyDropScenario extends BukkitRunnable {
      */
     @Override
     public void run() {
-        if(GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains(ScenarioType.RANDOM_LUCKY_DROPS))
+        if(GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains("RANDOM_LUCKY_DROPS"))
             // drop a random item from the list of lucky items
             for(Player p : GameManager.getGame().getPlayers()) dropRandomLuckyDrop(p.getLocation());
     }

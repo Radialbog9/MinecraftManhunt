@@ -14,7 +14,6 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 
 @Scenario("HUNTER_CREATIVE")
 @ScenarioRunnable
@@ -24,7 +23,7 @@ public class HunterCreativeScenario extends BukkitRunnable {
     public void run() {
         if(
                 GameManager.getGame().isGameStarted() &&
-                GameManager.getGame().getActiveScenarios().contains(ScenarioType.HUNTER_CREATIVE)
+                GameManager.getGame().getActiveScenarios().contains("HUNTER_CREATIVE")
         ) {
             for(Player p : GameManager.getGame().getHunters()) {
                 p.setGameMode(GameMode.CREATIVE);

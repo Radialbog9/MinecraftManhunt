@@ -23,7 +23,7 @@ public class HunterNoFallScenario implements Listener {
         if(
                 GameManager.getGame().isGameStarted() &&
                 e.getEntityType() == EntityType.PLAYER &&
-                GameManager.getGame().getActiveScenarios().contains(ScenarioType.HUNTER_NO_FALL)
+                GameManager.getGame().getActiveScenarios().contains("HUNTER_NO_FALL")
         ) {
             Player p = (Player) e.getEntity();
             if(GameManager.getGame().isHunter(p) && e.getCause() == EntityDamageEvent.DamageCause.FALL) {

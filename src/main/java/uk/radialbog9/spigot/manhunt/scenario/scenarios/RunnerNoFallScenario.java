@@ -23,7 +23,7 @@ public class RunnerNoFallScenario implements Listener {
         if(
                 GameManager.getGame().isGameStarted() &&
                 e.getEntityType() == EntityType.PLAYER &&
-                GameManager.getGame().getActiveScenarios().contains(ScenarioType.RUNNER_NO_FALL)
+                GameManager.getGame().getActiveScenarios().contains("RUNNER_NO_FALL")
         ) {
             Player p = (Player) e.getEntity();
             if(GameManager.getGame().isRunner(p) && e.getCause() == EntityDamageEvent.DamageCause.FALL) {

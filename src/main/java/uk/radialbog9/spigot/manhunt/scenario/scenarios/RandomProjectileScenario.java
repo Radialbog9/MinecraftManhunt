@@ -18,7 +18,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario("RANDOM_PROJECTILES")
@@ -134,7 +133,7 @@ public class RandomProjectileScenario extends BukkitRunnable {
     }
     @Override
     public void run() {
-        if (GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains(ScenarioType.RANDOM_PROJECTILES)) {
+        if (GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains("RANDOM_PROJECTILES")) {
             for (Player p : GameManager.getGame().getPlayers()) {
                 randomProjectileItem(p.getLocation());
             }
