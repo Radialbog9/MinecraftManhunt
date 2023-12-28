@@ -32,7 +32,7 @@ public class ScenarioMenu {
             p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.display-format",
                             scenarioenabled ? enabled : disabled,
-                            LanguageTranslator.translate("scenario." + scenario.toString())
+                            LanguageTranslator.translate("scenario." + scenario)
                     ),
                     "/manhunt scenarios " + scenario,
                     scenarioenabledstring + "\n&7Class name: " + availables.get(scenario).getSimpleName()
