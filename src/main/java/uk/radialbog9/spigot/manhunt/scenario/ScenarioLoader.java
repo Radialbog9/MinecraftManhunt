@@ -16,17 +16,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Set;
 
-@SuppressWarnings({"unused"})
 public class ScenarioLoader {
     @Getter
-    private final HashMap<ScenarioType, Class<?>> availableScenarios;
+    private final HashMap<String, Class<?>> availableScenarios;
 
-    public ScenarioLoader() throws Exception {
-        availableScenarios = new HashMap<>();
-        Set<Class<?>> classSet = Utils.getClasses(
-                new File(Manhunt.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()),
-                "uk.radialbog9.spigot.manhunt.scenario.scenarios"
-        );
+    public void loadScenariosFromPackage(File codeSourcePath, String pkg) {
+        Set<Class<?>> classSet = Utils.getClasses(codeSourcePath, pkg);
         for(Class<?> cla : classSet) {
             //Get if the class is a scenario
             Scenario annotation = cla.getAnnotation(Scenario.class);
@@ -34,20 +29,21 @@ public class ScenarioLoader {
             //If check is fine then add to the list of available scenarios
             availableScenarios.put(annotation.value(), cla);
         }
+    }
+
+    public ScenarioLoader() throws Exception {
+        availableScenarios = new HashMap<>();
+
+        //load scenarios that don't require LibsDisguises
+        loadScenariosFromPackage(
+                new File(Manhunt.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()),
+                "uk.radialbog9.spigot.manhunt.scenario.scenarios");
 
         //load scenarios that require LibsDisguises if enabled
         if(DependencySupport.isLibsDisguisesEnabled()) {
-            Set<Class<?>> classSet2 = Utils.getClasses(
+            loadScenariosFromPackage(
                     new File(Manhunt.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()),
-                    "uk.radialbog9.spigot.manhunt.scenario.ldisscenarios"
-            );
-            for(Class<?> cla : classSet2) {
-                //Get if the class is a scenario
-                Scenario annotation = cla.getAnnotation(Scenario.class);
-                if(annotation == null) continue;
-                //If check is fine then add to the list of available scenarios
-                availableScenarios.put(annotation.value(), cla);
-            }
+                    "uk.radialbog9.spigot.manhunt.scenario.ldisscenarios");
         }
     }
 }

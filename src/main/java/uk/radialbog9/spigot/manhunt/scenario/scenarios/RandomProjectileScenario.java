@@ -21,7 +21,7 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
-@Scenario(ScenarioType.RANDOM_PROJECTILES)
+@Scenario("RANDOM_PROJECTILES")
 @ScenarioRunnable
 @SuppressWarnings("unused")
 public class RandomProjectileScenario extends BukkitRunnable {

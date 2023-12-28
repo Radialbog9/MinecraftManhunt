@@ -24,7 +24,7 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import java.util.ArrayList;
 import java.util.Random;
 
-@Scenario(ScenarioType.OP_LOOT_POTATOES)
+@Scenario("OP_LOOT_POTATOES")
 @ScenarioListener
 public class OPLootPotatoesScenario implements Listener {
     @EventHandler

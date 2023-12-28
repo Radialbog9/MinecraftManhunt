@@ -28,7 +28,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 import java.util.ArrayList;
 import java.util.Random;
 
-@Scenario(ScenarioType.RANDOM_LUCKY_DROPS)
+@Scenario("RANDOM_LUCKY_DROPS")
 @ScenarioRunnable
 @SuppressWarnings("unused")
 public class RandomLuckyDropScenario extends BukkitRunnable {

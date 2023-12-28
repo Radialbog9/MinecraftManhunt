@@ -16,7 +16,7 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.LibsDisguisesUtils;
 
-@Scenario(ScenarioType.HUNTER_RANDOM_MOB_DISGUISE)
+@Scenario("HUNTER_RANDOM_MOB_DISGUISE")
 @ScenarioRunnable
 @SuppressWarnings({"unused"})
 public class RandHunterMobDisgScenario extends BukkitRunnable {

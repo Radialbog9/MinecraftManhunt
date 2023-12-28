@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.*;
 
-@Scenario(ScenarioType.RUNNER_NO_FALL)
+@Scenario("RUNNER_NO_FALL")
 @ScenarioListener
 public class RunnerNoFallScenario implements Listener {
     @EventHandler

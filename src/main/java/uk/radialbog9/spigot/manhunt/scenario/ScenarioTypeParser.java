@@ -15,11 +15,11 @@ import cloud.commandframework.context.CommandContext;
 import cloud.commandframework.exceptions.parsing.ParserException;
 import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import uk.radialbog9.spigot.manhunt.Manhunt;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public class ScenarioTypeParser {
@@ -37,13 +37,11 @@ public class ScenarioTypeParser {
     }
 
     @Parser(suggestions = "scenario-type")
-    public ScenarioType scenarioType(CommandContext<CommandSender> sender, Queue<String> input) {
+    public String scenarioType(CommandContext<CommandSender> sender, Queue<String> input) {
         String scenarioName = input.peek();
-        ScenarioType scenarioType;
-        try {
-            assert scenarioName != null;
-            scenarioType = ScenarioType.valueOf(scenarioName.toUpperCase());
-        } catch (Exception e) {
+        assert scenarioName != null;
+        String scenarioType = scenarioName.toUpperCase();
+        if(!Manhunt.getScenarioLoader().getAvailableScenarios().containsKey(scenarioType)) {
             throw new ScenarioParseException(scenarioName, sender);
         }
         input.remove();
@@ -52,8 +50,7 @@ public class ScenarioTypeParser {
 
     @Suggestions("scenario-type")
     public List<String> scenarioTypeSuggestions(CommandContext<CommandSender> sender, String input) {
-        List<String> candidates =
-            Arrays.stream(ScenarioType.values()).map(ScenarioType::name).collect(Collectors.toList());
+        List<String> candidates = new ArrayList<>(Manhunt.getScenarioLoader().getAvailableScenarios().keySet());
         candidates.removeIf(candidate -> !candidate.startsWith(input.toUpperCase()));
         return candidates;
     }

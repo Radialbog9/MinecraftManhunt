@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 
 import java.util.ArrayList;
 
@@ -46,7 +45,7 @@ public class Game {
     public boolean isDeadRunner(Player p) { return deadRunners.contains(p); }
 
     @Getter
-    private final ArrayList<ScenarioType> activeScenarios = new ArrayList<>();
+    private final ArrayList<String> activeScenarios = new ArrayList<>();
 
     public Game() {
         // nothing here yet

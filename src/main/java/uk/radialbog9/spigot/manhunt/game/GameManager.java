@@ -24,7 +24,6 @@ import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -74,8 +73,8 @@ public class GameManager {
             }
         }
         //Scenarios
-        ArrayList<ScenarioType> scenarios = game.getActiveScenarios();
-        for (ScenarioType scenarioType : scenarios) {
+        ArrayList<String> scenarios = game.getActiveScenarios();
+        for (String scenarioType : scenarios) {
             Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
             if (scenario.getAnnotation(ScenarioListener.class) != null) {
                 //Is a listener

@@ -16,7 +16,7 @@ import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 
-@Scenario(ScenarioType.HUNTER_CREATIVE)
+@Scenario("HUNTER_CREATIVE")
 @ScenarioRunnable
 @SuppressWarnings({"unused"})
 public class HunterCreativeScenario extends BukkitRunnable {

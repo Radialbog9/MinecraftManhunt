@@ -18,7 +18,6 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioMenu;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioType;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
@@ -351,7 +350,7 @@ public class ManhuntCommand {
 
     @CommandMethod("manhunt scenarios <scenario>")
     @CommandPermission("manhunt.scenarios")
-    public void mScenarioToggle(@NotNull CommandSender sender, @Argument("scenario") ScenarioType scenario) {
+    public void mScenarioToggle(@NotNull CommandSender sender, @Argument(value = "scenario", parserName = "scenario-type") String scenario) {
         if (!(sender instanceof Player)){
             sender.sendMessage(LanguageTranslator.translate("no-run-console"));
             return;
@@ -363,7 +362,7 @@ public class ManhuntCommand {
         }
 
         if(!Manhunt.getScenarioLoader().getAvailableScenarios().containsKey(scenario)) {
-            sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-unavailable", scenario.toString()));
+            sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-unavailable", scenario));
             return;
         }
 
@@ -371,11 +370,11 @@ public class ManhuntCommand {
         if (GameManager.getGame().getActiveScenarios().contains(scenario)) {
             //Scenario is enabled, disable it!
             GameManager.getGame().getActiveScenarios().remove(scenario);
-            sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-disabled", scenario.toString()));
+            sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-disabled", scenario));
         } else {
             //Scenario is disabled, enable it!
             GameManager.getGame().getActiveScenarios().add(scenario);
-            sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", scenario.toString()));
+            sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", scenario));
         }
         ScenarioMenu.displayMenu((Player) sender);
     }
