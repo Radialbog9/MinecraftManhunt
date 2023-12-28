@@ -30,6 +30,7 @@ import java.util.Random;
 
 @Scenario(ScenarioType.RANDOM_LUCKY_DROPS)
 @ScenarioRunnable
+@SuppressWarnings("unused")
 public class RandomLuckyDropScenario extends BukkitRunnable {
     /**
      * The main method that gets called per player
