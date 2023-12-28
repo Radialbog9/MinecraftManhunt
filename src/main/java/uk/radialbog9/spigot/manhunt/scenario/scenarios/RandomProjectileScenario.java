@@ -23,6 +23,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario(ScenarioType.RANDOM_PROJECTILES)
 @ScenarioRunnable
+@SuppressWarnings("unused")
 public class RandomProjectileScenario extends BukkitRunnable {
     public void randomProjectileItem(Location loc) {
         int random = Utils.getRandomInt(0, 152);
