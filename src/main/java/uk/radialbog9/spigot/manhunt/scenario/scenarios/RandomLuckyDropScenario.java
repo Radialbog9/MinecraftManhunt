@@ -131,7 +131,7 @@ public class RandomLuckyDropScenario extends BukkitRunnable {
      */
     @Override
     public void run() {
-        if(!GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains(ScenarioType.RANDOM_LUCKY_DROPS))
+        if(GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains(ScenarioType.RANDOM_LUCKY_DROPS))
             // drop a random item from the list of lucky items
             for(Player p : GameManager.getGame().getPlayers()) dropRandomLuckyDrop(p.getLocation());
     }
