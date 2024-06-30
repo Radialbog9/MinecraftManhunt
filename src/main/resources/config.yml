@@ -69,6 +69,9 @@ scenarios:
   RANDOM_PROJECTILES:
     # Players get random projectiles every `time` seconds
     time: 300
+  HUNTER_RANDOM_MOBS:
+    # Random mobs spawn at hunters every `time` seconds
+    time: 180
 
 ### Join Message ###
 join-message:

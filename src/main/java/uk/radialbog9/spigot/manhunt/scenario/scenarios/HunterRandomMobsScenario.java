@@ -20,16 +20,23 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 public class HunterRandomMobsScenario extends BukkitRunnable {
     @Override
     public void run() {
-        // Get all entity types
-        EntityType[] entities = EntityType.values();
+        if(
+                GameManager.getGame().isGameStarted() &&
+                        GameManager.getGame().getActiveScenarios().contains("HUNTER_RANDOM_MOBS")
+        ) {
+            // Get all entity types
+            EntityType[] entities = EntityType.values();
 
-        // Pick random mob
-        EntityType chosenType = entities[Utils.getRandomInt(0, entities.length - 1)];
+            // Pick random mob
+            EntityType chosenType = entities[Utils.getRandomInt(0, entities.length - 1)];
 
-        // Loop throygh all hunters
-        for (Player hunter : GameManager.getGame().getHunters()) {
-            // Spawn the mob at the hunter's location
-            hunter.getWorld().spawnEntity(hunter.getLocation(), chosenType);
+            // Loop throygh all hunters
+            for (Player hunter : GameManager.getGame().getHunters()) {
+                // Spawn the mob at the hunter's location
+                hunter.getWorld().spawnEntity(hunter.getLocation(), chosenType);
+            }
+        } else {
+            this.cancel();
         }
     }
 }
