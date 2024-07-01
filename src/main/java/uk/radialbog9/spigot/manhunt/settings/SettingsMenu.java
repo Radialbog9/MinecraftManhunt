@@ -8,6 +8,7 @@
 package uk.radialbog9.spigot.manhunt.settings;
 
 import org.bukkit.entity.Player;
+import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -47,6 +48,12 @@ public class SettingsMenu {
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                 LanguageTranslator.translate("settingsmenu.options.scenarios"),
                 "/manhunt scenarios",
+                LanguageTranslator.translate("settingsmenu.click-to-change")
+        ));
+        p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
+                LanguageTranslator.translate("settingsmenu.options.objective",
+                        GameManager.getGame().getGameObjective().toString()),
+                "/manhunt objective ",
                 LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
