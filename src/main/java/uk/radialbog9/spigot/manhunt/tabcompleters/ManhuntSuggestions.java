@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
@@ -85,5 +86,15 @@ public class ManhuntSuggestions {
                 input,
                 p -> !GameManager.getGame().isDeadRunner(p)
         );
+    }
+
+    @Suggestions("objective")
+    public List<String> objectiveSuggestions(@NotNull CommandContext<CommandSender> context, String input) {
+        List<String> completions = new ArrayList<>();
+        for(Objective objective : Objective.values()) {
+            completions.add(objective.name());
+        }
+        completions.removeIf(c -> !c.toLowerCase().startsWith(input.toLowerCase()));
+        return completions;
     }
 }

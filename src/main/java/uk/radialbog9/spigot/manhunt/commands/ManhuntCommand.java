@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioMenu;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
@@ -380,5 +381,16 @@ public class ManhuntCommand {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", scenario));
         }
         ScenarioMenu.displayMenu((Player) sender);
+    }
+
+    @CommandMethod("manhunt objective <objective>")
+    @CommandPermission("manhunt.objective")
+    public void mObjective(@NotNull CommandSender sender,
+                           @Argument(value = "objective", suggestions = "objective", parserName = "objective") Objective objective) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
+        sender.sendMessage(LanguageTranslator.translate("objective-set", objective.toString()));
     }
 }
