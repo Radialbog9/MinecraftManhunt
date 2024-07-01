@@ -72,6 +72,10 @@ scenarios:
   HUNTER_RANDOM_MOBS:
     # Random mobs spawn at hunters every `time` seconds
     time: 180
+  POISONOUS_AIR:
+    # Players get poisoned every `time` seconds
+    # Should be set to 1
+    time: 1
 
 ### Join Message ###
 join-message:
