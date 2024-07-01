@@ -34,9 +34,10 @@ import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioTypeParser;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioSuggestions;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.tabcompleters.ManhuntSuggestions;
+import uk.radialbog9.spigot.manhunt.tabcompleters.ObjectiveParser;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -108,8 +109,9 @@ public class Manhunt extends JavaPlugin {
         annotationParser = new AnnotationParser<>(commandManager, CommandSender.class, parameters -> SimpleCommandMeta.empty());
 
         // Register parsers and suggestions
-        annotationParser.parse(new ScenarioTypeParser());
+        annotationParser.parse(new ScenarioSuggestions());
         annotationParser.parse(new ManhuntSuggestions());
+        annotationParser.parse(new ObjectiveParser());
 
         // Register exception handlers
         commandManager.registerExceptionHandler(NoPermissionException.class, new NoPermissionHandler());

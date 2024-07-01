@@ -47,6 +47,10 @@ public class Game {
     @Getter
     private final ArrayList<String> activeScenarios = new ArrayList<>();
 
+    @Getter
+    @Setter
+    private Objective gameObjective = Objective.DEFEAT_ENDER_DRAGON;
+
     public Game() {
         // nothing here yet
     }

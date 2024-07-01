@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioMenu;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
@@ -350,23 +351,26 @@ public class ManhuntCommand {
 
     @CommandMethod("manhunt scenarios <scenario>")
     @CommandPermission("manhunt.scenarios")
-    public void mScenarioToggle(@NotNull CommandSender sender, @Argument(value = "scenario", parserName = "scenario-type") String scenario) {
+    public void mScenarioToggle(@NotNull CommandSender sender, @Argument(value = "scenario", suggestions = "scenariotype") String scenario) {
+        // Check if sender is a player
         if (!(sender instanceof Player)){
             sender.sendMessage(LanguageTranslator.translate("no-run-console"));
             return;
         }
 
+        // Check if game is started
         if (GameManager.getGame().isGameStarted()) {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.no-change-ingame"));
             return;
         }
 
+        // Check if scenario is available
         if(!Manhunt.getScenarioLoader().getAvailableScenarios().containsKey(scenario)) {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-unavailable", scenario));
             return;
         }
 
-        //Scenario is available
+        // Scenario is available
         if (GameManager.getGame().getActiveScenarios().contains(scenario)) {
             //Scenario is enabled, disable it!
             GameManager.getGame().getActiveScenarios().remove(scenario);
@@ -377,5 +381,16 @@ public class ManhuntCommand {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", scenario));
         }
         ScenarioMenu.displayMenu((Player) sender);
+    }
+
+    @CommandMethod("manhunt objective <objective>")
+    @CommandPermission("manhunt.objective")
+    public void mObjective(@NotNull CommandSender sender,
+                           @Argument(value = "objective", suggestions = "objective", parserName = "objective") Objective objective) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
+        sender.sendMessage(LanguageTranslator.translate("objective-set", objective.toString()));
     }
 }
