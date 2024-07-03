@@ -9,6 +9,7 @@ package uk.radialbog9.spigot.manhunt.commands;
 import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
+import cloud.commandframework.annotations.Flag;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -368,17 +369,25 @@ public class ManhuntCommand {
 
     @CommandMethod("manhunt scenarios")
     @CommandPermission("manhunt.scenarios")
-    public void mScenariosMenu(@NotNull CommandSender sender) {
+    public void mScenariosMenu(@NotNull CommandSender sender, @Flag("page") int page) {
+        if(page < 1) page = 1;
+
         if (!(sender instanceof Player)){
             sender.sendMessage(LanguageTranslator.translate("no-run-console"));
             return;
         }
-        ScenarioMenu.displayMenu((Player) sender);
+        ScenarioMenu.displayMenu((Player) sender, page);
     }
 
     @CommandMethod("manhunt scenarios <scenario>")
     @CommandPermission("manhunt.scenarios")
-    public void mScenarioToggle(@NotNull CommandSender sender, @Argument(value = "scenario", suggestions = "scenariotype") String scenario) {
+    public void mScenarioToggle(
+            @NotNull CommandSender sender,
+            @Argument(value = "scenario", suggestions = "scenariotype") String scenario,
+            @Flag("page") int page
+    ) {
+        if(page < 1) page = 1;
+
         // Check if game is started
         if (GameManager.getGame().isGameStarted()) {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.no-change-ingame"));
@@ -403,7 +412,7 @@ public class ManhuntCommand {
         }
 
         if (sender instanceof Player) {
-            ScenarioMenu.displayMenu((Player) sender);
+            ScenarioMenu.displayMenu((Player) sender, page);
         }
     }
 

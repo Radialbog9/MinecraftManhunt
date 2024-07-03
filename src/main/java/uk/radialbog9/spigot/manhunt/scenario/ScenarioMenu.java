@@ -16,7 +16,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 import java.util.HashMap;
 
 public class ScenarioMenu {
-    public static void displayMenu(Player p) {
+    public static void displayMenu(Player p, int page) {
         p.sendMessage(LanguageTranslator.translate("scenariomenu.title"));
 
         String enabled = LanguageTranslator.translate("scenariomenu.enabled");
@@ -26,6 +26,13 @@ public class ScenarioMenu {
 
         HashMap<String, Class<?>> availables = Manhunt.getScenarioLoader().getAvailableScenarios();
 
+        int totalValues = availables.size();
+        int totalPages = (int) Math.ceil((double) totalValues / 5);
+        if (page < 1 || page > totalPages) {
+            p.sendMessage(LanguageTranslator.translate("scenariomenu.invalid-page"));
+            return;
+        }
+
         for (String scenario : availables.keySet()) {
             boolean scenarioenabled = GameManager.getGame().getActiveScenarios().contains(scenario);
             String scenarioenabledstring = scenarioenabled ? clickToDisable : clickToEnable;
@@ -34,7 +41,7 @@ public class ScenarioMenu {
                             scenarioenabled ? enabled : disabled,
                             LanguageTranslator.translate("scenario." + scenario)
                     ),
-                    "/manhunt scenarios " + scenario,
+                    "/manhunt scenarios " + scenario + " --page " + page,
                     scenarioenabledstring + "\n&7Class name: " + availables.get(scenario).getSimpleName()
             ));
         }
