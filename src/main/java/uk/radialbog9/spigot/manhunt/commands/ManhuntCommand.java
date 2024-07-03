@@ -343,7 +343,7 @@ public class ManhuntCommand {
     @CommandMethod("manhunt settings objective <objective>")
     @CommandPermission("manhunt.settings")
     public void mObjective(@NotNull CommandSender sender,
-                           @Argument(value = "objective", suggestions = "objective", parserName = "objective") Objective objective) {
+                           @Argument(value = "objective", suggestions = "objective") Objective objective) {
         if(GameManager.getGame().isGameStarted()){
             sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
             return;

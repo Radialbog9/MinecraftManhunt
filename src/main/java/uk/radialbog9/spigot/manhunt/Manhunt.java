@@ -18,6 +18,7 @@ import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
+import io.leangen.geantyref.TypeToken;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.bstats.bukkit.Metrics;
@@ -31,6 +32,7 @@ import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidPlayerHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.NoPermissionHandler;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.playerdata.Leaderboard;
@@ -115,7 +117,10 @@ public class Manhunt extends JavaPlugin {
         // Register parsers and suggestions
         annotationParser.parse(new ScenarioSuggestions());
         annotationParser.parse(new ManhuntSuggestions());
-        annotationParser.parse(new ObjectiveParser());
+        commandManager.parserRegistry().registerParserSupplier(
+                TypeToken.get(Objective.class),
+                options -> new ObjectiveParser<>()
+        );
 
         // Register exception handlers
         commandManager.registerExceptionHandler(NoPermissionException.class, new NoPermissionHandler());
