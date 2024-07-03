@@ -84,6 +84,9 @@ scenarios:
     time: 300
     # Players can't sneak for `duration` seconds
     duration: 5
+  HUNTER_RANDOM_POTION_EFFECT:
+    # Hunters get random potion effects every `time` seconds
+    time: 300
 
 
 ### Join Message ###
