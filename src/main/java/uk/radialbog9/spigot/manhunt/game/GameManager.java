@@ -37,7 +37,7 @@ public class GameManager {
 
     private static final ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
 
-    private static BukkitRunnable gameTimerRunnable = new GameTimerRunnable();
+    private static final  BukkitRunnable gameTimerRunnable = new GameTimerRunnable();
 
     public static void startGame() {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
