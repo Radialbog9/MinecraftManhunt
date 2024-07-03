@@ -33,6 +33,7 @@ import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
+import uk.radialbog9.spigot.manhunt.playerdata.Leaderboard;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioSuggestions;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
@@ -74,6 +75,9 @@ public class Manhunt extends JavaPlugin {
 
     private static final int SPIGOT_RESOURCE_ID = 97765;
     private static final int BSTATS_ID = 9573;
+
+    @Getter
+    private static final Leaderboard leaderboard = new Leaderboard();
 
     /**
      * Called when plugin is enabled
