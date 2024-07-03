@@ -98,6 +98,13 @@ scenarios:
     duration: 5
     # Amplifier of the potion effect
     amplifier: 1
+  RUNNER_INVISIBILITY:
+    # Runners get random potion effects every `time` seconds
+    time: 300
+    # Runners get random potion effects for `duration` seconds
+    duration: 5
+    # Amplifier of the potion effect
+    amplifier: 1
 
 
 ### Join Message ###
