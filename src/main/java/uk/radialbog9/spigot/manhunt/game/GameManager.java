@@ -30,7 +30,6 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 
 public class GameManager {

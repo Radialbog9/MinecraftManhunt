@@ -7,11 +7,7 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.*;
 import uk.radialbog9.spigot.manhunt.scenario.utils.NoFallScenarioTemplate;

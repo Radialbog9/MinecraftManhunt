@@ -12,6 +12,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario("HUNTER_RANDOM_POTION_EFFECT")
 @ScenarioRunnable
+@SuppressWarnings("unused")
 public class HunterRandomPotionScenario extends BukkitRunnable {
     @Override
     public void run() {
