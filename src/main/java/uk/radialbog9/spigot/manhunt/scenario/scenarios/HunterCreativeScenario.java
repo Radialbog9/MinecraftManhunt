@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.CreativeScenarioTemplate;
+import uk.radialbog9.spigot.manhunt.scenario.utils.template.CreativeScenarioTemplate;
 
 import java.util.List;
 

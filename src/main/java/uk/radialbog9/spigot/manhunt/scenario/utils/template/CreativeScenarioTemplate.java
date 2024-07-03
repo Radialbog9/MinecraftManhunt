@@ -1,4 +1,4 @@
-package uk.radialbog9.spigot.manhunt.scenario.utils;
+package uk.radialbog9.spigot.manhunt.scenario.utils.template;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -6,13 +6,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
+import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 
 import java.util.List;
 
-public class CreativeScenarioTemplate extends BukkitRunnable {
-    public List<Player> getPlayerSet() {
-        return GameManager.getGame().getPlayers();
-    }
+public abstract class CreativeScenarioTemplate extends BukkitRunnable {
+    public abstract List<Player> getPlayerSet();
 
     @Override
     public void run() {

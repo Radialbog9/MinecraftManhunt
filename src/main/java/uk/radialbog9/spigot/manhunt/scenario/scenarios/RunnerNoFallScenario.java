@@ -10,7 +10,7 @@ package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.*;
-import uk.radialbog9.spigot.manhunt.scenario.utils.NoFallScenarioTemplate;
+import uk.radialbog9.spigot.manhunt.scenario.utils.template.NoFallScenarioTemplate;
 
 import java.util.List;
 

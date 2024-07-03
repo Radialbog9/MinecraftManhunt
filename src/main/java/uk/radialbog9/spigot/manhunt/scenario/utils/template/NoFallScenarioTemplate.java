@@ -1,4 +1,4 @@
-package uk.radialbog9.spigot.manhunt.scenario.utils;
+package uk.radialbog9.spigot.manhunt.scenario.utils.template;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -6,13 +6,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 
 import java.util.List;
 
-public class NoFallScenarioTemplate implements Listener {
-    public List<Player> getPlayerSet() {
-        return GameManager.getGame().getPlayers();
-    }
+public abstract class NoFallScenarioTemplate implements Listener {
+    public abstract List<Player> getPlayerSet();
 
     @EventHandler
     public void noFallScenario(EntityDamageEvent e) {
