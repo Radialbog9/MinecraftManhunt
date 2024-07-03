@@ -8,6 +8,7 @@
 package uk.radialbog9.spigot.manhunt.tabcompleters;
 
 import cloud.commandframework.annotations.parsers.Parser;
+import cloud.commandframework.arguments.parser.ArgumentParseResult;
 import cloud.commandframework.captions.Caption;
 import cloud.commandframework.captions.CaptionVariable;
 import cloud.commandframework.context.CommandContext;
@@ -37,18 +38,18 @@ public class ObjectiveParser {
      * @return The player.
      */
     @Parser(name = "objectives")
-    public Objective customPlayerParse(CommandContext<CommandSender> context, @NotNull Queue<String> input) {
+    public ArgumentParseResult<Objective> customPlayerParse(CommandContext<CommandSender> context, @NotNull Queue<String> input) {
         String oName = input.peek();
         if (oName == null) throw new ObjectiveParseException("", context);
         Objective objective;
         try {
             objective = Objective.valueOf(oName);
         } catch (IllegalArgumentException e) {
-            throw new ObjectiveParseException(oName, context);
+            return ArgumentParseResult.failure(new ObjectiveParseException(oName, context));
         }
 
         input.remove();
-        return objective;
+        return ArgumentParseResult.success(objective);
     }
 }
 
