@@ -339,6 +339,33 @@ public class ManhuntCommand {
         if(sender instanceof Player) SettingsMenu.displayMenu((Player) sender);
     }
 
+    @CommandMethod("manhunt settings objective <objective>")
+    @CommandPermission("manhunt.settings")
+    public void mObjective(@NotNull CommandSender sender,
+                           @Argument(value = "objective", suggestions = "objective", parserName = "objective") Objective objective) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
+        sender.sendMessage(LanguageTranslator.translate("objective-set", objective.toString()));
+    }
+
+    @CommandMethod("manhunt settings survivetimer <time>")
+    @CommandPermission("manhunt.settings")
+    public void mSettingsTimer(@NotNull CommandSender sender, @Argument("time") int time) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
+        if (time <= 0) {
+            sender.sendMessage(LanguageTranslator.translate("invalid-integer"));
+            return;
+        }
+        ManhuntSettings.setSurviveGameLength(time);
+        sender.sendMessage(LanguageTranslator.translate("survive-timer-set", String.valueOf(time)));
+        if(sender instanceof Player) SettingsMenu.displayMenu((Player) sender);
+    }
+
     @CommandMethod("manhunt scenarios")
     @CommandPermission("manhunt.scenarios")
     public void mScenariosMenu(@NotNull CommandSender sender) {
@@ -352,12 +379,6 @@ public class ManhuntCommand {
     @CommandMethod("manhunt scenarios <scenario>")
     @CommandPermission("manhunt.scenarios")
     public void mScenarioToggle(@NotNull CommandSender sender, @Argument(value = "scenario", suggestions = "scenariotype") String scenario) {
-        // Check if sender is a player
-        if (!(sender instanceof Player)){
-            sender.sendMessage(LanguageTranslator.translate("no-run-console"));
-            return;
-        }
-
         // Check if game is started
         if (GameManager.getGame().isGameStarted()) {
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.no-change-ingame"));
@@ -380,17 +401,10 @@ public class ManhuntCommand {
             GameManager.getGame().getActiveScenarios().add(scenario);
             sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-enabled", scenario));
         }
-        ScenarioMenu.displayMenu((Player) sender);
+
+        if (sender instanceof Player) {
+            ScenarioMenu.displayMenu((Player) sender);
+        }
     }
 
-    @CommandMethod("manhunt objective <objective>")
-    @CommandPermission("manhunt.objective")
-    public void mObjective(@NotNull CommandSender sender,
-                           @Argument(value = "objective", suggestions = "objective", parserName = "objective") Objective objective) {
-        if(GameManager.getGame().isGameStarted()){
-            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
-            return;
-        }
-        sender.sendMessage(LanguageTranslator.translate("objective-set", objective.toString()));
-    }
 }

@@ -38,6 +38,9 @@ allow-hunters-damage-dragon: false
 # If set to false, hunters will not be able to damage or destroy End Crystals.
 allow-hunters-damage-crystal: true
 
+# Changes the time allowed for 'survive' objective games
+survive-game-length: 600
+
 ### SCENARIOS ###
 scenarios:
   RUNNER_CREATIVE:

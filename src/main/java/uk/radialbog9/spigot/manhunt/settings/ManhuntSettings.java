@@ -33,12 +33,17 @@ public class ManhuntSettings {
     @Setter
     private static boolean allowHunterDamageCrystal = true;
 
+    @Getter
+    @Setter
+    private static int surviveGameLength = 10 * 60;
+
     public static void save() {
         FileConfiguration config = Manhunt.getInstance().getConfig();
         config.set("head-start.enabled", headStartEnabled);
         config.set("head-start.length", headStartTime);
         config.set("allow-hunters-damage-dragon", allowHunterDamageDragon);
         config.set("allow-hunters-damage-crystal", allowHunterDamageCrystal);
+        config.set("survive-game-length", surviveGameLength);
         Manhunt.getInstance().saveConfig();
     }
 
@@ -48,5 +53,6 @@ public class ManhuntSettings {
         setHeadStartTime(config.getInt("head-start.length"));
         setAllowHunterDamageDragon(config.getBoolean("allow-hunters-damage-dragon"));
         setAllowHunterDamageCrystal(config.getBoolean("allow-hunters-damage-crystal"));
+        setSurviveGameLength(config.getInt("survive-game-length"));
     }
 }

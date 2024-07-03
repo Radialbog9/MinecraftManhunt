@@ -28,7 +28,9 @@ import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 
 public class GameManager {
@@ -100,6 +102,14 @@ public class GameManager {
                     e.printStackTrace();
                 }
             }
+        }
+
+        // Timer if game is set to timer mode
+        if(game.getGameObjective() == Objective.SURVIVE) {
+            BukkitRunnable timerRunnable = new GameTimerRunnable();
+            LocalDateTime ldt = LocalDateTime.now();
+            game.setGameEndTime(ldt.plusSeconds(ManhuntSettings.getSurviveGameLength()));
+            timerRunnable.runTaskTimer(Manhunt.getInstance(), 0, 10);
         }
 
         //set game as started
