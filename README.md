@@ -64,7 +64,9 @@ For the rules, check the [rulebook](https://radialbog9.gitbook.io/minecraft-manh
 * Settings menu
 
 ## Dependencies
-This plugin does not have any dependencies, but it works with SuperVanish or PremiumVanish to hide any spectators who are in vanish from the Manhunt player list.
+This plugin does not have any required dependencies, but it works with the following plugins:
+- `SuperVanish` or `PremiumVanish` - Hides players in vanish from the player list
+- `LibsDisguises` - Add more disguise scenarios
 
 ## Contributing
 Please report any bugs you find in a GitHub Issue or improve our code and make a pull request! 
@@ -83,7 +85,7 @@ We use bStats to track how people use our plugin.
 ## Config
 The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
 
-Below are some parts of the default config. More documentation about the config can be found [here](https://radialbog9.github.io/MinecraftManhunt/config).
+Below are some parts of the default config. More documentation about the config can be found [here](https://radialbog9.gitbook.io/minecraft-manhunt/usage/config.yml).
 On large updates, you might have to delete the config file and let it regenerate.
 ```yaml
 # Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
