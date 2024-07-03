@@ -87,9 +87,17 @@ scenarios:
   HUNTER_RANDOM_POTION_EFFECT:
     # Hunters get random potion effects every `time` seconds
     time: 300
+    # Hunters get random potion effects for `duration` seconds
+    duration: 5
+    # Amplifier of the potion effect
+    amplifier: 1
   RUNNER_RANDOM_POTION_EFFECT:
     # Runners get random potion effects every `time` seconds
     time: 300
+    # Runners get random potion effects for `duration` seconds
+    duration: 5
+    # Amplifier of the potion effect
+    amplifier: 1
 
 
 ### Join Message ###
