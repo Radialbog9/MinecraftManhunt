@@ -47,7 +47,7 @@ public class ScenarioMenu {
                             scenarioenabled ? enabled : disabled,
                             LanguageTranslator.translate("scenario." + scenario)
                     ),
-                    "/manhunt scenarios " + scenario + " --page " + page,
+                    "/manhunt scenarios toggle " + scenario + " --page " + page,
                     scenarioenabledstring + "\n&7Class name: " + availables.get(scenario).getSimpleName()
             ));
         }

@@ -379,7 +379,7 @@ public class ManhuntCommand {
         ScenarioMenu.displayMenu((Player) sender, page);
     }
 
-    @CommandMethod("manhunt scenarios <scenario>")
+    @CommandMethod("manhunt scenarios toggle <scenario>")
     @CommandPermission("manhunt.scenarios")
     public void mScenarioToggle(
             @NotNull CommandSender sender,
