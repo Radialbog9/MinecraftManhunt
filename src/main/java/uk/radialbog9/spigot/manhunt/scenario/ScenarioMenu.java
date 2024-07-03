@@ -51,5 +51,21 @@ public class ScenarioMenu {
                     scenarioenabledstring + "\n&7Class name: " + availables.get(scenario).getSimpleName()
             ));
         }
+
+        p.sendMessage(LanguageTranslator.translate("scenariomenu.page", String.valueOf(page), String.valueOf(totalPages)));
+        if(page > 1) {
+            p.spigot().sendMessage(Utils.genTextComponentRunCommand(
+                    LanguageTranslator.translate("scenariomenu.previous-page"),
+                    "/manhunt scenarios menu --page " + (page - 1),
+                    LanguageTranslator.translate("scenariomenu.click-to-previous-page")
+            ));
+        }
+        if(page < totalPages) {
+            p.spigot().sendMessage(Utils.genTextComponentRunCommand(
+                    LanguageTranslator.translate("scenariomenu.next-page"),
+                    "/manhunt scenarios menu --page " + (page + 1),
+                    LanguageTranslator.translate("scenariomenu.click-to-next-page")
+            ));
+        }
     }
 }
