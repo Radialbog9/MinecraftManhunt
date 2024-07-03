@@ -369,8 +369,9 @@ public class ManhuntCommand {
 
     @CommandMethod("manhunt scenarios")
     @CommandPermission("manhunt.scenarios")
-    public void mScenariosMenu(@NotNull CommandSender sender, @Flag("page") int page) {
-        if(page < 1) page = 1;
+    public void mScenariosMenu(@NotNull CommandSender sender, @Flag("page") Integer page) {
+        if(page == null || page < 1)
+            page = 1;
 
         if (!(sender instanceof Player)){
             sender.sendMessage(LanguageTranslator.translate("no-run-console"));
@@ -384,9 +385,10 @@ public class ManhuntCommand {
     public void mScenarioToggle(
             @NotNull CommandSender sender,
             @Argument(value = "scenario", suggestions = "scenariotype") String scenario,
-            @Flag("page") int page
+            @Flag("page") Integer page
     ) {
-        if(page < 1) page = 1;
+        if(page == null || page < 1)
+            page = 1;
 
         // Check if game is started
         if (GameManager.getGame().isGameStarted()) {

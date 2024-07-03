@@ -56,14 +56,14 @@ public class ScenarioMenu {
         if(page > 1) {
             p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.previous-page"),
-                    "/manhunt scenarios menu --page " + (page - 1),
+                    "/manhunt scenarios --page " + (page - 1),
                     LanguageTranslator.translate("scenariomenu.click-to-previous-page")
             ));
         }
         if(page < totalPages) {
             p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.next-page"),
-                    "/manhunt scenarios menu --page " + (page + 1),
+                    "/manhunt scenarios --page " + (page + 1),
                     LanguageTranslator.translate("scenariomenu.click-to-next-page")
             ));
         }
