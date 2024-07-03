@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
-import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -10,7 +10,7 @@ package uk.radialbog9.spigot.manhunt.events;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
+import uk.radialbog9.spigot.manhunt.game.GameEndCause;
 
 /**
  * This event is for when the game ends
