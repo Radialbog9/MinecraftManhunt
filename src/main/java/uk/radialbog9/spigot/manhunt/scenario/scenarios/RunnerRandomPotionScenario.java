@@ -10,13 +10,13 @@ import uk.radialbog9.spigot.manhunt.scenario.utils.template.PotionScenarioTempla
 import java.util.Arrays;
 import java.util.List;
 
-@Scenario("HUNTER_RANDOM_POTION_EFFECT")
+@Scenario("RUNNER_RANDOM_POTION_EFFECT")
 @ScenarioRunnable
 @SuppressWarnings("unused")
-public class HunterRandomPotionScenario extends PotionScenarioTemplate {
+public class RunnerRandomPotionScenario extends PotionScenarioTemplate {
     @Override
     public List<Player> getPlayerSet() {
-        return GameManager.getGame().getHunters();
+        return GameManager.getGame().getRunners();
     }
 
     @Override
