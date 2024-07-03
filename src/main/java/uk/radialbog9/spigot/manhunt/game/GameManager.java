@@ -38,6 +38,8 @@ public class GameManager {
 
     private static final ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
 
+    private static BukkitRunnable gameTimerRunnable = new GameTimerRunnable();
+
     public static void startGame() {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
         Bukkit.getServer().getPluginManager().callEvent(event);
@@ -105,10 +107,9 @@ public class GameManager {
 
         // Timer if game is set to timer mode
         if(game.getGameObjective() == Objective.SURVIVE) {
-            BukkitRunnable timerRunnable = new GameTimerRunnable();
             LocalDateTime ldt = LocalDateTime.now();
             game.setGameEndTime(ldt.plusSeconds(ManhuntSettings.getSurviveGameLength()));
-            timerRunnable.runTaskTimer(Manhunt.getInstance(), 0, 10);
+            gameTimerRunnable.runTaskTimer(Manhunt.getInstance(), 0, 10);
         }
 
         //set game as started
@@ -180,6 +181,10 @@ public class GameManager {
             runnable.cancel();
         }
         enabledRunnables.clear();
+
+        if(game.getGameObjective() == Objective.SURVIVE) {
+            gameTimerRunnable.cancel();
+        }
 
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
 
