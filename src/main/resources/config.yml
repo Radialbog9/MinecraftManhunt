@@ -79,6 +79,12 @@ scenarios:
     # Players get poisoned every `time` seconds
     # Should be set to 1
     time: 1
+  SNEAK_DISABLES:
+    # Players can't sneak every `time` seconds
+    time: 300
+    # Players can't sneak for `duration` seconds
+    duration: 5
+
 
 ### Join Message ###
 join-message:
