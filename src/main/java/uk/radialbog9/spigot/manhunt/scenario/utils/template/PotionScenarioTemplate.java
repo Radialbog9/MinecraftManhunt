@@ -17,7 +17,7 @@ public abstract class PotionScenarioTemplate extends BukkitRunnable {
     @Override
     public void run() {
         if (ScenarioUtils.isScenarioEnabled(this)) {
-            for (Player p : GameManager.getGame().getHunters()) {
+            for (Player p : getPlayerSet()) {
                 // Pick a random potion effect
                 int rand = Utils.getRandomInt(0, getPotionEffectTypes().size() - 1);
                 PotionEffectType choice = getPotionEffectTypes().get(rand);
