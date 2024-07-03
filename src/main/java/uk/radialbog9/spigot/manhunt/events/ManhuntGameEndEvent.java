@@ -7,6 +7,8 @@
 
 package uk.radialbog9.spigot.manhunt.events;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +21,9 @@ import uk.radialbog9.spigot.manhunt.game.GameEndCause;
 public class ManhuntGameEndEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
+
+    @Getter
+    @Setter
     private GameEndCause endCause;
 
     /**
@@ -29,26 +34,9 @@ public class ManhuntGameEndEvent extends Event {
 
     /**
      * Initiates the event.
-     * @param c GameEndCause game end cause
+     * @param c game end cause
      */
     public ManhuntGameEndEvent(GameEndCause c) { endCause = c; }
-
-
-    /**
-     * Gets the win cause
-     * @return GameEndCause end cause
-     */
-    public GameEndCause getEndCause() {
-        return this.endCause;
-    }
-
-    /**
-     * Sets the end cause
-     * @param endCause GameEndCause end cause
-     */
-    public void setEndCause(GameEndCause endCause) {
-        this.endCause = endCause;
-    }
 
 
     @Override
