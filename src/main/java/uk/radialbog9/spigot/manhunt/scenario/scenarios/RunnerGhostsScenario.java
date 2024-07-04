@@ -1,6 +1,12 @@
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -11,14 +17,16 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Scenario("RUNNER_GHOSTS")
 @ScenarioRunnable
 @SuppressWarnings("unused")
-public class RunnerGhostsScenario extends BukkitRunnable {
+public class RunnerGhostsScenario extends BukkitRunnable implements Listener {
+    private final List<Player> invisibleRunners = new ArrayList<>();
 
-    private static class RevealTask extends BukkitRunnable {
+    private class RevealTask extends BukkitRunnable {
         private final Player p;
         private final List<Player> hunters;
         RevealTask(Player p, List<Player> hunters) {
@@ -29,6 +37,7 @@ public class RunnerGhostsScenario extends BukkitRunnable {
         public void run() {
             // Reveal the runner's location to the hunters
             CompassTrackable.getHiddenPlayers().remove(p);
+            invisibleRunners.remove(p);
             hunters.forEach(hunter ->
                     hunter.showPlayer(Manhunt.getInstance(), p)
             );
@@ -53,6 +62,9 @@ public class RunnerGhostsScenario extends BukkitRunnable {
                 );
                 p.addPotionEffect(invis);
 
+                // Add the runner to the list of invisible runners
+                invisibleRunners.add(p);
+
                 // Hide the runner from the hunters
                 hunters.forEach(hunter -> hunter.hidePlayer(Manhunt.getInstance(), p));
 
@@ -62,6 +74,59 @@ public class RunnerGhostsScenario extends BukkitRunnable {
                 // Schedule the runner to be revealed after the duration
                 new RevealTask(p, hunters)
                         .runTaskLater(Manhunt.getInstance(), durationTicks);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
+            Player p = e.getPlayer();
+            if(invisibleRunners.contains(p)) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockBreakEvent e) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
+            Player p = e.getPlayer();
+            if(invisibleRunners.contains(p)) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent e) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
+            if(e.getDamager() instanceof Player p) {
+                if(invisibleRunners.contains(p)) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventory(InventoryClickEvent e) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
+            if(e.getWhoClicked() instanceof Player p) {
+                if(invisibleRunners.contains(p)) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(EntityInteractEvent e) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
+            if(e.getEntity() instanceof Player p) {
+                if(invisibleRunners.contains(p)) {
+                    e.setCancelled(true);
+                }
             }
         }
     }
