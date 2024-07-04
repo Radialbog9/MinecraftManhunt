@@ -349,7 +349,10 @@ public class ManhuntCommand {
             return;
         }
         GameManager.getGame().setGameObjective(objective);
-        sender.sendMessage(LanguageTranslator.translate("objective-set", objective.toString()));
+        sender.sendMessage(LanguageTranslator.translate(
+                "objective-set",
+                LanguageTranslator.translate("objective." + objective.toString())
+        ));
     }
 
     @CommandMethod("manhunt settings survivetimer <time>")

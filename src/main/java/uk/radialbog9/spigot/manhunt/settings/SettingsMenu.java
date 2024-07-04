@@ -53,7 +53,7 @@ public class SettingsMenu {
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
                 LanguageTranslator.translate("settingsmenu.options.objective",
-                        LanguageTranslator.translate("settingsmenu.objective." +
+                        LanguageTranslator.translate("objective." +
                                 GameManager.getGame().getGameObjective().toString())),
                 "/manhunt settings objective ",
                 LanguageTranslator.translate("settingsmenu.click-to-change")
