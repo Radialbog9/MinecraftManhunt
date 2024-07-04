@@ -94,7 +94,7 @@ public class RandomLuckyDropScenario extends BukkitRunnable {
         ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
         PotionMeta meta = (PotionMeta) item.getItemMeta();
         meta.setBasePotionData(new PotionData(type, false, true));
-        // item.setItemMeta(meta);
+        item.setItemMeta(meta);
         return item;
     }
 
