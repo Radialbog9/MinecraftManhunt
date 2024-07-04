@@ -73,24 +73,29 @@ public class RandomLuckyDropScenario extends BukkitRunnable {
             dropLootTable(loc, LootTables.JUNGLE_TEMPLE.getLootTable());
         //81<=x<91 (10) - Giant amount of pufferfish
         else if(random >= 81 && random < 91)
-            for(int i = 0; i < Utils.getRandomInt(3, 20); i++) dropItem(loc, new ItemStack(Material.PUFFERFISH, 64));
+            for(int i = 0; i < Utils.getRandomInt(3, 20); i++)
+                dropItem(loc, new ItemStack(Material.PUFFERFISH, 64));
         //91<=x<96 (5) - Harming Splash Potions
         else if(random >= 91 && random < 96) {
-            ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
-            PotionMeta meta = (PotionMeta) item.getItemMeta();
-            meta.setBasePotionData(new PotionData(PotionType.INSTANT_DAMAGE, false, true));
+            ItemStack item = generateSplashPotion(PotionType.INSTANT_DAMAGE);
             dropItem(loc, item);
         }
         //96<=x<100 (4) - Healing Splash Potions
         else if(random >= 96 && random < 100) {
-            ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
-            PotionMeta meta = (PotionMeta) item.getItemMeta();
-            meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL, false, true));
+            ItemStack item = generateSplashPotion(PotionType.INSTANT_HEAL);
             dropItem(loc, item);
         }
         //100<=x<101 (1) - Elytra
         else if(random == 100)
             dropItem(loc, new ItemStack(Material.ELYTRA, 1));
+    }
+
+    private ItemStack generateSplashPotion(PotionType type) {
+        ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
+        PotionMeta meta = (PotionMeta) item.getItemMeta();
+        meta.setBasePotionData(new PotionData(type, false, true));
+        // item.setItemMeta(meta);
+        return item;
     }
 
     /**
