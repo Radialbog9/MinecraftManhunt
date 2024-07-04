@@ -89,7 +89,7 @@ public class GameManager {
                     e.printStackTrace();
                 }
             }
-            else if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
+            if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
                 // Is a runnable
                 try {
                     BukkitRunnable runnable = (BukkitRunnable) scenario.getConstructor().newInstance(); //create a new BukkitRunnable object from the scenario's class
