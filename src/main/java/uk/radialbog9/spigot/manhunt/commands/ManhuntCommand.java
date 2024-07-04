@@ -348,6 +348,7 @@ public class ManhuntCommand {
             sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
             return;
         }
+        GameManager.getGame().setGameObjective(objective);
         sender.sendMessage(LanguageTranslator.translate("objective-set", objective.toString()));
     }
 
