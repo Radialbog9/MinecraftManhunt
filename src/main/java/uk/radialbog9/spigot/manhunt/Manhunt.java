@@ -70,6 +70,9 @@ public class Manhunt extends JavaPlugin {
     private static Properties language;
 
     @Getter
+    private static Properties defaultLanguage;
+
+    @Getter
     private CommandManager<CommandSender> commandManager;
 
     @Getter
@@ -191,6 +194,12 @@ public class Manhunt extends JavaPlugin {
 
     public void loadLanguage() {
         try {
+            // Load default language.properties
+            defaultLanguage = new Properties();
+            InputStream dLanguageStream = getResource("language.properties");
+            defaultLanguage.load(new InputStreamReader(dLanguageStream));
+
+            // Load custom language.properties
             language = new Properties();
             String languageSpecified = getConfig().getString("language");
             if (languageSpecified.equals("custom")) {
@@ -208,5 +217,7 @@ public class Manhunt extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 }

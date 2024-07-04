@@ -26,7 +26,13 @@ public class LanguageTranslator {
      */
     public static String translate(@NotNull String key, String... args) {
         String out;
-        out = Manhunt.getLanguage().getProperty(key, key); // get key or return the key if key doesn't exist in lang
+        out = Manhunt.getLanguage().getProperty(
+                key, // Get key
+                Manhunt.getDefaultLanguage().getProperty(
+                        key, // Or try default language
+                        key // Or return key if not found
+                )
+        );
         if(args != null) {
             for (int i = 0; i < args.length; i++) {
                 out = out.replace("{" + i + "}", args[i]);
