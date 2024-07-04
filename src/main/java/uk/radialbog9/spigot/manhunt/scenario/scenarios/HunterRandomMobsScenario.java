@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario("HUNTER_RANDOM_MOBS")
@@ -20,10 +21,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 public class HunterRandomMobsScenario extends BukkitRunnable {
     @Override
     public void run() {
-        if(
-                GameManager.getGame().isGameStarted() &&
-                        GameManager.getGame().getActiveScenarios().contains("HUNTER_RANDOM_MOBS")
-        ) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
             // Get all entity types
             EntityType[] entities = EntityType.values();
 

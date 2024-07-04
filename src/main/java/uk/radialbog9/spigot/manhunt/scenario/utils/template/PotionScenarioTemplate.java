@@ -5,7 +5,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -19,8 +18,7 @@ public abstract class PotionScenarioTemplate extends BukkitRunnable {
     @Override
     public void run() {
         String scenarioName = this.getClass().getAnnotation(Scenario.class).value();
-        if (GameManager.getGame().isGameStarted() &&
-                ScenarioUtils.isScenarioEnabled(this)) {
+        if (ScenarioUtils.isScenarioEnabled(this)) {
             for (Player p : getPlayerSet()) {
                 // Pick a random potion effect
                 PotionEffectType choice;

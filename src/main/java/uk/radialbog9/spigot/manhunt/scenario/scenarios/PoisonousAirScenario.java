@@ -16,14 +16,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 
 @Scenario("POISONOUS_AIR")
 @ScenarioRunnable
+@SuppressWarnings("unused")
 public class PoisonousAirScenario extends BukkitRunnable {
 
     @Override
     public void run() {
-        if(GameManager.getGame().isGameStarted() && GameManager.getGame().getActiveScenarios().contains("POISONOUS_AIR")) {
+        if(ScenarioUtils.isScenarioEnabled(this)) {
             for(Player player : GameManager.getGame().getPlayers()) {
                 // Check if the player is swimming or gliding
                 // If they are, we need to check the block they are in
