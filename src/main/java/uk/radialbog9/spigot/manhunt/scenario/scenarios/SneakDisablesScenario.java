@@ -27,7 +27,10 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener {
     @Override
     public void run() {
         if(ScenarioUtils.isScenarioEnabled(this)) {
+            // Disable sneak
             disableSneak = true;
+
+            // Re-enable sneak after duration
             new SneakReEnable()
                     .runTaskLater(
                             Manhunt.getInstance(),
@@ -45,7 +48,7 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener {
                 e.isSneaking() &&
                 disableSneak
         ) {
-            // Player is trying to sneak, cancel it
+            // Player is trying to sneak and shouldn't be able to, cancel it
             e.setCancelled(true);
         }
     }
