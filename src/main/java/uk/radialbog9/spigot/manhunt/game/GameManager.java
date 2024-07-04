@@ -25,6 +25,7 @@ import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
+import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.time.LocalDateTime;
@@ -172,6 +173,9 @@ public class GameManager {
         game.getRunners().clear();
 
         game.getDeadRunners().clear();
+
+        // Clear compass hidden players
+        CompassTrackable.getHiddenPlayers().clear();
 
         // Clear active scenarios
         game.getActiveScenarios().clear();

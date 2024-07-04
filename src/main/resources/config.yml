@@ -105,7 +105,11 @@ scenarios:
     duration: 5
     # Amplifier of the potion effect
     amplifier: 1
-
+  RUNNER_GHOSTS:
+    # Runners become ghosts every `time` seconds
+    time: 400
+    # Runners become ghosts for `duration` seconds
+    duration: 10
 
 ### Join Message ###
 join-message:

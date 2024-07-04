@@ -26,6 +26,7 @@ import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.game.GameEndCause;
+import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 public class ManhuntEventHandler implements Listener {
@@ -85,7 +86,7 @@ public class ManhuntEventHandler implements Listener {
         if (p.getInventory().getItemInMainHand().getType() == Material.COMPASS && GameManager.getGame().isGameStarted() && GameManager.getGame().isHunter(p)) {
             double closest = Double.MAX_VALUE;
             Player closestPlayer = null;
-            for (Player i : GameManager.getGame().getRunners()){
+            for (Player i : CompassTrackable.getTrackable(GameManager.getGame().getRunners())){
                 if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName().equals(p.getWorld().getName())) {
                     double dist = i.getLocation().distance(p.getLocation());
                     if ((closest == Double.MAX_VALUE || dist < closest)){
