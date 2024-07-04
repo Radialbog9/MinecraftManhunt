@@ -57,3 +57,6 @@ permissions:
   manhunt.updates:
     description: 'Allows player to receive new update messages'
     default: 'op'
+  manhunt.leaderboard:
+    description: 'Allows player to view the leaderboard'
+    default: 'true'

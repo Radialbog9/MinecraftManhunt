@@ -30,6 +30,7 @@ import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidArgsHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidIntegerHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidPlayerHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.NoPermissionHandler;
+import uk.radialbog9.spigot.manhunt.commands.LeaderboardCommand;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.game.Objective;
@@ -134,6 +135,7 @@ public class Manhunt extends JavaPlugin {
         // Register commands
         annotationParser.parse(new ManhuntCommand());
         annotationParser.parse(new SpectateCommand());
+        annotationParser.parse(new LeaderboardCommand());
 
         // Register tab completer
         //this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
