@@ -137,10 +137,6 @@ public class Manhunt extends JavaPlugin {
         annotationParser.parse(new SpectateCommand());
         annotationParser.parse(new LeaderboardCommand());
 
-        // Register tab completer
-        //this.getCommand("manhunt").setTabCompleter(new ManhuntTabCompleter());
-        //this.getCommand("spectate").setTabCompleter(new SpectateTabCompleter());
-
         // Register bStats
         Metrics metrics = new Metrics(this, BSTATS_ID);
 
