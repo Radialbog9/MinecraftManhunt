@@ -43,21 +43,21 @@ public class GameManager {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
         Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if(event.isCancelled()) return; //if event is cancelled by another plugin do not proceed
+        if(event.isCancelled()) return; // if event is cancelled by another plugin do not proceed
 
         for(Player p : Bukkit.getOnlinePlayers()) {
             if(game.isRunner(p) || game.isHunter(p)) {
-                //HUNTERS AND RUNNERS
-                //set gamemode to survival
+                // HUNTERS AND RUNNERS
+                // set gamemode to survival
                 p.setGameMode(GameMode.SURVIVAL);
-                //clear inventory
+                // clear inventory
                 p.getInventory().clear();
-                //set health, hunger and XP
+                // set health, hunger and XP
                 p.setHealth(20);
                 p.setLevel(0);
                 p.setExp(0);
                 p.setFoodLevel(20);
-                //TP to spawn
+                // TP to spawn
                 p.teleport(p.getWorld().getSpawnLocation());
                 if(game.isHunter(p)) {
                     //give blindness and weakness for head start time
@@ -65,21 +65,22 @@ public class GameManager {
                         new PotionEffect(PotionEffectType.WEAKNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
                         new PotionEffect(PotionEffectType.BLINDNESS, ManhuntSettings.getHeadStartTime() * 20, 10, false, false).apply(p);
                     }
-                    //give player compass
+                    // give player compass
                     p.getInventory().addItem(new ItemStack(Material.COMPASS));
                 }
             } else {
-                //SPECTATORS
-                //Set spectator gamemode
+                // SPECTATORS
+                // Set spectator gamemode
                 p.setGameMode(GameMode.SPECTATOR);
             }
         }
-        //Scenarios
+
+        // Scenarios
         ArrayList<String> scenarios = game.getActiveScenarios();
         for (String scenarioType : scenarios) {
             Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
             if (scenario.getAnnotation(ScenarioListener.class) != null) {
-                //Is a listener
+                // Is a listener
                 try {
                     Listener scenariolistener = (Listener) scenario.getConstructor().newInstance(); //create a new class instance as a listener
                     Manhunt.getInstance().getServer().getPluginManager().registerEvents(scenariolistener, Manhunt.getInstance());
@@ -89,7 +90,7 @@ public class GameManager {
                 }
             }
             else if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
-                //Is a runnable
+                // Is a runnable
                 try {
                     BukkitRunnable runnable = (BukkitRunnable) scenario.getConstructor().newInstance(); //create a new BukkitRunnable object from the scenario's class
                     runnable.runTaskTimer(Manhunt.getInstance(),
@@ -111,7 +112,7 @@ public class GameManager {
             gameTimerRunnable.runTaskTimer(Manhunt.getInstance(), 0, 10);
         }
 
-        //set game as started
+        // Set game as started
         game.setGameStarted(true);
 
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-started"));
@@ -121,7 +122,7 @@ public class GameManager {
         ManhuntGameEndEvent event = new ManhuntGameEndEvent(e);
         Bukkit.getServer().getPluginManager().callEvent(event);
 
-        //check win causes, modify player data, and then end the game
+        // check win causes, modify player data, and then end the game
         if (e == GameEndCause.ALL_RUNNERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-runners-left"));
             for(Player p : GameManager.getGame().getHunters()) {
@@ -161,21 +162,21 @@ public class GameManager {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.game-ended-prematurely"));
         }
 
-        //set all players to spectator
+        // set all players to spectator
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (game.isRunner(p) || game.isHunter(p)) p.setGameMode(GameMode.SPECTATOR);
         }
 
-        //reset runners and hunters
+        // reset runners and hunters
         game.getHunters().clear();
         game.getRunners().clear();
 
         game.getDeadRunners().clear();
 
-        //Clear active scenarios
+        // Clear active scenarios
         game.getActiveScenarios().clear();
 
-        //Cancel runnables
+        // Cancel runnables
         for(BukkitRunnable runnable : enabledRunnables) {
             runnable.cancel();
         }
