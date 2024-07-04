@@ -1,5 +1,6 @@
 package uk.radialbog9.spigot.manhunt.commands;
 
+import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandDescription;
 import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
@@ -45,7 +46,7 @@ public class LeaderboardCommand {
     @CommandMethod("leaderboard <player>")
     @CommandDescription("View the leaderboard for a specific player")
     @CommandPermission("manhunt.leaderboard")
-    public void leaderboard(CommandSender sender, OfflinePlayer player) {
+    public void leaderboard(CommandSender sender, @Argument("player") OfflinePlayer player) {
         PlayerData pd = DataUtils.getPlayerData(player);
         if(pd == null) {
             sender.sendMessage(LanguageTranslator.translate("leaderboard.data-not-found", player.getName()));
