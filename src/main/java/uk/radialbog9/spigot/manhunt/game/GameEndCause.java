@@ -5,7 +5,7 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.utils;
+package uk.radialbog9.spigot.manhunt.game;
 
 /**
  * Game Win Causes

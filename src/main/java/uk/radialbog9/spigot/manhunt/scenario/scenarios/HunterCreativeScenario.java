@@ -7,40 +7,20 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.utils.template.CreativeScenarioTemplate;
+
+import java.util.List;
 
 @Scenario("HUNTER_CREATIVE")
 @ScenarioRunnable
 @SuppressWarnings({"unused"})
-public class HunterCreativeScenario extends BukkitRunnable {
+public class HunterCreativeScenario extends CreativeScenarioTemplate {
     @Override
-    public void run() {
-        if(
-                GameManager.getGame().isGameStarted() &&
-                GameManager.getGame().getActiveScenarios().contains("HUNTER_CREATIVE")
-        ) {
-            for(Player p : GameManager.getGame().getHunters()) {
-                p.setGameMode(GameMode.CREATIVE);
-                p.setAllowFlight(Manhunt.getInstance().getConfig().getBoolean("scenarios.HUNTER_CREATIVE.allow-fly"));
-            }
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    for(Player p : GameManager.getGame().getHunters()) {
-                        p.setGameMode(GameMode.SURVIVAL);
-                        p.setAllowFlight(false);
-                        p.setFlying(false);
-                    }
-                }
-            }.runTaskLater(Manhunt.getInstance(), Manhunt.getInstance().getConfig().getInt("scenarios.HUNTER_CREATIVE.duration") * 20L);
-        } else {
-            this.cancel();
-        }
+    public List<Player> getPlayerSet() {
+        return GameManager.getGame().getHunters();
     }
 }

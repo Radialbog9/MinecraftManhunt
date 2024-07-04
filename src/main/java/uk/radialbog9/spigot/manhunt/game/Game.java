@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -50,6 +51,10 @@ public class Game {
     @Getter
     @Setter
     private Objective gameObjective = Objective.DEFEAT_ENDER_DRAGON;
+
+    @Getter
+    @Setter
+    private LocalDateTime gameEndTime;
 
     public Game() {
         // nothing here yet

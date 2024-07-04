@@ -8,6 +8,8 @@
 package uk.radialbog9.spigot.manhunt.tabcompleters;
 
 import cloud.commandframework.annotations.parsers.Parser;
+import cloud.commandframework.arguments.parser.ArgumentParseResult;
+import cloud.commandframework.arguments.parser.ArgumentParser;
 import cloud.commandframework.captions.Caption;
 import cloud.commandframework.captions.CaptionVariable;
 import cloud.commandframework.context.CommandContext;
@@ -19,7 +21,7 @@ import uk.radialbog9.spigot.manhunt.game.Objective;
 
 import java.util.Queue;
 
-public class ObjectiveParser {
+public class ObjectiveParser<C> implements ArgumentParser<C, Objective> {
     /**
      * Exception thrown when an objective cannot be parsed.
      */
@@ -36,19 +38,19 @@ public class ObjectiveParser {
      * @param input The input queue.
      * @return The player.
      */
-    @Parser(name = "objectives")
-    public Objective customPlayerParse(CommandContext<CommandSender> context, @NotNull Queue<String> input) {
+    @Override
+    public @NotNull ArgumentParseResult<Objective> parse(@NonNull CommandContext<@NonNull C> context, @NotNull Queue<String> input) {
         String oName = input.peek();
         if (oName == null) throw new ObjectiveParseException("", context);
         Objective objective;
         try {
             objective = Objective.valueOf(oName);
         } catch (IllegalArgumentException e) {
-            throw new ObjectiveParseException(oName, context);
+            return ArgumentParseResult.failure(new ObjectiveParseException(oName, context));
         }
 
         input.remove();
-        return objective;
+        return ArgumentParseResult.success(objective);
     }
 }
 

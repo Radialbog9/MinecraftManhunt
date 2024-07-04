@@ -9,6 +9,7 @@ package uk.radialbog9.spigot.manhunt.settings;
 
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -53,9 +54,17 @@ public class SettingsMenu {
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
                 LanguageTranslator.translate("settingsmenu.options.objective",
                         GameManager.getGame().getGameObjective().toString()),
-                "/manhunt objective ",
+                "/manhunt settings objective ",
                 LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
+        if (GameManager.getGame().getGameObjective() == Objective.SURVIVE) {
+            p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
+                    LanguageTranslator.translate("settingsmenu.options.survive-timer",
+                            String.valueOf(ManhuntSettings.getSurviveGameLength())),
+                    "/manhunt settings survivetimer ",
+                    LanguageTranslator.translate("settingsmenu.click-to-change")
+            ));
+        }
         p.spigot().sendMessage(Utils.genTextComponentRunCommand(
                 LanguageTranslator.translate("settingsmenu.options.start-game"),
                 "/manhunt start",

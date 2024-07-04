@@ -25,9 +25,9 @@ import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
-import uk.radialbog9.spigot.manhunt.utils.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -36,6 +36,8 @@ public class GameManager {
     private static Game game = new Game();
 
     private static final ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
+
+    private static final  BukkitRunnable gameTimerRunnable = new GameTimerRunnable();
 
     public static void startGame() {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
@@ -100,6 +102,13 @@ public class GameManager {
                     e.printStackTrace();
                 }
             }
+        }
+
+        // Timer if game is set to timer mode
+        if(game.getGameObjective() == Objective.SURVIVE) {
+            LocalDateTime ldt = LocalDateTime.now();
+            game.setGameEndTime(ldt.plusSeconds(ManhuntSettings.getSurviveGameLength()));
+            gameTimerRunnable.runTaskTimer(Manhunt.getInstance(), 0, 10);
         }
 
         //set game as started
@@ -171,6 +180,10 @@ public class GameManager {
             runnable.cancel();
         }
         enabledRunnables.clear();
+
+        if(game.getGameObjective() == Objective.SURVIVE) {
+            gameTimerRunnable.cancel();
+        }
 
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
 
