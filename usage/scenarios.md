@@ -32,3 +32,8 @@ Similar scenarios have been grouped together in this list (e.g. Runners/hunters 
 | Runners become ghosts                         | Brief periodically  |                      |
 | Swaps hunters for runners                     | Change periodically |                      |
 
+## API
+
+If you want to add some scenarios and think they should be in the main plugin, then make a fork, add your scenario, then create a pull request!
+
+If you want to create your own plugin with your own scenario, use the API as outlined [here](../developers/api.md#scenarios).
