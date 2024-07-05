@@ -7,6 +7,8 @@
 
 package uk.radialbog9.spigot.manhunt.scenario;
 
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
@@ -53,19 +55,28 @@ public class ScenarioMenu {
         }
 
         p.sendMessage(LanguageTranslator.translate("scenariomenu.page", String.valueOf(page), String.valueOf(totalPages)));
-        if(page > 1) {
-            p.spigot().sendMessage(Utils.genTextComponentRunCommand(
+        boolean hasPreviousPage = page > 1;
+        boolean hasNextPage = page < totalPages;
+        ComponentBuilder component = new ComponentBuilder();
+        if(hasPreviousPage) {
+            component.append(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.previous-page"),
                     "/manhunt scenarios --page " + (page - 1),
                     LanguageTranslator.translate("scenariomenu.click-to-previous-page")
             ));
+        } else {
+            component.append(LanguageTranslator.translate("scenariomenu.no-page"));
         }
-        if(page < totalPages) {
-            p.spigot().sendMessage(Utils.genTextComponentRunCommand(
+        component.append(new TextComponent(" "));
+        if(hasNextPage) {
+            component.append(Utils.genTextComponentRunCommand(
                     LanguageTranslator.translate("scenariomenu.next-page"),
                     "/manhunt scenarios --page " + (page + 1),
                     LanguageTranslator.translate("scenariomenu.click-to-next-page")
             ));
+        } else {
+            component.append(LanguageTranslator.translate("scenariomenu.no-page"));
         }
+        p.spigot().sendMessage(component.create());
     }
 }
