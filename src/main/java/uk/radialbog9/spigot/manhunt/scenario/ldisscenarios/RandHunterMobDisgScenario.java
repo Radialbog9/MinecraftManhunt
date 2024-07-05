@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.LibsDisguisesUtils;
 
@@ -21,10 +22,8 @@ import uk.radialbog9.spigot.manhunt.utils.LibsDisguisesUtils;
 public class RandHunterMobDisgScenario extends BukkitRunnable {
     @Override
     public void run() {
-        if(
-                DependencySupport.isLibsDisguisesEnabled() &&
-                GameManager.getGame().isGameStarted() &&
-                GameManager.getGame().getActiveScenarios().contains("HUNTER_RANDOM_MOB_DISGUISE")
+        if(DependencySupport.isLibsDisguisesEnabled() &&
+                ScenarioUtils.isScenarioEnabled(this)
         ) {
             for(Player p : GameManager.getGame().getHunters()) {
                 LibsDisguisesUtils.disguisePlayerRandomMob(p);
