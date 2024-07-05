@@ -113,6 +113,11 @@ scenarios:
   SWAP_ROLES:
     # Players swap roles every `time` seconds
     time: 300
+  BLOCKS_DISABLES:
+    # Players can't break/place blocks every `time` seconds
+    time: 300
+    # Players can't break/place blocks for `duration` seconds
+    duration: 15
 
 ### Join Message ###
 join-message:
