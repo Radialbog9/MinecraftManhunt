@@ -110,6 +110,9 @@ scenarios:
     time: 400
     # Runners become ghosts for `duration` seconds
     duration: 10
+  SWAP_ROLES:
+    # Players swap roles every `time` seconds
+    time: 300
 
 ### Join Message ###
 join-message:
