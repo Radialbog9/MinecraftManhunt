@@ -11,6 +11,7 @@ import java.util.List;
 
 @Scenario("SWAP_ROLES")
 @ScenarioRunnable
+@SuppressWarnings("unused")
 public class SwapRolesScenario extends BukkitRunnable {
     @Override
     public void run() {
