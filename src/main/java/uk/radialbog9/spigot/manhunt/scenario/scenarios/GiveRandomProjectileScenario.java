@@ -48,89 +48,49 @@ public class GiveRandomProjectileScenario extends BukkitRunnable {
             // Set item to Ender Pearl
             is = new ItemStack(Material.ENDER_PEARL, quant);
         } else if (random >= 89 && random < 93) { // Night vision tipped arrow (4)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.NIGHT_VISION));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.NIGHT_VISION, true, false);
         } else if (random >= 93 && random < 99) { // Invisibility tipped arrow (7)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.INVISIBILITY, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.INVISIBILITY, true, false);
         } else if (random >= 99 && random < 106) { // Leaping tipped arrow (7)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.JUMP, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.JUMP, true, false);
         } else if (random >= 106 && random < 114) { // Fire resistance tipped arrow (8)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.FIRE_RESISTANCE, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.FIRE_RESISTANCE, true, false);
         } else if (random >= 114 && random < 116) { // Swiftness tipped arrow (2)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.SPEED, false, true));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.SPEED, false, true);
         } else if (random >= 116 && random < 118) { // Slowness tipped arrow (2)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.SLOWNESS, false, true));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.SLOWNESS, true, false);
         } else if (random >= 118 && random < 122) { // Turtle Master tipped arrow (4)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.TURTLE_MASTER));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.TURTLE_MASTER, false, false);
         } else if (random >= 122 && random < 126) { // Water Breathing tipped arrow (4)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.WATER_BREATHING, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.WATER_BREATHING, true, false);
         } else if (random >= 126 && random < 130) { // Healing tipped arrow (4)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL, false, true));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.INSTANT_HEAL, false, false);
         } else if (random == 130) { // Harming tipped arrow (1)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.INSTANT_DAMAGE, false, true));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.INSTANT_DAMAGE, false, true);
         } else if (random == 131) { // Poison tipped arrow (1)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.POISON, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.POISON, true, false);
         } else if (random >= 132 && random < 134) { // Regeneration tipped arrow (2)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.REGEN, false, true));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.REGEN, false, true);
         } else if (random >= 134 && random < 136) { // Strength tipped arrow (2)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.STRENGTH, false, true));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.STRENGTH, false, true);
         } else if (random == 136) { // Weakness tipped arrow (1)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.WEAKNESS, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.WEAKNESS, true, false);
         } else if (random >= 137 && random < 147) { // Luck tipped arrow (10)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.LUCK));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.LUCK, false, false);
         } else if (random >= 147 && random < 150) { // Slow fall tipped arrow (3)
-            is = new ItemStack(Material.TIPPED_ARROW, quant);
-            PotionMeta pm = (PotionMeta) is.getItemMeta();
-            pm.setBasePotionData(new PotionData(PotionType.SLOW_FALLING, true, false));
-            is.setItemMeta(pm);
+            is = generateTippedArrow(quant, PotionType.SLOW_FALLING, true, false);
         } else if (random >= 150 && random < 153) { // Spectral arrow (3)
             is = new ItemStack(Material.SPECTRAL_ARROW, quant);
         }
         loc.getWorld().dropItem(loc, is);
+    }
+
+    private ItemStack generateTippedArrow(int quantity, PotionType type, boolean extended, boolean upgraded) {
+        ItemStack is = new ItemStack(Material.TIPPED_ARROW, quantity);
+        PotionMeta pm = (PotionMeta) is.getItemMeta();
+        pm.setBasePotionData(new PotionData(type, extended, upgraded));
+        is.setItemMeta(pm);
+        return is;
     }
 
     @Override
