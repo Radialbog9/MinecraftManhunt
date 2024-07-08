@@ -18,6 +18,8 @@ import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
 import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
+import de.exlll.configlib.YamlConfigurationProperties;
+import de.exlll.configlib.YamlConfigurationStore;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import io.leangen.geantyref.TypeToken;
@@ -40,6 +42,7 @@ import uk.radialbog9.spigot.manhunt.language.LanguageManager;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.playerdata.Leaderboard;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioSuggestions;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
@@ -87,6 +90,9 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private static final Leaderboard leaderboard = new Leaderboard();
 
+    @Getter
+    private ManhuntConfiguration config = new ManhuntConfiguration();
+
     @Configuration
     public final class ManhuntConfiguration {
         @Comment({"Head start configuration", "Hunters are given blindness, slowness, and weakness for a certain amount of time before the game starts."})
@@ -102,7 +108,7 @@ public class Manhunt extends JavaPlugin {
         public int surviveGameLength = 600;
 
         @Comment("Scenario configuration")
-        public Map<String, Map<String, Object>> scenarios = new HashMap<>();
+        public Map<String, ScenarioConfiguration> scenarios = new HashMap<>();
 
         @Comment("Join messages configuration")
         public JoinMessages joinMessages = new JoinMessages(
@@ -110,6 +116,11 @@ public class Manhunt extends JavaPlugin {
                 "&aWelcome to this Manhunt server! The game will start shortly.",
                 "&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!"
                 );
+
+        @Comment({"Language configuration", "Set to 'custom' to create a custom language file."})
+        public String language = "en_GB";
+
+        // --- Inner classes ---
 
         public record HeadStart(
                 @Comment("Head start enabled?")
@@ -136,9 +147,16 @@ public class Manhunt extends JavaPlugin {
         instance = this;
 
         // Enable config
-        if(!getDataFolder().exists()) getDataFolder().mkdir();
-        if(!new File(getDataFolder(), "config.yml").exists()) saveResource("config.yml", false);
-        reloadConfig();
+        YamlConfigurationProperties properties = YamlConfigurationProperties.newBuilder().build();
+        YamlConfigurationStore<ManhuntConfiguration> store = new YamlConfigurationStore<>(ManhuntConfiguration.class, properties);
+
+        File file = new File(getDataFolder(), "config.yml");
+        if(file.exists()) {
+            config = store.load(file.toPath());
+        }
+        store.save(config, file.toPath());
+
+
 
         // Load language
         loadLanguage();
@@ -244,7 +262,7 @@ public class Manhunt extends JavaPlugin {
             Properties customLang = new Properties();
             Reader langReader = null;
 
-            String languageSpecified = getConfig().getString("language");
+            String languageSpecified = getConfig().language;
 
             if (languageSpecified.equals("custom")) {
                 // Load custom language file
