@@ -16,6 +16,8 @@ import cloud.commandframework.exceptions.ArgumentParseException;
 import cloud.commandframework.exceptions.NoPermissionException;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
+import de.exlll.configlib.Comment;
+import de.exlll.configlib.Configuration;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import io.leangen.geantyref.TypeToken;
@@ -47,6 +49,8 @@ import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -82,6 +86,26 @@ public class Manhunt extends JavaPlugin {
 
     @Getter
     private static final Leaderboard leaderboard = new Leaderboard();
+
+    @Configuration
+    public final class ManhuntConfiguration {
+        private HeadStart headStart = new HeadStart(true, 60);
+
+        private boolean allowHuntersDamageEnderDragon = false;
+
+        private boolean allowHuntersDamageEndCrystal = true;
+
+        private int surviveGameLength = 600;
+
+        private Map<String, Map<String, Object>> scenarios = new HashMap<>();
+
+        record HeadStart(
+                @Comment("Head start enabled?")
+                boolean enabled,
+                @Comment("Length of the head start (in seconds)")
+                int length
+        ) {}
+    }
 
     /**
      * Called when plugin is enabled
