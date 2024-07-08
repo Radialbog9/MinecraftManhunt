@@ -89,21 +89,41 @@ public class Manhunt extends JavaPlugin {
 
     @Configuration
     public final class ManhuntConfiguration {
-        private HeadStart headStart = new HeadStart(true, 60);
+        @Comment({"Head start configuration", "Hunters are given blindness, slowness, and weakness for a certain amount of time before the game starts."})
+        public HeadStart headStart = new HeadStart(true, 60);
 
-        private boolean allowHuntersDamageEnderDragon = false;
+        @Comment("Allow hunters to damage the ender dragon?")
+        public boolean allowHuntersDamageEnderDragon = false;
 
-        private boolean allowHuntersDamageEndCrystal = true;
+        @Comment("Allow hunters to damage end crystals?")
+        public boolean allowHuntersDamageEndCrystal = true;
 
-        private int surviveGameLength = 600;
+        @Comment("Length of survival games")
+        public int surviveGameLength = 600;
 
-        private Map<String, Map<String, Object>> scenarios = new HashMap<>();
+        @Comment("Scenario configuration")
+        public Map<String, Map<String, Object>> scenarios = new HashMap<>();
 
-        record HeadStart(
+        @Comment("Join messages configuration")
+        public JoinMessages joinMessages = new JoinMessages(
+                true,
+                "&aWelcome to this Manhunt server! The game will start shortly.",
+                "&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!"
+                );
+
+        public record HeadStart(
                 @Comment("Head start enabled?")
                 boolean enabled,
                 @Comment("Length of the head start (in seconds)")
                 int length
+        ) {}
+        public record JoinMessages(
+                @Comment("Join messages enabled?")
+                boolean enabled,
+                @Comment("Join message for people with no permission")
+                String noPermission,
+                @Comment("Join message for admins")
+                String permission
         ) {}
     }
 
