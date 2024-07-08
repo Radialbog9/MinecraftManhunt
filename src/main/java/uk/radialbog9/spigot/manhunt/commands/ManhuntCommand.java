@@ -97,18 +97,31 @@ public class ManhuntCommand {
                     "/manhunt scenarios",
                     LanguageTranslator.translate("help.scenarios")
             ));
-        if (sender.hasPermission("manhunt.spectate"))
-            sender.sendMessage(LanguageTranslator.translate(
-                    "help-format",
-                    "/spectate " + LanguageTranslator.translate("player-placeholder"),
-                    LanguageTranslator.translate("help.spectate")
-            ));
         if (sender.hasPermission("manhunt.reload"))
             sender.sendMessage(LanguageTranslator.translate(
                     "help-format",
                     "/manhunt reload ",
                     LanguageTranslator.translate("help.reload")
             ));
+        if (sender.hasPermission("manhunt.spectate"))
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/spectate " + LanguageTranslator.translate("player-placeholder"),
+                    LanguageTranslator.translate("help.spectate")
+            ));
+        if (sender.hasPermission("manhunt.leaderboard")) {
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/leaderboard",
+                    LanguageTranslator.translate("help.leaderboard")
+            ));
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/leaderboard " + LanguageTranslator.translate("player-placeholder"),
+                    LanguageTranslator.translate("help.leaderboard.player")
+            ));
+        }
+
     }
 
     @CommandMethod("manhunt reload")
