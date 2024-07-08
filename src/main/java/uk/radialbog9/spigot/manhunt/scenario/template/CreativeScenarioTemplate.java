@@ -5,7 +5,7 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.scenario.utils.template;
+package uk.radialbog9.spigot.manhunt.scenario.template;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -13,12 +13,23 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.types.ScenarioTypeRunnable;
 
 import java.util.List;
+import java.util.Map;
 
-public abstract class CreativeScenarioTemplate extends BukkitRunnable {
+public abstract class CreativeScenarioTemplate extends ScenarioTypeRunnable {
     public abstract List<Player> getPlayerSet();
+
+    @Override
+    public Map<String, Object> getDefaultConfig() {
+        return Map.of(
+                "time", 300,
+                "allow-fly", false,
+                "duration", 5
+        );
+    }
 
     @Override
     public void run() {
@@ -26,7 +37,7 @@ public abstract class CreativeScenarioTemplate extends BukkitRunnable {
         if(ScenarioUtils.isScenarioEnabled(this)) {
             for(Player p : getPlayerSet()) {
                 p.setGameMode(GameMode.CREATIVE);
-                p.setAllowFlight(Manhunt.getInstance().getConfig().getBoolean("scenarios." + scenarioName + ".allow-fly"));
+                p.setAllowFlight((boolean) getConfigValue("allow-fly"));
             }
             new BukkitRunnable() {
                 @Override
@@ -39,7 +50,7 @@ public abstract class CreativeScenarioTemplate extends BukkitRunnable {
                 }
             }.runTaskLater(
                     Manhunt.getInstance(),
-                    Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioName + ".duration") * 20L
+                    (int) getConfigValue("duration") * 20L
             );
         }
     }

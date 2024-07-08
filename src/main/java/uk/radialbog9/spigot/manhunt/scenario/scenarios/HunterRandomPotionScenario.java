@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.template.PotionScenarioTemplate;
+import uk.radialbog9.spigot.manhunt.scenario.template.PotionScenarioTemplate;
 
 import java.util.Arrays;
 import java.util.List;

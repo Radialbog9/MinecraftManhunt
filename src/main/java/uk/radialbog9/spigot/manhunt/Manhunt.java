@@ -18,6 +18,8 @@ import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
 import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
+import de.exlll.configlib.YamlConfigurationProperties;
+import de.exlll.configlib.YamlConfigurationStore;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import io.leangen.geantyref.TypeToken;
@@ -49,6 +51,7 @@ import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -87,6 +90,9 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private static final Leaderboard leaderboard = new Leaderboard();
 
+    @Getter
+    private ManhuntConfiguration config = new ManhuntConfiguration();
+
     @Configuration
     public final class ManhuntConfiguration {
         @Comment({"Head start configuration", "Hunters are given blindness, slowness, and weakness for a certain amount of time before the game starts."})
@@ -103,6 +109,9 @@ public class Manhunt extends JavaPlugin {
 
         @Comment("Scenario configuration")
         public Map<String, Map<String, Object>> scenarios = new HashMap<>();
+
+        @Comment({"Language configuration", "Set to 'custom' to create a custom language file."})
+        public String language = "en_GB";
 
         @Comment("Join messages configuration")
         public JoinMessages joinMessages = new JoinMessages(
@@ -136,9 +145,15 @@ public class Manhunt extends JavaPlugin {
         instance = this;
 
         // Enable config
-        if(!getDataFolder().exists()) getDataFolder().mkdir();
-        if(!new File(getDataFolder(), "config.yml").exists()) saveResource("config.yml", false);
-        reloadConfig();
+        YamlConfigurationProperties properties = YamlConfigurationProperties.newBuilder().build();
+        YamlConfigurationStore<ManhuntConfiguration> store = new YamlConfigurationStore<>(ManhuntConfiguration.class, properties);
+
+        File file = new File(getDataFolder(), "config.yml");
+        if(file.exists()) {
+            config = store.load(file.toPath());
+        }
+        store.save(config, file.toPath());
+
 
         // Load language
         loadLanguage();
@@ -244,7 +259,7 @@ public class Manhunt extends JavaPlugin {
             Properties customLang = new Properties();
             Reader langReader = null;
 
-            String languageSpecified = getConfig().getString("language");
+            String languageSpecified = getConfig().language;
 
             if (languageSpecified.equals("custom")) {
                 // Load custom language file

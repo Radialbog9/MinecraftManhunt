@@ -14,17 +14,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
-import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.types.ScenarioTypeRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+import java.util.Map;
+
 @Scenario("RANDOM_PROJECTILES")
-@ScenarioRunnable
 @SuppressWarnings("unused")
-public class GiveRandomProjectileScenario extends BukkitRunnable {
+public class GiveRandomProjectileScenario extends ScenarioTypeRunnable {
     public void randomProjectileItem(Location loc) {
         int random = Utils.getRandomInt(0, 152);
         int quant = Utils.getRandomInt(1, 3);
@@ -100,5 +100,12 @@ public class GiveRandomProjectileScenario extends BukkitRunnable {
                 randomProjectileItem(p.getLocation());
             }
         }
+    }
+
+    @Override
+    public Map<String, Object> getDefaultConfig() {
+        return Map.of(
+                "time", 300
+        );
     }
 }

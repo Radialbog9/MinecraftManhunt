@@ -8,22 +8,28 @@
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
-import uk.radialbog9.spigot.manhunt.scenario.Scenario;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
-import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.*;
+import uk.radialbog9.spigot.manhunt.scenario.types.ScenarioTypeBoth;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+
+import java.util.Map;
 
 @Scenario("BLOCKS_DISABLES")
-@ScenarioRunnable
-@ScenarioListener
-public class BlocksDisableScenario extends BukkitRunnable implements Listener {
+public class BlocksDisableScenario extends ScenarioTypeBoth {
     private boolean disableBlocks = false;
+
+    @Override
+    public Map<String, Object> getDefaultConfig() {
+        return Map.of(
+                "time", 300,
+                "duration", 60
+        );
+    }
 
     class BlocksReEnable extends BukkitRunnable {
         @Override
@@ -42,9 +48,7 @@ public class BlocksDisableScenario extends BukkitRunnable implements Listener {
             new BlocksReEnable()
                     .runTaskLater(
                             Manhunt.getInstance(),
-                            Manhunt.getInstance().getConfig().getInt(
-                                    "scenarios.BLOCKS_DISABLES.duration"
-                            ) * 20L // 20 tps
+                            ((int) this.getConfigValue("time")) * 20L // 20 tps
                     );
         }
     }

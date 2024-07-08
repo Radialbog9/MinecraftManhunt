@@ -18,7 +18,7 @@ import org.bukkit.loot.LootTable;
 import org.bukkit.loot.LootTables;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 
 import java.util.ArrayList;
 import java.util.Random;

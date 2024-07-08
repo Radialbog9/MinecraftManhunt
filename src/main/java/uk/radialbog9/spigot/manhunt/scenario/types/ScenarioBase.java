@@ -5,12 +5,10 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.scenario;
+package uk.radialbog9.spigot.manhunt.scenario.types;
 
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.Map;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-public @interface ScenarioRunnable {}
+public interface ScenarioBase {
+    Map<String, Object> getDefaultConfig();
+}
