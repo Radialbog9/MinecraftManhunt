@@ -34,6 +34,7 @@ import uk.radialbog9.spigot.manhunt.commands.LeaderboardCommand;
 import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
 import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
 import uk.radialbog9.spigot.manhunt.game.Objective;
+import uk.radialbog9.spigot.manhunt.language.LanguageManager;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.playerdata.Leaderboard;
@@ -68,10 +69,7 @@ public class Manhunt extends JavaPlugin {
     private static ScenarioLoader scenarioLoader;
 
     @Getter
-    private static Properties language;
-
-    @Getter
-    private static Properties defaultLanguage;
+    private static LanguageManager language = new LanguageManager();
 
     @Getter
     private CommandManager<CommandSender> commandManager;
@@ -193,29 +191,36 @@ public class Manhunt extends JavaPlugin {
     public void loadLanguage() {
         try {
             // Load default language.properties
-            defaultLanguage = new Properties();
+            Properties defaultLanguage = new Properties();
             InputStream dLanguageStream = getResource("language.properties");
             defaultLanguage.load(new InputStreamReader(dLanguageStream));
+            language.loadLanguage(defaultLanguage); // Load default language to language manager
 
             // Load custom language.properties
-            language = new Properties();
+            Properties customLang = new Properties();
+            Reader langReader = null;
+
             String languageSpecified = getConfig().getString("language");
+
             if (languageSpecified.equals("custom")) {
+                // Load custom language file
                 File customFile = new File(getDataFolder(), "language.properties");
                 if(!customFile.exists()) saveResource("language.properties", false);
-                language.load(new FileReader(customFile));
-            } else if (languageSpecified.equals("none")) {
-                InputStream languageStream = getResource("language.properties");
-                language.load(new InputStreamReader(languageStream));
-            } else {
+                langReader = new FileReader(customFile);
+            } else if (!languageSpecified.equals("none")) {
+                // Load the language specified
                 InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
                 if(languageStream == null) languageStream = getResource("language.properties");
-                language.load(new InputStreamReader(languageStream));
+                langReader = new InputStreamReader(languageStream);
             }
+
+            if(langReader != null) {
+                customLang.load(langReader);
+                language.loadLanguage(customLang);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
