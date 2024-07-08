@@ -28,10 +28,7 @@ public class LanguageTranslator {
         String out;
         out = Manhunt.getLanguage().getProperty(
                 key, // Get key
-                Manhunt.getDefaultLanguage().getProperty(
-                        key, // Or try default language
-                        key // Or return key if not found
-                )
+                key // Default value
         );
         if(args != null) {
             for (int i = 0; i < args.length; i++) {
