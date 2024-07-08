@@ -5,7 +5,7 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.scenario.utils.template;
+package uk.radialbog9.spigot.manhunt.scenario.template;
 
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

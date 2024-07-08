@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,18 +23,20 @@ import java.util.List;
 public class SwapRolesScenario extends BukkitRunnable {
     @Override
     public void run() {
-        // Create a copy of the hunters and runners list
-        List<Player> hunters = new ArrayList<>(GameManager.getGame().getHunters());
-        List<Player> runners = new ArrayList<>(GameManager.getGame().getRunners());
+        if(ScenarioUtils.isScenarioEnabled(this)) {
+            // Create a copy of the hunters and runners list
+            List<Player> hunters = new ArrayList<>(GameManager.getGame().getHunters());
+            List<Player> runners = new ArrayList<>(GameManager.getGame().getRunners());
 
-        hunters.forEach(player -> {
-            GameManager.getGame().getHunters().remove(player);
-            GameManager.getGame().getRunners().add(player);
-        });
+            hunters.forEach(player -> {
+                GameManager.getGame().getHunters().remove(player);
+                GameManager.getGame().getRunners().add(player);
+            });
 
-        runners.forEach(player -> {
-            GameManager.getGame().getRunners().remove(player);
-            GameManager.getGame().getHunters().add(player);
-        });
+            runners.forEach(player -> {
+                GameManager.getGame().getRunners().remove(player);
+                GameManager.getGame().getHunters().add(player);
+            });
+        }
     }
 }

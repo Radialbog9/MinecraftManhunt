@@ -5,10 +5,9 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.scenario.utils;
+package uk.radialbog9.spigot.manhunt.scenario;
 
 import uk.radialbog9.spigot.manhunt.game.GameManager;
-import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 
 public class ScenarioUtils {
     /**
