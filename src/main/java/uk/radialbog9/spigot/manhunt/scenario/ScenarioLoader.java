@@ -15,6 +15,8 @@ import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -31,19 +33,23 @@ public class ScenarioLoader {
             //If check is fine then add to the list of available scenarios
             availableScenarios.put(annotation.value(), cla);
             // Set the config for the scenario
-            try {
-                ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) cla.newInstance();
-                ScenarioConfiguration config = Manhunt.getInstance().getConfig().scenarios.get(annotation.value());
-                if(config != null) {
-                    // Set the config if it exists
+            if(Arrays.asList(cla.getInterfaces()).contains(ScenarioConfigurable.class)) {
+                try {
+                    ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) cla.getDeclaredConstructor().newInstance();
+                    ScenarioConfiguration config = Manhunt.getInstance().getConfig().scenarios.get(annotation.value());
+                    if(config != null) {
+                        // Set the config if it exists
+                        scenarioConfigurable.setConfig(config);
+                    } else {
+                        Manhunt.getInstance().getConfig().scenarios.put(annotation.value(), scenarioConfigurable.getConfig());
+                    }
                     scenarioConfigurable.setConfig(config);
-                } else {
-                    Manhunt.getInstance().getConfig().scenarios.put(annotation.value(), scenarioConfigurable.getConfig());
+                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+                    Manhunt.getInstance().getLogger().severe("Failed to set config for scenario " + cla.getSimpleName());
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
                 }
-                scenarioConfigurable.setConfig(config);
-            } catch (InstantiationException | IllegalAccessException e) {
-                Manhunt.getInstance().getLogger().severe("Failed to set config for scenario " + cla.getSimpleName());
-                e.printStackTrace();
             }
         }
     }

@@ -7,12 +7,16 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +24,7 @@ import java.util.List;
 @Scenario("SWAP_ROLES")
 @ScenarioRunnable
 @SuppressWarnings("unused")
-public class SwapRolesScenario extends BukkitRunnable {
+public class SwapRolesScenario extends BukkitRunnable implements ScenarioConfigurable {
     @Override
     public void run() {
         if(ScenarioUtils.isScenarioEnabled(this)) {
@@ -38,5 +42,22 @@ public class SwapRolesScenario extends BukkitRunnable {
                 GameManager.getGame().getHunters().add(player);
             });
         }
+    }
+
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+        @Getter
+        private int time = 300;
+
+        @Getter
+        private int duration = 5;
+    }
+
+    @Getter
+    private Config config = new Config();
+
+
+    @Override
+    public void setConfig(ScenarioConfiguration config) {
+        this.config = (Config) config;
     }
 }
