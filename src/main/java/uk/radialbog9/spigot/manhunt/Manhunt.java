@@ -94,7 +94,7 @@ public class Manhunt extends JavaPlugin {
     private ManhuntConfiguration manhuntConfiguration = new ManhuntConfiguration();
 
     @Configuration
-    public final class ManhuntConfiguration {
+    public static final class ManhuntConfiguration {
         @Comment({"Head start configuration", "Hunters are given blindness, slowness, and weakness for a certain amount of time before the game starts."})
         public HeadStart headStart = new HeadStart(true, 60);
 
@@ -136,6 +136,8 @@ public class Manhunt extends JavaPlugin {
                 @Comment("Join message for admins")
                 String permission
         ) {}
+
+        private ManhuntConfiguration() {}
     }
 
     /**
