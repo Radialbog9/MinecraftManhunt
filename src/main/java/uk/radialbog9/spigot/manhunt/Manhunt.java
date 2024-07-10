@@ -93,6 +93,10 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private ManhuntConfiguration manhuntConfiguration = new ManhuntConfiguration();
 
+    private File configFile;
+    private YamlConfigurationProperties props;
+    private YamlConfigurationStore<ManhuntConfiguration> store;
+
     @Configuration
     public static final class ManhuntConfiguration {
         @Comment({"Head start configuration", "Hunters are given blindness, slowness, and weakness for a certain amount of time before the game starts."})
@@ -140,6 +144,14 @@ public class Manhunt extends JavaPlugin {
         private ManhuntConfiguration() {}
     }
 
+    public void reloadManhuntConfig() {
+        manhuntConfiguration = store.load(configFile.toPath());
+    }
+
+    public void saveManhuntConfig() {
+        store.save(manhuntConfiguration, configFile.toPath());
+    }
+
     /**
      * Called when plugin is enabled
      */
@@ -149,16 +161,14 @@ public class Manhunt extends JavaPlugin {
         instance = this;
 
         // Enable config
-        YamlConfigurationProperties properties = YamlConfigurationProperties.newBuilder().build();
-        YamlConfigurationStore<ManhuntConfiguration> store = new YamlConfigurationStore<>(ManhuntConfiguration.class, properties);
+        props =  YamlConfigurationProperties.newBuilder().build();
+        store = new YamlConfigurationStore<>(ManhuntConfiguration.class, props);
 
-        File file = new File(getDataFolder(), "config.yml");
-        if(file.exists()) {
-            manhuntConfiguration = store.load(file.toPath());
+        configFile = new File(getDataFolder(), "config.yml");
+        if(configFile.exists()) {
+            manhuntConfiguration = store.load(configFile.toPath());
         }
-        store.save(manhuntConfiguration, file.toPath());
-
-
+        store.save(manhuntConfiguration, configFile.toPath());
 
         // Load language
         loadLanguage();
@@ -243,7 +253,7 @@ public class Manhunt extends JavaPlugin {
     @Override
     public void onDisable() {
         // Save config
-        saveConfig();
+        // saveConfig();
         // Save player data
         for(Player p : Bukkit.getOnlinePlayers()) {
             DataUtils.getPlayerData(p).save();

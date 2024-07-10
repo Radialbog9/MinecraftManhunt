@@ -97,12 +97,18 @@ public class ManhuntCommand {
                     "/manhunt scenarios",
                     LanguageTranslator.translate("help.scenarios")
             ));
-        if (sender.hasPermission("manhunt.reload"))
+        if (sender.hasPermission("manhunt.reload")) {
             sender.sendMessage(LanguageTranslator.translate(
                     "help-format",
-                    "/manhunt reload ",
+                    "/manhunt reload",
                     LanguageTranslator.translate("help.reload")
             ));
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/manhunt saveconfig",
+                    LanguageTranslator.translate("help.saveconfig")
+            ));
+        }
         if (sender.hasPermission("manhunt.spectate"))
             sender.sendMessage(LanguageTranslator.translate(
                     "help-format",
@@ -128,9 +134,17 @@ public class ManhuntCommand {
     @CommandPermission("manhunt.reload")
     public void mReload(@NotNull CommandSender sender) {
         //reload the config
-        Manhunt.getInstance().reloadConfig();
+        Manhunt.getInstance().reloadManhuntConfig();
         Manhunt.getInstance().loadLanguage();
         sender.sendMessage(LanguageTranslator.translate("reload-successful"));
+    }
+
+    @CommandMethod("manhunt saveconfig")
+    @CommandPermission("manhunt.reload")
+    public void mSaveConfig(@NotNull CommandSender sender) {
+        //save the config
+        Manhunt.getInstance().saveManhuntConfig();
+        sender.sendMessage(LanguageTranslator.translate("save-successful"));
     }
 
     @CommandMethod("manhunt hunter <player>")
