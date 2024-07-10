@@ -9,6 +9,8 @@ package uk.radialbog9.spigot.manhunt.scenario;
 
 import lombok.Getter;
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
@@ -28,6 +30,21 @@ public class ScenarioLoader {
             if(annotation == null) continue;
             //If check is fine then add to the list of available scenarios
             availableScenarios.put(annotation.value(), cla);
+            // Set the config for the scenario
+            try {
+                ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) cla.newInstance();
+                ScenarioConfiguration config = Manhunt.getInstance().getConfig().scenarios.get(annotation.value());
+                if(config != null) {
+                    // Set the config if it exists
+                    scenarioConfigurable.setConfig(config);
+                } else {
+                    Manhunt.getInstance().getConfig().scenarios.put(annotation.value(), scenarioConfigurable.getConfig());
+                }
+                scenarioConfigurable.setConfig(config);
+            } catch (InstantiationException | IllegalAccessException e) {
+                Manhunt.getInstance().getLogger().severe("Failed to set config for scenario " + cla.getSimpleName());
+                e.printStackTrace();
+            }
         }
     }
 

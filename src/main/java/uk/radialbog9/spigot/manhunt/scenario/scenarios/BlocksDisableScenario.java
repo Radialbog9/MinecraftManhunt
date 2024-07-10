@@ -28,7 +28,7 @@ import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 @ScenarioListener
 public class BlocksDisableScenario extends BukkitRunnable implements Listener, ScenarioConfigurable {
 
-    public static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
         @Getter
         private int time = 10;
 
@@ -37,7 +37,7 @@ public class BlocksDisableScenario extends BukkitRunnable implements Listener, S
     }
 
     @Getter
-    private Config config;
+    private Config config = new Config();
 
     @Override
     public void setConfig(ScenarioConfiguration config) {
