@@ -170,11 +170,11 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void noGamePlayerJoinEvent(PlayerJoinEvent e) {
-        if(!GameManager.getGame().isGameStarted() && Manhunt.getInstance().getConfig().getBoolean("join-message.enabled")) {
+        if(!GameManager.getGame().isGameStarted() && Manhunt.getInstance().getManhuntConfiguration().joinMessages.enabled()) {
             if(e.getPlayer().hasPermission("manhunt.admin")) {
-               e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("join-message.perm")));
+               e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getManhuntConfiguration().joinMessages.permission()));
             } else {
-                e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("join-message.noperm")));
+                e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getManhuntConfiguration().joinMessages.noPermission()));
             }
         }
     }

@@ -91,7 +91,7 @@ public class Manhunt extends JavaPlugin {
     private static final Leaderboard leaderboard = new Leaderboard();
 
     @Getter
-    private ManhuntConfiguration config = new ManhuntConfiguration();
+    private ManhuntConfiguration manhuntConfiguration = new ManhuntConfiguration();
 
     @Configuration
     public final class ManhuntConfiguration {
@@ -152,9 +152,9 @@ public class Manhunt extends JavaPlugin {
 
         File file = new File(getDataFolder(), "config.yml");
         if(file.exists()) {
-            config = store.load(file.toPath());
+            manhuntConfiguration = store.load(file.toPath());
         }
-        store.save(config, file.toPath());
+        store.save(manhuntConfiguration, file.toPath());
 
 
 
@@ -262,7 +262,7 @@ public class Manhunt extends JavaPlugin {
             Properties customLang = new Properties();
             Reader langReader = null;
 
-            String languageSpecified = getConfig().language;
+            String languageSpecified = getManhuntConfiguration().language;
 
             if (languageSpecified.equals("custom")) {
                 // Load custom language file

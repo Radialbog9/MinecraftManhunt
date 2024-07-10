@@ -36,12 +36,12 @@ public class ScenarioLoader {
             if(Arrays.asList(cla.getInterfaces()).contains(ScenarioConfigurable.class)) {
                 try {
                     ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) cla.getDeclaredConstructor().newInstance();
-                    ScenarioConfiguration config = Manhunt.getInstance().getConfig().scenarios.get(annotation.value());
+                    ScenarioConfiguration config = Manhunt.getInstance().getManhuntConfiguration().scenarios.get(annotation.value());
                     if(config != null) {
                         // Set the config if it exists
                         scenarioConfigurable.setConfig(config);
                     } else {
-                        Manhunt.getInstance().getConfig().scenarios.put(annotation.value(), scenarioConfigurable.getConfig());
+                        Manhunt.getInstance().getManhuntConfiguration().scenarios.put(annotation.value(), scenarioConfigurable.getConfig());
                     }
                     scenarioConfigurable.setConfig(config);
                 } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
