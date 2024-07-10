@@ -167,7 +167,8 @@
                             <include>org.bstats:bstats-*</include>
                             <include>cloud.commandframework:cloud-*</include>
                             <include>io.leangen.geantyref:geantyref</include>
-                            <include>de.exlll:configlib-yaml</include>
+                            <include>de.exlll:configlib-*</include>
+                            <include>org.snakeyaml:snakeyaml-*</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -196,7 +197,7 @@
                             </excludes>
                         </filter>
                         <filter>
-                            <artifact>de.exlll:configlib-yaml</artifact>
+                            <artifact>de.exlll:configlib-*</artifact>
                             <excludes>
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
