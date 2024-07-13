@@ -42,7 +42,6 @@ import uk.radialbog9.spigot.manhunt.language.LanguageManager;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.playerdata.Leaderboard;
-import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioLoader;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioSuggestions;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
@@ -76,7 +75,7 @@ public class Manhunt extends JavaPlugin {
     private static ScenarioLoader scenarioLoader;
 
     @Getter
-    private static LanguageManager language = new LanguageManager();
+    private static final LanguageManager language = new LanguageManager();
 
     @Getter
     private CommandManager<CommandSender> commandManager;
@@ -267,6 +266,7 @@ public class Manhunt extends JavaPlugin {
             // Load default language.properties
             Properties defaultLanguage = new Properties();
             InputStream dLanguageStream = getResource("language.properties");
+            assert dLanguageStream != null;
             defaultLanguage.load(new InputStreamReader(dLanguageStream));
             language.loadLanguage(defaultLanguage); // Load default language to language manager
 
@@ -285,6 +285,7 @@ public class Manhunt extends JavaPlugin {
                 // Load the language specified
                 InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
                 if(languageStream == null) languageStream = getResource("language.properties");
+                assert languageStream != null;
                 langReader = new InputStreamReader(languageStream);
             }
 

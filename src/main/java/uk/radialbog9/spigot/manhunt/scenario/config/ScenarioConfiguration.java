@@ -7,8 +7,6 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.config;
 
-import de.exlll.configlib.Configuration;
-
 /**
  * Configuration class for scenarios.
  * This class is empty because it is only used to extend by classes.
