@@ -30,7 +30,7 @@ public class BlocksDisableScenario extends BukkitRunnable implements Listener, S
 
     private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
         @Getter
-        private int time = 10;
+        private int time = 300;
 
         @Getter
         private int duration = 60;
