@@ -61,7 +61,7 @@ import java.util.logging.Level;
  * Main Manhunt plugin class
  */
 
-@SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
+@SuppressWarnings("unused")
 
 public class Manhunt extends JavaPlugin {
     @Getter
@@ -93,7 +93,6 @@ public class Manhunt extends JavaPlugin {
     private ManhuntConfiguration manhuntConfiguration = new ManhuntConfiguration();
 
     private File configFile;
-    private YamlConfigurationProperties props;
     private YamlConfigurationStore<ManhuntConfiguration> store;
 
     @Configuration
@@ -160,7 +159,7 @@ public class Manhunt extends JavaPlugin {
         instance = this;
 
         // Enable config
-        props =  YamlConfigurationProperties.newBuilder().build();
+        YamlConfigurationProperties props = YamlConfigurationProperties.newBuilder().build();
         store = new YamlConfigurationStore<>(ManhuntConfiguration.class, props);
 
         configFile = new File(getDataFolder(), "config.yml");
