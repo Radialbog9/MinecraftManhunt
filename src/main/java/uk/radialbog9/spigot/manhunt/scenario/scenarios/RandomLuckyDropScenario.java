@@ -7,6 +7,7 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -22,7 +23,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
@@ -31,7 +35,7 @@ import java.util.Random;
 @Scenario("RANDOM_LUCKY_DROPS")
 @ScenarioRunnable
 @SuppressWarnings("unused")
-public class RandomLuckyDropScenario extends BukkitRunnable {
+public class RandomLuckyDropScenario extends BukkitRunnable implements ScenarioConfigurable {
     /**
      * The main method that gets called per player
      * @param loc The location to drop the "surprise"
@@ -140,5 +144,19 @@ public class RandomLuckyDropScenario extends BukkitRunnable {
         if(ScenarioUtils.isScenarioEnabled(this))
             // drop a random item from the list of lucky items
             for(Player p : GameManager.getGame().getPlayers()) dropRandomLuckyDrop(p.getLocation());
+    }
+
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+        @Getter
+        private int time = 280;
+    }
+
+    @Getter
+    private Config config = new Config();
+
+
+    @Override
+    public void setConfig(ScenarioConfiguration config) {
+        this.config = (Config) config;
     }
 }

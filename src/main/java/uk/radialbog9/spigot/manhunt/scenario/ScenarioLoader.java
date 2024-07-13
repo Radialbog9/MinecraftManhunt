@@ -13,6 +13,7 @@ import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -28,6 +29,12 @@ public class ScenarioLoader {
             if(annotation == null) continue;
             //If check is fine then add to the list of available scenarios
             availableScenarios.put(annotation.value(), cla);
+            // Set the config for the scenario
+            try {
+                ScenarioUtils.loadConfigFromScenario(annotation.value(), cla);
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
 

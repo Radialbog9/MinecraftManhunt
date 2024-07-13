@@ -18,6 +18,8 @@ import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
 import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
+import de.exlll.configlib.YamlConfigurationProperties;
+import de.exlll.configlib.YamlConfigurationStore;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import io.leangen.geantyref.TypeToken;
@@ -59,7 +61,7 @@ import java.util.logging.Level;
  * Main Manhunt plugin class
  */
 
-@SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
+@SuppressWarnings("unused")
 
 public class Manhunt extends JavaPlugin {
     @Getter
@@ -73,7 +75,7 @@ public class Manhunt extends JavaPlugin {
     private static ScenarioLoader scenarioLoader;
 
     @Getter
-    private static LanguageManager language = new LanguageManager();
+    private static final LanguageManager language = new LanguageManager();
 
     @Getter
     private CommandManager<CommandSender> commandManager;
@@ -87,8 +89,14 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private static final Leaderboard leaderboard = new Leaderboard();
 
+    @Getter
+    private ManhuntConfiguration manhuntConfiguration = new ManhuntConfiguration();
+
+    private File configFile;
+    private YamlConfigurationStore<ManhuntConfiguration> store;
+
     @Configuration
-    public final class ManhuntConfiguration {
+    public static final class ManhuntConfiguration {
         @Comment({"Head start configuration", "Hunters are given blindness, slowness, and weakness for a certain amount of time before the game starts."})
         public HeadStart headStart = new HeadStart(true, 60);
 
@@ -102,7 +110,7 @@ public class Manhunt extends JavaPlugin {
         public int surviveGameLength = 600;
 
         @Comment("Scenario configuration")
-        public Map<String, Map<String, Object>> scenarios = new HashMap<>();
+        public Map<String, String> scenarios = new HashMap<>();
 
         @Comment("Join messages configuration")
         public JoinMessages joinMessages = new JoinMessages(
@@ -110,6 +118,11 @@ public class Manhunt extends JavaPlugin {
                 "&aWelcome to this Manhunt server! The game will start shortly.",
                 "&aWelcome! Use /manhunt runner and /manhunt hunter to add players and /manhunt settings to change settings and start the game!"
                 );
+
+        @Comment({"Language configuration", "Set to 'custom' to create a custom language file."})
+        public String language = "en_GB";
+
+        // --- Inner classes ---
 
         public record HeadStart(
                 @Comment("Head start enabled?")
@@ -125,6 +138,16 @@ public class Manhunt extends JavaPlugin {
                 @Comment("Join message for admins")
                 String permission
         ) {}
+
+        private ManhuntConfiguration() {}
+    }
+
+    public void reloadManhuntConfig() {
+        manhuntConfiguration = store.load(configFile.toPath());
+    }
+
+    public void saveManhuntConfig() {
+        store.save(manhuntConfiguration, configFile.toPath());
     }
 
     /**
@@ -135,10 +158,17 @@ public class Manhunt extends JavaPlugin {
         // Set instance
         instance = this;
 
+        boolean requireSaveAfterLoad = true;
         // Enable config
-        if(!getDataFolder().exists()) getDataFolder().mkdir();
-        if(!new File(getDataFolder(), "config.yml").exists()) saveResource("config.yml", false);
-        reloadConfig();
+        YamlConfigurationProperties props = YamlConfigurationProperties.newBuilder().build();
+        store = new YamlConfigurationStore<>(ManhuntConfiguration.class, props);
+
+        configFile = new File(getDataFolder(), "config.yml");
+        if(configFile.exists()) {
+            manhuntConfiguration = store.load(configFile.toPath());
+            requireSaveAfterLoad = false;
+        }
+        store.save(manhuntConfiguration, configFile.toPath());
 
         // Load language
         loadLanguage();
@@ -213,6 +243,10 @@ public class Manhunt extends JavaPlugin {
                 .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
                 .checkEveryXHours(6)
                 .checkNow();
+
+        // Save if required
+        if(requireSaveAfterLoad) saveManhuntConfig();
+
         // Log start message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
     }
@@ -222,8 +256,6 @@ public class Manhunt extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        // Save config
-        saveConfig();
         // Save player data
         for(Player p : Bukkit.getOnlinePlayers()) {
             DataUtils.getPlayerData(p).save();
@@ -237,6 +269,7 @@ public class Manhunt extends JavaPlugin {
             // Load default language.properties
             Properties defaultLanguage = new Properties();
             InputStream dLanguageStream = getResource("language.properties");
+            assert dLanguageStream != null;
             defaultLanguage.load(new InputStreamReader(dLanguageStream));
             language.loadLanguage(defaultLanguage); // Load default language to language manager
 
@@ -244,7 +277,7 @@ public class Manhunt extends JavaPlugin {
             Properties customLang = new Properties();
             Reader langReader = null;
 
-            String languageSpecified = getConfig().getString("language");
+            String languageSpecified = getManhuntConfiguration().language;
 
             if (languageSpecified.equals("custom")) {
                 // Load custom language file
@@ -255,6 +288,7 @@ public class Manhunt extends JavaPlugin {
                 // Load the language specified
                 InputStream languageStream = getResource("language-" + languageSpecified + ".properties");
                 if(languageStream == null) languageStream = getResource("language.properties");
+                assert languageStream != null;
                 langReader = new InputStreamReader(languageStream);
             }
 

@@ -24,6 +24,8 @@ import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
@@ -94,9 +96,13 @@ public class GameManager {
                 // Is a runnable
                 try {
                     BukkitRunnable runnable = (BukkitRunnable) scenario.getConstructor().newInstance(); //create a new BukkitRunnable object from the scenario's class
+
+                    ScenarioConfigurable scen = (ScenarioConfigurable) scenario.getConstructor().newInstance();
+                    RunnableRequiredConfig config = (RunnableRequiredConfig) scen.getConfig();
+
                     runnable.runTaskTimer(Manhunt.getInstance(),
-                            Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L,
-                            Manhunt.getInstance().getConfig().getInt("scenarios." + scenarioType + ".time", 300) * 20L
+                            config.getTime() * 20L,
+                            config.getTime() * 20L
                     );
                     enabledRunnables.add(runnable);
                 } catch (Exception e) {

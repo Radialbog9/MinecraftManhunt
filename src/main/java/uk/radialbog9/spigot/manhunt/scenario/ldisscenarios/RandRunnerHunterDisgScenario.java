@@ -7,6 +7,7 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.ldisscenarios;
 
+import lombok.Getter;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
@@ -14,14 +15,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.*;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario("RUNNER_RANDOM_HUNTER_DISGUISE")
 @ScenarioRunnable
 @SuppressWarnings({"unused"})
-public class RandRunnerHunterDisgScenario extends BukkitRunnable {
+public class RandRunnerHunterDisgScenario extends BukkitRunnable implements ScenarioConfigurable {
     @Override
     public void run() {
         if(DependencySupport.isLibsDisguisesEnabled() &&
@@ -36,5 +40,19 @@ public class RandRunnerHunterDisgScenario extends BukkitRunnable {
         } else {
             this.cancel();
         }
+    }
+
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+        @Getter
+        private int time = 300;
+    }
+
+    @Getter
+    private Config config = new Config();
+
+
+    @Override
+    public void setConfig(ScenarioConfiguration config) {
+        this.config = (Config) config;
     }
 }

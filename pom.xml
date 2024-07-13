@@ -120,6 +120,12 @@
             <artifactId>configlib-yaml</artifactId>
             <version>4.5.0</version>
         </dependency>
+        <!-- GSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -167,7 +173,9 @@
                             <include>org.bstats:bstats-*</include>
                             <include>cloud.commandframework:cloud-*</include>
                             <include>io.leangen.geantyref:geantyref</include>
-                            <include>de.exlll:configlib-yaml</include>
+                            <include>de.exlll:configlib-*</include>
+                            <include>org.snakeyaml:snakeyaml-*</include>
+                            <include>com.google.code.gson:gson</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -196,7 +204,13 @@
                             </excludes>
                         </filter>
                         <filter>
-                            <artifact>de.exlll:configlib-yaml</artifact>
+                            <artifact>de.exlll:configlib-*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>com.google.code.gson:gson</artifact>
                             <excludes>
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
@@ -222,6 +236,14 @@
                         <relocation>
                             <pattern>de.exlll.configlib</pattern>
                             <shadedPattern>uk.radialbog9.spigot.manhunt.lib.configlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google.gson</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.gson</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.snakeyaml.engine</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.snakeyaml</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

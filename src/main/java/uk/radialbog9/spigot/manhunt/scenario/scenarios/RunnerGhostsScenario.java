@@ -7,6 +7,7 @@
 
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +22,10 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
 
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ import java.util.List;
 @Scenario("RUNNER_GHOSTS")
 @ScenarioRunnable
 @SuppressWarnings("unused")
-public class RunnerGhostsScenario extends BukkitRunnable implements Listener {
+public class RunnerGhostsScenario extends BukkitRunnable implements Listener, ScenarioConfigurable {
     private final List<Player> invisibleRunners = new ArrayList<>();
 
     private class RevealTask extends BukkitRunnable {
@@ -56,7 +60,7 @@ public class RunnerGhostsScenario extends BukkitRunnable implements Listener {
         if(ScenarioUtils.isScenarioEnabled(this)) {
             List<Player> hunters = GameManager.getGame().getHunters();
 
-            int durationTicks = 20 * Manhunt.getInstance().getConfig().getInt("scenarios.RUNNER_GHOSTS.duration");
+            int durationTicks = 20 * getConfig().getDuration();
 
             for (Player p : GameManager.getGame().getRunners()) {
                 // Make the runner invisible
@@ -136,5 +140,23 @@ public class RunnerGhostsScenario extends BukkitRunnable implements Listener {
                 }
             }
         }
+    }
+
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+        @Getter
+        private int time = 400;
+
+        @Getter
+        private int duration = 15;
+
+    }
+
+    @Getter
+    private Config config = new Config();
+
+
+    @Override
+    public void setConfig(ScenarioConfiguration config) {
+        this.config = (Config) config;
     }
 }

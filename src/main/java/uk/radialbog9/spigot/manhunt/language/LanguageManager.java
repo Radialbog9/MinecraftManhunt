@@ -8,6 +8,7 @@
 package uk.radialbog9.spigot.manhunt.language;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class LanguageManager {
@@ -45,7 +46,7 @@ public class LanguageManager {
         );
     }
 
-    public void loadLanguage(HashMap<String, String> languageProperties) {
+    public void loadLanguage(Map<String, String> languageProperties) {
         language.putAll(languageProperties);
     }
 
