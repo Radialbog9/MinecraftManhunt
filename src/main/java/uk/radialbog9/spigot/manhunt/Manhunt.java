@@ -251,8 +251,6 @@ public class Manhunt extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        // Save config
-        // saveConfig();
         // Save player data
         for(Player p : Bukkit.getOnlinePlayers()) {
             DataUtils.getPlayerData(p).save();
