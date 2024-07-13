@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020-2023 Radialbog9/TheJoeCoder and contributors.
+  ~ Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
   ~ You are allowed to use this code under the GPL3 license, which allows
   ~ commercial use, distribution, modification, and licensed works,
   ~ providing that you distribute your code under the same or similar license.
@@ -114,6 +114,18 @@
             <version>1.8.4</version>
             <scope>compile</scope>
         </dependency>
+        <!-- ConfigLib -->
+        <dependency>
+            <groupId>de.exlll</groupId>
+            <artifactId>configlib-yaml</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+        <!-- GSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -161,6 +173,9 @@
                             <include>org.bstats:bstats-*</include>
                             <include>cloud.commandframework:cloud-*</include>
                             <include>io.leangen.geantyref:geantyref</include>
+                            <include>de.exlll:configlib-*</include>
+                            <include>org.snakeyaml:snakeyaml-*</include>
+                            <include>com.google.code.gson:gson</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -188,6 +203,18 @@
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
                         </filter>
+                        <filter>
+                            <artifact>de.exlll:configlib-*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>com.google.code.gson:gson</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
                     </filters>
                     <relocations>
                         <relocation>
@@ -200,11 +227,23 @@
                         </relocation>
                         <relocation>
                             <pattern>cloud.commandframework</pattern>
-                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.cloud</shadedPattern> <!-- Replace this -->
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.cloud</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>io.leangen.geantyref</pattern>
-                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.typetoken</shadedPattern> <!-- Replace this -->
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.typetoken</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.exlll.configlib</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.configlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google.gson</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.gson</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.snakeyaml.engine</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.snakeyaml</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
+ * You are allowed to use this code under the GPL3 license, which allows
+ * commercial use, distribution, modification, and licensed works,
+ * providing that you distribute your code under the same or similar license.
+ */
+
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
 import org.bukkit.entity.Player;
@@ -5,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.template.PotionScenarioTemplate;
+import uk.radialbog9.spigot.manhunt.scenario.template.PotionScenarioTemplate;
 
 import java.util.List;
 

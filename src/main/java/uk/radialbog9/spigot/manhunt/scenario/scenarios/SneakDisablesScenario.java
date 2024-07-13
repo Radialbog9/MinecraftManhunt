@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
+ * You are allowed to use this code under the GPL3 license, which allows
+ * commercial use, distribution, modification, and licensed works,
+ * providing that you distribute your code under the same or similar license.
+ */
+
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
 import org.bukkit.event.EventHandler;
@@ -9,12 +16,16 @@ import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
+import lombok.Getter;
 
 @Scenario("SNEAK_DISABLES")
 @ScenarioRunnable
 @ScenarioListener
-public class SneakDisablesScenario extends BukkitRunnable implements Listener {
+public class SneakDisablesScenario extends BukkitRunnable implements Listener, ScenarioConfigurable {
     private boolean disableSneak = false;
 
     class SneakReEnable extends BukkitRunnable {
@@ -34,9 +45,7 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener {
             new SneakReEnable()
                     .runTaskLater(
                             Manhunt.getInstance(),
-                            Manhunt.getInstance().getConfig().getInt(
-                                    "scenarios.SNEAK_DISABLES.duration"
-                            ) * 20L // 20 tps
+                            getConfig().getDuration() * 20L // 20 tps
                     );
         }
     }
@@ -51,5 +60,22 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener {
             // Player is trying to sneak and shouldn't be able to, cancel it
             e.setCancelled(true);
         }
+    }
+
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+        @Getter
+        private int time = 150;
+
+        @Getter
+        private int duration = 5;
+    }
+
+    @Getter
+    private Config config = new Config();
+
+
+    @Override
+    public void setConfig(ScenarioConfiguration config) {
+        this.config = (Config) config;
     }
 }

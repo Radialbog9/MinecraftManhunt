@@ -5,9 +5,8 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.game;
+package uk.radialbog9.spigot.manhunt.scenario.config;
 
-@SuppressWarnings("unused")
-public enum Objective {
-    DEFEAT_ENDER_DRAGON, SURVIVE
+public interface RunnableRequiredConfig {
+    int getTime();
 }

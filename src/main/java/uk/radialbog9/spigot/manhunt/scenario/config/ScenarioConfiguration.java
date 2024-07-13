@@ -5,9 +5,10 @@
  * providing that you distribute your code under the same or similar license.
  */
 
-package uk.radialbog9.spigot.manhunt.game;
+package uk.radialbog9.spigot.manhunt.scenario.config;
 
-@SuppressWarnings("unused")
-public enum Objective {
-    DEFEAT_ENDER_DRAGON, SURVIVE
-}
+/**
+ * Configuration class for scenarios.
+ * This class is empty because it is only used to extend by classes.
+ */
+public class ScenarioConfiguration {}

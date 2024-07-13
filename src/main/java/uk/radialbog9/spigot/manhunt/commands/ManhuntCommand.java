@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2023 Radialbog9/TheJoeCoder and contributors.
+ * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows
  * commercial use, distribution, modification, and licensed works,
  * providing that you distribute your code under the same or similar license.
@@ -20,6 +20,7 @@ import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioMenu;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.game.GameEndCause;
@@ -97,27 +98,62 @@ public class ManhuntCommand {
                     "/manhunt scenarios",
                     LanguageTranslator.translate("help.scenarios")
             ));
+        if (sender.hasPermission("manhunt.reload")) {
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/manhunt reload",
+                    LanguageTranslator.translate("help.reload")
+            ));
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/manhunt saveconfig",
+                    LanguageTranslator.translate("help.saveconfig")
+            ));
+        }
         if (sender.hasPermission("manhunt.spectate"))
             sender.sendMessage(LanguageTranslator.translate(
                     "help-format",
                     "/spectate " + LanguageTranslator.translate("player-placeholder"),
                     LanguageTranslator.translate("help.spectate")
             ));
-        if (sender.hasPermission("manhunt.reload"))
+        if (sender.hasPermission("manhunt.leaderboard")) {
             sender.sendMessage(LanguageTranslator.translate(
                     "help-format",
-                    "/manhunt reload ",
-                    LanguageTranslator.translate("help.reload")
+                    "/leaderboard",
+                    LanguageTranslator.translate("help.leaderboard")
             ));
+            sender.sendMessage(LanguageTranslator.translate(
+                    "help-format",
+                    "/leaderboard " + LanguageTranslator.translate("player-placeholder"),
+                    LanguageTranslator.translate("help.leaderboard.player")
+            ));
+        }
+
     }
 
     @CommandMethod("manhunt reload")
     @CommandPermission("manhunt.reload")
     public void mReload(@NotNull CommandSender sender) {
-        //reload the config
-        Manhunt.getInstance().reloadConfig();
+        // Check if game is started
+        if (GameManager.getGame().isGameStarted()) {
+            sender.sendMessage(LanguageTranslator.translate("no-reload-ingame"));
+            return;
+        }
+        // Reload the config
+        Manhunt.getInstance().reloadManhuntConfig();
+        // Reload scenarios config
+        ScenarioUtils.loadConfigAllScenarios();
+        // Reload the language
         Manhunt.getInstance().loadLanguage();
         sender.sendMessage(LanguageTranslator.translate("reload-successful"));
+    }
+
+    @CommandMethod("manhunt saveconfig")
+    @CommandPermission("manhunt.reload")
+    public void mSaveConfig(@NotNull CommandSender sender) {
+        //save the config
+        Manhunt.getInstance().saveManhuntConfig();
+        sender.sendMessage(LanguageTranslator.translate("save-successful"));
     }
 
     @CommandMethod("manhunt hunter <player>")

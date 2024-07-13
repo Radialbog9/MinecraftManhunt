@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2023 Radialbog9/TheJoeCoder and contributors.
+ * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows
  * commercial use, distribution, modification, and licensed works,
  * providing that you distribute your code under the same or similar license.
@@ -170,11 +170,11 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void noGamePlayerJoinEvent(PlayerJoinEvent e) {
-        if(!GameManager.getGame().isGameStarted() && Manhunt.getInstance().getConfig().getBoolean("join-message.enabled")) {
+        if(!GameManager.getGame().isGameStarted() && Manhunt.getInstance().getManhuntConfiguration().joinMessages.enabled()) {
             if(e.getPlayer().hasPermission("manhunt.admin")) {
-               e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("join-message.perm")));
+               e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getManhuntConfiguration().joinMessages.permission()));
             } else {
-                e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getConfig().getString("join-message.noperm")));
+                e.getPlayer().sendMessage(Utils.getMsgColor(Manhunt.getInstance().getManhuntConfiguration().joinMessages.noPermission()));
             }
         }
     }

@@ -1,11 +1,18 @@
-package uk.radialbog9.spigot.manhunt.scenario.utils.template;
+/*
+ * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
+ * You are allowed to use this code under the GPL3 license, which allows
+ * commercial use, distribution, modification, and licensed works,
+ * providing that you distribute your code under the same or similar license.
+ */
+
+package uk.radialbog9.spigot.manhunt.scenario.template;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import uk.radialbog9.spigot.manhunt.scenario.utils.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 
 import java.util.List;
 
