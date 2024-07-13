@@ -215,6 +215,12 @@
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
                         </filter>
+                        <filter>
+                            <artifact>org.snakeyaml:snakeyaml-*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
                     </filters>
                     <relocations>
                         <relocation>
