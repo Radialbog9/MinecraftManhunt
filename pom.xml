@@ -237,6 +237,14 @@
                             <pattern>de.exlll.configlib</pattern>
                             <shadedPattern>uk.radialbog9.spigot.manhunt.lib.configlib</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>com.google.gson</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.gson</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.snakeyaml.engine</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.snakeyaml</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
