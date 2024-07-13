@@ -20,6 +20,7 @@ import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioMenu;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.game.GameEndCause;
@@ -133,8 +134,16 @@ public class ManhuntCommand {
     @CommandMethod("manhunt reload")
     @CommandPermission("manhunt.reload")
     public void mReload(@NotNull CommandSender sender) {
-        //reload the config
+        // Check if game is started
+        if (GameManager.getGame().isGameStarted()) {
+            sender.sendMessage(LanguageTranslator.translate("no-reload-ingame"));
+            return;
+        }
+        // Reload the config
         Manhunt.getInstance().reloadManhuntConfig();
+        // Reload scenarios config
+        ScenarioUtils.loadConfigAllScenarios();
+        // Reload the language
         Manhunt.getInstance().loadLanguage();
         sender.sendMessage(LanguageTranslator.translate("reload-successful"));
     }
