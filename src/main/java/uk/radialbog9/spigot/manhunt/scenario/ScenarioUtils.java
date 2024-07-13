@@ -7,11 +7,14 @@
 
 package uk.radialbog9.spigot.manhunt.scenario;
 
+import com.google.gson.Gson;
+import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 public class ScenarioUtils {
     /**
@@ -25,32 +28,36 @@ public class ScenarioUtils {
     }
 
     public static String toConfig(ScenarioConfiguration config) {
-        Method[] methods = config.getClass().getDeclaredMethods();
-        StringBuilder builder = new StringBuilder();
-        for(Method method : methods) {
-            if(method.getName().startsWith("get")) {
-                try {
-                    builder.append(method.getName().substring(3)).append(":").append(method.invoke(config));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return builder.toString();
+        Gson gson = new Gson();
+        return gson.toJson(config);
     }
 
-    public static ScenarioConfiguration fromConfig(String config, ScenarioConfiguration instance) {
-        String[] lines = config.split(";");
-        for(String line : lines) {
-            String[] parts = line.split(":");
+    public static ScenarioConfiguration fromConfig(String config, Class<? extends ScenarioConfiguration> clazz) {
+        return new Gson().fromJson(config, clazz);
+    }
+
+    public static void loadConfigFromScenario(String scenarioName, Class<?> scenarioClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        if (Arrays.asList(scenarioClass.getInterfaces()).contains(ScenarioConfigurable.class)) {
+            ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) scenarioClass.getDeclaredConstructor().newInstance();
+            String configJson = Manhunt.getInstance().getManhuntConfiguration().scenarios.get(scenarioName);
+            ScenarioConfiguration config = ScenarioUtils.fromConfig(configJson, scenarioConfigurable.getConfig().getClass());
+            if(config != null) {
+                // Set the config if it exists
+                scenarioConfigurable.setConfig(config);
+            } else {
+                Manhunt.getInstance().getManhuntConfiguration().scenarios.put(scenarioName, ScenarioUtils.toConfig(scenarioConfigurable.getConfig()));
+            }
+            scenarioConfigurable.setConfig(config);
+        }
+    }
+
+    public static void loadConfigAllScenarios() {
+        for (String scenarioName : Manhunt.getScenarioLoader().getAvailableScenarios().keySet()) {
             try {
-                Field field = instance.getClass().getField(parts[0]);
-                field.setAccessible(true);
-                field.set(instance, parts[1]);
-            } catch (Exception e) {
+                ScenarioUtils.loadConfigFromScenario(scenarioName, Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioName));
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
-        return instance;
     }
 }

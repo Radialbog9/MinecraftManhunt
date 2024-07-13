@@ -9,14 +9,11 @@ package uk.radialbog9.spigot.manhunt.scenario;
 
 import lombok.Getter;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
-import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -33,23 +30,10 @@ public class ScenarioLoader {
             //If check is fine then add to the list of available scenarios
             availableScenarios.put(annotation.value(), cla);
             // Set the config for the scenario
-            if(Arrays.asList(cla.getInterfaces()).contains(ScenarioConfigurable.class)) {
-                try {
-                    ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) cla.getDeclaredConstructor().newInstance();
-                    ScenarioConfiguration config = Manhunt.getInstance().getManhuntConfiguration().scenarios.get(annotation.value());
-                    if(config != null) {
-                        // Set the config if it exists
-                        scenarioConfigurable.setConfig(config);
-                    } else {
-                        Manhunt.getInstance().getManhuntConfiguration().scenarios.put(annotation.value(), scenarioConfigurable.getConfig());
-                    }
-                    scenarioConfigurable.setConfig(config);
-                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-                    Manhunt.getInstance().getLogger().severe("Failed to set config for scenario " + cla.getSimpleName());
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                ScenarioUtils.loadConfigFromScenario(annotation.value(), cla);
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
             }
         }
     }

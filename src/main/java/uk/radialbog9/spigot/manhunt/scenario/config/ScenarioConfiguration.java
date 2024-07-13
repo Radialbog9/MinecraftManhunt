@@ -13,7 +13,4 @@ import de.exlll.configlib.Configuration;
  * Configuration class for scenarios.
  * This class is empty because it is only used to extend by classes.
  */
-@Configuration
-public class ScenarioConfiguration {
-    private String unused = "";
-}
+public class ScenarioConfiguration {}

@@ -112,7 +112,7 @@ public class Manhunt extends JavaPlugin {
         public int surviveGameLength = 600;
 
         @Comment("Scenario configuration")
-        public Map<String, ScenarioConfiguration> scenarios = new HashMap<>();
+        public Map<String, String> scenarios = new HashMap<>();
 
         @Comment("Join messages configuration")
         public JoinMessages joinMessages = new JoinMessages(
