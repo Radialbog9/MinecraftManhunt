@@ -158,6 +158,7 @@ public class Manhunt extends JavaPlugin {
         // Set instance
         instance = this;
 
+        boolean requireSaveAfterLoad = true;
         // Enable config
         YamlConfigurationProperties props = YamlConfigurationProperties.newBuilder().build();
         store = new YamlConfigurationStore<>(ManhuntConfiguration.class, props);
@@ -165,6 +166,7 @@ public class Manhunt extends JavaPlugin {
         configFile = new File(getDataFolder(), "config.yml");
         if(configFile.exists()) {
             manhuntConfiguration = store.load(configFile.toPath());
+            requireSaveAfterLoad = false;
         }
         store.save(manhuntConfiguration, configFile.toPath());
 
@@ -241,6 +243,10 @@ public class Manhunt extends JavaPlugin {
                 .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
                 .checkEveryXHours(6)
                 .checkNow();
+
+        // Save if required
+        if(requireSaveAfterLoad) saveManhuntConfig();
+
         // Log start message to console
         getLogger().log(Level.INFO, Utils.getMsgColor("Manhunt has been enabled!"));
     }
