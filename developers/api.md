@@ -94,3 +94,20 @@ Manhunt.getScenarioLoader().loadScenariosFromPackage(
                 "me.yourname.yourplugin.scenarios");
 ```
 
+To register language, create either a Map\<String, String> of your language keys and values, or load into a Properties class, then call the `Manhunt.getLanguage().loadLanguage()` method as below:
+
+<pre class="language-java"><code class="lang-java"><strong>// From a properties file
+</strong><strong>File customFile = new File(getDataFolder(), "language.properties");
+</strong>if(!customFile.exists()) saveResource("language.properties", false);
+<strong>Reader langReader = new FileReader(customFile);
+</strong><strong>
+</strong><strong>Properties customLanguage = new Properties();
+</strong><strong>customLanguage.load(langReader);
+</strong><strong>
+</strong><strong>Manhunt.getLanguage().loadLanguage(customLanguage);
+</strong><strong>
+</strong><strong>// From a Map
+</strong><strong>Map&#x3C;String, String> languageMap = new HashMap&#x3C;>();
+</strong><strong>// TODO load language keys here
+</strong>Manhunt.getLanguage().loadLanguage(languageMap);
+</code></pre>
