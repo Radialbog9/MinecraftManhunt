@@ -47,9 +47,6 @@ public class SwapRolesScenario extends BukkitRunnable implements ScenarioConfigu
     private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
         @Getter
         private int time = 300;
-
-        @Getter
-        private int duration = 5;
     }
 
     @Getter
