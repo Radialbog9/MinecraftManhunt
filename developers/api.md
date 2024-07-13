@@ -31,7 +31,28 @@ Adding custom scenarios is quite easy. Create a package for your scenarios, then
 ```java
 @Scenario("MYPLUGIN_SOME_SCENARIO")
 @ScenarioRunnable
-public class SomeScenario extends BukkitRunnable {
+public class SomeScenario extends BukkitRunnable implements ScenarioConfigurable {
+    private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
+        private int time = 300;
+        
+        public int getTime() {
+            // Or use Lombok's @Getter
+            return time;
+        }
+    }
+    
+    private Config config = new Config();
+    
+    @Override
+    public ScenarioConfiguration getConfig() {
+        return this.config;
+    }
+
+    @Override
+    public void setConfig(ScenarioConfiguration config) {
+        this.config = (Config) config;
+    }
+    
     @Override
     public void run() {
         if(ScenarioUtils.isScenarioEnabled(this)) {
@@ -60,7 +81,8 @@ public class OtherScenario implements Listener {
 In the classes above, you'll also notice two other things.
 
 * Each class is also annotated with either `@ScenarioRunnable` or `@ScenarioListener`. This tells Manhunt whether to register this as a runnable or as an event listener. Both can be used at once.
-* Each run or event handler method also has an if statement with `ScenarioUtils.isScenarioEnabled(this)` in. This is a helper method to check if the game is started and if your scenario is enabled. While this isn't strictly required for&#x20;
+* Each run or event handler method also has an if statement with `ScenarioUtils.isScenarioEnabled(this)` in. This is a helper method to check if the game is started and if your scenario is enabled. While this isn't strictly required for runnables since they are cancelled when the game ends, it's still good practice to check and is required for listeners since they can't be unregistered.
+* Config is registered as a subclass of your scenario class. If you have a configuration for your scenario (and you must have for runnable scenario), your scenario must also implement `ScenarioConfigurable`. It should extend `ScenarioConfiguration` and, if it is a runnable, implement `RunnableRequiredConfig`.
 
 The scenario name in the annotation does not need to be the same as the class name. It is recommended to begin with your plugin's name as to not conflict with any other scenario. This is the scenario name which will be used in the config and for the language entry.
 
@@ -72,6 +94,3 @@ Manhunt.getScenarioLoader().loadScenariosFromPackage(
                 "me.yourname.yourplugin.scenarios");
 ```
 
-There is currently no way to register your config options or language - there will be in the future.
-
-The config path used for the time between runnables is `scenarios.SCENARIO_NAME.time`.
