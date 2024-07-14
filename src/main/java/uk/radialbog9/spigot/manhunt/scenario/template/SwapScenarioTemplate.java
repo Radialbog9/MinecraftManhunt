@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class SwapScenarioTemplate extends BukkitRunnable {
     /**
-     * Swaps the players between the two groups
+     * Swaps player 1 with player 2
      * @param player1 The first player
      * @param player2 The second player
      */
