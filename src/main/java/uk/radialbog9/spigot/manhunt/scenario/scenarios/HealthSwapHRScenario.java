@@ -37,7 +37,11 @@ public class HealthSwapHRScenario extends SwapDualGroupScenarioTemplate implemen
 
     @Override
     public void swap(Player player1, Player player2) {
+        double player1Health = player1.getHealth();
+        double player2Health = player2.getHealth();
 
+        player1.setHealth(player2Health);
+        player2.setHealth(player1Health);
     }
 
     @Override
