@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class SwapDualGroupScenarioTemplate extends BukkitRunnable {
     /**
-     * Swaps the players between the two groups
+     * Swaps player 1 with player 2
      * @param player1 Player 1 (e.g. runner)
      * @param player2 Player 2 (e.g. hunter)
      */
