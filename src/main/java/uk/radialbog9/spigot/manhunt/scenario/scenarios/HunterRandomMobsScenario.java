@@ -45,12 +45,6 @@ public class HunterRandomMobsScenario extends BukkitRunnable implements Scenario
     private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
         @Getter
         private int time = 260;
-
-        @Getter
-        private int duration = 5;
-
-        @Getter
-        private int amplifier = 1;
     }
 
     @Getter
