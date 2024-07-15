@@ -29,6 +29,8 @@ public class GameTimerRunnable extends BukkitRunnable {
                 return;
             }
             displayTimer();
+        } else {
+            this.cancel();
         }
     }
 

@@ -192,10 +192,7 @@ public class GameManager {
         }
         enabledRunnables.clear();
 
-        if(!gameTimerRunnable.isCancelled()) {
-            gameTimerRunnable.cancel();
-            gameTimerRunnable = new GameTimerRunnable();
-        }
+        gameTimerRunnable = new GameTimerRunnable();
 
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
 
