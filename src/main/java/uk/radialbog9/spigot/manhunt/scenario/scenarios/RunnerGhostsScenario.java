@@ -102,13 +102,9 @@ public class RunnerGhostsScenario extends BukkitRunnable implements Listener, Sc
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if(ScenarioUtils.isScenarioEnabled(this)) {
-            System.out.println("Block break event");
             Player p = e.getPlayer();
             if(invisibleRunners.contains(p)) {
-                System.out.println("Cancelled block break");
                 e.setCancelled(true);
-            } else {
-                System.out.println("Block break allowed");
             }
         }
     }
