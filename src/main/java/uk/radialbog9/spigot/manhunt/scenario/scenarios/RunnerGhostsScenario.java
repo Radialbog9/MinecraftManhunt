@@ -21,6 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
@@ -55,6 +56,9 @@ public class RunnerGhostsScenario extends BukkitRunnable implements Listener, Sc
             hunters.forEach(hunter ->
                     hunter.showPlayer(Manhunt.getInstance(), p)
             );
+
+            // Send message
+            p.sendMessage(LanguageTranslator.translate("scenario.SWAP_ROLES.ghost-disabled"));
         }
     }
 
@@ -88,6 +92,9 @@ public class RunnerGhostsScenario extends BukkitRunnable implements Listener, Sc
                 // Schedule the runner to be revealed after the duration
                 new RevealTask(p, hunters)
                         .runTaskLater(Manhunt.getInstance(), durationTicks);
+
+                // Send message
+                p.sendMessage(LanguageTranslator.translate("scenario.SWAP_ROLES.ghost-enabled"));
             }
         }
     }
