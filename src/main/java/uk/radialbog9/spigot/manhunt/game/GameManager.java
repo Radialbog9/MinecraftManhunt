@@ -40,7 +40,7 @@ public class GameManager {
 
     private static final ArrayList<BukkitRunnable> enabledRunnables = new ArrayList<>();
 
-    private static final  BukkitRunnable gameTimerRunnable = new GameTimerRunnable();
+    private static BukkitRunnable gameTimerRunnable = new GameTimerRunnable();
 
     public static void startGame() {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
@@ -192,8 +192,9 @@ public class GameManager {
         }
         enabledRunnables.clear();
 
-        if(game.getGameObjective() == Objective.SURVIVE) {
+        if(!gameTimerRunnable.isCancelled()) {
             gameTimerRunnable.cancel();
+            gameTimerRunnable = new GameTimerRunnable();
         }
 
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
