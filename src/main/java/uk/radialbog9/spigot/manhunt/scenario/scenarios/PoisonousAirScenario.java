@@ -56,10 +56,10 @@ public class PoisonousAirScenario extends BukkitRunnable implements ScenarioConf
 
     private static class Config extends ScenarioConfiguration implements RunnableRequiredConfig {
         @Getter
-        private int time = 260;
+        private int time = 1;
 
         @Getter
-        private int duration = 5;
+        private int duration = 1;
 
         @Getter
         private int amplifier = 1;
