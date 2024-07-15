@@ -15,6 +15,7 @@ import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.logging.Level;
 
 public class ScenarioUtils {
     /**
@@ -62,7 +63,8 @@ public class ScenarioUtils {
             try {
                 ScenarioUtils.loadConfigFromScenario(scenarioName, Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioName));
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+                Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't load scenario " + scenarioName + " configuration because the class wouldn't load!");
+                Manhunt.getInstance().getLogger().log(Level.WARNING, e.getMessage());
             }
         }
     }
