@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.game.GameEndCause;
@@ -155,7 +156,9 @@ public class ManhuntEventHandler implements Listener {
      */
     @EventHandler
     public void enderDragonDeathEvent(EntityDeathEvent e) {
-        if (GameManager.getGame().isGameStarted()) {
+        if (GameManager.getGame().isGameStarted()
+                && GameManager.getGame().getGameObjective() == Objective.DEFEAT_ENDER_DRAGON
+        ) {
             //game is running, check for ender dragon death
             if(e.getEntityType() == EntityType.ENDER_DRAGON) {
                 //If so broadcast event
