@@ -14,6 +14,7 @@ import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.*;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
@@ -35,7 +36,10 @@ public class RandRunnerHunterDisgScenario extends BukkitRunnable implements Scen
                 Player randplayer = (Player) GameManager.getGame().getHunters().toArray()[Utils.getRandomInt(0, GameManager.getGame().getHunters().size() - 1)];
                 Disguise disguise = new PlayerDisguise(randplayer);
                 DisguiseAPI.disguiseEntity(p, disguise);
-                p.sendMessage("You are now disguised as " + randplayer.getDisplayName());
+                p.sendMessage(LanguageTranslator.translate(
+                        "disguise.disguised-player",
+                        randplayer.getDisplayName()
+                ));
             }
         } else {
             this.cancel();

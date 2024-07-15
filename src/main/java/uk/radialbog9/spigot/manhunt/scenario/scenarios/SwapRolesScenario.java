@@ -11,12 +11,14 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class SwapRolesScenario extends BukkitRunnable implements ScenarioConfigu
     @Override
     public void run() {
         if(ScenarioUtils.isScenarioEnabled(this)) {
+            // Announce the swap
+            Utils.broadcastServerMessage(LanguageTranslator.translate("scenario.SWAP_ROLES.announce"));
+
             // Create a copy of the hunters and runners list
             List<Player> hunters = new ArrayList<>(GameManager.getGame().getHunters());
             List<Player> runners = new ArrayList<>(GameManager.getGame().getRunners());
@@ -35,12 +40,15 @@ public class SwapRolesScenario extends BukkitRunnable implements ScenarioConfigu
             hunters.forEach(player -> {
                 GameManager.getGame().getHunters().remove(player);
                 GameManager.getGame().getRunners().add(player);
+                player.sendMessage(LanguageTranslator.translate("scenario.SWAP_ROLES.now-runner"));
             });
 
             runners.forEach(player -> {
                 GameManager.getGame().getRunners().remove(player);
                 GameManager.getGame().getHunters().add(player);
+                player.sendMessage(LanguageTranslator.translate("scenario.SWAP_ROLES.now-hunter"));
             });
+
         }
     }
 

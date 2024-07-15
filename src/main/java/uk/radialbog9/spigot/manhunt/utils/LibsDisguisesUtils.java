@@ -12,6 +12,7 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 import org.bukkit.entity.Player;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 
 public class LibsDisguisesUtils {
     public static void disguisePlayerRandomMob(Player p) {
@@ -24,6 +25,9 @@ public class LibsDisguisesUtils {
         }
         Disguise disguise = new MobDisguise(disguisetype);
         DisguiseAPI.disguiseEntity(p, disguise);
-        p.sendMessage("You are now a " + disguisetype.toReadable());
+        p.sendMessage(LanguageTranslator.translate(
+                "disguise.disguised-mob",
+                disguisetype.toReadable()
+        ));
     }
 }
