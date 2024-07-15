@@ -24,6 +24,7 @@ import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
@@ -32,6 +33,7 @@ import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 
 public class GameManager {
@@ -81,23 +83,21 @@ public class GameManager {
         // Scenarios
         ArrayList<String> scenarios = game.getActiveScenarios();
         for (String scenarioType : scenarios) {
-            Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
-            if (scenario.getAnnotation(ScenarioListener.class) != null) {
-                // Is a listener
-                try {
-                    Listener scenariolistener = (Listener) scenario.getConstructor().newInstance(); //create a new class instance as a listener
-                    Manhunt.getInstance().getServer().getPluginManager().registerEvents(scenariolistener, Manhunt.getInstance());
-                } catch (Exception e) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the listener wouldn't load!");
-                    e.printStackTrace();
-                }
-            }
-            if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
-                // Is a runnable
-                try {
-                    BukkitRunnable runnable = (BukkitRunnable) scenario.getConstructor().newInstance(); //create a new BukkitRunnable object from the scenario's class
+            try {
+                Class<?> scenario = Manhunt.getScenarioLoader().getAvailableScenarios().get(scenarioType);
+                // Create new instance of scenario (loading cfg if it exists)
+                Object scenarioInstance = ScenarioUtils.getScenarioInstance(scenarioType, scenario);
 
-                    ScenarioConfigurable scen = (ScenarioConfigurable) scenario.getConstructor().newInstance();
+                if (scenario.getAnnotation(ScenarioListener.class) != null) {
+                    // Is a listener
+                    Listener scenariolistener = (Listener) scenarioInstance; //create a new class instance as a listener
+                    Manhunt.getInstance().getServer().getPluginManager().registerEvents(scenariolistener, Manhunt.getInstance());
+                }
+                if (scenario.getAnnotation(ScenarioRunnable.class) != null) {
+                    // Is a runnable
+                    BukkitRunnable runnable = (BukkitRunnable) scenarioInstance; //create a new BukkitRunnable object from the scenario's class
+
+                    ScenarioConfigurable scen = (ScenarioConfigurable) scenarioInstance;
                     RunnableRequiredConfig config = (RunnableRequiredConfig) scen.getConfig();
 
                     runnable.runTaskTimer(Manhunt.getInstance(),
@@ -105,10 +105,10 @@ public class GameManager {
                             config.getTime() * 20L
                     );
                     enabledRunnables.add(runnable);
-                } catch (Exception e) {
-                    Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenario.getSimpleName() + " because the runnable wouldn't load!");
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                Manhunt.getInstance().getLogger().log(Level.WARNING, "Can't start scenario " + scenarioType + " because the class wouldn't load!");
+                Manhunt.getInstance().getLogger().log(Level.WARNING, e.getMessage());
             }
         }
 

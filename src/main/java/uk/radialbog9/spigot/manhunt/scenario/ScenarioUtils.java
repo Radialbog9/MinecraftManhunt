@@ -37,6 +37,10 @@ public class ScenarioUtils {
     }
 
     public static void loadConfigFromScenario(String scenarioName, Class<?> scenarioClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        getScenarioInstance(scenarioName, scenarioClass);
+    }
+
+    public static Object getScenarioInstance(String scenarioName, Class<?> scenarioClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         if (Arrays.asList(scenarioClass.getInterfaces()).contains(ScenarioConfigurable.class)) {
             ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) scenarioClass.getDeclaredConstructor().newInstance();
             String configJson = Manhunt.getInstance().getManhuntConfiguration().scenarios.get(scenarioName);
@@ -48,7 +52,9 @@ public class ScenarioUtils {
                 Manhunt.getInstance().getManhuntConfiguration().scenarios.put(scenarioName, ScenarioUtils.toConfig(scenarioConfigurable.getConfig()));
             }
             scenarioConfigurable.setConfig(config);
+            return scenarioConfigurable;
         }
+        return scenarioClass.getDeclaredConstructor().newInstance();
     }
 
     public static void loadConfigAllScenarios() {
