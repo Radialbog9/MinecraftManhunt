@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -21,6 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
+import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
@@ -33,6 +35,7 @@ import java.util.List;
 
 @Scenario("RUNNER_GHOSTS")
 @ScenarioRunnable
+@ScenarioListener
 @SuppressWarnings("unused")
 public class RunnerGhostsScenario extends BukkitRunnable implements Listener, ScenarioConfigurable {
     private final List<Player> invisibleRunners = new ArrayList<>();
@@ -92,15 +95,19 @@ public class RunnerGhostsScenario extends BukkitRunnable implements Listener, Sc
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if(ScenarioUtils.isScenarioEnabled(this)) {
+            System.out.println("Block break event");
             Player p = e.getPlayer();
             if(invisibleRunners.contains(p)) {
+                System.out.println("Cancelled block break");
                 e.setCancelled(true);
+            } else {
+                System.out.println("Block break allowed");
             }
         }
     }
 
     @EventHandler
-    public void onBlockPlace(BlockBreakEvent e) {
+    public void onBlockPlace(BlockPlaceEvent e) {
         if(ScenarioUtils.isScenarioEnabled(this)) {
             Player p = e.getPlayer();
             if(invisibleRunners.contains(p)) {
