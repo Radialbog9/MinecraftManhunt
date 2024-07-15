@@ -44,6 +44,9 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener, S
             // Disable sneak
             disableSneak = true;
 
+            // Make sure players aren't sneaking
+            GameManager.getGame().getPlayers().forEach(player -> player.setSneaking(false));
+
             // Re-enable sneak after duration
             new SneakReEnable()
                     .runTaskLater(
@@ -64,6 +67,7 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener, S
         ) {
             // Player is trying to sneak and shouldn't be able to, cancel it
             e.setCancelled(true);
+            e.getPlayer().setSneaking(false);
         }
     }
 
