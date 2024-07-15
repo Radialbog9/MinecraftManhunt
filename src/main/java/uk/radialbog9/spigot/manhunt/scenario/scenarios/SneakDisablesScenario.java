@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
@@ -21,6 +22,7 @@ import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import lombok.Getter;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario("SNEAK_DISABLES")
 @ScenarioRunnable
@@ -32,6 +34,7 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener, S
         @Override
         public void run() {
             disableSneak = false;
+            Utils.broadcastServerMessage(LanguageTranslator.translate("scenario.SNEAK_DISABLES.disabled"));
         }
     }
 
@@ -47,6 +50,8 @@ public class SneakDisablesScenario extends BukkitRunnable implements Listener, S
                             Manhunt.getInstance(),
                             getConfig().getDuration() * 20L // 20 tps
                     );
+
+            Utils.broadcastServerMessage(LanguageTranslator.translate("scenario.SNEAK_DISABLES.enabled"));
         }
     }
 
