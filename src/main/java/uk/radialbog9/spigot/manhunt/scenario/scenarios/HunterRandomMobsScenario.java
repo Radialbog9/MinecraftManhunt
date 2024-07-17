@@ -29,11 +29,10 @@ public class HunterRandomMobsScenario extends BukkitRunnable implements Scenario
             // Get all entity types
             EntityType[] entities = EntityType.values();
 
-            // Pick random mob
-            EntityType chosenType = entities[Utils.getRandomInt(0, entities.length - 1)];
-
             // Loop throygh all hunters
             for (Player hunter : GameManager.getGame().getHunters()) {
+                // Pick random mob
+                EntityType chosenType = entities[Utils.getRandomInt(0, entities.length - 1)];
                 // Spawn the mob at the hunter's location
                 hunter.getWorld().spawnEntity(hunter.getLocation(), chosenType);
             }
