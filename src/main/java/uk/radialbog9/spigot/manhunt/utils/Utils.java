@@ -31,6 +31,7 @@ import java.util.jar.JarFile;
  */
 @SuppressWarnings({"unused"})
 public class Utils {
+    private static Random random = new Random();
 
     private static final String[] manhuntPermissions = {
             "manhunt.add",
@@ -145,11 +146,12 @@ public class Utils {
      * @return Random integer between min and max
      */
     public static int getRandomInt(int min, int max) {
-        if (min >= max) {
+        if (min > max) {
             throw new IllegalArgumentException("Maximum value must be greater than minimum value!");
+        } else if (min == max) {
+            return min;
         }
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+        return random.nextInt((max - min) + 1) + min;
     }
 
     /**
