@@ -9,9 +9,9 @@ package uk.radialbog9.spigot.manhunt.scenario.template;
 
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class SwapScenarioTemplate extends BukkitRunnable {
@@ -37,11 +37,14 @@ public abstract class SwapScenarioTemplate extends BukkitRunnable {
                 break;
             }
 
+            // Randomise the list
+            Collections.shuffle(candidates);
+
             // Pick the first player
             Player player1 = candidates.get(0);
 
             // Pick a random swap candidate
-            Player player2 = candidates.get(Utils.getRandomInt(1, candidates.size() - 1));
+            Player player2 = candidates.get(1);
 
             // Swap the players
             swap(player1, player2);
