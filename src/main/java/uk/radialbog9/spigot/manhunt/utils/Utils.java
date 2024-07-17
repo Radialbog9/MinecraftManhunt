@@ -14,9 +14,11 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 
 import java.io.File;
 import java.util.Enumeration;
@@ -192,5 +194,21 @@ public class Utils {
     public static boolean vanishCanSee(CommandSender viewer, Player viewed) {
         if(viewer instanceof Player && viewed != null && DependencySupport.isVanishEnabled()) return VanishAPI.canSee((Player) viewer, viewed);
         else return true;
+    }
+
+    /**
+     * Swaps the location of two players
+     * @param player1 Player 1
+     * @param player2 Player 2
+     */
+    public static void swapLocation(Player player1, Player player2) {
+        Location player1Loc = player1.getLocation().clone();
+        Location player2Loc = player2.getLocation().clone();
+
+        player1.teleport(player2Loc);
+        player2.teleport(player1Loc);
+
+        player1.sendMessage(LanguageTranslator.translate("location-swap", player2.getDisplayName()));
+        player2.sendMessage(LanguageTranslator.translate("location-swap", player1.getDisplayName()));
     }
 }
