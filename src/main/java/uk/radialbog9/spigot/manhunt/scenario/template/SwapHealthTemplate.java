@@ -8,6 +8,7 @@
 package uk.radialbog9.spigot.manhunt.scenario.template;
 
 import org.bukkit.entity.Player;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 
 public abstract class SwapHealthTemplate extends SwapScenarioTemplate {
     @Override
@@ -17,5 +18,8 @@ public abstract class SwapHealthTemplate extends SwapScenarioTemplate {
 
         player1.setHealth(Math.min(player2Health, 20)); // TODO account for attributes?
         player2.setHealth(Math.min(player1Health, 20));
+
+        player1.sendMessage(LanguageTranslator.translate("health-swap", player2.getDisplayName()));
+        player2.sendMessage(LanguageTranslator.translate("health-swap", player1.getDisplayName()));
     }
 }
