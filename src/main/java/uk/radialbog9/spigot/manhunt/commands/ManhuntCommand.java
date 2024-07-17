@@ -141,6 +141,8 @@ public class ManhuntCommand {
         }
         // Reload the config
         Manhunt.getInstance().reloadManhuntConfig();
+        // Reload the settings
+        ManhuntSettings.loadFromCfg();
         // Reload scenarios config
         ScenarioUtils.loadConfigAllScenarios();
         // Reload the language
@@ -151,6 +153,8 @@ public class ManhuntCommand {
     @CommandMethod("manhunt saveconfig")
     @CommandPermission("manhunt.reload")
     public void mSaveConfig(@NotNull CommandSender sender) {
+        // Save the settings
+        ManhuntSettings.save();
         //save the config
         Manhunt.getInstance().saveManhuntConfig();
         sender.sendMessage(LanguageTranslator.translate("save-successful"));
