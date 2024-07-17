@@ -8,10 +8,8 @@
 package uk.radialbog9.spigot.manhunt.scenario.scenarios;
 
 import lombok.Getter;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
-import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;

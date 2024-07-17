@@ -230,7 +230,7 @@ public class Manhunt extends JavaPlugin {
             areScenariosLoaded = true;
         } catch (Exception e) {
             getLogger().log(Level.WARNING, "Could not load scenarios! Scenarios will be disabled. Error:");
-            e.printStackTrace();
+            getLogger().log(Level.WARNING, e.getMessage());
             areScenariosLoaded = false;
         }
 
@@ -300,7 +300,8 @@ public class Manhunt extends JavaPlugin {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            getLogger().log(Level.WARNING, "Could not load language file! Error:");
+            getLogger().log(Level.WARNING, e.getMessage());
         }
     }
 }

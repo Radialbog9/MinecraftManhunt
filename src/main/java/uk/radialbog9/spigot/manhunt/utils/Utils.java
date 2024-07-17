@@ -18,6 +18,7 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 
 /**
  * Utilities that are used throughout the plugin
@@ -137,7 +139,7 @@ public class Utils {
      */
     public static TextComponent genTextComponentHoverOnly(@NotNull String text, @NotNull String hover) {
         TextComponent tc = new TextComponent(getMsgColor(text));
-        if(hover != null) tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
+        tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
         return tc;
     }
 
@@ -164,8 +166,7 @@ public class Utils {
      */
     public static Set<Class<?>> getClasses(File jarFile, String packageName) {
         HashSet<Class<?>> classes = new HashSet<>();
-        try {
-            JarFile file = new JarFile(jarFile);
+        try (JarFile file = new JarFile(jarFile)) {
             Enumeration<JarEntry> entry = file.entries();
             while (entry.hasMoreElements()) {
                 JarEntry jarEntry = entry.nextElement();
@@ -174,9 +175,8 @@ public class Utils {
                     continue;
                 classes.add(Class.forName(name.substring(0, name.length() - 6)));
             }
-            file.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Manhunt.getInstance().getLogger().log(Level.WARNING, "Error getting classes from jar: " + e.getMessage());
         }
         return classes;
     }
