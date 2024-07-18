@@ -10,6 +10,7 @@ package uk.radialbog9.spigot.manhunt.game;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -47,10 +48,13 @@ public class GameManager {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
         Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if(event.isCancelled()) return; // if event is cancelled by another plugin do not proceed
+        if (event.isCancelled()) return; // if event is cancelled by another plugin do not proceed
 
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(game.isRunner(p) || game.isHunter(p)) {
+        // Get the world spawn location
+        Location spawn = Bukkit.getWorlds().get(0).getSpawnLocation();
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (game.isRunner(p) || game.isHunter(p)) {
                 // HUNTERS AND RUNNERS
                 // set gamemode to survival
                 p.setGameMode(GameMode.SURVIVAL);
@@ -62,7 +66,7 @@ public class GameManager {
                 p.setExp(0);
                 p.setFoodLevel(20);
                 // TP to spawn
-                p.teleport(p.getWorld().getSpawnLocation());
+                p.teleport(spawn);
                 if(game.isHunter(p)) {
                     //give blindness and weakness for head start time
                     if(ManhuntSettings.isHeadStartEnabled()) {
