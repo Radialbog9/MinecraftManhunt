@@ -309,7 +309,9 @@ public class ManhuntCommand {
         int runnerCount = GameManager.getGame().getRunners().size();
         int spectatorCount = Bukkit.getOnlinePlayers().size() - (hunterCount + runnerCount);
 
-        //Generate player list
+        // Generate player list
+        // All hunters and runners are shown
+        // Spectators are shown if they are not in vanish
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (GameManager.getGame().isHunter(p)) {
                 if (hunters.toString().isEmpty())
@@ -320,12 +322,17 @@ public class ManhuntCommand {
                     runners.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
                 else runners.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             } else {
-                if (!Utils.vanishCanSee(sender, p)) continue;
+                if (!Utils.vanishCanSee(sender, p)) continue; // Prevent spectators from being shown if in vanish
                 if (spectators.toString().isEmpty())
                     spectators.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
                 else spectators.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             }
         }
+
+        if (hunters.toString().isEmpty()) hunters.append(LanguageTranslator.translate("none-list"));
+        if (runners.toString().isEmpty()) runners.append(LanguageTranslator.translate("none-list"));
+        if (spectators.toString().isEmpty()) spectators.append(LanguageTranslator.translate("none-list"));
+
         sender.sendMessage(GameManager.getGame().isGameStarted() ?
                 LanguageTranslator.translate("game-is-started")
                 : LanguageTranslator.translate("game-is-stopped"));
