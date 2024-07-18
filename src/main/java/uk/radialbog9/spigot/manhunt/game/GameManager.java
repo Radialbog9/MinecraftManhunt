@@ -30,6 +30,8 @@ import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
+import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
+import uk.radialbog9.spigot.manhunt.utils.LibsDisguisesUtils;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.time.LocalDateTime;
