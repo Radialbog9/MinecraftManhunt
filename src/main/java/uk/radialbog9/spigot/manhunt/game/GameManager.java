@@ -65,6 +65,8 @@ public class GameManager {
                 p.setLevel(0);
                 p.setExp(0);
                 p.setFoodLevel(20);
+                // Clear potion effects
+                p.getActivePotionEffects().forEach(potionEffect -> p.removePotionEffect(potionEffect.getType()));
                 // TP to spawn
                 p.teleport(spawn);
                 if(game.isHunter(p)) {
