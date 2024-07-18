@@ -18,6 +18,7 @@ import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.playerdata.PlayerData;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LeaderboardCommand {
@@ -26,7 +27,7 @@ public class LeaderboardCommand {
     @CommandPermission("manhunt.leaderboard")
     public void leaderboard(CommandSender sender) {
         // Get the total wins leaderboard
-        Map<OfflinePlayer, Integer> lb = Manhunt.getLeaderboard().getTotalWinsLeaderboard();
+        HashMap<OfflinePlayer, Integer> lb = Manhunt.getLeaderboard().getTotalWinsLeaderboard();
 
         // Send the leaderboard title
         sender.sendMessage(LanguageTranslator.translate("leaderboard.title"));
@@ -39,12 +40,12 @@ public class LeaderboardCommand {
 
         // Send the leaderboard entries
         int i = 1;
-        for (OfflinePlayer p : lb.keySet()) {
+        for (Map.Entry<OfflinePlayer, Integer> entry : lb.entrySet()) {
             if(i > 10) break; // Only show the top 10 players
             sender.sendMessage(LanguageTranslator.translate("leaderboard.entry",
                     String.valueOf(i), // Place
-                    p.getName(), // Player name
-                    String.valueOf(lb.get(p)) // Wins
+                    entry.getKey().getName(), // Player name
+                    String.valueOf(entry.getValue()) // Wins
             ));
             i++;
         }
@@ -55,10 +56,6 @@ public class LeaderboardCommand {
     @CommandPermission("manhunt.leaderboard")
     public void leaderboard(CommandSender sender, @Argument("player") OfflinePlayer player) {
         PlayerData pd = DataUtils.getPlayerData(player);
-        if(pd == null) {
-            sender.sendMessage(LanguageTranslator.translate("leaderboard.data-not-found", player.getName()));
-            return;
-        }
         sender.sendMessage(LanguageTranslator.translate("leaderboard.player-data",
                 player.getName() // Player name
         ));

@@ -230,7 +230,7 @@ public class Manhunt extends JavaPlugin {
             areScenariosLoaded = true;
         } catch (Exception e) {
             getLogger().log(Level.WARNING, "Could not load scenarios! Scenarios will be disabled. Error:");
-            e.printStackTrace();
+            getLogger().log(Level.WARNING, e.getMessage());
             areScenariosLoaded = false;
         }
 
@@ -272,6 +272,7 @@ public class Manhunt extends JavaPlugin {
             assert dLanguageStream != null;
             defaultLanguage.load(new InputStreamReader(dLanguageStream));
             language.loadLanguage(defaultLanguage); // Load default language to language manager
+            dLanguageStream.close();
 
             // Load custom language.properties
             Properties customLang = new Properties();
@@ -295,10 +296,12 @@ public class Manhunt extends JavaPlugin {
             if(langReader != null) {
                 customLang.load(langReader);
                 language.loadLanguage(customLang);
+                langReader.close();
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            getLogger().log(Level.WARNING, "Could not load language file! Error:");
+            getLogger().log(Level.WARNING, e.getMessage());
         }
     }
 }

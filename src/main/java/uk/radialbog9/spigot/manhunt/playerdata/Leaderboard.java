@@ -22,7 +22,7 @@ public class Leaderboard {
     {
         // Create a list from elements of HashMap
         List<Map.Entry<OfflinePlayer, Integer> > list =
-                new LinkedList<>(hm.entrySet());
+                new ArrayList<>(hm.entrySet());
 
         // Sort the list
         list.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));

@@ -11,6 +11,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ColourPlaceholders {
     @Getter
@@ -381,7 +382,8 @@ public class ColourPlaceholders {
      */
     public String replaceSymbols(@NotNull String input) {
         String str = input;
-        for (String key : placeholders.keySet()) {
+        for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+            String key = entry.getKey();
             str = str.replace("[" + key + "]", placeholders.get(key));
         }
         return str;

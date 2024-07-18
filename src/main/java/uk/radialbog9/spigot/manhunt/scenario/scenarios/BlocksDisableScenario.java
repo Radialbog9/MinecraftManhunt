@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
@@ -22,6 +23,7 @@ import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioListener;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
+import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 @Scenario("BLOCKS_DISABLES")
 @ScenarioRunnable
@@ -51,16 +53,18 @@ public class BlocksDisableScenario extends BukkitRunnable implements Listener, S
         @Override
         public void run() {
             disableBlocks = false;
+            Utils.broadcastServerMessage(LanguageTranslator.translate("scenario.BLOCKS_DISABLES.disabled"));
         }
     }
 
     @Override
     public void run() {
         if(ScenarioUtils.isScenarioEnabled(this)) {
-            // Disable sneak
+            // Disable blocks
             disableBlocks = true;
+            Utils.broadcastServerMessage(LanguageTranslator.translate("scenario.BLOCKS_DISABLES.enabled"));
 
-            // Re-enable sneak after duration
+            // Re-enable blocks after duration
             new BlocksReEnable()
                     .runTaskLater(
                             Manhunt.getInstance(),
