@@ -10,6 +10,7 @@ package uk.radialbog9.spigot.manhunt.settings;
 import lombok.Getter;
 import lombok.Setter;
 import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.game.Objective;
 
 /**
  * Basic class to store settings for Manhunt
@@ -35,6 +36,10 @@ public class ManhuntSettings {
     @Getter
     @Setter
     private static int surviveGameLength = 10 * 60;
+
+    @Getter
+    @Setter
+    private static Objective objective = Objective.DEFEAT_ENDER_DRAGON;
 
     public static void save() {
         Manhunt.ManhuntConfiguration config = Manhunt.getInstance().getManhuntConfiguration();

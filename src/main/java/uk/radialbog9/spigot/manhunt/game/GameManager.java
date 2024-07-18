@@ -57,6 +57,9 @@ public class GameManager {
 
         if (event.isCancelled()) return; // if event is cancelled by another plugin do not proceed
 
+        // Set settings
+        game.setGameObjective(ManhuntSettings.getObjective());
+
         // Get the world spawn location
         Location spawn = Bukkit.getWorlds().get(0).getSpawnLocation();
 
