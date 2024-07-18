@@ -18,7 +18,7 @@ import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 import uk.radialbog9.spigot.manhunt.playerdata.DataUtils;
 import uk.radialbog9.spigot.manhunt.playerdata.PlayerData;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class LeaderboardCommand {
     @CommandMethod("leaderboard")
@@ -26,7 +26,7 @@ public class LeaderboardCommand {
     @CommandPermission("manhunt.leaderboard")
     public void leaderboard(CommandSender sender) {
         // Get the total wins leaderboard
-        HashMap<OfflinePlayer, Integer> lb = Manhunt.getLeaderboard().getTotalWinsLeaderboard();
+        Map<OfflinePlayer, Integer> lb = Manhunt.getLeaderboard().getTotalWinsLeaderboard();
 
         // Send the leaderboard title
         sender.sendMessage(LanguageTranslator.translate("leaderboard.title"));
