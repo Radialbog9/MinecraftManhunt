@@ -299,24 +299,23 @@ public class ManhuntCommand {
         StringBuilder spectators = new StringBuilder();
         int hunterCount = GameManager.getGame().getHunters().size();
         int runnerCount = GameManager.getGame().getRunners().size();
-        int spectatorCount = 0;
+        int spectatorCount = Bukkit.getOnlinePlayers().size() - (hunterCount + runnerCount);
 
         //Generate player list
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (GameManager.getGame().isHunter(p)) {
                 if (hunters.toString().isEmpty())
-                    hunters = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                else hunters.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                    hunters.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
+                else hunters.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             } else if (GameManager.getGame().isRunner(p)) {
                 if (runners.toString().isEmpty())
-                    runners = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                else runners.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                    runners.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
+                else runners.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             } else {
                 if (!Utils.vanishCanSee(sender, p)) continue;
                 if (spectators.toString().isEmpty())
-                    spectators = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                else spectators.append(", &r&c").append(p.getDisplayName()).append("&r&a");
-                spectatorCount++;
+                    spectators.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
+                else spectators.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             }
         }
         sender.sendMessage(GameManager.getGame().isGameStarted() ?
