@@ -39,6 +39,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class GameManager {
+    private enum WinType {
+        RUNNERS,
+        HUNTERS
+    }
+
     @Getter
     private static Game game = new Game();
 
@@ -136,45 +141,54 @@ public class GameManager {
         ManhuntGameEndEvent event = new ManhuntGameEndEvent(e);
         Bukkit.getServer().getPluginManager().callEvent(event);
 
+        WinType winType = null;
+
         // check win causes, modify player data, and then end the game
         if (e == GameEndCause.ALL_RUNNERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-runners-left"));
-            for(Player p : GameManager.getGame().getHunters()) {
-                DataUtils.getPlayerData(p).addHunterWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.HUNTERS;
         }
         else if (e == GameEndCause.RUNNERS_ALL_DIE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.all-runners-dead"));
-            for(Player p : GameManager.getGame().getHunters()) {
-                DataUtils.getPlayerData(p).addHunterWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.HUNTERS;
         }
         else if (e == GameEndCause.ALL_HUNTERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-hunters-left"));
-            for(Player p : GameManager.getGame().getRunners()) {
-                DataUtils.getPlayerData(p).addRunnerWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.RUNNERS;
         }
         else if (e == GameEndCause.RUNNERS_KILL_DRAGON) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.runners-kill-ender-dragon"));
-            for(Player p : GameManager.getGame().getRunners()) {
-                DataUtils.getPlayerData(p).addRunnerWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.RUNNERS;
         }
         else if (e == GameEndCause.TIME_UP) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.time-up"));
-            for(Player p : GameManager.getGame().getRunners()) {
-                DataUtils.getPlayerData(p).addRunnerWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.RUNNERS;
         }
         else if (e == GameEndCause.ENDED_PREMATURELY) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.game-ended-prematurely"));
         }
+
+        if (winType == WinType.HUNTERS) {
+            // Hunters win, add to stats
+            for (Player p : game.getHunters()) {
+                DataUtils.getPlayerData(p).addHunterWin();
+                DataUtils.getPlayerData(p).save();
+            }
+            for (Player p : game.getRunners()) {
+                DataUtils.getPlayerData(p).addRunnerDeath();
+                DataUtils.getPlayerData(p).save();
+            }
+        } else if (winType == WinType.RUNNERS) {
+            // Runners win, add to stats
+            for (Player p : game.getRunners()) {
+                DataUtils.getPlayerData(p).addRunnerWin();
+                DataUtils.getPlayerData(p).save();
+            }
+            for (Player p : game.getHunters()) {
+                DataUtils.getPlayerData(p).addHunterLoss();
+                DataUtils.getPlayerData(p).save();
+            }
+        } // else nobody wins, no stats to add
 
         // set all players to spectator
         for (Player p : Bukkit.getOnlinePlayers()) {
