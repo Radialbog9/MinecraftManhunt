@@ -419,6 +419,18 @@ public class ManhuntCommand {
         ScenarioMenu.displayMenu((Player) sender, page);
     }
 
+    @CommandMethod("manhunt scenarios list")
+    @CommandPermission("manhunt.scenarios")
+    public void mScenarioList(@NotNull CommandSender sender) {
+        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-list"));
+        for (String scenario : Manhunt.getScenarioLoader().getAvailableScenarios().keySet()) {
+            sender.sendMessage(LanguageTranslator.translate(
+                    "scenariomenu.scenario-list-format",
+                    LanguageTranslator.translate("scenario." + scenario))
+            );
+        }
+    }
+
     @CommandMethod("manhunt scenarios toggle <scenario>")
     @CommandPermission("manhunt.scenarios")
     public void mScenarioToggle(
