@@ -191,8 +191,18 @@ public class GameManager {
         }
         enabledRunnables.clear();
 
+        // Reset game timer
         gameTimerRunnable = new GameTimerRunnable();
 
+        // Libsdiguises undisguise
+        if (DependencySupport.isLibsDisguisesEnabled()) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                // Undisguise player
+                LibsDisguisesUtils.undisguisePlayer(p);
+            }
+        }
+
+        // Broadcast game ended message
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
 
         //fully end game

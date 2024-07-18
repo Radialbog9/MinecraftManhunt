@@ -30,4 +30,9 @@ public class LibsDisguisesUtils {
                 disguisetype.toReadable()
         ));
     }
+
+    public static void undisguisePlayer(Player p) {
+        if(DisguiseAPI.isDisguised(p))
+            DisguiseAPI.undisguiseToAll(p);
+    }
 }
