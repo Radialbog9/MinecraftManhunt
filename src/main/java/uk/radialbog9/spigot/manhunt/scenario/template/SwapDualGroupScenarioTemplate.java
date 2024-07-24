@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class SwapDualGroupScenarioTemplate extends BukkitRunnable {
@@ -38,6 +39,9 @@ public abstract class SwapDualGroupScenarioTemplate extends BukkitRunnable {
     public void run() {
         List<Player> playerSet1 = getPlayerSet1();
         List<Player> playerSet2 = getPlayerSet2();
+
+        // Shuffle player set 1 to randomise the order
+        Collections.shuffle(playerSet1);
 
         List<Player> swapCandidates2 = new ArrayList<>(playerSet2);
 

@@ -25,8 +25,12 @@ public class DataUtils {
      * @return The player's config
      */
     public static PlayerData getPlayerData(OfflinePlayer p) {
-        if(!playerConfigCache.containsKey(p)) playerConfigCache.put(p, new PlayerData(p));
-        return playerConfigCache.get(p);
+        PlayerData pd = playerConfigCache.get(p);
+        if(pd == null) {
+            pd = new PlayerData(p);
+            playerConfigCache.put(p, pd);
+        }
+        return pd;
     }
 
     /**

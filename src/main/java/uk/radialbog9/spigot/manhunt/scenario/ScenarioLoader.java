@@ -33,7 +33,8 @@ public class ScenarioLoader {
             try {
                 ScenarioUtils.loadConfigFromScenario(annotation.value(), cla);
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+                Manhunt.getInstance().getLogger().severe("Failed to load config for scenario " + annotation.value());
+                Manhunt.getInstance().getLogger().severe(e.getMessage());
             }
         }
     }

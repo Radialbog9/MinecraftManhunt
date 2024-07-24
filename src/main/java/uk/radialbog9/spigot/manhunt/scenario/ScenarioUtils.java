@@ -8,13 +8,13 @@
 package uk.radialbog9.spigot.manhunt.scenario;
 
 import com.google.gson.Gson;
+import org.apache.commons.lang3.ClassUtils;
 import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.logging.Level;
 
 public class ScenarioUtils {
@@ -37,12 +37,32 @@ public class ScenarioUtils {
         return new Gson().fromJson(config, clazz);
     }
 
+    /**
+     * Loads the configuration for the scenario,
+     * the intent being to add it to the configuration file if it doesn't exist.
+     * @param scenarioName The name of the scenario
+     * @param scenarioClass The class of the scenario
+     * @throws NoSuchMethodException If the method doesn't exist
+     * @throws InvocationTargetException If the method can't be invoked
+     * @throws InstantiationException If the class can't be instantiated
+     * @throws IllegalAccessException If the class can't be accessed
+     */
     public static void loadConfigFromScenario(String scenarioName, Class<?> scenarioClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         getScenarioInstance(scenarioName, scenarioClass);
     }
 
+    /**
+     * Creates the instance of the scenario and sets the config if it exists.
+     * @param scenarioName The name of the scenario
+     * @param scenarioClass The class of the scenario
+     * @return The instance of the scenario
+     * @throws NoSuchMethodException If the method doesn't exist
+     * @throws InvocationTargetException If the method can't be invoked
+     * @throws InstantiationException If the class can't be instantiated
+     * @throws IllegalAccessException If the class can't be accessed
+     */
     public static Object getScenarioInstance(String scenarioName, Class<?> scenarioClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        if (Arrays.asList(scenarioClass.getInterfaces()).contains(ScenarioConfigurable.class)) {
+        if (ClassUtils.getAllInterfaces(scenarioClass).contains(ScenarioConfigurable.class)) {
             ScenarioConfigurable scenarioConfigurable = (ScenarioConfigurable) scenarioClass.getDeclaredConstructor().newInstance();
             String configJson = Manhunt.getInstance().getManhuntConfiguration().scenarios.get(scenarioName);
             ScenarioConfiguration config = ScenarioUtils.fromConfig(configJson, scenarioConfigurable.getConfig().getClass());
@@ -58,6 +78,9 @@ public class ScenarioUtils {
         return scenarioClass.getDeclaredConstructor().newInstance();
     }
 
+    /**
+     * Load the configuration for all scenarios
+     */
     public static void loadConfigAllScenarios() {
         for (String scenarioName : Manhunt.getScenarioLoader().getAvailableScenarios().keySet()) {
             try {

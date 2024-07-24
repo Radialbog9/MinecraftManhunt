@@ -14,9 +14,12 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import uk.radialbog9.spigot.manhunt.Manhunt;
+import uk.radialbog9.spigot.manhunt.language.LanguageTranslator;
 
 import java.io.File;
 import java.util.Enumeration;
@@ -25,12 +28,14 @@ import java.util.Random;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 
 /**
  * Utilities that are used throughout the plugin
  */
 @SuppressWarnings({"unused"})
 public class Utils {
+    private static Random random = new Random();
 
     private static final String[] manhuntPermissions = {
             "manhunt.add",
@@ -134,7 +139,7 @@ public class Utils {
      */
     public static TextComponent genTextComponentHoverOnly(@NotNull String text, @NotNull String hover) {
         TextComponent tc = new TextComponent(getMsgColor(text));
-        if(hover != null) tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
+        tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(getMsgColor(hover))));
         return tc;
     }
 
@@ -145,11 +150,12 @@ public class Utils {
      * @return Random integer between min and max
      */
     public static int getRandomInt(int min, int max) {
-        if (min >= max) {
+        if (min > max) {
             throw new IllegalArgumentException("Maximum value must be greater than minimum value!");
+        } else if (min == max) {
+            return min;
         }
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+        return random.nextInt((max - min) + 1) + min;
     }
 
     /**
@@ -160,8 +166,7 @@ public class Utils {
      */
     public static Set<Class<?>> getClasses(File jarFile, String packageName) {
         HashSet<Class<?>> classes = new HashSet<>();
-        try {
-            JarFile file = new JarFile(jarFile);
+        try (JarFile file = new JarFile(jarFile)) {
             Enumeration<JarEntry> entry = file.entries();
             while (entry.hasMoreElements()) {
                 JarEntry jarEntry = entry.nextElement();
@@ -170,9 +175,8 @@ public class Utils {
                     continue;
                 classes.add(Class.forName(name.substring(0, name.length() - 6)));
             }
-            file.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Manhunt.getInstance().getLogger().log(Level.WARNING, "Error getting classes from jar: " + e.getMessage());
         }
         return classes;
     }
@@ -190,5 +194,21 @@ public class Utils {
     public static boolean vanishCanSee(CommandSender viewer, Player viewed) {
         if(viewer instanceof Player && viewed != null && DependencySupport.isVanishEnabled()) return VanishAPI.canSee((Player) viewer, viewed);
         else return true;
+    }
+
+    /**
+     * Swaps the location of two players
+     * @param player1 Player 1
+     * @param player2 Player 2
+     */
+    public static void swapLocation(Player player1, Player player2) {
+        Location player1Loc = player1.getLocation().clone();
+        Location player2Loc = player2.getLocation().clone();
+
+        player1.teleport(player2Loc);
+        player2.teleport(player1Loc);
+
+        player1.sendMessage(LanguageTranslator.translate("location-swap", player2.getDisplayName()));
+        player2.sendMessage(LanguageTranslator.translate("location-swap", player1.getDisplayName()));
     }
 }

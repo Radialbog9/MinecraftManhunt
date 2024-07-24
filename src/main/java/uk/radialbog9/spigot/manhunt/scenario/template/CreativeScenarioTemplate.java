@@ -12,7 +12,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.radialbog9.spigot.manhunt.Manhunt;
-import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioUtils;
 import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
@@ -35,7 +34,7 @@ public abstract class CreativeScenarioTemplate extends BukkitRunnable implements
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    for(Player p : GameManager.getGame().getHunters()) {
+                    for(Player p : getPlayerSet()) {
                         p.setGameMode(GameMode.SURVIVAL);
                         p.setAllowFlight(false);
                         p.setFlying(false);

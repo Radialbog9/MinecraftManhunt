@@ -26,6 +26,10 @@ import uk.radialbog9.spigot.manhunt.settings.SettingsMenu;
 import uk.radialbog9.spigot.manhunt.game.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @SuppressWarnings({"unused"})
 public class ManhuntCommand {
 
@@ -141,6 +145,8 @@ public class ManhuntCommand {
         }
         // Reload the config
         Manhunt.getInstance().reloadManhuntConfig();
+        // Reload the settings
+        ManhuntSettings.loadFromCfg();
         // Reload scenarios config
         ScenarioUtils.loadConfigAllScenarios();
         // Reload the language
@@ -151,6 +157,8 @@ public class ManhuntCommand {
     @CommandMethod("manhunt saveconfig")
     @CommandPermission("manhunt.reload")
     public void mSaveConfig(@NotNull CommandSender sender) {
+        // Save the settings
+        ManhuntSettings.save();
         //save the config
         Manhunt.getInstance().saveManhuntConfig();
         sender.sendMessage(LanguageTranslator.translate("save-successful"));
@@ -299,26 +307,32 @@ public class ManhuntCommand {
         StringBuilder spectators = new StringBuilder();
         int hunterCount = GameManager.getGame().getHunters().size();
         int runnerCount = GameManager.getGame().getRunners().size();
-        int spectatorCount = 0;
+        int spectatorCount = Bukkit.getOnlinePlayers().size() - (hunterCount + runnerCount);
 
-        //Generate player list
+        // Generate player list
+        // All hunters and runners are shown
+        // Spectators are shown if they are not in vanish
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (GameManager.getGame().isHunter(p)) {
                 if (hunters.toString().isEmpty())
-                    hunters = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                else hunters.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                    hunters.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
+                else hunters.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             } else if (GameManager.getGame().isRunner(p)) {
                 if (runners.toString().isEmpty())
-                    runners = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                else runners.append(", &r&c").append(p.getDisplayName()).append("&r&a");
+                    runners.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
+                else runners.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             } else {
-                if (!Utils.vanishCanSee(sender, p)) continue;
+                if (!Utils.vanishCanSee(sender, p)) continue; // Prevent spectators from being shown if in vanish
                 if (spectators.toString().isEmpty())
-                    spectators = new StringBuilder("&r&c" + p.getDisplayName() + "&r&a");
-                else spectators.append(", &r&c").append(p.getDisplayName()).append("&r&a");
-                spectatorCount++;
+                    spectators.append(LanguageTranslator.translate("player-format-first", p.getDisplayName()));
+                else spectators.append(LanguageTranslator.translate("player-format", p.getDisplayName()));
             }
         }
+
+        if (hunters.toString().isEmpty()) hunters.append(LanguageTranslator.translate("none-list"));
+        if (runners.toString().isEmpty()) runners.append(LanguageTranslator.translate("none-list"));
+        if (spectators.toString().isEmpty()) spectators.append(LanguageTranslator.translate("none-list"));
+
         sender.sendMessage(GameManager.getGame().isGameStarted() ?
                 LanguageTranslator.translate("game-is-started")
                 : LanguageTranslator.translate("game-is-stopped"));
@@ -384,7 +398,7 @@ public class ManhuntCommand {
             sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
             return;
         }
-        GameManager.getGame().setGameObjective(objective);
+        ManhuntSettings.setObjective(objective);
         sender.sendMessage(LanguageTranslator.translate(
                 "objective-set",
                 LanguageTranslator.translate("objective." + objective.toString())
@@ -418,6 +432,18 @@ public class ManhuntCommand {
             return;
         }
         ScenarioMenu.displayMenu((Player) sender, page);
+    }
+
+    @CommandMethod("manhunt scenarios list")
+    @CommandPermission("manhunt.scenarios")
+    public void mScenarioList(@NotNull CommandSender sender) {
+        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-list"));
+        for (String scenario : Manhunt.getScenarioLoader().getAvailableScenarios().keySet()) {
+            sender.sendMessage(LanguageTranslator.translate(
+                    "scenariomenu.scenario-list-format",
+                    LanguageTranslator.translate("scenario." + scenario))
+            );
+        }
     }
 
     @CommandMethod("manhunt scenarios toggle <scenario>")
@@ -458,4 +484,36 @@ public class ManhuntCommand {
         }
     }
 
+    @CommandMethod("manhunt randomiseplayers")
+    @CommandPermission("manhunt.add")
+    public void mPlayerRandomise(@NotNull CommandSender sender) {
+        if(GameManager.getGame().isGameStarted()){
+            sender.sendMessage(LanguageTranslator.translate("settingsmenu.no-change-ingame"));
+            return;
+        }
+
+        // Clear all players
+        GameManager.getGame().getHunters().clear();
+        GameManager.getGame().getRunners().clear();
+
+        // Create a new array of players
+        List<Player> playerList = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Collections.shuffle(playerList);
+
+        // Loop through all players
+        // Set every other player as hunters/runners respectively
+        int i = 0;
+        for (Player p : playerList) {
+            if (i % 2 == 0) {
+                GameManager.getGame().getHunters().add(p);
+                sender.sendMessage(LanguageTranslator.translate("p-now-hunter", p.getDisplayName()));
+                p.sendMessage(LanguageTranslator.translate("now-hunter"));
+            } else {
+                GameManager.getGame().getRunners().add(p);
+                sender.sendMessage(LanguageTranslator.translate("p-now-runner", p.getDisplayName()));
+                p.sendMessage(LanguageTranslator.translate("now-runner"));
+            }
+            i++;
+        }
+    }
 }

@@ -18,14 +18,14 @@ public class Leaderboard {
     private enum LeaderboardTypes {
         WINS_TOTAL, WINS_RUNNER, WINS_HUNTER, DEATHS_RUNNER, LOSSES
     }
-    private HashMap<OfflinePlayer, Integer> sortByValue(HashMap<OfflinePlayer, Integer> hm)
+    private HashMap<OfflinePlayer, Integer> reverseSortByValue(HashMap<OfflinePlayer, Integer> hm)
     {
         // Create a list from elements of HashMap
         List<Map.Entry<OfflinePlayer, Integer> > list =
-                new LinkedList<>(hm.entrySet());
+                new ArrayList<>(hm.entrySet());
 
         // Sort the list
-        list.sort(Map.Entry.comparingByValue());
+        list.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));
 
         // put data from sorted list to hashmap
         HashMap<OfflinePlayer, Integer> temp = new LinkedHashMap<>();
@@ -45,6 +45,6 @@ public class Leaderboard {
                 lb.put(p, pData.getHunterWins() + pData.getRunnerWins());
             }
         }
-        return sortByValue(lb);
+        return reverseSortByValue(lb);
     }
 }

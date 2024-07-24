@@ -10,7 +10,9 @@ package uk.radialbog9.spigot.manhunt.game;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -29,6 +31,8 @@ import uk.radialbog9.spigot.manhunt.scenario.config.RunnableRequiredConfig;
 import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfigurable;
 import uk.radialbog9.spigot.manhunt.settings.ManhuntSettings;
 import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
+import uk.radialbog9.spigot.manhunt.utils.DependencySupport;
+import uk.radialbog9.spigot.manhunt.utils.LibsDisguisesUtils;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.time.LocalDateTime;
@@ -36,6 +40,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class GameManager {
+    private enum WinType {
+        RUNNERS,
+        HUNTERS
+    }
+
     @Getter
     private static Game game = new Game();
 
@@ -47,22 +56,32 @@ public class GameManager {
         ManhuntGameStartEvent event = new ManhuntGameStartEvent();
         Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if(event.isCancelled()) return; // if event is cancelled by another plugin do not proceed
+        if (event.isCancelled()) return; // if event is cancelled by another plugin do not proceed
 
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(game.isRunner(p) || game.isHunter(p)) {
+        // Set settings
+        game.setGameObjective(ManhuntSettings.getObjective());
+
+        // Get the world spawn location
+        Location spawn = Bukkit.getWorlds().get(0).getSpawnLocation();
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (game.isRunner(p) || game.isHunter(p)) {
                 // HUNTERS AND RUNNERS
                 // set gamemode to survival
                 p.setGameMode(GameMode.SURVIVAL);
                 // clear inventory
                 p.getInventory().clear();
                 // set health, hunger and XP
-                p.setHealth(20);
+                AttributeInstance maxHealthAttribute = p.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
+                double maxHealth = maxHealthAttribute != null ? maxHealthAttribute.getValue() : 20;
+                p.setHealth(maxHealth);
                 p.setLevel(0);
                 p.setExp(0);
                 p.setFoodLevel(20);
+                // Clear potion effects
+                p.getActivePotionEffects().forEach(potionEffect -> p.removePotionEffect(potionEffect.getType()));
                 // TP to spawn
-                p.teleport(p.getWorld().getSpawnLocation());
+                p.teleport(spawn);
                 if(game.isHunter(p)) {
                     //give blindness and weakness for head start time
                     if(ManhuntSettings.isHeadStartEnabled()) {
@@ -128,45 +147,54 @@ public class GameManager {
         ManhuntGameEndEvent event = new ManhuntGameEndEvent(e);
         Bukkit.getServer().getPluginManager().callEvent(event);
 
+        WinType winType = null;
+
         // check win causes, modify player data, and then end the game
         if (e == GameEndCause.ALL_RUNNERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-runners-left"));
-            for(Player p : GameManager.getGame().getHunters()) {
-                DataUtils.getPlayerData(p).addHunterWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.HUNTERS;
         }
         else if (e == GameEndCause.RUNNERS_ALL_DIE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.all-runners-dead"));
-            for(Player p : GameManager.getGame().getHunters()) {
-                DataUtils.getPlayerData(p).addHunterWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.HUNTERS;
         }
         else if (e == GameEndCause.ALL_HUNTERS_LEAVE) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.no-more-hunters-left"));
-            for(Player p : GameManager.getGame().getRunners()) {
-                DataUtils.getPlayerData(p).addRunnerWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.RUNNERS;
         }
         else if (e == GameEndCause.RUNNERS_KILL_DRAGON) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.runners-kill-ender-dragon"));
-            for(Player p : GameManager.getGame().getRunners()) {
-                DataUtils.getPlayerData(p).addRunnerWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.RUNNERS;
         }
         else if (e == GameEndCause.TIME_UP) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.time-up"));
-            for(Player p : GameManager.getGame().getRunners()) {
-                DataUtils.getPlayerData(p).addRunnerWin();
-                DataUtils.getPlayerData(p).save();
-            }
+            winType = WinType.RUNNERS;
         }
         else if (e == GameEndCause.ENDED_PREMATURELY) {
             Utils.broadcastServerMessage(LanguageTranslator.translate("endcause.game-ended-prematurely"));
         }
+
+        if (winType == WinType.HUNTERS) {
+            // Hunters win, add to stats
+            for (Player p : game.getHunters()) {
+                DataUtils.getPlayerData(p).addHunterWin();
+                DataUtils.getPlayerData(p).save();
+            }
+            for (Player p : game.getRunners()) {
+                DataUtils.getPlayerData(p).addRunnerDeath();
+                DataUtils.getPlayerData(p).save();
+            }
+        } else if (winType == WinType.RUNNERS) {
+            // Runners win, add to stats
+            for (Player p : game.getRunners()) {
+                DataUtils.getPlayerData(p).addRunnerWin();
+                DataUtils.getPlayerData(p).save();
+            }
+            for (Player p : game.getHunters()) {
+                DataUtils.getPlayerData(p).addHunterLoss();
+                DataUtils.getPlayerData(p).save();
+            }
+        } // else nobody wins, no stats to add
 
         // set all players to spectator
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -191,8 +219,18 @@ public class GameManager {
         }
         enabledRunnables.clear();
 
+        // Reset game timer
         gameTimerRunnable = new GameTimerRunnable();
 
+        // Libsdiguises undisguise
+        if (DependencySupport.isLibsDisguisesEnabled()) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                // Undisguise player
+                LibsDisguisesUtils.undisguisePlayer(p);
+            }
+        }
+
+        // Broadcast game ended message
         Utils.broadcastServerMessage(LanguageTranslator.translate("game-ended"));
 
         //fully end game

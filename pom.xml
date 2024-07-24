@@ -126,6 +126,12 @@
             <artifactId>gson</artifactId>
             <version>2.11.0</version>
         </dependency>
+        <!-- Apache Commons Lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -176,6 +182,7 @@
                             <include>de.exlll:configlib-*</include>
                             <include>org.snakeyaml:snakeyaml-*</include>
                             <include>com.google.code.gson:gson</include>
+                            <include>org.apache.commons:commons-lang3</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -221,6 +228,12 @@
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
                         </filter>
+                        <filter>
+                            <artifact>org.apache.commons:commons-lang3</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
                     </filters>
                     <relocations>
                         <relocation>
@@ -250,6 +263,10 @@
                         <relocation>
                             <pattern>org.snakeyaml.engine</pattern>
                             <shadedPattern>uk.radialbog9.spigot.manhunt.lib.snakeyaml</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.apache.commons.lang3</pattern>
+                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.commons</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
