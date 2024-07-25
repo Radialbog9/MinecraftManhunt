@@ -6,10 +6,7 @@
  */
 package uk.radialbog9.spigot.manhunt.commands;
 
-import cloud.commandframework.annotations.Argument;
-import cloud.commandframework.annotations.CommandMethod;
-import cloud.commandframework.annotations.CommandPermission;
-import cloud.commandframework.annotations.Flag;
+import cloud.commandframework.annotations.*;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -434,14 +431,29 @@ public class ManhuntCommand {
         ScenarioMenu.displayMenu((Player) sender, page);
     }
 
-    @CommandMethod("manhunt scenarios list")
+    @CommandMethod("manhunt scenarios list enabled")
+    @ProxiedBy("manhunt scenarios list")
     @CommandPermission("manhunt.scenarios")
-    public void mScenarioList(@NotNull CommandSender sender) {
-        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-list"));
+    public void mScenarioListEnabled(@NotNull CommandSender sender) {
+        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-list-enabled"));
+        for (String scenario : GameManager.getGame().getActiveScenarios()) {
+            sender.sendMessage(LanguageTranslator.translate(
+                    "scenariomenu.scenario-list-format",
+                    LanguageTranslator.translate("scenario." + scenario),
+                    scenario)
+            );
+        }
+    }
+
+    @CommandMethod("manhunt scenarios list available")
+    @CommandPermission("manhunt.scenarios")
+    public void mScenarioListAvailable(@NotNull CommandSender sender) {
+        sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-list-available"));
         for (String scenario : Manhunt.getScenarioLoader().getAvailableScenarios().keySet()) {
             sender.sendMessage(LanguageTranslator.translate(
                     "scenariomenu.scenario-list-format",
-                    LanguageTranslator.translate("scenario." + scenario))
+                    LanguageTranslator.translate("scenario." + scenario),
+                    scenario)
             );
         }
     }
@@ -480,6 +492,7 @@ public class ManhuntCommand {
         }
 
         if (sender instanceof Player) {
+            // Display the scenario menu if the sender is a player
             ScenarioMenu.displayMenu((Player) sender, page);
         }
     }
