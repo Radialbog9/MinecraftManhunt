@@ -132,12 +132,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.15.0</version>
         </dependency>
-        <!-- Apache Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.16.1</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -189,7 +183,6 @@
                             <include>org.snakeyaml:snakeyaml-*</include>
                             <include>com.google.code.gson:gson</include>
                             <include>org.apache.commons:commons-lang3</include>
-                            <include>commons-io:commons-io</include>
                         </includes>
                     </artifactSet>
                     <filters>
