@@ -432,7 +432,6 @@ public class ManhuntCommand {
     }
 
     @CommandMethod("manhunt scenarios list enabled")
-    @ProxiedBy("manhunt scenarios list")
     @CommandPermission("manhunt.scenarios")
     public void mScenarioListEnabled(@NotNull CommandSender sender) {
         sender.sendMessage(LanguageTranslator.translate("scenariomenu.scenario-list-enabled"));
@@ -443,6 +442,12 @@ public class ManhuntCommand {
                     scenario)
             );
         }
+    }
+
+    @CommandMethod("manhunt scenarios list")
+    @CommandPermission("manhunt.scenarios")
+    public void mScenarioListDefault(@NotNull CommandSender sender) {
+        mScenarioListEnabled(sender);
     }
 
     @CommandMethod("manhunt scenarios list available")
