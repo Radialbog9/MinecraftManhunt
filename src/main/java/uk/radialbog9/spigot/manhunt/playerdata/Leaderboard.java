@@ -13,8 +13,6 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Leaderboard {
     private enum LeaderboardTypes {
@@ -35,12 +33,6 @@ public class Leaderboard {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
-    }
-
-    private Set<File> listFilesInDir(File dir) {
-        return Stream.of(Objects.requireNonNull(dir.listFiles()))
-                .filter(file -> !file.isDirectory())
-                .collect(Collectors.toSet());
     }
 
     public HashMap<OfflinePlayer, Integer> getTotalWinsLeaderboard() {
