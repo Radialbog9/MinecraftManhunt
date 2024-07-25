@@ -16,6 +16,7 @@ import uk.radialbog9.spigot.manhunt.Manhunt;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
 public class PlayerData {
@@ -46,7 +47,8 @@ public class PlayerData {
             config = new YamlConfiguration();
             config.load(configFile);
         } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
+            Manhunt.getInstance().getLogger().log(Level.WARNING, "Could not save player data for " + player.getName());
+            Manhunt.getInstance().getLogger().log(Level.WARNING, e.getMessage());
         }
 
         //save defaults to config or load from config
@@ -70,7 +72,8 @@ public class PlayerData {
         try {
             config.save(configFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            Manhunt.getInstance().getLogger().log(Level.WARNING, "Could not save player data for " + player.getName());
+            Manhunt.getInstance().getLogger().log(Level.WARNING, e.getMessage());
         }
     }
 
