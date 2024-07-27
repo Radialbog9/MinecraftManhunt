@@ -12,8 +12,6 @@
 ![bStats Servers](https://img.shields.io/bstats/servers/9573?style=for-the-badge&color=yellow)
 ![SpigotMC tested server versions](https://img.shields.io/spiget/tested-versions/97765?color=yellow&style=for-the-badge)
 
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Radialbog9/MinecraftManhunt?style=for-the-badge)
-
 [![GitHub license](https://img.shields.io/github/license/Radialbog9/MinecraftManhunt?color=blue&logo=github&style=for-the-badge)](https://github.com/Radialbog9/MinecraftManhunt/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Radialbog9/MinecraftManhunt?style=for-the-badge&color=blue&logo=github)](https://github.com/Radialbog9/MinecraftManhunt/network)
@@ -127,11 +125,11 @@ language: 'en_gb'
 
 ## Language
 This plugin uses a configurable language system.
-To use the new prebundled languages, change the `language` key in the config to one of the following (in order of completeness):
+To use the prebundled languages, change the `language` key in the config to one of the following (in order of completeness):
 * `en_GB` (English UK - default)
 * `en_US` (English US)
-* `pl_PL` (Polish)
-* `de_DE` (German)
+* `pl_PL` (Polish) \[Incomplete\]
+* `de_DE` (German) \[Incomplete\]
 * `ko_KR` (Korean) \[Needs Proof-reading\]
 * `sv_SE` (Swedish) \[Incomplete\]
 * `fr_FR` (French) \[Incomplete\]
