@@ -1,5 +1,3 @@
 # config.yml
 
-Here is the current config file in full:
-
-{% @github-files/github-code-block url="https://github.com/Radialbog9/MinecraftManhunt/blob/master/src/main/resources/config.yml" %}
+Config.yml is now dynamically generated. Run `/manhunt saveconfig` in-game to save your copy of the config, then edit it as you wish. Run `/manhunt reload` when you're done editing.
