@@ -81,47 +81,7 @@ We use bStats to track how people use our plugin.
 
 ---
 ## Config
-The config file is well documented with comments. Just look at the `config.yml` file in the plugin's folder on your server.
-
-Below are some parts of the default config. More documentation about the config can be found [here](https://radialbog9.gitbook.io/minecraft-manhunt/usage/config.yml).
-On large updates, you might have to delete the config file and let it regenerate.
-```yaml
-# Gives runner(s) a head start by giving hunters blindness, slowness, and weakness
-# Set to false for a more authentic manhunt.
-head-start:
-  # Head start enabled?
-  enabled: true
-  # Length of the head start (in seconds)
-  length: 30
-
-# ...
-
-### SCENARIOS ###
-scenarios:
-  RUNNER_CREATIVE:
-    # Runners are set to creative every `time` seconds.
-    time: 300
-    # Runners can keep creative for `duration` seconds.
-    duration: 5
-    # ALlow flying while runners in creative?
-    allow-fly: false
-
-# ...
-
-### Join Message ###
-join-message:
-  enabled: true
-  noperm: '&aWelcome to this Manhunt server! The game will start shortly.'
-
-# ...
-
-### Language preferences ###
-# Set this to one of the supported languages.
-# Set this to 'custom' to generate a custom language file.
-language: 'en_gb'
-
-# ...
-```
+The config file is now automatically generated. Check the [documentation](https://radialbog9.gitbook.io/minecraft-manhunt/usage/config.yml) for more info.
 
 ## Language
 This plugin uses a configurable language system.
