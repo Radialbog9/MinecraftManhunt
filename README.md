@@ -1,7 +1,6 @@
 # MINECRAFT MANHUNT
 
 
-[![Jenkins build status](https://ci.radialbog9.uk/job/MinecraftManhunt/badge/icon?style=flat-square)](https://ci.radialbog9.uk/job/MinecraftManhunt/)
 [![Donate](https://img.shields.io/badge/donate-Buy%20Me%20A%20Coffee-orange?style=flat-square&logo=buymeacoffee)](https://buymeacoff.ee/Radialbog9)
 [![Subscribe](https://img.shields.io/badge/subscribe-YouTube-orange?style=flat-square&logo=youtube)](https://rb9.xyz/sub)
 [![Discord](https://img.shields.io/discord/450232632798740480?style=flat-square&color=orange&logo=discord)](https://rb9.xyz/discord)
