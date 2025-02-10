@@ -1,0 +1,16 @@
+uk.radialbog9.spigot.manhunt
+uk.radialbog9.spigot.manhunt.cmderrorhandlers
+uk.radialbog9.spigot.manhunt.commands
+uk.radialbog9.spigot.manhunt.events
+uk.radialbog9.spigot.manhunt.game
+uk.radialbog9.spigot.manhunt.language
+uk.radialbog9.spigot.manhunt.listeners
+uk.radialbog9.spigot.manhunt.playerdata
+uk.radialbog9.spigot.manhunt.scenario
+uk.radialbog9.spigot.manhunt.scenario.config
+uk.radialbog9.spigot.manhunt.scenario.ldisscenarios
+uk.radialbog9.spigot.manhunt.scenario.scenarios
+uk.radialbog9.spigot.manhunt.scenario.template
+uk.radialbog9.spigot.manhunt.settings
+uk.radialbog9.spigot.manhunt.tabcompleters
+uk.radialbog9.spigot.manhunt.utils
