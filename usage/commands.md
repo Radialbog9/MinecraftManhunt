@@ -1,17 +1,19 @@
 # Commands
 
-| Command                    | Description                                                          |
-| -------------------------- | -------------------------------------------------------------------- |
-| `/manhunt help`            | Shows other manhunt commands.                                        |
-| `/manhunt hunter <player>` | Sets a player as hunter and remove them from runner.                 |
-| `/manhunt runner <player>` | Sets a player as runner and remove them from hunter.                 |
-| `/manhunt remove <player>` | Removes a specific player from the manhunt.                          |
-| `/manhunt revive <player>` | Revives a runner if they're out (and other runners remain alive).    |
-| `/manhunt start`           | Starts the manhunt.                                                  |
-| `/manhunt stop`            | Ends the manhunt prematurely.                                        |
-| `/manhunt list`            | Lists the players who are runners and hunters.                       |
-| `/manhunt settings`        | Configure the game via fancy menu.                                   |
-| `/manhunt scenarios`       | Configure scenarios.                                                 |
-| `/spectate <player>`       | Teleports to a runner/hunter to spectate them.                       |
-| `/leaderboard`             | View the top 10 players (in terms of total win count) on the server. |
-| `/leaderboard <player>`    | View statistics of a specific player.                                |
+| Command                     | Description                                                                                                                                                                                                                                                                                                    |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/manhunt help`             | Shows other manhunt commands.                                                                                                                                                                                                                                                                                  |
+| `/manhunt hunter <player>`  | Sets a player as hunter. Removes them from the runner team if they are already a runner.                                                                                                                                                                                                                       |
+| `/manhunt runner <player>`  | Sets a player as runner. Removes them from the hunter team if they are already a hunter.                                                                                                                                                                                                                       |
+| `/manhunt randomiseplayers` | <p>Assigns all players on the server as hunters and runners.<br>Note that using this command:<br>- The existing hunters and runners list will be cleared.<br>- There will always be more hunters than runners.<br>The game players can still be modified after running this command until the game starts.</p> |
+| `/manhunt remove <player>`  | Removes a specific player from the manhunt. They will become a spectator when the game starts.                                                                                                                                                                                                                 |
+| `/manhunt revive <player>`  | Revives a runner if they're out. Note that there must still be at least one runner alive in order to run this command because otherwise the game will automatically end.                                                                                                                                       |
+| `/manhunt start`            | Starts the manhunt.                                                                                                                                                                                                                                                                                            |
+| `/manhunt stop`             | Ends the manhunt prematurely.                                                                                                                                                                                                                                                                                  |
+| `/manhunt list`             | Lists the players who are runners and hunters.                                                                                                                                                                                                                                                                 |
+| `/manhunt settings`         | Configure the game via fancy menu.                                                                                                                                                                                                                                                                             |
+| `/manhunt scenarios`        | Configure scenarios.                                                                                                                                                                                                                                                                                           |
+| `/spectate <player>`        | Teleports to a runner/hunter to spectate them.                                                                                                                                                                                                                                                                 |
+| `/leaderboard`              | View the top 10 players by total win count on the server.                                                                                                                                                                                                                                                      |
+| `/leaderboard <player>`     | View statistics of a specific player.                                                                                                                                                                                                                                                                          |
+

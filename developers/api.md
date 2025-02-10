@@ -1,6 +1,6 @@
 # API
 
-Javadocs for all classes are [here](https://ci.radialbog9.uk/job/MinecraftManhunt/javadoc).
+Javadocs for all classes can be found [here](https://radialbog9.github.io/MinecraftManhunt/javadoc/).
 
 ## Game Management
 

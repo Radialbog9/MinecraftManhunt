@@ -2,6 +2,8 @@
 
 These are the rules we recommend to ensure a fair and balanced game.
 
+Of course, you can tweak these rules or disregard them entirely - I'm not your mom; do what you want.
+
 1. If the runners kill the Ender Dragon, they win, but if the hunters kill all of the runners, the hunters win.
 2. Runners and hunters must not cross-team.
 3. Spectators cannot spy on/ghost a team and tell the other team what they're doing.
