@@ -4,7 +4,7 @@ Here's how to install the plugin:
 
 ## Step 1
 
-Download the plugin from the [GitHub page](https://github.com/Radialbog9/MinecraftManhunt/releases) (stable releases) or the [Jenkins server](https://ci.radialbog9.uk/job/MinecraftManhunt/) (experimental/bleeding edge builds).
+Download the plugin from the [GitHub page](https://github.com/Radialbog9/MinecraftManhunt/releases) (stable releases) or the [GitHub Actions](https://github.com/Radialbog9/MinecraftManhunt/actions/workflows/maven.yml) (experimental/bleeding edge builds).
 
 ![](<../.gitbook/assets/image (9).png>)![](<../.gitbook/assets/image (1).png>)
 
