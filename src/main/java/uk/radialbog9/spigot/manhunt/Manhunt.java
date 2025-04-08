@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
+ * Copyright (c) 2020-2025 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows
  * commercial use, distribution, modification, and licensed works,
  * providing that you distribute your code under the same or similar license.
@@ -34,9 +34,7 @@ import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidArgsHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidIntegerHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.InvalidPlayerHandler;
 import uk.radialbog9.spigot.manhunt.cmderrorhandlers.NoPermissionHandler;
-import uk.radialbog9.spigot.manhunt.commands.LeaderboardCommand;
-import uk.radialbog9.spigot.manhunt.commands.ManhuntCommand;
-import uk.radialbog9.spigot.manhunt.commands.SpectateCommand;
+import uk.radialbog9.spigot.manhunt.commands.*;
 import uk.radialbog9.spigot.manhunt.game.Objective;
 import uk.radialbog9.spigot.manhunt.language.LanguageManager;
 import uk.radialbog9.spigot.manhunt.listeners.ManhuntEventHandler;
@@ -206,6 +204,8 @@ public class Manhunt extends JavaPlugin {
 
         // Register commands
         annotationParser.parse(new ManhuntCommand());
+        annotationParser.parse(new ManhuntScenariosCommand());
+        annotationParser.parse(new ManhuntSettingsCommand());
         annotationParser.parse(new SpectateCommand());
         annotationParser.parse(new LeaderboardCommand());
 
