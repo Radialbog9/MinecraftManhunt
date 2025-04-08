@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
+ * Copyright (c) 2020-2025 Radialbog9/TheJoeCoder and contributors.
  * You are allowed to use this code under the GPL3 license, which allows
  * commercial use, distribution, modification, and licensed works,
  * providing that you distribute your code under the same or similar license.
@@ -37,12 +37,24 @@ public class SettingsMenu {
                 LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                LanguageTranslator.translate("settingsmenu.options.add-runner"),
+                LanguageTranslator.translate(
+                        "settingsmenu.options.add-runner",
+                        LanguageTranslator.translate(
+                                "settingsmenu.num_players",
+                                String.valueOf(GameManager.getGame().getRunners().size())
+                        )
+                ),
                 "/manhunt runner ",
                 LanguageTranslator.translate("settingsmenu.click-to-add")
         ));
         p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
-                LanguageTranslator.translate("settingsmenu.options.add-hunter"),
+                LanguageTranslator.translate(
+                        "settingsmenu.options.add-hunter",
+                        LanguageTranslator.translate(
+                                "settingsmenu.num_players",
+                                String.valueOf(GameManager.getGame().getHunters().size())
+                        )
+                ),
                 "/manhunt hunter ",
                 LanguageTranslator.translate("settingsmenu.click-to-add")
         ));
@@ -58,7 +70,7 @@ public class SettingsMenu {
                 "/manhunt settings objective ",
                 LanguageTranslator.translate("settingsmenu.click-to-change")
         ));
-        if (GameManager.getGame().getGameObjective() == Objective.SURVIVE) {
+        if (ManhuntSettings.getObjective() == Objective.SURVIVE) {
             p.spigot().sendMessage(Utils.genTextComponentSuggestCommand(
                     LanguageTranslator.translate("settingsmenu.options.survive-timer",
                             String.valueOf(ManhuntSettings.getSurviveGameLength())),

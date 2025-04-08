@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020-2024 Radialbog9/TheJoeCoder and contributors.
+  ~ Copyright (c) 2020-2025 Radialbog9/TheJoeCoder and contributors.
   ~ You are allowed to use this code under the GPL3 license, which allows
   ~ commercial use, distribution, modification, and licensed works,
   ~ providing that you distribute your code under the same or similar license.
@@ -14,7 +14,7 @@
     <groupId>uk.radialbog9.spigot</groupId>
     <artifactId>MinecraftManhunt</artifactId>
     <packaging>jar</packaging>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
 
     <repositories>
         <repository>
