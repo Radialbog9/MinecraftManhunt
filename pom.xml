@@ -62,10 +62,9 @@
         </dependency>
         <!-- Update Checker -->
         <dependency>
-            <groupId>de.jeff_media</groupId>
+            <groupId>com.jeff_media</groupId>
             <artifactId>SpigotUpdateChecker</artifactId>
-            <version>1.3.2</version>
-            <scope>compile</scope>
+            <version>3.0.4</version>
         </dependency>
         <!-- SuperVanish -->
         <dependency>
