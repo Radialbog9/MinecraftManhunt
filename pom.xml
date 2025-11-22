@@ -43,6 +43,8 @@
 
     <dependencies>
         <!-- Spigot API -->
+        <!-- Depends on vulnerable dependency but is the minimum supported version of Spigot for this plugin -->
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -127,7 +129,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.15.0</version>
+            <version>3.18.0</version>
         </dependency>
     </dependencies>
 
@@ -172,7 +174,7 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <artifactSet>
                         <includes>
-                            <include>de.jeff_media:SpigotUpdateChecker</include>
+                            <include>com.jeff_media:SpigotUpdateChecker</include>
                             <include>org.bstats:bstats-*</include>
                             <include>cloud.commandframework:cloud-*</include>
                             <include>io.leangen.geantyref:geantyref</include>
@@ -184,7 +186,7 @@
                     </artifactSet>
                     <filters>
                         <filter>
-                            <artifact>de.jeff_media:SpigotUpdateChecker</artifact>
+                            <artifact>com.jeff_media:SpigotUpdateChecker</artifact>
                             <excludes>
                                 <exclude>META-INF/MANIFEST.MF</exclude>
                             </excludes>
@@ -240,7 +242,7 @@
                     </filters>
                     <relocations>
                         <relocation>
-                            <pattern>de.jeff_media.updatechecker</pattern>
+                            <pattern>com.jeff_media.updatechecker</pattern>
                             <shadedPattern>uk.radialbog9.spigot.manhunt.lib.updatechecker</shadedPattern>
                         </relocation>
                         <relocation>

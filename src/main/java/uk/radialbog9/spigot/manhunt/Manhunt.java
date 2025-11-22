@@ -16,12 +16,13 @@ import cloud.commandframework.exceptions.ArgumentParseException;
 import cloud.commandframework.exceptions.NoPermissionException;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
+import com.jeff_media.updatechecker.UpdateCheckSource;
 import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
 import de.exlll.configlib.YamlConfigurationProperties;
 import de.exlll.configlib.YamlConfigurationStore;
-import de.jeff_media.updatechecker.UpdateChecker;
-import de.jeff_media.updatechecker.UserAgentBuilder;
+import com.jeff_media.updatechecker.UpdateChecker;
+import com.jeff_media.updatechecker.UserAgentBuilder;
 import io.leangen.geantyref.TypeToken;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -81,7 +82,7 @@ public class Manhunt extends JavaPlugin {
     @Getter
     private AnnotationParser<CommandSender> annotationParser;
 
-    private static final int SPIGOT_RESOURCE_ID = 97765;
+    private static final String SPIGOT_RESOURCE_ID = "97765";
     private static final int BSTATS_ID = 9573;
 
     @Getter
@@ -235,13 +236,13 @@ public class Manhunt extends JavaPlugin {
         }
 
         // Update Check
-        UpdateChecker.init(this, SPIGOT_RESOURCE_ID)
+        new UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID)
                 .setDonationLink("https://buymeacoff.ee/Radialbog9")
                 .setChangelogLink(SPIGOT_RESOURCE_ID)
                 .setNotifyOpsOnJoin(true)
                 .setNotifyByPermissionOnJoin("manhunt.updates")
                 .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
-                .checkEveryXHours(6)
+                .checkEveryXHours(12)
                 .checkNow();
 
         // Save if required
