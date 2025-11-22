@@ -38,7 +38,7 @@ His Manhunt videos are awesome, and you should [check him out](https://www.youtu
 
 ## Notice
 ___This plugin is out of beta, but there's probably still a lot of bugs!___ 
-___You can help out by testing the latest build on our [Jenkins](https://ci.radialbog9.uk/job/MinecraftManhunt/) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
+___You can help out by testing the latest build on our [GitHub Actions](https://github.com/Radialbog9/MinecraftManhunt/actions/workflows/maven.yml) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
 
 ---
 
@@ -65,6 +65,9 @@ This plugin does not have any required dependencies, but it works with the follo
 - `SuperVanish` or `PremiumVanish` - Hides players in vanish from the player list
 - `LibsDisguises` - Add more disguise scenarios
 
+If you want to ccreate an addon for this plugin, check out the [API documentation](https://radialbog9.gitbook.io/minecraft-manhunt/developers/api) 
+and the [Javadocs](https://radialbog9.github.io/MinecraftManhunt/javadoc/).
+
 ## Contributing
 Please report any bugs you find in a GitHub Issue or improve our code and make a pull request! 
 We're always open to suggestions!
@@ -87,20 +90,22 @@ This plugin uses a configurable language system.
 To use the prebundled languages, change the `language` key in the config to one of the following (in order of completeness):
 * `en_GB` (English UK - default)
 * `en_US` (English US)
-* `pl_PL` (Polish) \[Incomplete\]
-* `de_DE` (German) \[Incomplete\]
-* `ko_KR` (Korean) \[Needs Proof-reading\]
-* `sv_SE` (Swedish) \[Incomplete\]
-* `fr_FR` (French) \[Incomplete\]
-* `es_ES` (Spanish) \[Incomplete\]
+* `pl_PL` (Polish) \[Needs Proof-reading\]
 * `it_IT` (Italian) \[Incomplete\]
-* `ja_JP` (Japanese) \[Incomplete\]
 * `nl_NL` (Dutch) \[Incomplete\]
-* `ru_RU` (Russian) \[Incomplete\]
+* `de_DE` (German) \[Incomplete\]
 * `zh_CN` (Chinese Simplified) \[Incomplete\]
+* `ko_KR` (Korean) \[Incomplete\]
+* `fr_FR` (French) \[Incomplete\]
+* `uk_UA` (Ukranian) \[Incomplete\]
+* `ru_RU` (Russian) \[Incomplete\]
+* `ja_JP` (Japanese) \[Incomplete\]
+* `es_ES` (Spanish) \[Incomplete\]
+* `sv_SE` (Swedish) \[Incomplete\]
 
 This list may be incomplete, so check the Crowdin page for more up-to-date info.
 
-If you natively speak or are fluent in any of these languages then you can help us translate! Just go to this website and start translating: https://crowdin.com/project/minecraft-manhunt
+If you natively speak or are fluent in any of these languages then you can help us translate! 
+Just go to Crowdin and start translating: https://crowdin.com/project/minecraft-manhunt
 
-If you want to be a proofreader, join the [Discord server](https://rb9.xyz/discord) then DM `radialbog9` on Discord!
+If you want to be a proofreader, join the [Discord server](https://rb9.xyz/discord) then create a General Help ticket.
