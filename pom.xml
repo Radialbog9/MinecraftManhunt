@@ -31,8 +31,8 @@
         </repository>
         <repository>
             <id>jeff-media-public</id>
-            <name>JEFF Media GbR Repository</name>
-            <url>https://repo.jeff-media.com/public</url>
+            <name>JEFF Media GbR Spigot Update Checker Mirror</name>
+            <url>https://git.rb9.xyz/api/v4/projects/74/packages/maven</url>
         </repository>
         <repository>
             <id>maven_central</id>
