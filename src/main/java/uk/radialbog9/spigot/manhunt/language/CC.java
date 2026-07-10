@@ -7,7 +7,7 @@
 
 package uk.radialbog9.spigot.manhunt.language;
 
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

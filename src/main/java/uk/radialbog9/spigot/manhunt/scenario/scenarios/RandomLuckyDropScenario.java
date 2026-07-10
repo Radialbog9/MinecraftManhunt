@@ -20,6 +20,7 @@ import org.bukkit.loot.LootTables;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
+import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
@@ -30,6 +31,7 @@ import uk.radialbog9.spigot.manhunt.scenario.config.ScenarioConfiguration;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 @Scenario("RANDOM_LUCKY_DROPS")
@@ -44,7 +46,7 @@ public class RandomLuckyDropScenario extends BukkitRunnable implements ScenarioC
         int random = Utils.getRandomInt(0, 100);
         //0<=x<1 (1) - Insta TNT
         if(random == 0)
-            spawnEntity(loc, EntityType.PRIMED_TNT);
+            spawnEntity(loc, EntityType.TNT);
         //1<=x<11 (10) - Creeper
         else if(random >= 1 && random < 11)
             spawnEntity(loc, EntityType.CREEPER);
@@ -81,12 +83,12 @@ public class RandomLuckyDropScenario extends BukkitRunnable implements ScenarioC
                 dropItem(loc, new ItemStack(Material.PUFFERFISH, 64));
         //91<=x<96 (5) - Harming Splash Potions
         else if(random >= 91 && random < 96) {
-            ItemStack item = generateSplashPotion(PotionType.INSTANT_DAMAGE);
+            ItemStack item = generateSplashPotion(PotionType.HARMING);
             dropItem(loc, item);
         }
         //96<=x<100 (4) - Healing Splash Potions
         else if(random >= 96 && random < 100) {
-            ItemStack item = generateSplashPotion(PotionType.INSTANT_HEAL);
+            ItemStack item = generateSplashPotion(PotionType.HEALING);
             dropItem(loc, item);
         }
         //100<=x<101 (1) - Elytra
@@ -97,7 +99,11 @@ public class RandomLuckyDropScenario extends BukkitRunnable implements ScenarioC
     private ItemStack generateSplashPotion(PotionType type) {
         ItemStack item = new ItemStack(Material.SPLASH_POTION, 1);
         PotionMeta meta = (PotionMeta) item.getItemMeta();
-        meta.setBasePotionData(new PotionData(type, false, true));
+        if(meta == null) {
+            Manhunt.getInstance().getLogger().warning("Failed to generate splash potion meta for type: " + type);
+            return item;
+        }
+        meta.setBasePotionType(type);
         item.setItemMeta(meta);
         return item;
     }
@@ -124,7 +130,7 @@ public class RandomLuckyDropScenario extends BukkitRunnable implements ScenarioC
      * @param item The itemstack to drop
      */
     public void dropItem(Location loc, ItemStack item) {
-        loc.getWorld().dropItemNaturally(loc, item);
+        Objects.requireNonNull(loc.getWorld()).dropItemNaturally(loc, item);
     }
 
     /**
@@ -133,7 +139,7 @@ public class RandomLuckyDropScenario extends BukkitRunnable implements ScenarioC
      * @param type The type of entity to spawn
      */
     public void spawnEntity(Location loc, EntityType type) {
-        loc.getWorld().spawnEntity(loc, type);
+        Objects.requireNonNull(loc.getWorld()).spawnEntity(loc, type);
     }
 
     /**
