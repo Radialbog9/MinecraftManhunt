@@ -109,12 +109,6 @@ public class ManhuntEventHandler implements Listener {
                 p.sendMessage(LanguageTranslator.translate("no-players-to-track"));
             } else {
                 //the closest runner has been found
-                Manhunt.getInstance().getLogger().info(
-                        "Player " + p.getDisplayName() +
-                                "is tracking player: " + closestPlayer.getDisplayName()
-                        + " p loc: " + p.getLocation() + " closest loc: " + closestPlayer.getLocation()
-                );
-
                 p.setCompassTarget(closestPlayer.getLocation());
                 p.sendMessage(LanguageTranslator.translate(
                         "tracking-player",
