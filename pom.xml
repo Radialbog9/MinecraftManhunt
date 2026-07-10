@@ -30,6 +30,10 @@
             <url>https://repo.md-5.net/content/groups/public/</url>
         </repository>
         <repository>
+            <id>libraryaddict</id>
+            <url>https://mvn.lib.co.nz/public</url>
+        </repository>
+        <repository>
             <id>jeff-media-public</id>
             <name>JEFF Media GbR Spigot Update Checker Mirror</name>
             <url>https://git.rb9.xyz/api/v4/projects/74/packages/maven</url>
