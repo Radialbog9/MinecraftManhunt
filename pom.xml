@@ -14,7 +14,7 @@
     <groupId>uk.radialbog9.spigot</groupId>
     <artifactId>MinecraftManhunt</artifactId>
     <packaging>jar</packaging>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -47,12 +47,10 @@
 
     <dependencies>
         <!-- Spigot API -->
-        <!-- Depends on vulnerable dependency but is the minimum supported version of Spigot for this plugin -->
-        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.21.6-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- Lombok -->
@@ -133,7 +131,16 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.18.0</version>
+            <version>3.20.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.15.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -185,7 +192,6 @@
                             <include>de.exlll:configlib-*</include>
                             <include>org.snakeyaml:snakeyaml-*</include>
                             <include>com.google.code.gson:gson</include>
-                            <include>org.apache.commons:commons-lang3</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -232,12 +238,6 @@
                             </excludes>
                         </filter>
                         <filter>
-                            <artifact>org.apache.commons:commons-lang3</artifact>
-                            <excludes>
-                                <exclude>META-INF/MANIFEST.MF</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
                             <artifact>commons-io:commons-io</artifact>
                             <excludes>
                                 <exclude>META-INF/MANIFEST.MF</exclude>
@@ -272,10 +272,6 @@
                         <relocation>
                             <pattern>org.snakeyaml.engine</pattern>
                             <shadedPattern>uk.radialbog9.spigot.manhunt.lib.snakeyaml</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.apache.commons.lang3</pattern>
-                            <shadedPattern>uk.radialbog9.spigot.manhunt.lib.commons</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

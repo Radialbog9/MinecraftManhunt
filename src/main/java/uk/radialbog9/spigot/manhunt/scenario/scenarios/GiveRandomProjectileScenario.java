@@ -13,9 +13,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
+import uk.radialbog9.spigot.manhunt.Manhunt;
 import uk.radialbog9.spigot.manhunt.game.GameManager;
 import uk.radialbog9.spigot.manhunt.scenario.Scenario;
 import uk.radialbog9.spigot.manhunt.scenario.ScenarioRunnable;
@@ -52,47 +52,51 @@ public class GiveRandomProjectileScenario extends BukkitRunnable implements Scen
             // Set item to Ender Pearl
             is = new ItemStack(Material.ENDER_PEARL, quant);
         } else if (random >= 89 && random < 93) { // Night vision tipped arrow (4)
-            is = generateTippedArrow(quant, PotionType.NIGHT_VISION, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_NIGHT_VISION);
         } else if (random >= 93 && random < 99) { // Invisibility tipped arrow (7)
-            is = generateTippedArrow(quant, PotionType.INVISIBILITY, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_INVISIBILITY);
         } else if (random >= 99 && random < 106) { // Leaping tipped arrow (7)
-            is = generateTippedArrow(quant, PotionType.JUMP, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_LEAPING);
         } else if (random >= 106 && random < 114) { // Fire resistance tipped arrow (8)
-            is = generateTippedArrow(quant, PotionType.FIRE_RESISTANCE, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_FIRE_RESISTANCE);
         } else if (random >= 114 && random < 116) { // Swiftness tipped arrow (2)
-            is = generateTippedArrow(quant, PotionType.SPEED, false, true);
+            is = generateTippedArrow(quant, PotionType.STRONG_SWIFTNESS);
         } else if (random >= 116 && random < 118) { // Slowness tipped arrow (2)
-            is = generateTippedArrow(quant, PotionType.SLOWNESS, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_SLOWNESS);
         } else if (random >= 118 && random < 122) { // Turtle Master tipped arrow (4)
-            is = generateTippedArrow(quant, PotionType.TURTLE_MASTER, false, false);
+            is = generateTippedArrow(quant, PotionType.TURTLE_MASTER);
         } else if (random >= 122 && random < 126) { // Water Breathing tipped arrow (4)
-            is = generateTippedArrow(quant, PotionType.WATER_BREATHING, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_WATER_BREATHING);
         } else if (random >= 126 && random < 130) { // Healing tipped arrow (4)
-            is = generateTippedArrow(quant, PotionType.INSTANT_HEAL, false, false);
+            is = generateTippedArrow(quant, PotionType.HEALING);
         } else if (random == 130) { // Harming tipped arrow (1)
-            is = generateTippedArrow(quant, PotionType.INSTANT_DAMAGE, false, true);
+            is = generateTippedArrow(quant, PotionType.STRONG_HARMING);
         } else if (random == 131) { // Poison tipped arrow (1)
-            is = generateTippedArrow(quant, PotionType.POISON, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_POISON);
         } else if (random >= 132 && random < 134) { // Regeneration tipped arrow (2)
-            is = generateTippedArrow(quant, PotionType.REGEN, false, true);
+            is = generateTippedArrow(quant, PotionType.STRONG_REGENERATION);
         } else if (random >= 134 && random < 136) { // Strength tipped arrow (2)
-            is = generateTippedArrow(quant, PotionType.STRENGTH, false, true);
+            is = generateTippedArrow(quant, PotionType.STRONG_STRENGTH);
         } else if (random == 136) { // Weakness tipped arrow (1)
-            is = generateTippedArrow(quant, PotionType.WEAKNESS, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_WEAKNESS);
         } else if (random >= 137 && random < 147) { // Luck tipped arrow (10)
-            is = generateTippedArrow(quant, PotionType.LUCK, false, false);
+            is = generateTippedArrow(quant, PotionType.LUCK);
         } else if (random >= 147 && random < 150) { // Slow fall tipped arrow (3)
-            is = generateTippedArrow(quant, PotionType.SLOW_FALLING, true, false);
+            is = generateTippedArrow(quant, PotionType.LONG_SLOW_FALLING);
         } else if (random >= 150 && random < 153) { // Spectral arrow (3)
             is = new ItemStack(Material.SPECTRAL_ARROW, quant);
         }
         loc.getWorld().dropItem(loc, is);
     }
 
-    private ItemStack generateTippedArrow(int quantity, PotionType type, boolean extended, boolean upgraded) {
+    private ItemStack generateTippedArrow(int quantity, PotionType type) {
         ItemStack is = new ItemStack(Material.TIPPED_ARROW, quantity);
         PotionMeta pm = (PotionMeta) is.getItemMeta();
-        pm.setBasePotionData(new PotionData(type, extended, upgraded));
+        if(pm == null) {
+            Manhunt.getInstance().getLogger().warning("Failed to generate tipped arrow item meta.");
+            return is;
+        }
+        pm.setBasePotionType(type);
         is.setItemMeta(pm);
         return is;
     }

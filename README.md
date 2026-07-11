@@ -37,8 +37,9 @@ His Manhunt videos are awesome, and you should [check him out](https://www.youtu
 ---
 
 ## Notice
-___This plugin is out of beta, but there's probably still a lot of bugs!___ 
-___You can help out by testing the latest build on our [GitHub Actions](https://github.com/Radialbog9/MinecraftManhunt/actions/workflows/maven.yml) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).___
+> [!NOTE]
+> This plugin is out of beta, but there's probably still a lot of bugs!
+> You can help out by testing the latest build on our [GitHub Actions](https://github.com/Radialbog9/MinecraftManhunt/actions/workflows/maven.yml) or the [latest stable release](https://github.com/Radialbog9/MinecraftManhunt/releases).
 
 ---
 
@@ -61,11 +62,15 @@ For the rules, check the [rulebook](https://radialbog9.gitbook.io/minecraft-manh
 * Settings menu
 
 ## Dependencies
+From version 5.0.0 upwards, this plugin will only function on Minecraft 1.21.6 and above. This is due to 
+changes in how the game handles attributes and potion effects. 
+If you are running an older version of Minecraft, please use version 4.0.0 or below.
+
 This plugin does not have any required dependencies, but it works with the following plugins:
 - `SuperVanish` or `PremiumVanish` - Hides players in vanish from the player list
 - `LibsDisguises` - Add more disguise scenarios
 
-If you want to ccreate an addon for this plugin, check out the [API documentation](https://radialbog9.gitbook.io/minecraft-manhunt/developers/api) 
+If you want to create an addon for this plugin, check out the [API documentation](https://radialbog9.gitbook.io/minecraft-manhunt/developers/api) 
 and the [Javadocs](https://radialbog9.github.io/MinecraftManhunt/javadoc/).
 
 ## Contributing

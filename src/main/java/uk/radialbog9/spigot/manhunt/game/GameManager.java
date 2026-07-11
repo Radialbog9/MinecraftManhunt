@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -72,7 +73,7 @@ public class GameManager {
                 // clear inventory
                 p.getInventory().clear();
                 // set health, hunger and XP
-                AttributeInstance maxHealthAttribute = p.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
+                AttributeInstance maxHealthAttribute = p.getAttribute(Attribute.MAX_HEALTH);
                 double maxHealth = maxHealthAttribute != null ? maxHealthAttribute.getValue() : 20;
                 p.setHealth(maxHealth);
                 p.setLevel(0);

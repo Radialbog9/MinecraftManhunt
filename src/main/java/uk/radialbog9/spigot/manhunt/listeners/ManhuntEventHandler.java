@@ -30,6 +30,8 @@ import uk.radialbog9.spigot.manhunt.game.GameEndCause;
 import uk.radialbog9.spigot.manhunt.utils.CompassTrackable;
 import uk.radialbog9.spigot.manhunt.utils.Utils;
 
+import java.util.List;
+
 public class ManhuntEventHandler implements Listener {
     /**
      * Detects death for runners
@@ -87,15 +89,21 @@ public class ManhuntEventHandler implements Listener {
         if (p.getInventory().getItemInMainHand().getType() == Material.COMPASS && GameManager.getGame().isGameStarted() && GameManager.getGame().isHunter(p)) {
             double closest = Double.MAX_VALUE;
             Player closestPlayer = null;
-            for (Player i : CompassTrackable.getTrackable(GameManager.getGame().getRunners())){
-                if (i.getUniqueId() != p.getUniqueId() && i.getWorld().getName().equals(p.getWorld().getName())) {
-                    double dist = i.getLocation().distance(p.getLocation());
-                    if ((closest == Double.MAX_VALUE || dist < closest)){
-                        closestPlayer = i;
-                        closest = dist;
-                    }
+            List<Player> trackableRunners =
+                    CompassTrackable.getTrackable(GameManager.getGame().getRunners())
+                            .stream()
+                            .filter(i -> i.getWorld().getUID().equals(p.getWorld().getUID()))
+                            .filter(i -> !i.getUniqueId().equals(p.getUniqueId()))
+                            .toList();
+
+            for (Player i : trackableRunners){
+                double dist = i.getLocation().distance(p.getLocation());
+                if ((closest == Double.MAX_VALUE || dist < closest)){
+                    closestPlayer = i;
+                    closest = dist;
                 }
             }
+
             if (closestPlayer == null) {
                 //No runners nearby in the same world
                 p.sendMessage(LanguageTranslator.translate("no-players-to-track"));
@@ -204,7 +212,7 @@ public class ManhuntEventHandler implements Listener {
     @EventHandler
     public void hunterCrystalDamageEvent(EntityDamageByEntityEvent e) {
         if(GameManager.getGame().isGameStarted() && !ManhuntSettings.isAllowHunterDamageCrystal()) {
-            if(e.getEntityType() == EntityType.ENDER_CRYSTAL && e.getDamager().getType() == EntityType.PLAYER) {
+            if(e.getEntityType() == EntityType.END_CRYSTAL && e.getDamager().getType() == EntityType.PLAYER) {
                 if(GameManager.getGame().isHunter(((Player) e.getDamager()))) {
                     e.setCancelled(true);
                 }
